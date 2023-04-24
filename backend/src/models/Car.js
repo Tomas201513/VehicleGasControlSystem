@@ -37,9 +37,7 @@ const carSchema = new Schema({
   driver: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    },
-    qrCode: {
-        type: String,
+  },
 });
 
 const Car = mongoose.model("Car", carSchema);
