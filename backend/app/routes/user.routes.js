@@ -1,6 +1,6 @@
 import { Router } from "express";
-import auth from "../middleware/auth.js";
-import roleCheck from "../middleware/roleCheck.js";
+import auth from "../middleware/auth.middleware.js";
+import roleCheck from "../middleware/roleCheck.middleware.js";
 
 const router = Router();
 

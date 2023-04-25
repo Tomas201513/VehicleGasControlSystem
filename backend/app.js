@@ -1,9 +1,9 @@
 import express from "express";
 import { config } from "dotenv";
-import dbConnect from "./dbConnect.js";
-import authRoutes from "./src/routes/auth.js";
-import refreshTokenRoutes from "./src/routes/refreshToken.js";
-import userRoutes from "./src/routes/users.js";
+import dbConnect from "./app/config/database.config"
+import authRoutes from "./app/routes/auth.routes"
+import userRoutes from "./app/routes/user.routes"
+import refreshTokenRoutes from "./app/routes/refreshToken.routes"
 
 const app = express();
 
@@ -16,5 +16,5 @@ app.use("/api", authRoutes);
 app.use("/api/refreshToken", refreshTokenRoutes);
 app.use("/api/users", userRoutes);
 
-const port = process.env.PORT || 8080;
+const port = process.env.POR;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
