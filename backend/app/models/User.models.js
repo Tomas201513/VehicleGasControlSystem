@@ -19,7 +19,7 @@ const userSchema = new Schema({
   roles: {
     type: [String],
     enum: ["driver", "attendant", "admin", "super_admin"],
-    default: ["user"],
+    default: ["driver"],
   },
 });
 

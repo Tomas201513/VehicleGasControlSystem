@@ -1,4 +1,13 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+import {
+	signUpBodyValidation,
+} from "../utils/validationSchema.util.js"
+import User from "../models/User.models.js";
 const signUp = async (req, res) => {
+	console.log("controler")
 	try {
 		const { error } = signUpBodyValidation(req.body);
 		if (error)

@@ -1,4 +1,4 @@
-import UserToken from "../models/UserToken.models";
+import UserToken from "../models/UserToken.models.js"
 import jwt from "jsonwebtoken";
 
 const verifyRefreshToken = async (refreshToken) => {

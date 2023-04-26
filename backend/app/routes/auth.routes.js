@@ -1,16 +1,16 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
-import User from "../models/User.models"
-import generateTokens from "../utils/generateTokens.util"
+import User from "../models/User.models.js"
+import generateTokens from "../utils/generateTokens.util.js"
 import {
 	signUpBodyValidation,
 	logInBodyValidation,
-} from "../utils/validationSchema.util"
-import signUp from "../controlers/auth.controler";
+} from "../utils/validationSchema.util.js"
+import signUp from "../controlers/auth.controler.js"
 const router = Router();
 
 // signup
-router.post("/signUp", signUp(req,res))
+router.post("/signUp", signUp)
 
 // login
 router.post("/logIn", async (req, res) => {

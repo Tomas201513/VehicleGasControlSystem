@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Car from "../models/Car.models"
+import Car from "../models/Car.models.js"
 const router = Router();
 
 
