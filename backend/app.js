@@ -12,9 +12,9 @@ dbConnect();
 
 app.use(express.json());
 
-app.use("/api", authRoutes);
-app.use("/api/refreshToken", refreshTokenRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api", authRoutes); // /api/signUp
+app.use("/api/refreshToken", refreshTokenRoutes); // /api/refreshToken
+app.use("/api/users", userRoutes); // /api/users
 
 const port = process.env.POR;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
