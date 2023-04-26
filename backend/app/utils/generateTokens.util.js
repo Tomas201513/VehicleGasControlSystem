@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import UserToken from "../models/UserToken.models.js"
+import UserToken from "../models/userToken.model.js"
 
 const generateTokens = async (user) => {
   try {

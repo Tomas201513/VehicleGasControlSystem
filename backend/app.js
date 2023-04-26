@@ -1,19 +1,20 @@
 import express from "express";
 import { config } from "dotenv";
 import dbConnect from "./app/config/database.config.js"
-import authRoutes from "./app/routes/auth.routes.js"
-import userRoutes from "./app/routes/user.routes.js"
-import refreshTokenRoutes from "./app/routes/refreshToken.routes.js"
-
 const app = express();
-
+import authRoutes from "./app/routes/auth.routes.js"
+import carRoutes from "./app/routes/car.routes.js"
+import  userRoute from "./app/routes/user.routes.js"
+import fuelRoute from "./app/routes/fuel.routes.js"
 config();
 dbConnect();
 
 app.use(express.json());
 
-app.use("/api", authRoutes); // /api/signUp
-app.use("/api/refreshToken", refreshTokenRoutes); // /api/refreshToken
-app.use("/api/users", userRoutes); // /api/users
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoute);
+app.use("/api/cars", carRoutes);
+app.use("/api/fuel", fuelRoute);
 
-app.listen(process.env.PORT  || 5000 , () => console.log(`Listening on port ${process.env.PORT || 5000}`));
+
+app.listen(process.env.PORT  , () => console.log(`Listening on port ${process.env.PORT || 5000}`));

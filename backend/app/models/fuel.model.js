@@ -23,3 +23,8 @@ const fuelIntakeSchema = new Schema({
     default: Date.now,
   },
 });
+
+const FuelIntake = mongoose.model("Fuel", fuelIntakeSchema);
+
+export default FuelIntake;
+
