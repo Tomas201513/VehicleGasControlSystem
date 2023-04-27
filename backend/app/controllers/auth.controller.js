@@ -14,7 +14,6 @@ import verifyRefreshToken from "../utils/verifyRefreshToken.util.js"
 
 
 export const signUp = async (req, res) => {
-	console.log("controler")
 	try {
 		const { error } = signUpBodyValidation(req.body);
 		if (error)
