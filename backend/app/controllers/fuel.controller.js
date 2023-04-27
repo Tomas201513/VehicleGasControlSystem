@@ -2,7 +2,7 @@ import FuelIntake from "../models/fuel.model.js";
 const fuelIntakeController = {
   getAll: async (req, res) => {
     try {
-      const fuelIntakes = await FuelIntake.find();
+      const fuelIntakes = await FuelIntake.find().populate([ "car_id", "attendant"]);
       res.json(fuelIntakes);
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -11,7 +11,7 @@ const fuelIntakeController = {
 
   getOne: async (req, res) => {
     try {
-      const fuelIntake = await FuelIntake.findById(req.params.id);
+      const fuelIntake = await FuelIntake.findById(req.params.id).populate( ["car_id", "attendant"]);
       res.json(fuelIntake);
     } catch (error) {
       res.status(500).json({ message: error.message });
