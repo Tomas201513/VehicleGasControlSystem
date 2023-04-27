@@ -1,7 +1,7 @@
 import express from 'express';
 import auth from "../middleware/auth.middleware.js";
 import { getCars, getCarById, createCar, updateCar, deleteCar } from '../controllers/car.controller.js';
-// dfdf
+
 const router = express.Router(); 
 
 // Car routes
