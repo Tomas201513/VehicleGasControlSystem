@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import { SideNav } from './side-nav';
 import { TopNav } from './top-nav';
 import { useLocation } from "react-router-dom";
-
+import Breadcrumb from "src/components/MyBreadcrumbs";
 const SIDE_NAV_WIDTH = 280;
 
 const LayoutRoot = styled('div')(({ theme }) => ({
@@ -54,6 +54,7 @@ export default function DashboardLayout() {
       />
       <LayoutRoot>
         <LayoutContainer>
+        <Breadcrumb/>
           <Outlet/>
         </LayoutContainer>
       </LayoutRoot>

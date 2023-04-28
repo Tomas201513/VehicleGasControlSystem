@@ -14,7 +14,6 @@ import {
   useMediaQuery
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-// import { usePopover } from 'src/hooks/use-popover';
 import AccountPopover from './AccountPopover';
 
 
@@ -23,9 +22,7 @@ const TOP_NAV_HEIGHT = 64;
 import useResponsive from 'src/hooks/useResponsive';
 
 export const TopNav = ({onNavOpen}) => {
-     const isDesktop = useResponsive("up", "lg");
-  // const accountPopover = usePopover();
-
+    const isDesktop = useResponsive("up", "lg");
   return (
     <>
       <Box

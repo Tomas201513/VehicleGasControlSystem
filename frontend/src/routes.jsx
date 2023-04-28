@@ -19,10 +19,10 @@ function RoutesComponent() {
         </Route>
         <Route element={<DashboardLayout />} >
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/cars" element={<Cars />} />
         <Route path="/fuel" element={<Fuel />} />
-        <Route path="/users" element={<Users />} />
-        
+
         </Route>
         <Route path="*" element={<Page404 />} />
     </Routes>
