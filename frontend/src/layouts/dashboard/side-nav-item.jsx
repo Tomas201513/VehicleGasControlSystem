@@ -1,25 +1,26 @@
-import NextLink from 'next/link';
-import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { Box, ButtonBase } from '@mui/material';
 
-export const SideNavItem = ({items}) => {
+export const SideNavItem = ({ active, icon, path, title}) => {
 
-//   const linkProps = path
-//     ? external
-//       ? {
-//         component: 'a',
-//         href: path,
-//         target: '_blank'
-//       }
-//       : {
-//         component: NextLink,
-//         href: path
-//       }
-//     : {};
+const navigate = useNavigate();
+  // const linkProps = path
+  //   ? external
+  //     ? {
+  //       component: 'a',
+  //       href: path,
+  //       target: '_blank'
+  //     }
+  //     : {
+  //       // component: NextLink,
+  //       href: path
+  //     }
+  //   : {};
 
   return (
     <li>
       <ButtonBase
+      onClick={() => navigate(path)}
         sx={{
           alignItems: 'center',
           borderRadius: 1,
@@ -37,9 +38,9 @@ export const SideNavItem = ({items}) => {
             backgroundColor: 'rgba(255, 255, 255, 0.04)'
           }
         }}
-        {...linkProps}
+        // {...linkProps}
       >
-        {items.icon && (
+        {icon && (
           <Box
             component="span"
             sx={{
@@ -48,12 +49,12 @@ export const SideNavItem = ({items}) => {
               display: 'inline-flex',
               justifyContent: 'center',
               mr: 2,
-            //   ...(active && {
-            //     color: 'primary.main'
-            //   })
+              ...(active && {
+                color: 'primary.main'
+              })
             }}
           >
-            {items.icon}
+            {icon}
           </Box>
         )}
         <Box
@@ -66,15 +67,15 @@ export const SideNavItem = ({items}) => {
             fontWeight: 600,
             lineHeight: '24px',
             whiteSpace: 'nowrap',
-            // ...(active && {
-            //   color: 'common.white'
-            // }),
-            // ...(disabled && {
-            //   color: 'neutral.500'
-            // })
+            ...(active && {
+              color: 'common.white'
+            }),
+          //   ...(disabled && {
+          //     color: 'neutral.500'
+          //   })
           }}
         >
-          {items.title}
+          {title}
         </Box>
       </ButtonBase>
     </li>

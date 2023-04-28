@@ -79,13 +79,18 @@ function AuthLayout() {
               }}
               variant="h1"
             >
-              Welcome to{' '}
+              {/* Welcome to{' '} */}
               <Box
                 component="a"
                 sx={{ color: '#15B79E' }}
                 target="_blank"
+
+
               >
-                INSA GAS STATION
+                {/* ጦርጳ GAS STATION */}
+                <Typography variant="h2" component="div" gutterBottom>
+                ጦርጳ
+                </Typography>
               </Box>
             </Typography>
             <Typography
@@ -93,7 +98,7 @@ function AuthLayout() {
               sx={{ mb: 3 }}
               variant="subtitle1"
             >
-              A vehicle gas control system for insa gas stations
+              A vehicle gas control system for ጦርጳ gas stations
             </Typography>
             {/* <img
               alt=""
