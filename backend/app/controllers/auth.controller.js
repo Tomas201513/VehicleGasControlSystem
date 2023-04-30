@@ -81,6 +81,8 @@ export const logIn = async (req, res) => {
 }
 
 export const logOut = async (req, res) => {
+	console.log("logout");
+	console.log(req.body);
 	 try {
     const { error } = refreshTokenBodyValidation(req.body);
     if (error)
@@ -100,7 +102,7 @@ export const logOut = async (req, res) => {
     console.log(err);
     res.status(500).json({ error: true, message: "Internal Server Error" });
   }
-};
+};logOut;
 
 export const refresh=  async (req, res) => {
   const { error } = refreshTokenBodyValidation(req.body);

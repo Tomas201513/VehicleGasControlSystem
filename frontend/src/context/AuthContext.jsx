@@ -11,20 +11,23 @@ const AuthContext = createContext({});
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  const { showToast } = React.useContext(ToastContext);
-  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+  const { showToast } = React.useContext(ToastContext);
+  const [userDetail, setUserDetail] = useState(null);
 
     async function loginUser(values) {
     console.log("context" + JSON.stringify(values));
     try {
       const res = await axios.post("http://127.0.0.1:8000/api/auth/logIn",{email:values.email,password:values.password});
       console.log("token" + JSON.stringify(res));
-      localStorage.setItem("token", res.data.accessToken);
+      localStorage.setItem("accessToken", res.data.accessToken);
+      localStorage.setItem("refreshToken", res.data.refreshToken);
       const decoded = jwt_decode(res.data.accessToken);
-      setCurrentUser(decoded);  
-      navigate("/dashboard", { replace: true });
-      showToast("Login successful", "success", 2000);
+      console.log("decoded" + JSON.stringify(decoded));
+      setUserDetail(decoded)
+      console.log("userDetail" + JSON.stringify(userDetail));
+      // navigate("/dashboard", { replace: true });
+      userDetail && showToast(`Welcome ${userDetail.userName}`, "success", 2000);
     } catch (err) {
       showToast("Login failed", "error", 2000);
       console.log(err);
@@ -34,8 +37,13 @@ export const AuthProvider = ({ children }) => {
     async function registerUser(values) {
       console.log("context" + JSON.stringify(values));
       try {
-        const res = await axios.post("http://localhost:8000/api/auth/register", values);
-        if (res.data.success) {
+        const res = await axios.post("http://localhost:8000/api/auth/register", {
+          userName: values.name,
+          email: values.email,
+          password: values.password,
+        });
+        console.log("token" + JSON.stringify(res));
+        if (res.status === 201) {
           navigate("/login", { replace: true });
         } else {
           throw new Error("Registration failed");
@@ -47,31 +55,33 @@ export const AuthProvider = ({ children }) => {
       }
     }
 
-
  async function logoutUser() {
-            localStorage.removeItem("token");
-            setCurrentUser(null);
+   try {
+           const res = await axios.delete("http://127.0.0.1:8000/api/auth/logOut", {
+             data: {
+               refreshToken: localStorage.getItem("refreshToken"),
+             },
+           });
+            console.log(res);
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            setUserDetail(null);
             navigate("/login", { replace: true });
-            await axios       
-                    .post("http://localhost:8000/api/auth/logOut")
-                    .then((res) => {
-                            console.log(res);
-                            navigate("/login", { replace: true });
-                    }
-                    )
-                    .catch((err) => {
+            // showToast("Logout successful", "success", 2000);
+          } catch (err) {
+             localStorage.removeItem("accessToken");
+             localStorage.removeItem("refreshToken");
+             navigate("/login", { replace: true });
 
-                            console.log(err);
-                    }
-                    );
-
+            showToast("Logout failed", "error", 2000);
+            console.error("Error logging out user:", err.message);
+          }
         }
-
 
     return (
       <AuthContext.Provider
         value={{
-          currentUser,
+          userDetail,
           loginUser,
           registerUser,
           logoutUser,

@@ -1,4 +1,5 @@
-import {useContext, useState} from "react";
+import {useContext, useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import {
   Alert,
@@ -17,10 +18,21 @@ import * as Yup from 'yup';
 import AuthLayout from 'src/layouts/auth/AuthLayout';
 import { Link } from "react-router-dom";
 import AuthContext from 'src/context/AuthContext';
-function Login() {
-  const {loginUser } = useContext(AuthContext);
-  const [showPassword, setShowPassword] = useState(false);
+import ToastContext from "src/context/hot-toast-context/HotToastContext";
+import React from "react";
 
+function Login() {
+  const { userDetail,loginUser } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
+    const { showToast } = React.useContext(ToastContext);
+
+  const navigate = useNavigate();
+useEffect(() => {
+  if (userDetail) {
+    navigate("/dashboard", { replace: true });
+    showToast("Welcome back " + userDetail.userName, "success", 2000);
+  }
+}, [userDetail]);
   const formik = useFormik({
     initialValues: {
       email: 'admin@admin.com',

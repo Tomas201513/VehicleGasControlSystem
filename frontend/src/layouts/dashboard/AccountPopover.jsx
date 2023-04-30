@@ -11,7 +11,6 @@ import {
   IconButton,
   Popover,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import AuthContext from "src/context/AuthContext";
 
 // mocks_
@@ -37,8 +36,8 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  
   const { userDetail, logoutUser } = useContext(AuthContext);
-  const navigate = useNavigate();
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -69,8 +68,8 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          // src={userDetail && userDetail?.employee?.profile_image}
-          // alt={userDetail && userDetail?.username}
+        // src={userDetail && userDetail?.employee?.profile_image}
+        // alt={userDetail && userDetail?.username}
         />
       </IconButton>
 
@@ -95,8 +94,8 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap fontSize={15}>
-            ጦርጳ@ፌቄስ.ታይም
-            {/* {userDetail && userDetail.username} */}
+            {/* ጦርጳ@ፌቄስ.ታይም */}
+            {userDetail && userDetail.email}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
             {/* {userDetail && userDetail.email} */}
@@ -115,9 +114,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem  onClick={() => logoutUser()}>
-          Logout
-        </MenuItem>
+        <MenuItem onClick={() => logoutUser()}>Logout</MenuItem>
       </Popover>
     </>
   );
