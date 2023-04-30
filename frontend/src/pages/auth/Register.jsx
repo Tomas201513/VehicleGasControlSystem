@@ -1,11 +1,14 @@
-// import React from 'react'
+import React, { useContext } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Helmet } from "react-helmet-async";
+import AuthContext from "src/context/AuthContext";
+
 
 function Register() {
+  const { registerUser } = useContext(AuthContext);
    const formik = useFormik({
     initialValues: {
       email: '',
@@ -30,6 +33,12 @@ function Register() {
     }),
     onSubmit: async (values, helpers) => {
       try {
+        console.log(values);
+        console.log(helpers);
+        await registerUser(values);
+        console.log("register");
+        helpers.setStatus({ success: true });
+        helpers.setSubmitting(false);
         // await auth.signUp(values.email, values.name, values.password);
         // router.push('/');
       } catch (err) {

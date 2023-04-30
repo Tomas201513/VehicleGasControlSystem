@@ -6,8 +6,8 @@ import { PieChart } from 'react-minimal-pie-chart';
 // Sample data
 const sampleData = [
   { id: 1, title: 'Total Drivers', description: '34' },
-  { id: 3, title: 'Total atendant', description: '6' },
-  { id: 2, title: 'Fuel conseption', description: '34343 L' },
+  { id: 3, title: 'Total attendant', description: '6' },
+  { id: 2, title: 'Fuel conception', description: '34343 L' },
 ];
 const sampleData2 = [
   { name: '2010', value: 400 },
@@ -25,7 +25,7 @@ function Dashboard() {
   return (
     <>
     <Container>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 10 }}>
         {sampleData.map((item) => (
           <Card key={item.id} sx={{ flexGrow: 1, minWidth: 200 }}>
             <CardContent>

@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { config } from "dotenv";
 import dbConnect from "./app/config/database.config.js"
 const app = express();
@@ -10,6 +11,7 @@ config();
 dbConnect();
 
 app.use(express.json());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoute);

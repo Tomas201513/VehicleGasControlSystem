@@ -18,7 +18,7 @@ const navigate = useNavigate();
   //   : {};
 
   return (
-    <li>
+    <li key={title}>
       <ButtonBase
       onClick={() => navigate(path)}
         sx={{

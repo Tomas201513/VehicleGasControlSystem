@@ -12,6 +12,8 @@ import {
   Popover,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "src/context/AuthContext";
+
 // mocks_
 // import account from "../../../_mock/account";
 
@@ -35,6 +37,7 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const { userDetail, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [open, setOpen] = useState(null);
 
@@ -112,7 +115,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem  onClick={() => navigate("/login")}  sx={{ m: 1 }}>
+        <MenuItem  onClick={() => logoutUser()}>
           Logout
         </MenuItem>
       </Popover>

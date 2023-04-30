@@ -42,6 +42,8 @@ export const signUp = async (req, res) => {
 }
 
 export const logIn = async (req, res) => {
+	console.log("login");
+	console.log(req.body);
 	try {
 		const { error } = logInBodyValidation(req.body);
 		if (error)

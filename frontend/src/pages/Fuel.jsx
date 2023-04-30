@@ -1,10 +1,39 @@
-import React from 'react'
-import { Box } from '@mui/system'
+import React from 'react';
+import { Box } from '@mui/system';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+
 function Fuel() {
+    const users = [
+    { name: 'John Doe', email: 'john.doe@example.com' },
+    { name: 'Jane Smith', email: 'jane.smith@example.com' },
+        { name: 'John Doe', email: 'john.doe@example.com' },
+    { name: 'Jane Smith', email: 'jane.smith@example.com' },
+        { name: 'John Doe', email: 'john.doe@example.com' },
+    { name: 'Jane Smith', email: 'jane.smith@example.com' },
+        { name: 'John Doe', email: 'john.doe@example.com' },
+    { name: 'Jane Smith', email: 'jane.smith@example.com' },
+    // Add more users here
+  ];
   return (
-    <Box sx={{ p: 3 , height: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 100%)'}}>
-           
-            </Box>
+    <Card>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          Users
+        </Typography>
+        <List>
+          {users.map((user, index) => (
+            <ListItem key={index}>
+              <ListItemText primary={user.name} secondary={user.email} />
+            </ListItem>
+          ))}
+        </List>
+      </CardContent>
+    </Card>
 
   )
 }
