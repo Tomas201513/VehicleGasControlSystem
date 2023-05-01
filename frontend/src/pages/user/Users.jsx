@@ -1,16 +1,27 @@
 import React from 'react';
-import { Box } from '@mui/system';
 import Datatable from 'src/components/datatable/Datatable';
 import UserContext from 'src/context/UserContext';
-import { DataGrid } from "@mui/x-data-grid";
-import { IconButton, Typography } from '@mui/material';
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
+import { Typography, Box, Button, IconButton, Tooltip, Container, FormGroup, FormControlLabel, Switch } from '@mui/material';
+import CreateUpdateUser from './CreateUpdateUser';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
+
 function Users() {
     const getRowId = (row) => row._id;
 
-  const { name,userData, isLoading, error, refetch } = React.useContext(UserContext);
+  const {
+    name,
+    userData,
+    isLoading,
+    error,
+    refetch,
+    createOpen,
+    setCreateOpen,
+    selectedUserData,
+    setSelectedUserData,
+    editable,
+    setEditable,
+  } = React.useContext(UserContext);
    const columns = [
     {
       field: '_id',
@@ -95,19 +106,69 @@ function Users() {
   ];
   return (
     <>
-    <Typography variant="h4" color="textSecondary" marginLeft={4} marginTop={4}>
-    {name}
-    </Typography>
+      <Typography variant="h4" color="textSecondary" marginLeft={4} marginTop={4}>
+        {name}
+      </Typography>
       {/* <DataGrid rows={userData} columns={columns} getRowId={getRowId} /> */}
-      <Datatable
-        columns={columns}
-        rows={userData}
-        // isLoading={isLoading}
-        // error={error}
-        // refetch={refetch}
-        // name="Users"
-        getRowId={getRowId}
-      />
+      {createOpen || selectedUserData ? (
+        <>
+          <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
+            <Tooltip title="Back">
+              <IconButton
+                onClick={() => {
+                  setSelectedUserData(null), setEditable(false), setCreateOpen(false);
+                }}
+                size="small"
+              >
+                <ArrowBackIcon size="small" />
+              </IconButton>
+            </Tooltip>
+
+            {selectedUserData ? (
+              <>
+                {" "}
+                <Tooltip title="Editable">
+                  <FormControlLabel
+                    control={<Switch />}
+                    label="edit"
+                    onChange={() => setEditable(!editable)}
+                  />
+                </Tooltip>
+                <Tooltip title="Delete">
+                  <IconButton
+                    size="small"
+                    onClick={() => console.log("delete" + selectedUserData._id)}
+                  >
+                    <DeleteIcon size="small" />
+                  </IconButton>
+                </Tooltip>
+              </>
+            ) : (
+              <></>
+            )}
+            <CreateUpdateUser selectedUserData={selectedUserData} editable={editable} />
+          </Container>
+        </>
+      ) : (
+        <>
+          {" "}
+          <Datatable
+            columns={columns}
+            rows={userData}
+            // isLoading={isLoading}
+            // error={error}
+            // refetch={refetch}
+            // name="Users"
+            createOpen={createOpen}
+            setCreateOpen={setCreateOpen}
+            selectedUserData={selectedUserData}
+            setSelectedUserData={setSelectedUserData}
+            editable={editable}
+            setEditable={setEditable}
+            getRowId={getRowId}
+          />
+        </>
+      )}
     </>
   );
 }

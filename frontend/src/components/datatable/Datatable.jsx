@@ -31,10 +31,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CreateUpdateUser from "src/pages/user/CreateUpdateUser"
 
 
-export default function Datatable ({columns, rows,getRowId}) {
-  const [ createOpen , setCreateOpen ] = useState(false);
-  const [selectedUserData, setSelectedUserData] = useState(null);
-  const [editable, setEditable] = useState(false);
+export default function Datatable ({columns, rows,getRowId,createOpen,setCreateOpen,selectedUserData,setSelectedUserData,editable,setEditable}) {
+
  
   const handleRowClick = (params) => {
     setSelectedUserData(params.row);
@@ -51,7 +49,7 @@ export default function Datatable ({columns, rows,getRowId}) {
         <Box sx={{ flexGrow: 1 }} />
         <Button
           variant="plain"
-          onClick={() => setCreateOpen(true)}
+          onClick={() => {setCreateOpen(true), setEditable(true)}}
           startIcon={<MdAddBox />}
           sx={{
             mr: 2,
@@ -73,46 +71,6 @@ export default function Datatable ({columns, rows,getRowId}) {
   
   return (
     <>
-      {createOpen || selectedUserData ? (
-        <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
-          <Tooltip title="Back">
-            <IconButton
-              onClick={() => {
-                setSelectedUserData(null), setEditable(false), setCreateOpen(false);
-              }}
-              size="small"
-            >
-              <ArrowBackIcon size="small" />
-            </IconButton>
-          </Tooltip>
-          
-         {selectedUserData ?(<> <Tooltip title="Editable">
-            <FormControlLabel
-              control={<Switch />}
-              label="edit"
-              onChange={() => setEditable(!editable)}
-            />
-          </Tooltip>
-          <Tooltip title="Delete">
-            <IconButton size="small" onClick={() => console.log("delete" + selectedUserData._id)}>
-              <DeleteIcon size="small" />
-            </IconButton>
-          </Tooltip></>):(<></>)}
-          <CreateUpdateUser selectedUserData={selectedUserData} editable={editable} />
-        </Container>
-      ) : (
-        // <Box sx={{ height: "100vh" }} >
-        //   <IconButton
-        //     onClick={() => {
-        //       setSelectedUserData(null);
-        //     }}
-        //     size="small"
-        //   >
-        //     <ArrowBackIcon size="small" />
-        //   </IconButton>
-        //   <CreateUpdateUser selectedUserData={selectedUserData} />
-
-        // </Box>
         <Card
           style={{
             height: "200vh",
@@ -133,7 +91,6 @@ export default function Datatable ({columns, rows,getRowId}) {
           >
             <DataGrid
               sx={{
-                // backgroundColor: "red",
                 border: 0,
                 boxShadow: 0,
                 borderColor: "#fff",
@@ -166,14 +123,6 @@ export default function Datatable ({columns, rows,getRowId}) {
             />
           </motion.div>
         </Card>
-      )}
-      {/* <Mypopover
-        open={open}
-        handleClose={handleClose}
-        handleClickOpen={handleClickOpen}
-        handleEditOpen={handleEditOpen}
-        handleDeleteOpen={handleDeleteOpen}
-      /> */}
     </>
   );
 }
@@ -182,4 +131,10 @@ Datatable.propTypes = {
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func.isRequired,
+  createOpen: PropTypes.bool.isRequired,
+  setCreateOpen: PropTypes.func.isRequired,
+  selectedUserData: PropTypes.object.isRequired,
+  setSelectedUserData: PropTypes.func.isRequired,
+  editable: PropTypes.bool.isRequired,
+  setEditable: PropTypes.func.isRequired,
 };
