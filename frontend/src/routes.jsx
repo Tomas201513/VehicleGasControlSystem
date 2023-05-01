@@ -8,7 +8,7 @@ import Page404 from './pages/Page404'
 import DashboardLayout from './layouts/dashboard/DashboardLayout'
 import Cars from "./pages/Cars";
 import Fuel from "./pages/Fuel";
-import Users from "./pages/Users";  
+import Users from "./pages/user/Users";  
 function RoutesComponent() {
   return (
 
