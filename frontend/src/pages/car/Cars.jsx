@@ -1,11 +1,18 @@
-import React from 'react';
-import Datatable from 'src/components/datatable/Datatable';
-import UserContext from 'src/context/UserContext';
-import { Typography, IconButton, Tooltip, Container, FormControlLabel, Switch } from '@mui/material';
+import React from "react";
+import Datatable from "src/components/datatable/Datatable";
+import CarContext from "src/context/CarContext";
+import {
+    Typography,
+    IconButton,
+    Tooltip,
+    Container,
+    FormControlLabel,
+    Switch,
+} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CreateUpdateCar from './CreateUpdateCar';
+import CreateUpdateCar from "./CreateUpdateCar";
 
 function Cars() {
     const getRowId = (row) => row._id;
@@ -22,15 +29,15 @@ function Cars() {
         setEditable,
         handleRowClick,
         deleteCar,
-    } = React.useContext(UserContext);
+    } = React.useContext(CarContext);
 
     const columns = [
         {
-            field: '_id',
-            headerName: 'ID',
+            field: "_id",
+            headerName: "ID",
             flex: 0.3,
             minWidth: 30,
-            type: 'number',
+            type: "number",
             hideable: true,
         },
         { field: "plateNumber", headerName: "Plate Number", width: 150 },
@@ -71,6 +78,14 @@ function Cars() {
             },
         },
         {
+            field: "driver",
+            headerName: "Driver",
+            width: 150,
+            valueGetter: (params) => {
+                return params.row.driver ? params.row.driver.userName : "";
+            },
+        },
+        {
             field: "actions",
             type: "actions",
             // headerName: "ACTIONS",
@@ -82,77 +97,79 @@ function Cars() {
                     <IconButton>
                         <ArrowForwardIcon
                             style={{ color: "#666666", cursor: "pointer" }}
-
                             onClick={() => handleRowClick(params.row)}
                         />
                     </IconButton>
                 );
-            }
+            },
         },
     ];
+    return (
+        <>
+            <Typography variant="h4" color="textSecondary" marginLeft={4} marginTop={4}>
+                {name}
+            </Typography>
+            {createOpen || selectedData ? (
+                <>
+                    <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
+                        <Tooltip title="Back">
+                            <IconButton
+                                onClick={() => {
+                                    setSelectedData(null), setEditable(false), setCreateOpen(false);
+                                    console.log(selectedData);
+                                }}
+                                size="small"
+                            >
+                                <ArrowBackIcon size="small" />
+                            </IconButton>
+                        </Tooltip>
 
-    return (<>
-        <Typography variant="h4" color="textSecondary" marginLeft={4} marginTop={4}>
-            {name}
-        </Typography>
-        {createOpen || selectedData ? (
-            <>
-                <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
-                    <Tooltip title="Back">
-                        <IconButton
-                            onClick={() => {
-                                setSelectedData(null), setEditable(false), setCreateOpen(false);
-                            }}
-                            size="small"
-                        >
-                            <ArrowBackIcon size="small" />
-                        </IconButton>
-                    </Tooltip>
+                        {selectedData ? (
+                            <>
+                                {" "}
+                                <Tooltip title="Editable">
+                                    <FormControlLabel
+                                        control={<Switch />}
+                                        label="edit"
+                                        onChange={() => setEditable(!editable)}
+                                    />
+                                </Tooltip>
+                                <Tooltip title="Delete">
+                                    <IconButton size="small" onClick={() => deleteCar(selectedData._id)}>
+                                        <DeleteIcon size="small" color="error" />
+                                    </IconButton>
+                                </Tooltip>
+                            </>
+                        ) : (
+                            <></>
+                        )}
+                        <CreateUpdateCar
+                            selectedData={selectedData}
+                            editable={editable}
+                            setEditable={setEditable}
+                            createOpen={createOpen}
+                        />
+                    </Container>
+                </>
+            ) : (
+                <>
 
-                    {selectedData ? (
-                        <>
-                            {" "}
-                            <Tooltip title="Editable">
-                                <FormControlLabel
-                                    control={<Switch />}
-                                    label="edit"
-                                    onChange={() => setEditable(!editable)}
-                                />
-                            </Tooltip>
-                            <Tooltip title="Delete">
-                                <IconButton size="small" onClick={() => deleteCar(selectedData._id)}>
-                                    <DeleteIcon size="small" color="error" />
-                                </IconButton>
-                            </Tooltip>
-                        </>
-                    ) : (
-                        <></>
-                    )}
-                    <CreateUpdateCar
-                        selectedData={selectedData}
+
+                    <Datatable
+                        columns={columns}
+                        rows={carData}
+                        createOpen={createOpen}
+                        setCreateOpen={setCreateOpen}
                         editable={editable}
                         setEditable={setEditable}
-                        createOpen={createOpen}
+                        getRowId={getRowId}
+                        isLoading={isLoading}
+                        error={error}
+                        name={name}
                     />
-                </Container>
-            </>
-        ) : (
-            <>
-                <Datatable
-                    columns={columns}
-                    rows={carData}
-                    createOpen={createOpen}
-                    setCreateOpen={setCreateOpen}
-                    editable={editable}
-                    setEditable={setEditable}
-                    getRowId={getRowId}
-                    isLoading={isLoading}
-                    error={error}
-                    name={name}
-                />
-            </>
-        )}
-    </>
+                </>
+            )}
+        </>
     );
 }
 

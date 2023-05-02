@@ -6,14 +6,14 @@ const api = "http://127.0.0.1:8000/api/users/";
 
 export const GetUser = async () => {
   // if (localStorage.getItem("accessToken")) {
-    const res = await axios.get(api);
-    return res.data;
+  const res = await axios.get(api);
+  return res.data;
   // } else {
   //   console.log("No token");
   // }
 };
 
-export const DeleteUser= async (id) => {
+export const DeleteUser = async (id) => {
   if (localStorage.getItem("accessToken")) {
     const res = await axios.delete(`${api}${id}/`);
     return res.data;

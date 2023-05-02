@@ -67,7 +67,7 @@ export default function Datatable({
     <>
       <Card
         style={{
-         
+
           height: "200vh",
           width: "100%",
           marginTop: "2vh",
@@ -84,7 +84,7 @@ export default function Datatable({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-           {isLoading ? (
+          {isLoading ? (
             <Box margin="50vw" marginTop="40vh">
               <BeatLoader color="#1976d2" />
             </Box>
@@ -95,39 +95,39 @@ export default function Datatable({
               </Typography>
             </Box>
           ) : (
-          <DataGrid
-            sx={{
-              border: 0,
-              boxShadow: 0,
-              borderColor: "#fff",
-              ml: 4,
-              mr: 4,
-              height: "85vh",
-              "& .MuiDataGrid-columnHeaders": {
-                fontWeight: "normal",
-              },
-            }}
-            columns={columns}
-            rows={rows}
-            getRowId={getRowId}
-            pageSize={10}
-            // checkboxSelection
-            // onRowClick={handleRowClick}
-            // onCellDoubleClick={handleRowClick}
-            // onRowDoubleClick={handleRowClick}
-            // editMode="row"
-            rowHeight={60}
-            slots={{
-              toolbar: CustomToolbar,
-            }}
-            initialState={{
-              columns: {
-                columnVisibilityModel: {
-                  _id: false,
+            <DataGrid
+              sx={{
+                border: 0,
+                boxShadow: 0,
+                borderColor: "#fff",
+                ml: 4,
+                mr: 4,
+                height: "85vh",
+                "& .MuiDataGrid-columnHeaders": {
+                  fontWeight: "normal",
                 },
-              },
-            }}
-          />
+              }}
+              columns={columns}
+              rows={rows}
+              getRowId={getRowId}
+              pageSize={10}
+              // checkboxSelection
+              // onRowClick={handleRowClick}
+              // onCellDoubleClick={handleRowClick}
+              // onRowDoubleClick={handleRowClick}
+              // editMode="row"
+              rowHeight={60}
+              slots={{
+                toolbar: CustomToolbar,
+              }}
+              initialState={{
+                columns: {
+                  columnVisibilityModel: {
+                    _id: false,
+                  },
+                },
+              }}
+            />
           )}
         </motion.div>
       </Card>
@@ -144,5 +144,6 @@ Datatable.propTypes = {
   editable: PropTypes.bool?.isRequired,
   setEditable: PropTypes.func?.isRequired,
   isLoading: PropTypes.bool?.isRequired,
-  error: PropTypes.bool?.isRequired,
+  error: PropTypes.bool,
+  name: PropTypes.string?.isRequired,
 };

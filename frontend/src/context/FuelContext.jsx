@@ -1,21 +1,26 @@
-// UserContext.jsx
-import React, { createContext, useContext, useState } from "react";
+import React from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetFuel } from "../apis/FuelApi";
-import { BeatLoader } from "react-spinners";
-import { Box, Typography } from "@mui/material";
-const FuelContext = createContext({});
+import { GetFuel, CreateFuel, UpdateFuel, DeleteFuel } from "src/apis/FuelApi";
+
+const FuelContext = React.createContext({});
 
 export default FuelContext;
 
 export const FuelProvider = ({ children }) => {
-    const [createOpen, setCreateOpen] = useState(false);
-    const [selectedUserData, setSelectedUserData] = useState(null);
-    const [editable, setEditable] = useState(false);
-    const name = "Fuel";
+    const [createOpen, setCreateOpen] = React.useState(false);
+    const [selectedData, setSelectedData] = React.useState(null);
+    const [editable, setEditable] = React.useState(false);
+    const name = "Cars";
     const { showToast } = React.useContext(ToastContext);
+    const handleRowClick = (params) => {
+        console.log(params);
+        setSelectedData(params);
+        console.log(selectedData);
+    };
+
+    // GetUers
     const {
         data: fuelData,
         isLoading,
@@ -24,45 +29,70 @@ export const FuelProvider = ({ children }) => {
     } = useQuery(name, GetFuel, {
         staleTime: 0,
     });
-    
-    if (isLoading) {
-        return (
-        <Box marginLeft="50vw" marginTop="40vh">
-            <BeatLoader color="#1976d2" />
-        </Box>
-        );
-    }
-    if (error) {
-        return (
-        <Box marginLeft="50vw" marginTop="40vh">
-            <Typography variant="h4" color="textSecondary">
-            Error fetching data
-            </Typography>
-        </Box>
-        );
-    }
+
+    // CreateFuel
+    const { mutateAsync: createFuel } = useMutation(CreateFuel, {
+        onSuccess: () => {
+            console.log("Fuel created successfully");
+            setCreateOpen(false);
+
+            showToast("Fuel created successfully", "success", 2000);
+            refetch();
+        },
+        onError: (err) => {
+            console.log("couldent update Fuel");
+            showToast(err.message, "error");
+        },
+    });
+
+    // UpdateFuel
+    const { mutateAsync: updateFuel } = useMutation(UpdateFuel, {
+        onSuccess: () => {
+            showToast("Fuel updated successfully", "success");
+            setSelectedData(null);
+            refetch();
+        },
+        onError: (err) => {
+            showToast(err.message, "error");
+        },
+    });
+
+    // DeleteFuel
+    const { mutateAsync: deleteFuel } = useMutation(DeleteFuel, {
+        onSuccess: () => {
+            showToast("Fuel deleted successfully", "success");
+            setSelectedData(null);
+            refetch();
+        },
+        onError: (err) => {
+            showToast(err.message, "error");
+        },
+    });
+
     return (
         <FuelContext.Provider
-        value={{
-            name,
-            fuelData,
-            isLoading,
-            error,
-            refetch,
-            showToast,
-            createOpen,
-            setCreateOpen,
-            selectedUserData,
-            setSelectedUserData,
-            editable,
-            setEditable,
-        }}
+            value={{
+                name,
+                fuelData,
+                isLoading,
+                error,
+                createOpen,
+                setCreateOpen,
+                selectedData,
+                setSelectedData,
+                handleRowClick,
+                editable,
+                setEditable,
+                createFuel,
+                updateFuel,
+                deleteFuel,
+            }}
         >
-        {children}
+            {children}
         </FuelContext.Provider>
     );
-    }
-    FuelProvider.propTypes = {
+};
+
+FuelProvider.propTypes = {
     children: PropTypes.node.isRequired,
-    };
-    
+};

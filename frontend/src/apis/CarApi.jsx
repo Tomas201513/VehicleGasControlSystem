@@ -4,16 +4,17 @@ import axios from "axios";
 
 const api = "http://127.0.0.1:8000/api/cars/";
 
-export const GetCar= async () => {
-  if (localStorage.getItem("accessToken")) {
-  const res = await axios.get(api); 
+export const GetCar = async () => {
+  // if (localStorage.getItem("accessToken")) {
+  const res = await axios.get(api);
+  console.log(res.data);
   return res.data;
-  } else {
-    console.log("No token");
-  }
+  // } else {
+  //   console.log("No token");
+  // }
 };
 
-export const DeleteCar= async (id) => {
+export const DeleteCar = async (id) => {
   if (localStorage.getItem("accessToken")) {
     const res = await axios.delete(`${api}${id}/`);
     return res.data;
@@ -23,6 +24,7 @@ export const DeleteCar= async (id) => {
 };
 
 export const CreateCar = async (values) => {
+  console.log(JSON.stringify(values));
   if (localStorage.getItem("accessToken")) {
     const res = await axios.post(api, values);
     return res.data;
@@ -31,7 +33,7 @@ export const CreateCar = async (values) => {
   }
 };
 
-export const UpdateCar= async (values) => {
+export const UpdateCar = async (values) => {
   if (localStorage.getItem("accessToken")) {
     const res = await axios.put(`${api}${values.selectedData}/`, values.values);
     return res.data;

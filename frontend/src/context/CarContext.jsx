@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetCar, CreateCar, UpdateCar, DeleteCar } from "src/apis/CarsApi";
+import { GetCar, CreateCar, UpdateCar, DeleteCar } from "src/apis/CarApi";
 
-const CarContext = createContext({});
+const CarContext = React.createContext({});
 
 export default CarContext;
 
@@ -29,17 +29,18 @@ export const CarProvider = ({ children }) => {
   } = useQuery(name, GetCar, {
     staleTime: 0,
   });
+  console.log(carData);
   // CreateCar
   const { mutateAsync: createCar } = useMutation(CreateCar, {
     onSuccess: () => {
-      console.log("Car updated successfully");
+      console.log("Car created successfully");
       setCreateOpen(false);
 
       showToast("Car created successfully", "success", 2000);
       refetch();
     },
     onError: (err) => {
-      console.log("Car updated successfully");
+      console.log("couldent update Car");
       showToast(err.message, "error");
     },
   });
@@ -71,6 +72,7 @@ export const CarProvider = ({ children }) => {
   return (
     <CarContext.Provider
       value={{
+        name,
         carData,
         isLoading,
         error,

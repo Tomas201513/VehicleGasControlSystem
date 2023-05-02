@@ -15,18 +15,21 @@ import { Formik, Form } from "formik";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 import CarContext from "../../context/CarContext";
+import UserContext from "../../context/UserContext";
 
 function CreateUpdateCar({ selectedData, editable, setEditable }) {
     const { createCar, updateCar } = React.useContext(CarContext);
+    const { userData } = React.useContext(UserContext);
+
     const FormSchema = yup.object().shape({
         plateNumber: yup.string().required("Plate Number is required"),
-        model: yup.string().required("Model is required"),
+        model: yup.number().required("Model is required"),
         year: yup.string().required("Year is required"),
         color: yup.string().required("Color is required"),
-        capacity: yup.string().required("Capacity is required"),
-        transmission: yup.string().required("Transmission is required"),
+        capacity: yup.number().required("Capacity is required"),
+        transmission: yup.string().required("transmission is required"),
         engine: yup.string().required("Engine is required"),
-        driver: yup.string().required("Driver is required"),
+        driver: yup.string().required("driver is required"),
     });
 
     const handleSubmit = async (values) => {
@@ -34,6 +37,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
             if (selectedData) {
                 await updateCar({ selectedData: selectedData._id, values });
             } else {
+                console.log(values);
                 await createCar(values);
             }
             setEditable(false);
@@ -52,7 +56,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                     capacity: selectedData?.capacity || "",
                     transmission: selectedData?.transmission || "",
                     engine: selectedData?.engine || "",
-                    driver: selectedData?.driver || "",
+                    driver: selectedData?.driver?._id || "",
                 }}
                 validationSchema={FormSchema}
                 onSubmit={handleSubmit}
@@ -115,37 +119,65 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                     error={Boolean(touched.capacity && errors.capacity)}
                                     helperText={touched.capacity && errors.capacity}
                                 />
-                                <TextField
-                                    fullWidth
-                                    label="Transmission"
-                                    name="transmission"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.transmission}
-                                    error={Boolean(touched.transmission && errors.transmission)}
-                                    helperText={touched.transmission && errors.transmission}
-                                />
-                                <TextField
-                                    fullWidth
-                                    label="Engine"
-                                    name="engine"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.engine}
-                                    error={Boolean(touched.engine && errors.engine)}
-                                    helperText={touched.engine && errors.engine}
-                                />
-                                <TextField
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label1">transmission</InputLabel>
 
-                                    fullWidth
-                                    label="Driver"
-                                    name="driver"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.driver}
-                                    error={Boolean(touched.driver && errors.driver)}
-                                    helperText={touched.driver && errors.driver}
-                                />
+                                    <Select
+                                        id="demo-simple-select1"
+                                        labelId="demo-simple-select-label1"
+                                        name="transmission"
+                                        label="transmission"
+                                        variant="standard"
+                                        value={values.transmission}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        error={Boolean(touched.transmission && errors.transmission)}
+                                        helpertext={touched.transmission && errors.transmission}
+                                    >
+                                        <MenuItem value="manual">manual</MenuItem>
+                                        <MenuItem value="automatic">automatic</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Engine</InputLabel>
+
+                                    <Select
+                                        id="demo-simple-select"
+                                        labelId="demo-simple-select-label"
+                                        name="engine"
+                                        label="Engine"
+                                        variant="standard"
+                                        value={values.engine}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        error={Boolean(touched.engine && errors.engine)}
+                                        helpertext={touched.engine && errors.engine}
+                                    >
+                                        <MenuItem value="gasoline">gasoline</MenuItem>
+                                        <MenuItem value="diesel">diesel</MenuItem>
+                                        <MenuItem value="electric">electric</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Driver</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        name="driver"
+                                        label="driver"
+                                        variant="standard"
+                                        value={values?.driver}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        error={touched.driver && Boolean(errors.driver)}
+                                        helpertext={touched.driver && errors.driver}
+                                    >
+                                        {userData?.map((item) => (
+                                            <MenuItem key={item._id} value={item._id}>
+                                                {item?.userName}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
                                 <Box
                                     sx={{
                                         display: "flex",
@@ -169,6 +201,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
     );
 }
 
+export default CreateUpdateCar;
 CreateUpdateCar.propTypes = {
     selectedData: PropTypes.object,
     editable: PropTypes.bool,
