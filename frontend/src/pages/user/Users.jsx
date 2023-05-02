@@ -17,8 +17,8 @@ function Users() {
     refetch,
     createOpen,
     setCreateOpen,
-    selectedUserData,
-    setSelectedUserData,
+    selectedData,
+    setselectedData,
     editable,
     setEditable,
   } = React.useContext(UserContext);
@@ -109,14 +109,13 @@ function Users() {
       <Typography variant="h4" color="textSecondary" marginLeft={4} marginTop={4}>
         {name}
       </Typography>
-      {/* <DataGrid rows={userData} columns={columns} getRowId={getRowId} /> */}
-      {createOpen || selectedUserData ? (
+      {createOpen || selectedData ? (
         <>
           <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
             <Tooltip title="Back">
               <IconButton
                 onClick={() => {
-                  setSelectedUserData(null), setEditable(false), setCreateOpen(false);
+                  setselectedData(null), setEditable(false), setCreateOpen(false);
                 }}
                 size="small"
               >
@@ -124,7 +123,7 @@ function Users() {
               </IconButton>
             </Tooltip>
 
-            {selectedUserData ? (
+            {selectedData ? (
               <>
                 {" "}
                 <Tooltip title="Editable">
@@ -135,10 +134,7 @@ function Users() {
                   />
                 </Tooltip>
                 <Tooltip title="Delete">
-                  <IconButton
-                    size="small"
-                    onClick={() => console.log("delete" + selectedUserData._id)}
-                  >
+                  <IconButton size="small" onClick={() => console.log("delete" + selectedData._id)}>
                     <DeleteIcon size="small" />
                   </IconButton>
                 </Tooltip>
@@ -146,7 +142,7 @@ function Users() {
             ) : (
               <></>
             )}
-            <CreateUpdateUser selectedUserData={selectedUserData} editable={editable} />
+            <CreateUpdateUser selectedData={selectedData} editable={editable} />
           </Container>
         </>
       ) : (
@@ -155,17 +151,16 @@ function Users() {
           <Datatable
             columns={columns}
             rows={userData}
+            createOpen={createOpen}
+            setCreateOpen={setCreateOpen}
+            setselectedData={setselectedData}
+            editable={editable}
+            setEditable={setEditable}
+            getRowId={getRowId}
             // isLoading={isLoading}
             // error={error}
             // refetch={refetch}
             // name="Users"
-            createOpen={createOpen}
-            setCreateOpen={setCreateOpen}
-            selectedUserData={selectedUserData}
-            setSelectedUserData={setSelectedUserData}
-            editable={editable}
-            setEditable={setEditable}
-            getRowId={getRowId}
           />
         </>
       )}

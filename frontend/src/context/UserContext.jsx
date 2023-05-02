@@ -12,7 +12,7 @@ export default UserContext;
 
 export const UserProvider = ({ children }) => {
       const [createOpen, setCreateOpen] = useState(false);
-      const [selectedUserData, setSelectedUserData] = useState(null);
+      const [selectedData, setselectedData] = useState(null);
       const [editable, setEditable] = useState(false);
     const name = "Users";
   const { showToast } = React.useContext(ToastContext);
@@ -45,15 +45,15 @@ export const UserProvider = ({ children }) => {
       <UserContext.Provider
         value={{
             name,
-          userData,
-          isLoading,
-          error,
-          refetch,
-          showToast,
+            userData,
+            isLoading,
+            error,
+            refetch,
+            showToast,
             createOpen,
             setCreateOpen,
-            selectedUserData,
-            setSelectedUserData,
+            selectedData,
+            setselectedData,
             editable,
             setEditable,
             

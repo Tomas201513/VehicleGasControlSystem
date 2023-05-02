@@ -15,7 +15,7 @@ import { Formik, Form } from "formik";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 
-function CreateUpdateUser({ selectedUserData, editable }) {
+function CreateUpdateUser({ selectedData, editable }) {
   const FormSchema = yup.object().shape({
     userName: yup.string().required("Username is required"),
     email: yup.string().required("Email is required"),
@@ -34,10 +34,10 @@ function CreateUpdateUser({ selectedUserData, editable }) {
     <>
       <Formik
         initialValues={{
-          userName: selectedUserData?.userName || "",
-          email: selectedUserData?.email || "",
-          password: selectedUserData?.password || "",
-          roles: selectedUserData?.roles[0] || "",
+          userName: selectedData?.userName || "",
+          email: selectedData?.email || "",
+          password: selectedData?.password || "",
+          roles: selectedData?.roles[0] || "",
         }}
         validationSchema={FormSchema}
         onSubmit={(values) => {
@@ -46,7 +46,7 @@ function CreateUpdateUser({ selectedUserData, editable }) {
       >
         {({ errors, touched, values, handleChange }) => (
           <Form>
-            {selectedUserData ? (
+            {selectedData ? (
               <>
                 <CardHeader
                   subheader="The information can be edited"
@@ -145,7 +145,7 @@ function CreateUpdateUser({ selectedUserData, editable }) {
 export default CreateUpdateUser;
 
 CreateUpdateUser.propTypes = {
-    selectedUserData: PropTypes.object.isRequired,
+    selectedData: PropTypes.object.isRequired,
     };
     
 

@@ -13,29 +13,15 @@ import {
 import {
   Box,
   Card,
-  Grid,
   Button,
-  IconButton,
-  Tooltip,
-  Container,
-  Typography,
-  FormGroup,
-  FormControlLabel,
-  Switch,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import MdAddBox from "@mui/icons-material/AddBox";
-import { margin } from "@mui/system";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DeleteIcon from "@mui/icons-material/Delete";
-import CreateUpdateUser from "src/pages/user/CreateUpdateUser"
-
-
-export default function Datatable ({columns, rows,getRowId,createOpen,setCreateOpen,selectedUserData,setSelectedUserData,editable,setEditable}) {
+export default function Datatable ({columns, rows,getRowId,createOpen,setCreateOpen,setselectedData,setsetselectedData,editable,setEditable}) {
 
  
   const handleRowClick = (params) => {
-    setSelectedUserData(params.row);
+    setsetselectedData(params.row);
     console.log(params.row);
   };
   function CustomToolbar() {
@@ -133,8 +119,8 @@ Datatable.propTypes = {
   getRowId: PropTypes.func.isRequired,
   createOpen: PropTypes.bool.isRequired,
   setCreateOpen: PropTypes.func.isRequired,
-  selectedUserData: PropTypes.object.isRequired,
-  setSelectedUserData: PropTypes.func.isRequired,
+  setselectedData: PropTypes.object.isRequired,
+  setsetselectedData: PropTypes.func.isRequired,
   editable: PropTypes.bool.isRequired,
   setEditable: PropTypes.func.isRequired,
 };
