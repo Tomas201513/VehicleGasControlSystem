@@ -20,9 +20,9 @@ import { Scrollbar } from '../../components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
 
-export const SideNav = ({open, onClose}) => {
+export const SideNav = ({ open, onClose }) => {
   const { pathname } = useLocation();
-   const isDesktop = useResponsive("up", "lg");
+  const isDesktop = useResponsive("up", "lg");
 
   const content = (
     // <Scrollbar
@@ -36,101 +36,101 @@ export const SideNav = ({open, onClose}) => {
     //     }
     //   }}
     // >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%'
-        }}
-      >
-        <Box sx={{ p: 3 }}>
-          <Box
-            // component={NextLink}
-            href="/"
-            sx={{
-              display: 'inline-flex',
-              height: 32,
-              width: 32
-            }}
-          >
-            <Logo />
-          </Box>
-          <Box
-            sx={{
-              alignItems: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              borderRadius: 1,
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'space-between',
-              mt: 2,
-              p: '12px'
-            }}
-          >
-            <div>
-              <Typography
-                color="inherit"
-                variant="h5"
-                  sx={{ color: '#15B79E' }}
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%'
+      }}
+    >
+      <Box sx={{ p: 3 }}>
+        <Box
+          // component={NextLink}
+          href="/"
+          sx={{
+            display: 'inline-flex',
+            height: 32,
+            width: 32
+          }}
+        >
+          <Logo />
+        </Box>
+        <Box
+          sx={{
+            alignItems: 'center',
+            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            borderRadius: 1,
+            cursor: 'pointer',
+            display: 'flex',
+            justifyContent: 'space-between',
+            mt: 2,
+            p: '12px'
+          }}
+        >
+          <div>
+            <Typography
+              color="inherit"
+              variant="h5"
+              sx={{ color: '#15B79E' }}
 
 
-              >
-                ፌቄስ 
-              </Typography>
-              {"Gas Station"}
-              {/* <Typography
+            >
+              ፌቄስ
+            </Typography>
+            {"Gas Station"}
+            {/* <Typography
                 color="neutral.400"
                 variant="body2"
               >
                 Production
               </Typography> */}
-            </div>
-            <SvgIcon
-              fontSize="small"
-              sx={{ color: 'neutral.500' }}
-            >
-              <ChevronUpDownIcon />
-            </SvgIcon>
-          </Box>
+          </div>
+          <SvgIcon
+            fontSize="small"
+            sx={{ color: 'neutral.500' }}
+          >
+            <ChevronUpDownIcon />
+          </SvgIcon>
         </Box>
-        <Divider sx={{ borderColor: 'neutral.700' }} />
-        <Box
-          component="nav"
+      </Box>
+      <Divider sx={{ borderColor: 'neutral.700' }} />
+      <Box
+        component="nav"
+        sx={{
+          flexGrow: 1,
+          px: 2,
+          py: 3
+        }}
+      >
+        <Stack
+          component="ul"
+          spacing={0.5}
           sx={{
-            flexGrow: 1,
-            px: 2,
-            py: 3
+            listStyle: 'none',
+            p: 0,
+            m: 0
           }}
         >
-          <Stack
-            component="ul"
-            spacing={0.5}
-            sx={{
-              listStyle: 'none',
-              p: 0,
-              m: 0
-            }}
-          >
-            {items.map((item) => {
-              const active = item.path ? (pathname === item.path) : false;
+          {items.map((item) => {
+            const active = item.path ? (pathname === item.path) : false;
 
-              return (
-                <SideNavItem
-                  active={active}
-                  disabled={item.disabled}
-                  external={item.external}
-                  icon={item.icon}
-                  key={item.title}
-                  path={item.path}
-                  title={item.title}
-                />
-              );
-            })}
-          </Stack>
-        </Box>
-        <Divider sx={{ borderColor: 'neutral.700' }} />
-        
+            return (
+              <SideNavItem
+                active={active}
+                disabled={item.disabled}
+                external={item.external}
+                icon={item.icon}
+                key={item.title}
+                path={item.path}
+                title={item.title}
+              />
+            );
+          })}
+        </Stack>
       </Box>
+      <Divider sx={{ borderColor: 'neutral.700' }} />
+
+    </Box>
     // </Scrollbar>
   );
 
@@ -141,10 +141,10 @@ export const SideNav = ({open, onClose}) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: '#1c2536',
-            color: 'common.white',
-            width: 280
-          }
+            backgroundColor: "#202124",
+            color: "common.white",
+            width: 280,
+          },
         }}
         variant="permanent"
       >

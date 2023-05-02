@@ -1,44 +1,47 @@
 import React from 'react';
 import Datatable from 'src/components/datatable/Datatable';
 import UserContext from 'src/context/UserContext';
-import { Typography, Box, Button, IconButton, Tooltip, Container, FormGroup, FormControlLabel, Switch } from '@mui/material';
-import CreateUpdateUser from './CreateUpdateUser';
+import { Typography, IconButton, Tooltip, Container, FormControlLabel, Switch } from '@mui/material';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CreateUpdateUser from './CreateUpdateUser';
 
 function Users() {
-    const getRowId = (row) => row._id;
+  const getRowId = (row) => row._id;
 
   const {
     name,
     userData,
     isLoading,
     error,
-    refetch,
     createOpen,
     setCreateOpen,
     selectedData,
-    setselectedData,
+    setSelectedData,
     editable,
     setEditable,
+    handleRowClick,
+    deleteUser,
   } = React.useContext(UserContext);
-   const columns = [
+
+  const columns = [
     {
       field: '_id',
       headerName: 'ID',
-      flex: 0.3,  
+      flex: 0.3,
       minWidth: 30,
-      type: 'number', 
+      type: 'number',
       hideable: true,
       // fontSize: 12,
-    },  
+    },
     {
       field: 'userName',
       headerName: 'USERNAME',
       flex: 0.7,
       minWidth: 130,
-        editable: true,
-      type: 'string', 
+      editable: true,
+      type: 'string',
     },
     {
       field: 'email',
@@ -49,7 +52,7 @@ function Users() {
       type: 'email',
     },
     {
-     field: 'password',
+      field: 'password',
       headerName: 'PASSWORD',
       flex: 0.7,
       minWidth: 110,
@@ -60,49 +63,30 @@ function Users() {
       field: 'roles',
       headerName: 'Role',
       flex: 0.7,
-      minWidth: 110,
+      maxWidth: 200,
+      minWidth: 30,
       editable: true,
       type: 'string',
     },
-    // {
-    //    field: "actions",
-    //    type : "actions",
-    //     // headerName: "ACTIONS",
-    //     flex: 0.7,
-    //     minWidth: 110,
-    //     renderCell: (params) => {
-    //       return (
-    //         // <Box>
-    //         <>
-    //           <IconButton>
-    //             <EditIcon
-    //               style={{ color: "#666666", cursor: "pointer" }}
+    {
+      field: "actions",
+      type: "actions",
+      // headerName: "ACTIONS",
+      flex: 0.7,
+      maxWidth: 100,
+      minWidth: 60,
+      renderCell: (params) => {
+        return (
+          <IconButton>
+            <ArrowForwardIcon
+              style={{ color: "#666666", cursor: "pointer" }}
 
-    //               // onClick={() => handleEditOpen(params.row)}
-    //             />
-    //           </IconButton>
-    //           <IconButton>
-    //             <VisibilityIcon
-    //               style={{ color: "#666666", cursor: "pointer" }}
-    //               // onClick={() => handleOpenMenu(params.row)}
-    //             />
-    //           </IconButton>
-    //           <IconButton>
-    //             <DeleteIcon
-    //               style={{ color: "#666666", cursor: "pointer" }}
-    //               // onClick={() => handleDeleteOpen(params.row)}
-    //             />
-    //           </IconButton>
-
-    //           {/* <Accessablity 
-    //              handleEditOpen={() => handleEditOpen(params.row)}
-    //              handleDeleteOpen={() => handleDeleteOpen(params.row)}
-    //           /> */}
-    //         </>
-    //         // </Box>
-    //       );
-    //     }
-    // },
+              onClick={() => handleRowClick(params.row)}
+            />
+          </IconButton>
+        );
+      }
+    },
   ];
   return (
     <>
@@ -115,7 +99,7 @@ function Users() {
             <Tooltip title="Back">
               <IconButton
                 onClick={() => {
-                  setselectedData(null), setEditable(false), setCreateOpen(false);
+                  setSelectedData(null), setEditable(false), setCreateOpen(false);
                 }}
                 size="small"
               >
@@ -134,33 +118,35 @@ function Users() {
                   />
                 </Tooltip>
                 <Tooltip title="Delete">
-                  <IconButton size="small" onClick={() => console.log("delete" + selectedData._id)}>
-                    <DeleteIcon size="small" />
+                  <IconButton size="small" onClick={() => deleteUser(selectedData._id)}>
+                    <DeleteIcon size="small" color="error" />
                   </IconButton>
                 </Tooltip>
               </>
             ) : (
               <></>
             )}
-            <CreateUpdateUser selectedData={selectedData} editable={editable} />
+            <CreateUpdateUser
+              selectedData={selectedData}
+              editable={editable}
+              setEditable={setEditable}
+              createOpen={createOpen}
+            />
           </Container>
         </>
       ) : (
         <>
-          {" "}
           <Datatable
             columns={columns}
             rows={userData}
             createOpen={createOpen}
             setCreateOpen={setCreateOpen}
-            setselectedData={setselectedData}
             editable={editable}
             setEditable={setEditable}
             getRowId={getRowId}
-            // isLoading={isLoading}
-            // error={error}
-            // refetch={refetch}
-            // name="Users"
+            isLoading={isLoading}
+            error={error}
+            name={name}
           />
         </>
       )}
@@ -171,4 +157,4 @@ export default Users;
 
 
 
-    
+

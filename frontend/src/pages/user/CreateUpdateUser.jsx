@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import {
   Button,
   Stack,
@@ -14,8 +14,11 @@ import {
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import PropTypes from "prop-types";
+import UserContext from "src/context/UserContext";
+function CreateUpdateUser({ selectedData, editable, setEditable }) {
 
-function CreateUpdateUser({ selectedData, editable }) {
+  const { createUser, updateUser } = React.useContext(UserContext);
+
   const FormSchema = yup.object().shape({
     userName: yup.string().required("Username is required"),
     email: yup.string().required("Email is required"),
@@ -30,6 +33,20 @@ function CreateUpdateUser({ selectedData, editable }) {
     roles: yup.string().required("Role is required"),
   });
 
+  const handleSubmit = async (values) => {
+    try {
+      if (selectedData) {
+        // console.log(selectedData._id);
+        await updateUser({ selectedData: selectedData._id, values });
+      } else {
+        console.log(values);
+        await createUser(values);
+      }
+      setEditable(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <Formik
@@ -40,29 +57,15 @@ function CreateUpdateUser({ selectedData, editable }) {
           roles: selectedData?.roles[0] || "",
         }}
         validationSchema={FormSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={handleSubmit}
+
+
       >
         {({ errors, touched, values, handleChange }) => (
           <Form>
-            {selectedData ? (
-              <>
-                <CardHeader
-                  subheader="The information can be edited"
-                  title="User Detail"
-                  sx={{ mb: 2 }}
-                />
-              </>
-            ) : (
-              <>
-                <CardHeader
-                //   subheader="The information can be edited"
-                  title="Create User"
-                  sx={{ mb: 2 }}
-                />
-              </>
-            )}
+            <CardHeader
+              title={selectedData ? "Update Car" : "Create Car"}
+            />
 
             <CardContent sx={{ pt: 0 }}>
               <Box sx={{ m: -1.5 }}>
@@ -132,7 +135,7 @@ function CreateUpdateUser({ selectedData, editable }) {
             </CardContent>
             {editable && (
               <Button color="primary" variant="contained" type="submit">
-                Submit
+                {selectedData ? "Update" : "Create"}
               </Button>
             )}
           </Form>
@@ -145,9 +148,14 @@ function CreateUpdateUser({ selectedData, editable }) {
 export default CreateUpdateUser;
 
 CreateUpdateUser.propTypes = {
-    selectedData: PropTypes.object.isRequired,
-    };
-    
+  selectedData: PropTypes.object.isRequired,
+  editable: PropTypes.bool.isRequired,
+  createOpen: PropTypes.bool.isRequired,
+  createUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired,
+  setEditable: PropTypes.func.isRequired,
+};
+
 
 
 
