@@ -41,6 +41,15 @@ export const UpdateCar = async (values) => {
     console.log("No token");
   }
 };
+export const GetCarDetail = async (id) => {
+  if (localStorage.getItem("accessToken")) {
+    const res = await axios.get(`${api}${id}/`);
+    return res.data;
+  } else {
+    console.log("No token");
+  }
+};
+
 
 
 // export const DeleteCars= async (id) => {

@@ -106,9 +106,12 @@ function Cars() {
     ];
     return (
         <>
+
             <Typography variant="h4" color="textSecondary" marginLeft={4} marginTop={4}>
                 {name}
             </Typography>
+
+
             {createOpen || selectedData ? (
                 <>
                     <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
@@ -169,6 +172,7 @@ function Cars() {
                     />
                 </>
             )}
+
         </>
     );
 }

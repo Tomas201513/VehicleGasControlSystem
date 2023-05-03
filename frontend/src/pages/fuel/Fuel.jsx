@@ -44,7 +44,7 @@ function Fuel() {
     { field: "fuelAmount", headerName: "Fuel Amount", width: 150 },
     { field: "fuelDate", headerName: "Fuel Date", width: 150 },
     {
-      field: "car_id", headerName: "Car ID", width: 150, valueGetter: (params) => {
+      field: "car_id", headerName: "Car", width: 150, valueGetter: (params) => {
         return params.row.car_id.plateNumber;
       }
     },

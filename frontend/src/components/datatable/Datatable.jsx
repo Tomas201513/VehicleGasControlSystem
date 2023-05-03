@@ -32,12 +32,12 @@ export default function Datatable({
 }) {
   function CustomToolbar() {
     return (
-      <GridToolbarContainer sx={{ border: 0, marginBottom: 5 }}>
-        <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
-        <GridToolbarDensitySelector />
-        <GridToolbarExport />
-        <GridToolbarQuickFilter />
+      <GridToolbarContainer sx={{ border: 0, marginBottom: 5, }}>
+        <GridToolbarColumnsButton sx={{ color: "black" }} />
+        <GridToolbarFilterButton sx={{ color: "black" }} />
+        <GridToolbarDensitySelector sx={{ color: "black" }} />
+        <GridToolbarExport sx={{ color: "black" }} />
+        <GridToolbarQuickFilter sx={{ color: "black" }} />
         <Box sx={{ flexGrow: 1 }} />
         <Button
           variant="plain"
@@ -48,7 +48,7 @@ export default function Datatable({
           sx={{
             mr: 2,
             // height: 30,
-            color: "#1976d2",
+            color: "black",
             // backgroundColor: "#1976d2",
             // "&:hover": {
             //   backgroundColor: "#1976d2",

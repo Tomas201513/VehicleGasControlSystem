@@ -91,7 +91,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                     >
                                         {carData?.map((car) => (
                                             <MenuItem key={car._id} value={car._id}>
-                                                {car.plateNumber}
+                                                {car?.plateNumber}
                                             </MenuItem>
                                         ))}
                                     </Select>
@@ -113,7 +113,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                     >
                                         {userData?.map((user) => (
                                             <MenuItem key={user._id} value={user._id}>
-                                                {user.userName}
+                                                {user?.userName}
                                             </MenuItem>
                                         ))}
                                     </Select>

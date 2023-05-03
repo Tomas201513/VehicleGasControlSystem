@@ -26,9 +26,10 @@ export const FuelProvider = ({ children }) => {
         isLoading,
         error,
         refetch,
-    } = useQuery(name, GetFuel, {
+    } = useQuery('fuels', GetFuel, {
         staleTime: 0,
     });
+    console.log(`fuelData`, fuelData);
 
     // CreateFuel
     const { mutateAsync: createFuel } = useMutation(CreateFuel, {

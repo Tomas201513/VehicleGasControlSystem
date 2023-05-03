@@ -14,6 +14,7 @@ import {
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import PropTypes from "prop-types";
+import QRcodeCode from "src/components/QRcodeCode";
 import CarContext from "../../context/CarContext";
 import UserContext from "../../context/UserContext";
 
@@ -197,6 +198,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                     </Form>
                 )}
             </Formik>
+            <QRcodeCode id={selectedData?._id} />
         </>
     );
 }

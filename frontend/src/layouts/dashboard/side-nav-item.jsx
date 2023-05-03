@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, ButtonBase } from '@mui/material';
 
-export const SideNavItem = ({ active, icon, path, title}) => {
+export const SideNavItem = ({ active, icon, path, title }) => {
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
   // const linkProps = path
   //   ? external
   //     ? {
@@ -20,7 +20,7 @@ const navigate = useNavigate();
   return (
     <li key={title}>
       <ButtonBase
-      onClick={() => navigate(path)}
+        onClick={() => navigate(path)}
         sx={{
           alignItems: 'center',
           borderRadius: 1,
@@ -32,13 +32,13 @@ const navigate = useNavigate();
           textAlign: 'left',
           width: '100%',
           ...(active && {
-            backgroundColor: 'rgba(255, 255, 255, 0.04)'
+            backgroundColor: 'rgba(255, 255, 255, 0.06)'
           }),
           '&:hover': {
             backgroundColor: 'rgba(255, 255, 255, 0.04)'
           }
         }}
-        // {...linkProps}
+      // {...linkProps}
       >
         {icon && (
           <Box
@@ -70,9 +70,9 @@ const navigate = useNavigate();
             ...(active && {
               color: 'common.white'
             }),
-          //   ...(disabled && {
-          //     color: 'neutral.500'
-          //   })
+            //   ...(disabled && {
+            //     color: 'neutral.500'
+            //   })
           }}
         >
           {title}

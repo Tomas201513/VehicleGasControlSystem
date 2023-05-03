@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetCar, CreateCar, UpdateCar, DeleteCar } from "src/apis/CarApi";
+import { GetCar, CreateCar, UpdateCar, DeleteCar, GetCarDetail } from "src/apis/CarApi";
 
 const CarContext = React.createContext({});
 
@@ -12,6 +12,7 @@ export const CarProvider = ({ children }) => {
   const [createOpen, setCreateOpen] = React.useState(false);
   const [selectedData, setSelectedData] = React.useState(null);
   const [editable, setEditable] = React.useState(false);
+  const [scanned, setScanned] = React.useState(false);
   const name = "Cars";
   const { showToast } = React.useContext(ToastContext);
   const handleRowClick = (params) => {
@@ -26,10 +27,18 @@ export const CarProvider = ({ children }) => {
     isLoading,
     error,
     refetch,
-  } = useQuery(name, GetCar, {
+  } = useQuery("cars", GetCar, {
     staleTime: 0,
   });
-  console.log(carData);
+  console.log(`carData`, carData);
+
+  // GetCarDetail
+  const { data: carDetail } = useQuery(["carDetail", scanned], () => GetCarDetail(scanned), {
+    enabled: !!scanned,
+    staleTime: 0,
+  });
+  console.log(`carDetail`, carDetail);
+
   // CreateCar
   const { mutateAsync: createCar } = useMutation(CreateCar, {
     onSuccess: () => {
@@ -74,6 +83,9 @@ export const CarProvider = ({ children }) => {
       value={{
         name,
         carData,
+        carDetail,
+        scanned,
+        setScanned,
         isLoading,
         error,
         refetch,

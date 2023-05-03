@@ -8,7 +8,7 @@ import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import { SvgIcon } from '@mui/material';
 import { AiFillCar } from "react-icons/ai";
-
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 export const items = [
   {
     title: 'Dashboard',
@@ -45,5 +45,14 @@ export const items = [
       </SvgIcon>
     )
   },
-  
+  {
+    title: 'Scan',
+    path: '/scan',
+    icon: (
+      <SvgIcon fontSize="small">
+        <QrCodeScannerIcon />
+      </SvgIcon>
+    )
+  },
+
 ];

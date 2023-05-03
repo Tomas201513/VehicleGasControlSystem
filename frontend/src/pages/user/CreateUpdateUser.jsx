@@ -151,7 +151,7 @@ CreateUpdateUser.propTypes = {
   selectedData: PropTypes.object.isRequired,
   editable: PropTypes.bool.isRequired,
   createOpen: PropTypes.bool.isRequired,
-  createUser: PropTypes.func.isRequired,
+  createUser: PropTypes.func,
   updateUser: PropTypes.func.isRequired,
   setEditable: PropTypes.func.isRequired,
 };

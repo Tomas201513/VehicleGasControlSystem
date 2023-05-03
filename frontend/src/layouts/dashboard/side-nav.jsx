@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
 import ChevronUpDownIcon from '@heroicons/react/24/solid/ChevronUpDownIcon';
@@ -19,6 +18,7 @@ import { Logo } from 'src/components/logo';
 import { Scrollbar } from '../../components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
+
 
 export const SideNav = ({ open, onClose }) => {
   const { pathname } = useLocation();
@@ -53,12 +53,12 @@ export const SideNav = ({ open, onClose }) => {
             width: 32
           }}
         >
-          <Logo />
+          {/* <Logo /> */}
         </Box>
         <Box
           sx={{
             alignItems: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            backgroundColor: 'rgba(255, 255, 255, 0.06)',
             borderRadius: 1,
             cursor: 'pointer',
             display: 'flex',
@@ -71,7 +71,7 @@ export const SideNav = ({ open, onClose }) => {
             <Typography
               color="inherit"
               variant="h5"
-              sx={{ color: '#15B79E' }}
+              sx={{ color: '#fff' }}
 
 
             >
@@ -173,3 +173,8 @@ export const SideNav = ({ open, onClose }) => {
   );
 };
 
+
+SideNav.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
+};
