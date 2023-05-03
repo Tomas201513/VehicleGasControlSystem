@@ -14,7 +14,7 @@ export const getCars = async (req, res) => {
 export const getCarById = async (req, res) => {
   try {
     const car = await Car.findById(req.params.id).populate('driver');
-    res.status(200).json(car);
+    res.status(200).json([car]);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -24,7 +24,7 @@ export const getCarById = async (req, res) => {
 export const createCar = async (req, res) => {
   try {
     const user = await User.findById(req.body.driver);
-    
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -32,7 +32,7 @@ export const createCar = async (req, res) => {
     await newCar.save();
     res.status(201).json(newCar);
   } catch (error) {
-        const statusCode = error.name === 'ValidationError' ? 400 : 500;
+    const statusCode = error.name === 'ValidationError' ? 400 : 500;
     res.status(statusCode).json({ message: error.message });
   }
 };
@@ -40,8 +40,8 @@ export const createCar = async (req, res) => {
 // Update a car
 export const updateCar = async (req, res) => {
   try {
-        const user = await User.findById(req.body.driver);
-        console.log(user)
+    const user = await User.findById(req.body.driver);
+    console.log(user)
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -69,6 +69,6 @@ export const deleteCar = async (req, res) => {
 };
 
 
-  
- 
+
+
 

@@ -1,6 +1,9 @@
 import FuelIntake from "../models/fuel.model.js";
 import User from "../models/user.model.js";
 import Car from "../models/car.model.js";
+import mongoose from "mongoose";
+import { ObjectId } from "mongodb";
+
 const fuelIntakeController = {
   getAll: async (req, res) => {
     try {
@@ -12,19 +15,17 @@ const fuelIntakeController = {
   },
   getAllByCar: async (req, res) => {
     try {
-      const carId = req.params.carId;
-
-      const fuelIntakes = await FuelIntake.find({ car_id: carId }).populate([
-        "car_id",
-        "attendant",
-        { path: "car_id", populate: { path: "driver" } },
-      ]);
-
-      res.json(fuelIntakes);
+      // const carId = req.params.carId;
+      // const fuelIntakes = await FuelIntake.find({ car_id: carId })
+      // res.json(fuelIntakes);
+      const car_id = req.params.carId;
+      const fuelIntakeDetails = await getFuelIntakeDetails(car_id);
+      res.status(200).json(fuelIntakeDetails);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   },
+
 
   getOne: async (req, res) => {
     try {
@@ -36,6 +37,8 @@ const fuelIntakeController = {
   },
 
   create: async (req, res) => {
+    const fuelIntakeLimit = 1000;
+
     try {
       // Find the user by ID
       const attendant = await User.findById(req.body.attendant);
@@ -101,3 +104,95 @@ const fuelIntakeController = {
 };
 
 export default fuelIntakeController;
+async function getTotalFuelIntake(car_id) {
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+  console.log("fuelIntakes");
+
+  const startDate = new Date(currentYear, currentMonth - 1, 1);
+  const endDate = new Date(currentYear, currentMonth, 1);
+
+  const fuelIntakes = await FuelIntake.find({
+    car_id: car_id,
+    fuelDate: { $gte: startDate, $lt: endDate },
+  });
+
+  const totalFuelIntake = fuelIntakes.reduce(
+    (total, intake) => total + intake.fuelAmount,
+    0
+  );
+
+  return totalFuelIntake;
+}
+
+export async function getFuelIntakeForCurrentMonth(car_id) {
+  console.log("fuelIntakes");
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+  console.log("fuelIntakes");
+
+  const startDate = new Date(currentYear, currentMonth - 1, 1);
+  const endDate = new Date(currentYear, currentMonth, 1);
+  const fuelIntakes = await FuelIntake.aggregate([
+    {
+      $match: {
+        car_id: new ObjectId(car_id),
+        fuelDate: { $gte: startDate, $lt: endDate },
+      },
+    },
+    {
+      $group: {
+        _id: "$car_id",
+        totalFuelAmount: { $sum: "$fuelAmount" },
+        fuelIntakes: { $push: "$$ROOT" },
+      },
+    },
+  ]);
+  console.log("fuelIntakes");
+  console.log(fuelIntakes);
+
+  return fuelIntakes;
+}
+async function getFuelIntakeDetails(car_id) {
+  const currentMonthFuelIntake = await getFuelIntakeForCurrentMonth(car_id);
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+  console.log(car_id);
+  console.log(currentMonth);
+  console.log(currentYear);
+
+
+  const startDate = new Date(currentYear, currentMonth - 1, 1);
+  console.log(startDate);
+  const fuelIntakes = await FuelIntake.aggregate([
+    {
+      $match: {
+        car_id: new ObjectId(car_id),
+        fuelDate: { $lt: startDate },
+      },
+    },
+    {
+      $group: {
+        _id: {
+          month: { $month: "$fuelDate" },
+          year: { $year: "$fuelDate" },
+        },
+        totalFuelAmount: { $sum: "$fuelAmount" },
+        fuelIntakes: { $push: "$$ROOT" },
+      },
+    },
+    {
+      $sort: {
+        "_id.year": 1,
+        "_id.month": 1,
+      },
+    },
+  ]);
+  console.log(fuelIntakes);
+
+  return [...currentMonthFuelIntake, ...fuelIntakes];
+}

@@ -3,6 +3,8 @@ import QrScanner from 'qr-scanner';
 import { Box, Button, Stack } from "@mui/material";
 import CarContext from '../../context/CarContext';
 import FuelContext from '../../context/FuelContext';
+import { List, ListItem, ListItemText, Typography } from '@mui/material';
+
 function Scan() {
     const { carDetail, setScanned, scanned } = useContext(CarContext);
     const { fuelDataByCar } = useContext(FuelContext);
@@ -38,18 +40,39 @@ function Scan() {
     return (
         <>
             <Stack direction="column" spacing={'5%'}>
-                <Box sx={{ width: '200px', height: '100px', margin: 'auto' }}>
+
+                <Button variant="contained" onClick={handleOpenCamera}>
+                    {cameraOpen ? 'Close Camera' : 'Open Camera'}
+                </Button>
+                {cameraOpen ? (<Box sx={{ width: '200px', height: '100px', margin: 'auto' }}>
                     <video
                         ref={videoRef}
                         style={{ display: cameraOpen ? 'block' : 'none', width: '100%', height: 'auto' }}
                     />
-                </Box>
-                {/* {!cameraOpen && ( */}
-                <Button variant="contained" onClick={handleOpenCamera}>
-                    {cameraOpen ? 'Close Camera' : 'Open Camera'}
-                </Button>
-                <Box sx={{ width: '100%', height: 'auto', maxWidth: '500px' }}>
-                    {scanned && <>{scanned ? (carDetail ? (<>{JSON.stringify(fuelDataByCar, carDetail)}</>) : (<>{"no  car with this qrcode"}</>)) : <p>Unabl to Scan a QR code</p>}</>}
+                </Box>) : (<></>)}
+
+                <Box sx={{ width: 'auto', height: 'auto' }}>
+
+                    {scanned && <>{scanned ? (carDetail ? (<>
+                        <Typography>CAR DETAIL</Typography>
+                        <List>
+                            {carDetail.map((propp) => (
+                                <ListItem key={propp._id}>
+                                    <ListItemText primary={propp.plateNumber} secondary={propp.color} />
+                                </ListItem>
+                            ))}
+                        </List>
+                        <Typography>Car Fuel DETAIL</Typography>
+                        {/* <List>
+                            {fuelDataByCar.map((prop) => (
+                                <ListItem key={prop._id}>
+                                    <ListItemText primary={prop.fuelAmount} secondary={prop.fuelDate} />
+                                </ListItem>
+                            ))}
+                        </List> */}
+                        {JSON.stringify(fuelDataByCar)}
+
+                    </>) : (<>{"no  car with this qrcode"}</>)) : <p>Unabl to Scan a QR code</p>}</>}
                 </Box>
             </Stack>
         </>
@@ -57,3 +80,11 @@ function Scan() {
 }
 
 export default Scan
+
+    // < Box sx = {{ width: '100px', height: 'auto' }}>
+
+    //     { scanned && <>{scanned ? (carDetail ? (<>
+    //         {JSON.stringify(fuelDataByCar)}{<br></br>}{<br></br>}{<br></br>}{JSON.stringify(carDetail)}
+
+    //     </>) : (<>{"no  car with this qrcode"}</>)) : <p>Unabl to Scan a QR code</p>}</>}
+    //             </ >
