@@ -36,8 +36,8 @@ function Scan() {
     }
     return (
         <>
-            <Stack direction="column" spacing={15}>
-                <Box sx={{ width: '100%', height: 'auto', maxWidth: '500px' }}>
+            <Stack direction="column" spacing={'5%'}>
+                <Box sx={{ width: '200px', height: '100px', margin: 'auto' }}>
                     <video
                         ref={videoRef}
                         style={{ display: cameraOpen ? 'block' : 'none', width: '100%', height: 'auto' }}
@@ -48,7 +48,7 @@ function Scan() {
                     {cameraOpen ? 'Close Camera' : 'Open Camera'}
                 </Button>
                 <Box sx={{ width: '100%', height: 'auto', maxWidth: '500px' }}>
-                    {cameraOpen || carDetail && JSON.stringify(carDetail)}
+                    {scanned && <>{scanned ? (carDetail ? (<>{JSON.stringify(carDetail)}</>) : (<>{"no  car with this qrcode"}</>)) : <p>Unabl to Scan a QR code</p>}</>}
                 </Box>
             </Stack>
         </>

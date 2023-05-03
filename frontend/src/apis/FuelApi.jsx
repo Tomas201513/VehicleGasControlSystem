@@ -3,6 +3,7 @@ import axios from "axios";
 // import axiosInstance from "src/utils/useAxiosInterceptors";
 
 const api = "http://127.0.0.1:8000/api/fuel/";
+const api2 = "http://127.0.0.1:8000/api/fuel/car/";
 
 export const GetFuel = async () => {
   // if (localStorage.getItem("accessToken")) {
@@ -12,6 +13,15 @@ export const GetFuel = async () => {
   //   console.log("No token");
   // }
 };
+export const GetFuelByCar = async (id) => {
+  // if (localStorage.getItem("accessToken")) {
+  const res = await axios.get(`${api2}${id}/`);
+  return res.data;
+  // } else {
+  //   console.log("No token");
+  // }
+};
+
 
 export const DeleteFuel = async (id) => {
   if (localStorage.getItem("accessToken")) {
