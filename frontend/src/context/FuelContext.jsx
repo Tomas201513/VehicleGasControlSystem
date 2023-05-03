@@ -3,12 +3,13 @@ import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
 import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel } from "src/apis/FuelApi";
-
+import CarContext from "./CarContext";
 const FuelContext = React.createContext({});
 
 export default FuelContext;
 
 export const FuelProvider = ({ children }) => {
+    const { scanned } = React.useContext(CarContext);
     const [createOpen, setCreateOpen] = React.useState(false);
     const [selectedData, setSelectedData] = React.useState(null);
     const [editable, setEditable] = React.useState(false);
@@ -37,11 +38,11 @@ export const FuelProvider = ({ children }) => {
         isLoading: isLoadingByCar,
         error: errorByCar,
         refetch: refetchByCar,
-    } = useQuery('fuelsByCar', GetFuelByCar, {
+    } = useQuery(['fuelsByCar', scanned], () => GetFuelByCar(scanned), {
         staleTime: 0,
+        enabled: !!scanned,
     });
     console.log(`fuelDataByCar`, fuelDataByCar);
-
 
     // CreateFuel
     const { mutateAsync: createFuel } = useMutation(CreateFuel, {

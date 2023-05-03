@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import QrScanner from 'qr-scanner';
 import { Box, Button, Stack } from "@mui/material";
 import CarContext from '../../context/CarContext';
-
+import FuelContext from '../../context/FuelContext';
 function Scan() {
     const { carDetail, setScanned, scanned } = useContext(CarContext);
+    const { fuelDataByCar } = useContext(FuelContext);
     const videoRef = useRef(null);
     const [cameraOpen, setCameraOpen] = useState(false);
 
@@ -48,7 +49,7 @@ function Scan() {
                     {cameraOpen ? 'Close Camera' : 'Open Camera'}
                 </Button>
                 <Box sx={{ width: '100%', height: 'auto', maxWidth: '500px' }}>
-                    {scanned && <>{scanned ? (carDetail ? (<>{JSON.stringify(carDetail)}</>) : (<>{"no  car with this qrcode"}</>)) : <p>Unabl to Scan a QR code</p>}</>}
+                    {scanned && <>{scanned ? (carDetail ? (<>{JSON.stringify(fuelDataByCar, carDetail)}</>) : (<>{"no  car with this qrcode"}</>)) : <p>Unabl to Scan a QR code</p>}</>}
                 </Box>
             </Stack>
         </>
