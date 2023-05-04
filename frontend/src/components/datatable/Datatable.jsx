@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useTheme } from "@mui/material/styles";
 import {
   DataGrid,
   GridToolbarContainer,
@@ -14,11 +15,13 @@ import {
   Card,
   Button,
   Typography,
+  Container,
+  Stack,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import MdAddBox from "@mui/icons-material/AddBox";
+// import MdAddBox from "@mui/icons-material/AddBox";
 import { BeatLoader } from "react-spinners";
-
+import AddIcon from '@mui/icons-material/Add';
 export default function Datatable({
   columns,
   rows,
@@ -32,53 +35,56 @@ export default function Datatable({
 }) {
   function CustomToolbar() {
     return (
-      <GridToolbarContainer sx={{ border: 0, marginBottom: 5, }}>
-        <GridToolbarColumnsButton sx={{ color: "black" }} />
-        <GridToolbarFilterButton sx={{ color: "black" }} />
-        <GridToolbarDensitySelector sx={{ color: "black" }} />
-        <GridToolbarExport sx={{ color: "black" }} />
-        <GridToolbarQuickFilter sx={{ color: "black" }} />
+      <GridToolbarContainer sx={{ mb: 5, width: 'auto' }}>
+        <Stack direction="row" spacing={2}>
+          <Stack direction="column" spacing={5}>
+            <Box >
+              <GridToolbarColumnsButton sx={{ color: "black" }} />
+              <GridToolbarFilterButton sx={{ color: "black" }} />
+              <GridToolbarDensitySelector sx={{ color: "black" }} />
+              <GridToolbarExport sx={{ color: "black" }} />
+            </Box>
+          </Stack>
+        </Stack>
         <Box sx={{ flexGrow: 1 }} />
-        <Button
-          variant="plain"
-          onClick={() => {
-            setCreateOpen(true), setEditable(true);
-          }}
-          startIcon={<MdAddBox />}
-          sx={{
-            mr: 2,
-            // height: 30,
-            color: "black",
-            // backgroundColor: "#1976d2",
-            // "&:hover": {
-            //   backgroundColor: "#1976d2",
-            //   color: "#fff",
-            // },
-          }}
-        >
-          {`Create User ${name}`}
-        </Button>
-        {/* <Box sx={{ marginLeft: 200 }} /> */}
+        <Stack direction="row" spacing={2}>
+          <Stack direction="column" spacing={2}>
+
+            <GridToolbarQuickFilter sx={{ color: "black" }} />
+          </Stack>
+        </Stack>
       </GridToolbarContainer>
+
     );
   }
 
   return (
     <>
-      <Card
-        style={{
+      <Container maxWidth="xl" sx={{ marginTop: "5vh" }}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: 5 }}>
+          <Typography sx={{
+            fontSize: "2.5rem",
+            fontWeight: "bold",
+            color: "#58595b",
 
-          height: "200vh",
-          width: "100%",
-          marginTop: "2vh",
-          // marginLeft: "5%",
-          // marginRight: "5%",
-          // backgroundColor: "red",
-          boarder: 0,
-          // boarderColor: "#fff",
-          shadow: 0,
-        }}
-      >
+          }}>{name}</Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button
+            size="large"
+            variant="contained"
+            startIcon={<AddIcon />}
+            sx={{
+              borderRadius: "20px",
+              backgroundColor: "#1976d2",
+            }}
+            onClick={() => {
+              setCreateOpen(true), setEditable(true);
+            }}
+          >
+            {"Add"}
+          </Button>
+        </Box>
+        < Box sx={{ flexGrow: 1 }} />
         <motion.div
           initial={{ opacity: 0, scale: 0.99, height: "70vh" }}
           animate={{ opacity: 1, scale: 1 }}
@@ -100,8 +106,8 @@ export default function Datatable({
                 border: 0,
                 boxShadow: 0,
                 borderColor: "#fff",
-                ml: 4,
-                mr: 4,
+                // ml: 4,
+                // mr: 4,
                 height: "85vh",
                 "& .MuiDataGrid-columnHeaders": {
                   fontWeight: "normal",
@@ -111,7 +117,8 @@ export default function Datatable({
               rows={rows}
               getRowId={getRowId}
               pageSize={10}
-              // checkboxSelection
+              density="comfortable"
+              checkboxSelection
               // onRowClick={handleRowClick}
               // onCellDoubleClick={handleRowClick}
               // onRowDoubleClick={handleRowClick}
@@ -126,11 +133,12 @@ export default function Datatable({
                     _id: false,
                   },
                 },
+
               }}
             />
           )}
         </motion.div>
-      </Card>
+      </Container>
     </>
   );
 }
