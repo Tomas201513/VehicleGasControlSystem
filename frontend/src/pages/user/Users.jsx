@@ -94,46 +94,13 @@ function Users() {
         {name}
       </Typography> */}
       {createOpen || selectedData ? (
-        <>
-          <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
-            <Tooltip title="Back">
-              <IconButton
-                onClick={() => {
-                  setSelectedData(null), setEditable(false), setCreateOpen(false);
-                }}
-                size="small"
-              >
-                <ArrowBackIcon size="small" />
-              </IconButton>
-            </Tooltip>
+        <CreateUpdateUser
+          selectedData={selectedData}
+          editable={editable}
+          setEditable={setEditable}
+          createOpen={createOpen}
+        />
 
-            {selectedData ? (
-              <>
-                {" "}
-                <Tooltip title="Editable">
-                  <FormControlLabel
-                    control={<Switch />}
-                    label="edit"
-                    onChange={() => setEditable(!editable)}
-                  />
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <IconButton size="small" onClick={() => deleteUser(selectedData._id)}>
-                    <DeleteIcon size="small" color="error" />
-                  </IconButton>
-                </Tooltip>
-              </>
-            ) : (
-              <></>
-            )}
-            <CreateUpdateUser
-              selectedData={selectedData}
-              editable={editable}
-              setEditable={setEditable}
-              createOpen={createOpen}
-            />
-          </Container>
-        </>
       ) : (
         <>
           <Datatable
@@ -154,7 +121,6 @@ function Users() {
   );
 }
 export default Users;
-
 
 
 

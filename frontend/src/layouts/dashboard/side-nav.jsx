@@ -15,7 +15,7 @@ import {
 import useResponsive from 'src/hooks/useResponsive';
 import { Logo } from 'src/components/logo';
 // import { Scrollbar } from 'src/components/scrollbar';
-import { Scrollbar } from '../../components/scrollbar';
+// import { Scrollbar } from '../../components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
 

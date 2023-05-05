@@ -13,6 +13,7 @@ const LayoutRoot = styled('div')(({ theme }) => ({
   flex: '1 1 auto',
   maxWidth: '100%',
   height: '100vh',
+  // backgroundColor: "#f8f9fa",
   [theme.breakpoints.up('lg')]: {
     paddingLeft: SIDE_NAV_WIDTH
   }
@@ -49,13 +50,13 @@ export default function DashboardLayout() {
     <>
       <TopNav onNavOpen={() => setOpenNav(true)} />
       <SideNav
-      onClose={() => setOpenNav(false)}
+        onClose={() => setOpenNav(false)}
         open={openNav}
       />
       <LayoutRoot>
         <LayoutContainer>
-        {/* <Breadcrumb/> */}
-          <Outlet/>
+          {/* <Breadcrumb/> */}
+          <Outlet />
         </LayoutContainer>
       </LayoutRoot>
     </>

@@ -21,8 +21,8 @@ const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
 import useResponsive from 'src/hooks/useResponsive';
 
-export const TopNav = ({onNavOpen}) => {
-    const isDesktop = useResponsive("up", "lg");
+export const TopNav = ({ onNavOpen }) => {
+  const isDesktop = useResponsive("up", "lg");
   return (
     <>
       <Box
@@ -105,11 +105,11 @@ export const TopNav = ({onNavOpen}) => {
               }}
               // src="/assets/avatars/avatar-anika-visser.png"
             /> */}
-            <AccountPopover/>
+            <AccountPopover />
           </Stack>
         </Stack>
       </Box>
-     
+
     </>
   );
 };

@@ -13,7 +13,7 @@ export const FuelProvider = ({ children }) => {
     const [createOpen, setCreateOpen] = React.useState(false);
     const [selectedData, setSelectedData] = React.useState(null);
     const [editable, setEditable] = React.useState(false);
-    const name = "Cars";
+    const name = "Fuel";
     const { showToast } = React.useContext(ToastContext);
     const handleRowClick = (params) => {
         console.log(params);

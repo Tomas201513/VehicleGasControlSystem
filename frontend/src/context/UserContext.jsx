@@ -12,6 +12,8 @@ export const UserProvider = ({ children }) => {
   const [createOpen, setCreateOpen] = React.useState(false);
   const [selectedData, setSelectedData] = React.useState(null);
   const [editable, setEditable] = React.useState(false);
+  const [warn, SetWarn] = React.useState(false);
+
   const name = "Users";
   const { showToast } = React.useContext(ToastContext);
   const handleRowClick = (params) => {
@@ -85,8 +87,8 @@ export const UserProvider = ({ children }) => {
         createUser,
         updateUser,
         deleteUser,
-
-
+        warn,
+        SetWarn,
       }}
     >
       {children}

@@ -10,14 +10,23 @@ import {
   CardContent,
   CardHeader,
   Box,
+  IconButton,
+  Tooltip,
+  FormControlLabel,
+  Switch,
+  Container,
+  Typography,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 import UserContext from "src/context/UserContext";
+import Warnialogue from "src/components/Warnialogue";
 function CreateUpdateUser({ selectedData, editable, setEditable }) {
 
-  const { createUser, updateUser } = React.useContext(UserContext);
+  const { createUser, updateUser, setSelectedData, setCreateOpen, deleteUser, warn, SetWarn } = React.useContext(UserContext);
 
   const FormSchema = yup.object().shape({
     userName: yup.string().required("Username is required"),
@@ -63,85 +72,141 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
       >
         {({ errors, touched, values, handleChange }) => (
           <Form>
-            <CardHeader
+            {/* <CardHeader
               title={selectedData ? "Update Car" : "Create Car"}
-            />
+            /> */}
+            <Container maxWidth="md" sx={{ marginTop: "13vh", maxWidth: 600 }}>
 
-            <CardContent sx={{ pt: 0 }}>
-              <Box sx={{ m: -1.5 }}>
-                <Stack spacing={2}>
-                  <TextField
-                    InputProps={{
-                      readOnly: !editable,
+              <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'10%'}>
+
+                <Tooltip title="Back">
+                  <IconButton
+                    onClick={() => {
+                      setSelectedData(null), setEditable(false), setCreateOpen(false);
                     }}
-                    autoFocus={editable}
-                    fullWidth
-                    label="Username"
-                    name="userName"
-                    value={values?.userName}
-                    onChange={handleChange}
-                    error={Boolean(touched.userName && errors.userName)}
-                    helperText={touched.userName && errors.userName}
-                  />
+                    size="small"
+                  >
+                    <ArrowBackIcon size="small" />
+                  </IconButton>
+                </Tooltip>
+                <Box sx={{ flexGrow: 1 }} />
+                {selectedData ? (
 
-                  <TextField
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                    fullWidth
-                    label="Email"
-                    name="email"
-                    value={values?.email}
-                    onChange={handleChange}
-                    error={Boolean(touched.email && errors.email)}
-                    helperText={touched.email && errors.email}
-                  />
+                  <>
+                    <Tooltip title="Editable">
+                      <FormControlLabel
+                        control={<Switch />}
+                        label="edit"
+                        onChange={() => setEditable(!editable)}
+                      />
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <IconButton size="small" onClick={() => SetWarn(true)}>
+                        <DeleteIcon size="small" color="error" />
+                      </IconButton>
 
-                  <TextField
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                    fullWidth
-                    label="Password"
-                    name="password"
-                    value={values?.password}
-                    onChange={handleChange}
-                    error={Boolean(touched.password && errors.password)}
-                    helperText={touched.password && errors.password}
-                  />
+                    </Tooltip>
+                    <Typography>{'Delete'}</Typography>
 
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                    <Select
-                      inputProps={{
+                  </>) : (
+                  <></>
+                )}
+              </Box>
+              <CardContent sx={{ pt: 0, mb: '5%' }}>
+                <Box sx={{ m: -1.5 }}>
+                  <Stack spacing={2}>
+                    <TextField
+                      InputProps={{
                         readOnly: !editable,
                       }}
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      name="roles"
-                      value={values?.roles}
+                      variant="standard"
+                      disabled={!editable}
+                      autoFocus={editable}
+                      fullWidth
+                      label="Username"
+                      name="userName"
+                      value={values?.userName}
                       onChange={handleChange}
-                      error={Boolean(touched.roles && errors.roles)}
-                      helperText={touched.roles && errors.roles}
-                    >
-                      <MenuItem value={"admin"}>Admin</MenuItem>
-                      <MenuItem value={"attendant"}>attendant</MenuItem>
-                      <MenuItem value={"driver"}>driver</MenuItem>
-                      <MenuItem value={"super_admin"}>super_admin</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Stack>
-              </Box>
-            </CardContent>
-            {editable && (
-              <Button color="primary" variant="contained" type="submit">
-                {selectedData ? "Update" : "Create"}
-              </Button>
-            )}
+                      error={Boolean(touched.userName && errors.userName)}
+                      helperText={touched.userName && errors.userName}
+                    />
+
+                    <TextField
+                      InputProps={{
+                        readOnly: !editable,
+                      }}
+                      variant="standard"
+                      disabled={!editable}
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      value={values?.email}
+                      onChange={handleChange}
+                      error={Boolean(touched.email && errors.email)}
+                      helperText={touched.email && errors.email}
+                    />
+
+                    <TextField
+                      InputProps={{
+                        readOnly: !editable,
+                      }}
+                      variant="standard"
+                      disabled={!editable}
+                      fullWidth
+                      label="Password"
+                      name="password"
+                      value={values?.password}
+                      onChange={handleChange}
+                      error={Boolean(touched.password && errors.password)}
+                      helperText={touched.password && errors.password}
+                    />
+
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                      <Select
+                        inputProps={{
+                          readOnly: !editable,
+                        }}
+                        variant="standard"
+                        disabled={!editable}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        name="roles"
+                        value={values?.roles}
+                        onChange={handleChange}
+                        error={Boolean(touched.roles && errors.roles)}
+                        helperText={touched.roles && errors.roles}
+                      >
+                        <MenuItem value={"admin"}>Admin</MenuItem>
+                        <MenuItem value={"attendant"}>attendant</MenuItem>
+                        <MenuItem value={"driver"}>driver</MenuItem>
+                        <MenuItem value={"super_admin"}>super_admin</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Stack>
+                </Box>
+              </CardContent>
+              {editable && (
+                <Button b style={{ backgroundColor: '#4276a8' }}
+                  variant="contained" type="submit" fullWidth>
+                  {selectedData ? "Update" : "Create"}
+                </Button>
+              )}
+            </Container>
+
           </Form>
         )}
-      </Formik>
+      </Formik >
+      <Warnialogue
+        open={warn}
+        setOpen={SetWarn}
+        title={"Delete User"}
+        content={"Are you sure you want to delete this user?"}
+        action={deleteUser}
+        selectedData={selectedData}
+      />
     </>
+
   );
 }
 
@@ -155,7 +220,6 @@ CreateUpdateUser.propTypes = {
   updateUser: PropTypes.func.isRequired,
   setEditable: PropTypes.func.isRequired,
 };
-
 
 
 

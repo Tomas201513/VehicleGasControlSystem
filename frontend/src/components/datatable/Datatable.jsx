@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useTheme } from "@mui/material/styles";
 import {
   DataGrid,
   GridToolbarContainer,
@@ -12,16 +11,18 @@ import {
 } from "@mui/x-data-grid";
 import {
   Box,
-  Card,
   Button,
   Typography,
   Container,
   Stack,
+  IconButton,
+  Tooltip
 } from "@mui/material";
 import { motion } from "framer-motion";
 // import MdAddBox from "@mui/icons-material/AddBox";
 import { BeatLoader } from "react-spinners";
 import AddIcon from '@mui/icons-material/Add';
+import { useStyles } from "src/components/scrollbar";
 export default function Datatable({
   columns,
   rows,
@@ -33,82 +34,103 @@ export default function Datatable({
   error,
 
 }) {
+  const classes = useStyles();
+
   function CustomToolbar() {
     return (
-      <GridToolbarContainer sx={{ mb: 5, width: 'auto' }}>
+      <GridToolbarContainer sx={{ mb: 5, width: 'auto' }} >
         <Stack direction="row" spacing={2}>
           <Stack direction="column" spacing={5}>
             <Box >
-              <GridToolbarColumnsButton sx={{ color: "black" }} />
-              <GridToolbarFilterButton sx={{ color: "black" }} />
-              <GridToolbarDensitySelector sx={{ color: "black" }} />
-              <GridToolbarExport sx={{ color: "black" }} />
+              <GridToolbarColumnsButton sx={{ color: "#58595b" }} />
+              <GridToolbarFilterButton sx={{ color: "#58595b" }} />
+              <GridToolbarDensitySelector sx={{ color: "#58595b" }} />
+              <GridToolbarExport sx={{ color: "#58595b" }} />
             </Box>
           </Stack>
         </Stack>
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" spacing={2}>
           <Stack direction="column" spacing={2}>
-
-            <GridToolbarQuickFilter sx={{ color: "black" }} />
+            <GridToolbarQuickFilter sx={{ color: "#58595b", width: 'auto' }} />
           </Stack>
         </Stack>
-      </GridToolbarContainer>
+      </GridToolbarContainer >
 
     );
   }
 
   return (
     <>
-      <Container maxWidth="xl" sx={{ marginTop: "5vh" }}>
-        <Box sx={{ display: "flex", alignItems: "center", mb: 5 }}>
+      <Container maxWidth="xl" sx={{ marginTop: "5vh" }} className={classes.root}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: "0vh", padding: 3 }}>
           <Typography sx={{
             fontSize: "2.5rem",
             fontWeight: "bold",
             color: "#58595b",
+            textShadow: "1px 1px 2px #ccc",
 
           }}>{name}</Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Button
-            size="large"
-            variant="contained"
-            startIcon={<AddIcon />}
+          {/* <IconButton size="large" onClick={() => { setCreateOpen(true), setEditable(true) }}
             sx={{
-              borderRadius: "20px",
-              backgroundColor: "#1976d2",
-            }}
-            onClick={() => {
-              setCreateOpen(true), setEditable(true);
+                            mr: 5,
+
+              backgroundColor: "#4276a8", "&:hover": {
+                backgroundColor: "#1565c0",
+              },
             }}
           >
-            {"Add"}
-          </Button>
+
+            <AddIcon sx={{ color: "#fff" }} />
+          </IconButton> */}
+          <Tooltip title="Add User">
+            <Button
+              size="small"
+              variant="contained"
+              // startIcon={<AddIcon />}
+              sx={{
+                mr: '5%',
+                borderRadius: "7px",
+                backgroundColor: "#4276a8",
+                "&:hover": {
+                  backgroundColor: "#1565c0",
+                },
+              }}
+              onClick={() => {
+                setCreateOpen(true), setEditable(true);
+              }}
+            >
+              {"Add"}
+            </Button>
+          </Tooltip>
+
         </Box>
-        < Box sx={{ flexGrow: 1 }} />
         <motion.div
           initial={{ opacity: 0, scale: 0.99, height: "70vh" }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
         >
           {isLoading ? (
-            <Box margin="50vw" marginTop="40vh">
+            <Box marginLeft="34vw" marginTop="10vh">
               <BeatLoader color="#1976d2" />
             </Box>
           ) : error ? (
-            <Box marginLeft="50vw" marginTop="40vh">
-              <Typography variant="h4" color="textSecondary">
+            <Box marginLeft="33vw" marginTop="10vh">
+              <Typography variant="h6" color="textSecondary">
                 Error fetching data
               </Typography>
             </Box>
           ) : (
             <DataGrid
               sx={{
+                marginTop: 2,
+                marginBottom: 2,
                 border: 0,
-                boxShadow: 0,
-                borderColor: "#fff",
-                // ml: 4,
-                // mr: 4,
-                height: "85vh",
+                boxShadow: 0.5,
+                borderColor: "grey.500",
+                padding: 4,
+                height: "120vh",
                 "& .MuiDataGrid-columnHeaders": {
                   fontWeight: "normal",
                 },
@@ -119,10 +141,6 @@ export default function Datatable({
               pageSize={10}
               density="comfortable"
               checkboxSelection
-              // onRowClick={handleRowClick}
-              // onCellDoubleClick={handleRowClick}
-              // onRowDoubleClick={handleRowClick}
-              // editMode="row"
               rowHeight={60}
               slots={{
                 toolbar: CustomToolbar,
@@ -133,12 +151,12 @@ export default function Datatable({
                     _id: false,
                   },
                 },
-
               }}
             />
+
           )}
         </motion.div>
-      </Container>
+      </Container >
     </>
   );
 }

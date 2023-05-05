@@ -9,11 +9,15 @@ import { UserProvider } from "src/context/UserContext";
 import { CarProvider } from "src/context/CarContext";
 import { FuelProvider } from "./context/FuelContext";
 import { ReactQueryDevtools } from "react-query/devtools";
+// import "/src/App";
+import { useStyles } from "src/components/scrollbar";
 
 function App() {
+  const classes = useStyles();
+
   const queryClient = new QueryClient();
   return (
-    <>
+    <div className={classes.root}>
       <HelmetProvider>
         <CssBaseline />
         <ErrorBoundary>
@@ -33,7 +37,7 @@ function App() {
           </QueryClientProvider>
         </ErrorBoundary>
       </HelmetProvider>
-    </>
+    </div>
 
 
   )
