@@ -61,7 +61,7 @@ function Users() {
     },
     {
       field: 'roles',
-      headerName: 'Role',
+      headerName: 'ROLE',
       flex: 0.7,
       maxWidth: 200,
       minWidth: 30,
@@ -71,7 +71,7 @@ function Users() {
     {
       field: "actions",
       type: "actions",
-      // headerName: "ACTIONS",
+      headerName: "ACTIONS",
       flex: 0.7,
       maxWidth: 100,
       minWidth: 60,
@@ -90,9 +90,6 @@ function Users() {
   ];
   return (
     <>
-      {/* <Typography variant="h4" color="textSecondary" marginLeft={4} marginTop={4}>
-        {name}
-      </Typography> */}
       {createOpen || selectedData ? (
         <CreateUpdateUser
           selectedData={selectedData}
@@ -100,22 +97,21 @@ function Users() {
           setEditable={setEditable}
           createOpen={createOpen}
         />
-
       ) : (
-        <>
-          <Datatable
-            columns={columns}
-            rows={userData}
-            createOpen={createOpen}
-            setCreateOpen={setCreateOpen}
-            editable={editable}
-            setEditable={setEditable}
-            getRowId={getRowId}
-            isLoading={isLoading}
-            error={error}
-            name={name}
-          />
-        </>
+
+        <Datatable
+          columns={columns}
+          rows={userData}
+          createOpen={createOpen}
+          setCreateOpen={setCreateOpen}
+          editable={editable}
+          setEditable={setEditable}
+          getRowId={getRowId}
+          isLoading={isLoading}
+          error={error}
+          name={name}
+        />
+
       )}
     </>
   );

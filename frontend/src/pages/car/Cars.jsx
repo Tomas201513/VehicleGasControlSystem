@@ -9,11 +9,9 @@ import {
     FormControlLabel,
     Switch,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateCar from "./CreateUpdateCar";
-
+import QrCode2Icon from '@mui/icons-material/QrCode2';
 function Cars() {
     const getRowId = (row) => row._id;
     const {
@@ -29,6 +27,12 @@ function Cars() {
         setEditable,
         handleRowClick,
         deleteCar,
+        warn,
+        SetWarn,
+        qr,
+        setQr,
+        qrId,
+        setQrId,
     } = React.useContext(CarContext);
 
     const columns = [
@@ -40,14 +44,14 @@ function Cars() {
             type: "number",
             hideable: true,
         },
-        { field: "plateNumber", headerName: "Plate Number", width: 150 },
-        { field: "model", headerName: "Model", width: 150 },
-        { field: "year", headerName: "Year", width: 120 },
-        { field: "color", headerName: "Color", width: 150 },
-        { field: "capacity", headerName: "Capacity", width: 150 },
+        { field: "plateNumber", headerName: "PLATE NUMBER", flex: 0.7, minWidth: 130, editable: true, type: "string" },
+        { field: "model", headerName: "MODEL", flex: 0.7, minWidth: 100, editable: true, type: "string" },
+        { field: "year", headerName: "YEAR", flex: 0.7, minWidth: 110, editable: true, type: "number" },
+        { field: "color", headerName: "COLOR", flex: 0.7, minWidth: 110, editable: true, type: "string" },
+        { field: "capacity", headerName: "CAPACITY", flex: 0.7, minWidth: 110, editable: true, type: "number" },
         {
             field: "engine",
-            headerName: "Engine",
+            headerName: "ENGINE",
             width: 150,
             valueGetter: (params) => {
                 switch (params.row.engine) {
@@ -64,7 +68,7 @@ function Cars() {
         },
         {
             field: "transmission",
-            headerName: "Transmission",
+            headerName: "TRANSMISSION",
             width: 150,
             valueGetter: (params) => {
                 switch (params.row.transmission) {
@@ -79,7 +83,7 @@ function Cars() {
         },
         {
             field: "driver",
-            headerName: "Driver",
+            headerName: "DRIVER",
             width: 150,
             valueGetter: (params) => {
                 return params.row.driver ? params.row.driver.userName : "";
@@ -88,18 +92,28 @@ function Cars() {
         {
             field: "actions",
             type: "actions",
-            // headerName: "ACTIONS",
+            headerName: "ACTIONS",
             flex: 0.7,
-            maxWidth: 100,
-            minWidth: 60,
+            maxWidth: 150,
+            minWidth: 100,
             renderCell: (params) => {
-                return (
+                return (<>
+                    {/* <IconButton>
+                            <QrCode2Icon
+                                style={{ color: "#666666", cursor: "pointer" }}
+                                onClick={() => {
+                                    setQrId(params.row._id); console.log(params.row._id);
+                                    SetWarn(true); setQr(true)
+                                }}
+                            />
+                        </IconButton> */}
                     <IconButton>
                         <ArrowForwardIcon
                             style={{ color: "#666666", cursor: "pointer" }}
                             onClick={() => handleRowClick(params.row)}
                         />
                     </IconButton>
+                </>
                 );
             },
         },
@@ -107,47 +121,14 @@ function Cars() {
     return (
         <>
             {createOpen || selectedData ? (
-                <>
-                    <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
-                        <Tooltip title="Back">
-                            <IconButton
-                                onClick={() => {
-                                    setSelectedData(null), setEditable(false), setCreateOpen(false);
-                                    console.log(selectedData);
-                                }}
-                                size="small"
-                            >
-                                <ArrowBackIcon size="small" />
-                            </IconButton>
-                        </Tooltip>
 
-                        {selectedData ? (
-                            <>
-                                {" "}
-                                <Tooltip title="Editable">
-                                    <FormControlLabel
-                                        control={<Switch />}
-                                        label="edit"
-                                        onChange={() => setEditable(!editable)}
-                                    />
-                                </Tooltip>
-                                <Tooltip title="Delete">
-                                    <IconButton size="small" onClick={() => deleteCar(selectedData._id)}>
-                                        <DeleteIcon size="small" color="error" />
-                                    </IconButton>
-                                </Tooltip>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        <CreateUpdateCar
-                            selectedData={selectedData}
-                            editable={editable}
-                            setEditable={setEditable}
-                            createOpen={createOpen}
-                        />
-                    </Container>
-                </>
+                <CreateUpdateCar
+                    selectedData={selectedData}
+                    editable={editable}
+                    setEditable={setEditable}
+                    createOpen={createOpen}
+                />
+
             ) : (
                 <>
 

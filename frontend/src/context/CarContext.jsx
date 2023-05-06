@@ -13,6 +13,9 @@ export const CarProvider = ({ children }) => {
   const [selectedData, setSelectedData] = React.useState(null);
   const [editable, setEditable] = React.useState(false);
   const [scanned, setScanned] = React.useState(false);
+  const [warn, SetWarn] = React.useState(false);
+  const [qr, setQr] = React.useState(false);
+  const [qrId, setQrId] = React.useState(null);
   const name = "Cars";
   const { showToast } = React.useContext(ToastContext);
   const handleRowClick = (params) => {
@@ -99,6 +102,13 @@ export const CarProvider = ({ children }) => {
         createCar,
         updateCar,
         deleteCar,
+        warn,
+        SetWarn,
+        qr,
+        setQr,
+        qrId,
+        setQrId,
+
       }}
     >
       {children}

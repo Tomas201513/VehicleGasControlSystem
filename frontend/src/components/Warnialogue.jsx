@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Draggable from 'react-draggable';
 import propTypes from 'prop-types';
+import QRcode from './QRcode';
 
 function PaperComponent(props) {
     return (
@@ -20,32 +21,36 @@ function PaperComponent(props) {
     );
 }
 
-export default function Warnialogue({ open, setOpen, title, content, action, selectedData }) {
+export default function Warnialogue({ open, setOpen, title, content, action, selectedData, qr, setQr, qrId,
+    setQrId }) {
 
     const handleClose = () => {
         setOpen(false);
+        setQr(false);
+        setQrId(null);
     };
 
     return (
         <div>
             <Dialog
-                open={open}
+                open={open || qr || qrId}
                 onClose={handleClose}
                 PaperComponent={PaperComponent}
                 aria-labelledby="draggable-dialog-title"
             >
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-                    {title}
+                    {qr ? "QR Code" : title}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {content}
+                        {qr ? qrId ? <QRcode id={qrId} /> : <QRcode id={selectedData?._id} /> : content}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={() => { action(selectedData._id); handleClose() }} color="error">
+                    {qr ? <></> : <Button autoFocus onClick={() => { action(selectedData._id); handleClose() }} color="error">
                         Delete
-                    </Button>
+                    </Button>}
+
                     <Button onClick={handleClose} color="primary"> Cancel </Button>
                 </DialogActions>
             </Dialog>
@@ -60,6 +65,13 @@ Warnialogue.propTypes = {
     content: propTypes.string.isRequired,
     action: propTypes.func.isRequired,
     selectedData: propTypes.object.isRequired,
+    qr: propTypes.bool.isRequired,
+    setQr: propTypes.func.isRequired,
+    qrId: propTypes.string.isRequired,
+    setQrId: propTypes.func.isRequired,
 };
 
-
+// {
+//     selectedData ?
+//         <QRcode id={selectedData?._id} /> : <></>
+// }

@@ -30,6 +30,7 @@ function Fuel() {
     setEditable,
     handleRowClick,
     deleteFuel,
+
   } = React.useContext(FuelContext);
 
   const columns = [
@@ -41,22 +42,22 @@ function Fuel() {
       type: "number",
       hideable: true,
     },
-    { field: "fuelAmount", headerName: "Fuel Amount", width: 150 },
-    { field: "fuelDate", headerName: "Fuel Date", width: 150 },
+    { field: "fuelAmount", headerName: "FUEL AMOUNT", flex: 0.7, minWidth: 130 },
+    { field: "fuelDate", headerName: "FUEL DATE", flex: 0.7, minWidth: 100 },
     {
-      field: "car_id", headerName: "Car", width: 150, valueGetter: (params) => {
-        return params.row.car_id.plateNumber;
+      field: "car_id", headerName: "CAR", width: 150, valueGetter: (params) => {
+        return params.row?.car_id?.plateNumber;
       }
     },
     {
-      field: "attendant", headerName: "Attendant", width: 150, valueGetter: (params) => {
-        return params.row.attendant.userName;
+      field: "attendant", headerName: "ATTENDANT", width: 150, valueGetter: (params) => {
+        return params.row?.attendant?.userName;
       }
     },
     {
       field: "actions",
       type: "actions",
-      // headerName: "ACTIONS",
+      headerName: "ACTIONS",
       flex: 0.7,
       maxWidth: 100,
       minWidth: 60,
@@ -76,51 +77,14 @@ function Fuel() {
   return (
     <>
       {createOpen || selectedData ? (
-        <>
-          <Container maxWidth="md" sx={{ marginTop: "2vh" }}>
-            <Tooltip title="Back">
-              <IconButton
-                onClick={() => {
-                  setSelectedData(null), setEditable(false), setCreateOpen(false);
-                  console.log(selectedData);
-                }}
-                size="small"
-              >
-                <ArrowBackIcon size="small" />
-              </IconButton>
-            </Tooltip>
-
-            {selectedData ? (
-              <>
-                {" "}
-                <Tooltip title="Editable">
-                  <FormControlLabel
-                    control={<Switch />}
-                    label="edit"
-                    onChange={() => setEditable(!editable)}
-                  />
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <IconButton size="small" onClick={() => deleteFuel(selectedData._id)}>
-                    <DeleteIcon size="small" color="error" />
-                  </IconButton>
-                </Tooltip>
-              </>
-            ) : (
-              <></>
-            )}
-            <CreateUpdateFuel
-              selectedData={selectedData}
-              editable={editable}
-              setEditable={setEditable}
-              createOpen={createOpen}
-            />
-          </Container>
-        </>
+        <CreateUpdateFuel
+          selectedData={selectedData}
+          editable={editable}
+          setEditable={setEditable}
+          createOpen={createOpen}
+        />
       ) : (
         <>
-
-
           <Datatable
             columns={columns}
             rows={fuelData}

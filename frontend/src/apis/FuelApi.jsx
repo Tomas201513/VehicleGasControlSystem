@@ -33,19 +33,22 @@ export const DeleteFuel = async (id) => {
 };
 
 export const CreateFuel = async (values) => {
-  if (localStorage.getItem("accessToken")) {
-    const res = await axios.post(api, values);
-    return res.data;
-  } else {
-    console.log("No token");
-  }
+  console.log(values);
+  // if (localStorage.getItem("accessToken")) {
+  const res = await axios.post(api, values);
+  return res.data;
+  // } else {
+  //   console.log("No token");
+  // }
 };
 
 export const UpdateFuel = async (values) => {
-  if (localStorage.getItem("accessToken")) {
-    const res = await axios.put(`${api}${values.selectedData}/`, values.values);
-    return res.data;
-  } else {
-    console.log("No token");
-  }
+  console.log(values);
+  console.log('bem');
+  // if (localStorage.getItem("accessToken")) {
+  const res = await axios.put(`${api}${values.selectedData}/`, values.values);
+  return res.data;
+  // } else {
+  //   console.log("No token");
+  // }
 };

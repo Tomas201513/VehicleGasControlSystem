@@ -2,8 +2,9 @@ import PropTypes from "prop-types";
 import React, { useRef } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import html2canvas from 'html2canvas';
+import { Button } from '@mui/material';
 
-function QRcodeCode({ id }) {
+function QRcode({ id }) {
     const qrCodeRef = useRef();
 
     const exportToPng = () => {
@@ -41,14 +42,15 @@ function QRcodeCode({ id }) {
             <div ref={qrCodeRef}>
                 <QRCodeSVG value={id} size={1000} level={"H"} includeMargin={true} width={256} height={256} x={100} y={100} />
             </div>
-            <button onClick={exportToPng}>Export as PNG</button>
+            <Button onClick={exportToPng}>Export as PNG</Button>
+
         </div>
     );
 }
 
-export default QRcodeCode;
+export default QRcode;
 
-QRcodeCode.propTypes = {
+QRcode.propTypes = {
     id: PropTypes.string.isRequired,
 };
 

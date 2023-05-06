@@ -39,6 +39,7 @@ const fuelIntakeController = {
   create: async (req, res) => {
     const fuelIntakeLimit = 1000;
 
+
     try {
       // Find the user by ID
       const attendant = await User.findById(req.body.attendant);
@@ -63,6 +64,8 @@ const fuelIntakeController = {
   },
 
   update: async (req, res) => {
+    console.log(req.body);
+    console.log('dang')
     try {
       // Find the user by ID
       const user = await User.findById(req.body.attendant);

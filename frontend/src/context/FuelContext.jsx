@@ -13,6 +13,7 @@ export const FuelProvider = ({ children }) => {
     const [createOpen, setCreateOpen] = React.useState(false);
     const [selectedData, setSelectedData] = React.useState(null);
     const [editable, setEditable] = React.useState(false);
+    const [warn, SetWarn] = React.useState(false);
     const name = "Fuel";
     const { showToast } = React.useContext(ToastContext);
     const handleRowClick = (params) => {
@@ -55,7 +56,9 @@ export const FuelProvider = ({ children }) => {
         },
         onError: (err) => {
             console.log("couldent update Fuel");
-            showToast(err.message, "error");
+            // showToast(err.message, "error");
+            showToast(err.response.data.message, "error");
+
         },
     });
 
@@ -67,7 +70,8 @@ export const FuelProvider = ({ children }) => {
             refetch();
         },
         onError: (err) => {
-            showToast(err.message, "error");
+            // showToast(err.message, "error");
+            showToast(err.response.data.message, "error");
         },
     });
 
@@ -103,6 +107,8 @@ export const FuelProvider = ({ children }) => {
                 createFuel,
                 updateFuel,
                 deleteFuel,
+                warn,
+                SetWarn,
             }}
         >
             {children}

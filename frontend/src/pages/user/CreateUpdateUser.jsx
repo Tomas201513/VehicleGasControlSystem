@@ -77,7 +77,7 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
             /> */}
             <Container maxWidth="md" sx={{ marginTop: "13vh", maxWidth: 600 }}>
 
-              <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'10%'}>
+              <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'3%'}>
 
                 <Tooltip title="Back">
                   <IconButton
@@ -113,78 +113,78 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                 )}
               </Box>
               <CardContent sx={{ pt: 0, mb: '5%' }}>
-                <Box sx={{ m: -1.5 }}>
-                  <Stack spacing={2}>
-                    <TextField
-                      InputProps={{
+                {/* <Box sx={{ m: -1.5 }}> */}
+                <Stack spacing={2}>
+                  <TextField
+                    InputProps={{
+                      readOnly: !editable,
+                    }}
+                    variant="standard"
+                    disabled={!editable}
+                    autoFocus={editable}
+                    fullWidth
+                    label="Username"
+                    name="userName"
+                    value={values?.userName}
+                    onChange={handleChange}
+                    error={Boolean(touched.userName && errors.userName)}
+                    helperText={touched.userName && errors.userName}
+                  />
+
+                  <TextField
+                    InputProps={{
+                      readOnly: !editable,
+                    }}
+                    variant="standard"
+                    disabled={!editable}
+                    fullWidth
+                    label="Email"
+                    name="email"
+                    value={values?.email}
+                    onChange={handleChange}
+                    error={Boolean(touched.email && errors.email)}
+                    helperText={touched.email && errors.email}
+                  />
+
+                  <TextField
+                    InputProps={{
+                      readOnly: !editable,
+                    }}
+                    variant="standard"
+                    disabled={!editable}
+                    fullWidth
+                    label="Password"
+                    name="password"
+                    value={values?.password}
+                    onChange={handleChange}
+                    error={Boolean(touched.password && errors.password)}
+                    helperText={touched.password && errors.password}
+                  />
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                    <Select
+                      inputProps={{
                         readOnly: !editable,
                       }}
                       variant="standard"
                       disabled={!editable}
-                      autoFocus={editable}
-                      fullWidth
-                      label="Username"
-                      name="userName"
-                      value={values?.userName}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="roles"
+                      value={values?.roles}
                       onChange={handleChange}
-                      error={Boolean(touched.userName && errors.userName)}
-                      helperText={touched.userName && errors.userName}
-                    />
-
-                    <TextField
-                      InputProps={{
-                        readOnly: !editable,
-                      }}
-                      variant="standard"
-                      disabled={!editable}
-                      fullWidth
-                      label="Email"
-                      name="email"
-                      value={values?.email}
-                      onChange={handleChange}
-                      error={Boolean(touched.email && errors.email)}
-                      helperText={touched.email && errors.email}
-                    />
-
-                    <TextField
-                      InputProps={{
-                        readOnly: !editable,
-                      }}
-                      variant="standard"
-                      disabled={!editable}
-                      fullWidth
-                      label="Password"
-                      name="password"
-                      value={values?.password}
-                      onChange={handleChange}
-                      error={Boolean(touched.password && errors.password)}
-                      helperText={touched.password && errors.password}
-                    />
-
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                      <Select
-                        inputProps={{
-                          readOnly: !editable,
-                        }}
-                        variant="standard"
-                        disabled={!editable}
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        name="roles"
-                        value={values?.roles}
-                        onChange={handleChange}
-                        error={Boolean(touched.roles && errors.roles)}
-                        helperText={touched.roles && errors.roles}
-                      >
-                        <MenuItem value={"admin"}>Admin</MenuItem>
-                        <MenuItem value={"attendant"}>attendant</MenuItem>
-                        <MenuItem value={"driver"}>driver</MenuItem>
-                        <MenuItem value={"super_admin"}>super_admin</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Stack>
-                </Box>
+                      error={Boolean(touched.roles && errors.roles)}
+                      helperText={touched.roles && errors.roles}
+                    >
+                      <MenuItem value={"admin"}>Admin</MenuItem>
+                      <MenuItem value={"attendant"}>attendant</MenuItem>
+                      <MenuItem value={"driver"}>driver</MenuItem>
+                      <MenuItem value={"super_admin"}>super_admin</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Stack>
+                {/* </Box> */}
               </CardContent>
               {editable && (
                 <Button b style={{ backgroundColor: '#4276a8' }}
