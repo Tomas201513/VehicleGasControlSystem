@@ -1,60 +1,56 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
+import Slide from '@mui/material/Slide';
 import propTypes from 'prop-types';
 import FuelContext from 'src/context/FuelContext';
+import CarDetailsCard from 'src/components/CarDetailsCard';
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
-export default function ScrollDialog({ carDetail, scanned, setScanned }) {
+export default function ScrollDialog({ scanned, setScanned }) {
     const { fuelDataByCar } = React.useContext(FuelContext);
-    const [scroll, setScroll] = React.useState('paper');
-    console.log('ooooooooooooooooo');
-    const handleClose = (reason) => {
-        // setOpen(false);
+    const handleClose = () => {
         setScanned(false);
     };
-
-    const descriptionElementRef = React.useRef(null);
-
-    React.useEffect(() => {
-        console.log(fuelDataByCar)
-        // setOpen(fuelDataByCar?.length > 0 ? true : false);
-        // setScanned(false);
-        // if (open) {
-        //     const { current: descriptionElement } = descriptionElementRef;
-        //     if (descriptionElement !== null) {
-        //         descriptionElement.focus();
-        //     }
-        // }
-    }, []);
 
     return (
         <div>
             <Dialog
+                fullScreen
                 open={scanned}
                 onClose={handleClose}
-                scroll={scroll}
-                aria-labelledby="scroll-dialog-title"
-                aria-describedby="scroll-dialog-description"
+                TransitionComponent={Transition}
             >
-                <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-                <DialogContent dividers={scroll === 'paper'}>
-                    <DialogContentText
-                        id="scroll-dialog-description"
-                        ref={descriptionElementRef}
-                        tabIndex={-1}
-                    >
-                        {JSON.stringify(carDetail)}
-                        {JSON.stringify(fuelDataByCar)}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
-                </DialogActions>
+                <AppBar sx={{ position: 'relative', backgroundColor: '#4276a8' }}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={handleClose}
+                            aria-label="close"
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                            Car Detail
+                        </Typography>
+                        <Button autoFocus color="inherit" onClick={handleClose}>
+                            Add
+                        </Button>
+                    </Toolbar>
+                </AppBar>
+                <CarDetailsCard fuelDataByCar={fuelDataByCar} />
             </Dialog>
         </div>
     );
@@ -62,7 +58,6 @@ export default function ScrollDialog({ carDetail, scanned, setScanned }) {
 
 ScrollDialog.propTypes = {
     fuelDataByCar: propTypes.array,
-    carDetail: propTypes.object,
     scanned: propTypes.string,
     setScanned: propTypes.func,
 };

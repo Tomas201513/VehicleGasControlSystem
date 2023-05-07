@@ -25,6 +25,7 @@ function Scan() {
                         setScanned={setScanned}
                     />
                 </Box>
+
                 {/* {JSON.stringify(fuelDataByCar)} */}
             </Box>
             <ScrollDialog carDetail={carDetail} scanned={scanned} setScanned={setScanned} />
