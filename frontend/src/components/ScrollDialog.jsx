@@ -14,8 +14,8 @@ import Slide from '@mui/material/Slide';
 import propTypes from 'prop-types';
 import FuelContext from 'src/context/FuelContext';
 import CarDetailsCard from 'src/components/CarDetailsCard';
-
-
+import AlertDialog from 'src/components/AlertDialog';
+import CollapsibleTable from 'src/components/CollapsibleTable';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -30,6 +30,8 @@ export default function ScrollDialog({ scanned, setScanned }) {
     const handleClose = () => {
         setScanned(false);
     };
+    const [open, setOpen] = React.useState(false);
+
 
     return (
 
@@ -51,16 +53,21 @@ export default function ScrollDialog({ scanned, setScanned }) {
                             <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                            Car Details
                         </Typography>
                         <Button autoFocus color="inherit" onClick={() => {
-                            setCreateOpen(true), setEditable(true);
+                            // setCreateOpen(true), setEditable(true);
+                            setOpen(true);
                         }}>
                             Add
                         </Button>
                     </Toolbar>
                 </AppBar>
                 <CarDetailsCard fuelDataByCar={fuelDataByCar} />
+                {/* <CollapsibleTable fuelDataByCar={fuelDataByCar} /> */}
             </Dialog>
+            <AlertDialog open={open} setOpen={setOpen} />
+
         </div>
     );
 }

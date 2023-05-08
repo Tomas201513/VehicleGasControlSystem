@@ -7,7 +7,6 @@ import { List, ListItem, ListItemText, Typography } from '@mui/material';
 import ScrollDialog from '../../components/ScrollDialog';
 import Html5QrcodePlugin from './Qr';
 import CreateUpdateFuel from 'src/pages/fuel/CreateUpdateFuel';
-
 function Scan() {
     const { carDetail, setScanned, scanned } = useContext(CarContext);
     const {
@@ -19,9 +18,10 @@ function Scan() {
         console.log(`Scan result: ${decodedText}`, decodedResult);
         setScanned(decodedText);
     };
+
     return (
         <>
-            {createOpen ? <CreateUpdateFuel selectedData={fuelDataByCar} editable={true} setEditable={setEditable} /> : <>
+            {/* {createOpen ? <CreateUpdateFuel selectedData={fuelDataByCar} editable={true} setEditable={setEditable} /> : <> */}
 
 
             <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -38,7 +38,7 @@ function Scan() {
                 {/* {JSON.stringify(fuelDataByCar)} */}
             </Box>
             <ScrollDialog carDetail={carDetail} scanned={scanned} setScanned={setScanned} />
-            </>}
+            {/* </>} */}
         </>
     );
 }
