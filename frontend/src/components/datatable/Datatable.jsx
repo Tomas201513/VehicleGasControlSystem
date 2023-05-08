@@ -16,7 +16,8 @@ import {
   Container,
   Stack,
   IconButton,
-  Tooltip
+  Tooltip,
+  useMediaQuery
 } from "@mui/material";
 import { motion } from "framer-motion";
 // import MdAddBox from "@mui/icons-material/AddBox";
@@ -35,24 +36,29 @@ export default function Datatable({
 
 }) {
   const classes = useStyles();
+  const isSmallScreen = useMediaQuery('(min-width:600px)');
 
   function CustomToolbar() {
     return (
-      <GridToolbarContainer sx={{ mb: 5, width: 'auto' }} >
+      <GridToolbarContainer sx={{
+        width: 'auto', mb: isSmallScreen ? '5vh' : '0',
+      }}>
         <Stack direction="row" spacing={2}>
           <Stack direction="column" spacing={5}>
             <Box >
-              <GridToolbarColumnsButton sx={{ color: "#58595b" }} />
-              <GridToolbarFilterButton sx={{ color: "#58595b" }} />
-              <GridToolbarDensitySelector sx={{ color: "#58595b" }} />
-              <GridToolbarExport sx={{ color: "#58595b" }} />
+              <GridToolbarColumnsButton sx={{ color: "#58595b", }} size={isSmallScreen ? 'large' : 'small'}
+              />
+              <GridToolbarFilterButton sx={{ color: "#58595b" }} size={isSmallScreen ? 'large' : 'small'} />
+              <GridToolbarDensitySelector sx={{ color: "#58595b" }} size={isSmallScreen ? 'large' : 'small'} />
+              <GridToolbarExport sx={{ color: "#58595b" }} size={isSmallScreen ? 'large' : 'small'} />
+              {isSmallScreen ? <></> : <GridToolbarQuickFilter sx={{ color: "#58595b", width: '190px' }} />}
             </Box>
           </Stack>
         </Stack>
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" spacing={2}>
           <Stack direction="column" spacing={2}>
-            <GridToolbarQuickFilter sx={{ color: "#58595b", width: 'auto' }} />
+            {isSmallScreen ? <GridToolbarQuickFilter sx={{ color: "#58595b", width: '300px' }} /> : <></>}
           </Stack>
         </Stack>
       </GridToolbarContainer >
@@ -62,10 +68,10 @@ export default function Datatable({
 
   return (
     <>
-      <Container maxWidth="xl" sx={{ marginTop: "5vh" }} className={classes.root}>
-        <Box sx={{ display: "flex", alignItems: "center", mb: "0vh", padding: 3 }}>
+      <Container maxWidth="xl" className={classes.root} sx={{ marginTop: isSmallScreen ? "5vh" : "0vh" }}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: "0vh", padding: isSmallScreen ? '3' : '0' }}>
           <Typography sx={{
-            fontSize: "2.5rem",
+            fontSize: isSmallScreen ? '2.5rem' : '2rem',
             fontWeight: "bold",
             color: "#58595b",
             textShadow: "1px 1px 2px #ccc",
@@ -86,7 +92,7 @@ export default function Datatable({
           </IconButton> */}
           <Tooltip title="Add User">
             <Button
-              size="small"
+              size={isSmallScreen ? 'medium' : 'small'}
               variant="contained"
               // startIcon={<AddIcon />}
               sx={{
@@ -123,14 +129,15 @@ export default function Datatable({
             </Box>
           ) : (
             <DataGrid
+                  size={isSmallScreen ? 'large' : 'small'}
               sx={{
-                marginTop: 2,
+                marginTop: isSmallScreen ? '5vh' : '0',
                 marginBottom: 2,
                 border: 0,
                 boxShadow: 0.5,
                 borderColor: "grey.500",
-                padding: 4,
-                height: "120vh",
+                padding: isSmallScreen ? '0' : '4',
+                height: isSmallScreen ? '80vh' : '100vh',
                 "& .MuiDataGrid-columnHeaders": {
                   fontWeight: "normal",
                 },
@@ -139,7 +146,7 @@ export default function Datatable({
               rows={rows}
               getRowId={getRowId}
               pageSize={10}
-              density="comfortable"
+                  density={isSmallScreen ? 'comfortable' : 'standard'}
               checkboxSelection
               rowHeight={60}
               slots={{

@@ -71,7 +71,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                         /> */}
                         <Container maxWidth="md" sx={{ marginTop: "13vh", maxWidth: 600 }}>
 
-                            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'3%'}>
+                            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
 
                                 <Tooltip title="Back">
                                     <IconButton

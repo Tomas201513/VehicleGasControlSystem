@@ -80,7 +80,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                         /> */}
                         <Container maxWidth="md" sx={{ marginTop: "13vh", maxWidth: 600 }}>
 
-                            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'3%'}>
+                            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
 
                                 <Tooltip title="Back">
                                     <IconButton
@@ -280,7 +280,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                 }}
                             >
                                 {editable && (
-                                    <Button b style={{ backgroundColor: '#4276a8' }}
+                                    <Button style={{ backgroundColor: '#4276a8' }}
                                         variant="contained" type="submit" fullWidth>
                                         {selectedData ? "Update" : "Create"}
                                     </Button>

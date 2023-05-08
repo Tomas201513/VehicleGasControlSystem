@@ -14,17 +14,25 @@ import Slide from '@mui/material/Slide';
 import propTypes from 'prop-types';
 import FuelContext from 'src/context/FuelContext';
 import CarDetailsCard from 'src/components/CarDetailsCard';
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function ScrollDialog({ scanned, setScanned }) {
-    const { fuelDataByCar } = React.useContext(FuelContext);
+    const {
+        setCreateOpen,
+        setEditable,
+        fuelDataByCar
+    } = React.useContext(FuelContext);
+
     const handleClose = () => {
         setScanned(false);
     };
 
     return (
+
         <div>
             <Dialog
                 fullScreen
@@ -43,9 +51,10 @@ export default function ScrollDialog({ scanned, setScanned }) {
                             <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            Car Detail
                         </Typography>
-                        <Button autoFocus color="inherit" onClick={handleClose}>
+                        <Button autoFocus color="inherit" onClick={() => {
+                            setCreateOpen(true), setEditable(true);
+                        }}>
                             Add
                         </Button>
                     </Toolbar>

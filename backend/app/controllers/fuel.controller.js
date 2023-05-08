@@ -149,7 +149,10 @@ export async function getFuelIntakeForCurrentMonth(car_id) {
     },
     {
       $group: {
-        _id: "$car_id",
+        _id: {
+          month: { $month: "$fuelDate" },
+          year: { $year: "$fuelDate" },
+        },
         totalFuelAmount: { $sum: "$fuelAmount" },
         fuelIntakes: { $push: "$$ROOT" },
       },
@@ -192,8 +195,8 @@ async function getFuelIntakeDetails(car_id) {
     },
     {
       $sort: {
-        "_id.year": 1,
-        "_id.month": 1,
+        "_id.year": -1,
+        "_id.month": -1,
       },
     },
   ]);
