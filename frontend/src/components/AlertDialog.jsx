@@ -39,7 +39,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, card
     setCardRow, }) {
     const { userData } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
-    const { createFuel } = React.useContext(FuelContext);
+    const { createFuel, fuelDataByCar } = React.useContext(FuelContext);
     const FormSchema = yup.object().shape({
         fuelAmount: yup.number().required("fuel amount is required"),
         // fuelDate: yup.date().required("date is required"),
@@ -77,7 +77,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, card
                     <Formik
                         initialValues={{
                             fuelAmount: cardRow?.fuelAmount || "",
-                            car_id: cardRow?.car_id?._id || "",
+                            car_id: fuelDataByCar?.car?._id || "",  
                             attendant: cardRow?.attendant?._id || "",
                         }}
                         validationSchema={FormSchema}

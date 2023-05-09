@@ -7,6 +7,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import AlertDialog from 'src/components/AlertDialog';
+import Warnialogue from "src/components/Warnialogue";
+import FuelContext from "src/context/FuelContext";
 
 export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, cardRow,
     setCardRow, }) {
@@ -26,6 +28,8 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
     }
     // Extract relevant data from the provided object
     const [open, setOpen] = React.useState(false);
+    const { createFuel, updateFuel, setSelectedData, setCreateOpen, deleteFuel, warn, SetWarn } = React.useContext(FuelContext);
+
 
     // Render the card with the extracted data
     return (
@@ -115,9 +119,9 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', height: '100%', alignItems: 'center' }}>
 
 
-                                <Typography variant="h6" component="div">
-                                    Month: {monthDetail._id.month} Year: {monthDetail._id.year}
-                                </Typography>
+                                    <Typography variant="h6" component="div">
+                                        Month: {monthDetail._id.month} Year: {monthDetail._id.year}
+                                    </Typography>
                                     <Box sx={{ flexGrow: 1 }} />
                                     {index === 0 ?
                                         <IconButton onClick={() => { setOpen(true); }}>
@@ -142,16 +146,19 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                                         <li key={intakeIndex}>
                                             <Box sx={{ display: 'flex', justifyContent: 'flex-end', height: '100%', alignItems: 'center' }}>
                                                 <>
-                                            Date: {new Date(intake.fuelDate).toLocaleDateString()} - Fuel Amount: {intake.fuelAmount}
+                                                    Date: {new Date(intake.fuelDate).toLocaleDateString()} - Fuel Amount: {intake.fuelAmount}
                                                 </>
                                                 <Box sx={{ flexGrow: 1 }} />
                                                 {index === 0 ? <>
-                                                    <IconButton onClick={(intake) => {
+                                                    <IconButton onClick={() => {
                                                         setCardRow(intake); console.log("Editing:", intake); setOpen(true);
                                                     }}>
                                                         <EditIcon />
                                                     </IconButton>
-                                                    <IconButton><DeleteIcon /></IconButton></>
+                                                    <IconButton OnClick={(intake) => { }}>
+                                                        <DeleteIcon />
+                                                    </IconButton>
+                                                </>
                                                     :
                                                     <></>}
                                             </Box>
@@ -164,6 +171,14 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                 </Box>
             </Paper>
             <AlertDialog open={open} setOpen={setOpen} editCard={editCard} setEditCard={setEditCard} cardRow={cardRow} setCardRow={setCardRow} />
+            <Warnialogue
+                open={warn}
+                setOpen={SetWarn}
+                title={"Delete User"}
+                content={"Are you sure you want to delete this user?"}
+                action={deleteFuel}
+            // selectedData={selectedData}
+            />
         </>
 
     );
