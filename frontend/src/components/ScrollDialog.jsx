@@ -24,13 +24,16 @@ export default function ScrollDialog({ scanned, setScanned }) {
     const {
         setCreateOpen,
         setEditable,
-        fuelDataByCar
+        fuelDataByCar,
+        editCard,
+        setEditCard,
+        cardRow,
+        setCardRow,
     } = React.useContext(FuelContext);
 
     const handleClose = () => {
         setScanned(false);
     };
-    const [open, setOpen] = React.useState(false);
 
 
     return (
@@ -55,18 +58,20 @@ export default function ScrollDialog({ scanned, setScanned }) {
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             Car Details
                         </Typography>
-                        <Button autoFocus color="inherit" onClick={() => {
+                        {/* <Button autoFocus color="inherit" onClick={() => {
                             // setCreateOpen(true), setEditable(true);
                             setOpen(true);
                         }}>
                             Add
-                        </Button>
+                        </Button> */}
                     </Toolbar>
                 </AppBar>
-                <CarDetailsCard fuelDataByCar={fuelDataByCar} />
+                <CarDetailsCard fuelDataByCar={fuelDataByCar} editCard={editCard} setEditCard={setEditCard} cardRow={cardRow} setCardRow={setCardRow} />
+
+
                 {/* <CollapsibleTable fuelDataByCar={fuelDataByCar} /> */}
             </Dialog>
-            <AlertDialog open={open} setOpen={setOpen} />
+            {/* <AlertDialog open={open} setOpen={setOpen} /> */}
 
         </div>
     );

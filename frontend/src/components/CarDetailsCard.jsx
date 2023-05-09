@@ -1,6 +1,15 @@
-import { Card, CardContent, Typography, Grid, Box, Paper, Avatar, LinearProgress, Divider } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Box, Paper, Avatar, LinearProgress, Divider, IconButton } from '@mui/material';
+import * as React from 'react';
 import propTypes from 'prop-types';
-export default function CarDetailsCard({ fuelDataByCar }) {
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
+import AlertDialog from 'src/components/AlertDialog';
+
+export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, cardRow,
+    setCardRow, }) {
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -16,6 +25,7 @@ export default function CarDetailsCard({ fuelDataByCar }) {
         );
     }
     // Extract relevant data from the provided object
+    const [open, setOpen] = React.useState(false);
 
     // Render the card with the extracted data
     return (
@@ -102,9 +112,20 @@ export default function CarDetailsCard({ fuelDataByCar }) {
                     {fuelDataByCar?.fuelIntakeDetails.map((monthDetail, index) => (
                         <Card key={index} sx={{ minWidth: 275, marginBottom: 2 }}>
                             <CardContent >
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-end', height: '100%', alignItems: 'center' }}>
+
+
                                 <Typography variant="h6" component="div">
                                     Month: {monthDetail._id.month} Year: {monthDetail._id.year}
                                 </Typography>
+                                    <Box sx={{ flexGrow: 1 }} />
+                                    {index === 0 ?
+                                        <IconButton onClick={() => { setOpen(true); }}>
+                                            <AddIcon />
+                                        </IconButton>
+                                        :
+                                        <></>}
+                                </Box>
                                 {index === 0 ? <>
                                     <LinearProgressWithLabel determinate value={(1000 - monthDetail.totalFuelAmount) * 100 / 1000} index={index} />
                                 </> :
@@ -119,7 +140,21 @@ export default function CarDetailsCard({ fuelDataByCar }) {
                                 <ul>
                                     {monthDetail.fuelIntakes.map((intake, intakeIndex) => (
                                         <li key={intakeIndex}>
+                                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', height: '100%', alignItems: 'center' }}>
+                                                <>
                                             Date: {new Date(intake.fuelDate).toLocaleDateString()} - Fuel Amount: {intake.fuelAmount}
+                                                </>
+                                                <Box sx={{ flexGrow: 1 }} />
+                                                {index === 0 ? <>
+                                                    <IconButton onClick={(intake) => {
+                                                        setCardRow(intake); console.log("Editing:", intake); setOpen(true);
+                                                    }}>
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                    <IconButton><DeleteIcon /></IconButton></>
+                                                    :
+                                                    <></>}
+                                            </Box>
                                         </li>
                                     ))}
                                 </ul>
@@ -128,6 +163,7 @@ export default function CarDetailsCard({ fuelDataByCar }) {
                     ))}
                 </Box>
             </Paper>
+            <AlertDialog open={open} setOpen={setOpen} editCard={editCard} setEditCard={setEditCard} cardRow={cardRow} setCardRow={setCardRow} />
         </>
 
     );
@@ -139,6 +175,10 @@ CarDetailsCard.propTypes = {
     data: propTypes.object.isRequired,
     fuelDataByCar: propTypes.array,
     props: propTypes.object,
+    editCard: propTypes.bool,
+    setEditCard: propTypes.func,
+    cardRow: propTypes.object,
+    setCardRow: propTypes.func,
 
 
 };

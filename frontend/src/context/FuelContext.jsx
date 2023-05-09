@@ -12,7 +12,9 @@ export const FuelProvider = ({ children }) => {
     const { scanned } = React.useContext(CarContext);
     const [createOpen, setCreateOpen] = React.useState(false);
     const [selectedData, setSelectedData] = React.useState(null);
+    const [cardRow, setCardRow] = React.useState(null);
     const [editable, setEditable] = React.useState(false);
+    const [editCard, setEditCard] = React.useState(false);
     const [warn, SetWarn] = React.useState(false);
     const name = "Fuel";
     const { showToast } = React.useContext(ToastContext);
@@ -109,6 +111,10 @@ export const FuelProvider = ({ children }) => {
                 deleteFuel,
                 warn,
                 SetWarn,
+                editCard,
+                setEditCard,
+                cardRow,
+                setCardRow,
             }}
         >
             {children}

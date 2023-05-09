@@ -130,17 +130,17 @@ const rows = [
 
 export default function CollapsibleTable({ fuelDataByCar }) {
     return (
-        <TableContainer component={Paper} sx={{ backgroundColor: '#e7ebf0' }}>
+        <TableContainer component={Paper} sx={{ backgroundColor: '#e7ebf0', height: '100vh', overflow: 'auto' }}>
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
                         <TableCell />
 
-                        <TableCell align="right">  {JSON.stringify(fuelDataByCar?.car.plateNumber)}</TableCell>
-                        <TableCell align="right">{fuelDataByCar?.car.model}</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell align="left">  {JSON.stringify(fuelDataByCar?.car.plateNumber)}</TableCell>
+                        <TableCell align="left">{fuelDataByCar?.car.model}</TableCell>
+                        <TableCell align="left">Fat&nbsp;(g)</TableCell>
+                        <TableCell align="left">Carbs&nbsp;(g)</TableCell>
+                        <TableCell align="left">Protein&nbsp;(g)</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

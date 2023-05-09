@@ -35,7 +35,8 @@ function PaperComponent(props) {
     );
 }
 
-export default function AlertDialog({ open, setOpen }) {
+export default function AlertDialog({ open, setOpen, editCard, setEditCard, cardRow,
+    setCardRow, }) {
     const { userData } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
     const { createFuel } = React.useContext(FuelContext);
@@ -75,9 +76,9 @@ export default function AlertDialog({ open, setOpen }) {
                 <DialogContent>
                     <Formik
                         initialValues={{
-                            fuelAmount: "",
-                            car_id: "",
-                            attendant: "",
+                            fuelAmount: cardRow?.fuelAmount || "",
+                            car_id: cardRow?.car_id?._id || "",
+                            attendant: cardRow?.attendant?._id || "",
                         }}
                         validationSchema={FormSchema}
                         onSubmit={handleSubmit}
@@ -168,4 +169,10 @@ export default function AlertDialog({ open, setOpen }) {
 AlertDialog.propTypes = {
     open: propTypes.bool.isRequired,
     setOpen: propTypes.func.isRequired,
+    carId: propTypes.string.isRequired,
+    setCarId: propTypes.func.isRequired,
+    editCard: propTypes.bool.isRequired,
+    setEditCard: propTypes.func.isRequired,
+    cardRow: propTypes.object.isRequired,
+    setCardRow: propTypes.func.isRequired,
 };
