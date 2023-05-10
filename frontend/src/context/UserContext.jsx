@@ -23,14 +23,16 @@ export const UserProvider = ({ children }) => {
   };
 
   // GetUers
-  const {
-    data: userData,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery("users", GetUser, {
+  const queryResult = useQuery("users", GetUser, {
     staleTime: 0,
   });
+
+  const isLoading = queryResult.isLoading;
+  const error = queryResult.error;
+  const refetch = queryResult.refetch;
+  const userData = queryResult.data?.usersdata || [];
+  const userCounts = queryResult.data?.userCounts || [];
+
   // CreateUser
   const { mutateAsync: createUser } = useMutation(CreateUser, {
     onSuccess: () => {
@@ -73,6 +75,7 @@ export const UserProvider = ({ children }) => {
       value={{
         name,
         userData,
+        userCounts,
         isLoading,
         error,
         refetch,

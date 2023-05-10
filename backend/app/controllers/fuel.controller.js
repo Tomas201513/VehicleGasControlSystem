@@ -7,12 +7,24 @@ import { ObjectId } from "mongodb";
 const fuelIntakeController = {
   getAll: async (req, res) => {
     try {
+      const currentDate = new Date();
+      const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+      const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+      const currentMnthfuelIntakes = await FuelIntake.find({
+        fuelDate: {
+          $gte: firstDayOfMonth,
+          $lte: lastDayOfMonth
+        }
+      }).populate(["car_id", "attendant", { path: "car_id", populate: { path: "driver" } }]);
+      const currentMonthIntake = currentMnthfuelIntakes.reduce((acc, fuelIntake) => {
+        return acc + fuelIntake.fuelAmount;
+      }, 0);
       const fuelIntakes = await FuelIntake.find().populate(["car_id", "attendant", { path: "car_id", populate: { path: "driver" } }]);
       // Calculate the total fuel consumed by all cars
       const totalFuelConsumed = fuelIntakes.reduce((acc, fuelIntake) => {
         return acc + fuelIntake.fuelAmount;
       }, 0);
-      res.json({ fuelIntakes, totalFuelConsumed });
+      res.json({ fuelIntakes, totalFuelConsumed, currentMonthIntake });
       // res.json(fuelIntakes);
     } catch (error) {
       res.status(500).json({ message: error.message });

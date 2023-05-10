@@ -35,6 +35,8 @@ export const FuelProvider = ({ children }) => {
     const refetch = queryResult.refetch;
     const fuelData = queryResult.data?.fuelIntakes || [];
     const totalFuelConsumed = queryResult.data?.totalFuelConsumed || 0;
+    const currentMonthIntake = queryResult.data?.currentMonthIntake || 0;
+
 
     console.log(`fuelData`, fuelData);
 
@@ -98,6 +100,7 @@ export const FuelProvider = ({ children }) => {
                 name,
                 fuelData,
                 totalFuelConsumed,
+                currentMonthIntake,
                 isLoading,
                 error,
                 fuelDataByCar,

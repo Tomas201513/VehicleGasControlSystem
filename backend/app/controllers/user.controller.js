@@ -13,7 +13,7 @@ export const getUsers = async (req, res) => {
     const userCountsPromises = users.map(async (user) => {
       const userData = await User.findOne({ roles: user._id }).lean();
       return {
-        ...userData,
+        roleName: userData.roles[0],
         count: user.count,
       };
     });
@@ -21,9 +21,8 @@ export const getUsers = async (req, res) => {
     const userCounts = await Promise.all(userCountsPromises);
 
 
-    const userss = await User.find();
-    res.status(200).json(userCounts);
-    // res.status(200).json({ userss, userCounts });
+    const usersdata = await User.find();
+    res.status(200).json({ usersdata, userCounts });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
