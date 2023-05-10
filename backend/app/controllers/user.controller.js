@@ -1,9 +1,29 @@
 import User from '../models/user.model.js';
-
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
-    res.status(200).json(users);
+    const users = await User.aggregate([
+      {
+        $group: {
+          _id: '$roles',
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const userCountsPromises = users.map(async (user) => {
+      const userData = await User.findOne({ roles: user._id }).lean();
+      return {
+        ...userData,
+        count: user.count,
+      };
+    });
+
+    const userCounts = await Promise.all(userCountsPromises);
+
+
+    const userss = await User.find();
+    res.status(200).json(userCounts);
+    // res.status(200).json({ userss, userCounts });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

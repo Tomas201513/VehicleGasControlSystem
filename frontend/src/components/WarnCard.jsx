@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -8,7 +9,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Draggable from 'react-draggable';
 import propTypes from 'prop-types';
-import QRcode from './QRcode';
 
 function PaperComponent(props) {
     return (
@@ -21,33 +21,31 @@ function PaperComponent(props) {
     );
 }
 
-export default function Warnialogue({ open, setOpen, title, content, action, selectedData, qr, setQr, qrId,
-    setQrId }) {
+export default function WarnCard({ open, setOpen, title, content, action, cardRow, setCardRow, }) {
 
     const handleClose = () => {
         setOpen(false);
-        setQr(false);
-        setQrId(null);
+        setCardRow(null);
     };
 
     return (
         <div>
             <Dialog
-                open={open || qr || qrId}
+                open={open}
                 onClose={handleClose}
                 PaperComponent={PaperComponent}
                 aria-labelledby="draggable-dialog-title"
             >
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-                    {qr ? "QR Code" : title}
+                    {title}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {qr ? qrId ? <QRcode id={qrId} /> : <QRcode id={selectedData?._id} /> : content}
+                        {content}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    {qr ? <></> : <Button autoFocus onClick={() => { console.log(selectedData); action(selectedData._id); handleClose() }} color="error">
+                    {<Button autoFocus onClick={() => { console.log(cardRow); action(cardRow?._id); handleClose() }} color="error">
                         Delete
                     </Button>}
 
@@ -58,17 +56,15 @@ export default function Warnialogue({ open, setOpen, title, content, action, sel
     );
 }
 
-Warnialogue.propTypes = {
+WarnCard.propTypes = {
     open: propTypes.bool.isRequired,
     setOpen: propTypes.func.isRequired,
     title: propTypes.string.isRequired,
     content: propTypes.string.isRequired,
     action: propTypes.func.isRequired,
-    selectedData: propTypes.object.isRequired,
-    qr: propTypes.bool.isRequired,
-    setQr: propTypes.func.isRequired,
-    qrId: propTypes.string.isRequired,
-    setQrId: propTypes.func.isRequired,
+    setCardRow: propTypes.func.isRequired,
+    cardRow: propTypes.object.isRequired,
+
 };
 
 // {

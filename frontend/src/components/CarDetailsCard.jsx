@@ -9,9 +9,9 @@ import AddIcon from '@mui/icons-material/Add';
 import AlertDialog from 'src/components/AlertDialog';
 import Warnialogue from "src/components/Warnialogue";
 import FuelContext from "src/context/FuelContext";
+import WarnCard from "src/components/WarnCard";
 
-export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, cardRow,
-    setCardRow, }) {
+export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, cardRow, setCardRow, }) {
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -30,6 +30,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
     const [open, setOpen] = React.useState(false);
     const { createFuel, updateFuel, setSelectedData, setCreateOpen, deleteFuel, warn, SetWarn } = React.useContext(FuelContext);
 
+    const normalise = (value, min, max) => ((value - min) * 100) / (max - min);
 
     // Render the card with the extracted data
     return (
@@ -131,7 +132,11 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                                         <></>}
                                 </Box>
                                 {index === 0 ? <>
-                                    <LinearProgressWithLabel determinate value={(1000 - monthDetail.totalFuelAmount) * 100 / 1000} index={index} />
+                                    <LinearProgressWithLabel
+                                        determinate
+                                        value={normalise(monthDetail.totalFuelAmount, 0, 1000)}
+                                        index={index}
+                                    />
                                 </> :
                                     <></>}
                                 <Typography>
@@ -155,7 +160,12 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                                                     }}>
                                                         <EditIcon />
                                                     </IconButton>
-                                                    <IconButton OnClick={(intake) => { }}>
+                                                    <IconButton onClick={() => {
+                                                        console.log("Delete icon clicked");
+                                                        console.log(`delete`, intake);
+                                                        SetWarn(true);
+                                                        setCardRow(intake);
+                                                    }}>
                                                         <DeleteIcon />
                                                     </IconButton>
                                                 </>
@@ -170,14 +180,15 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                     ))}
                 </Box>
             </Paper>
-            <AlertDialog open={open} setOpen={setOpen} editCard={editCard} setEditCard={setEditCard} cardRow={cardRow} setCardRow={setCardRow} />
-            <Warnialogue
+            <AlertDialog open={open} setOpen={setOpen} editCard={editCard} setEditCard={setEditCard} />
+            <WarnCard
                 open={warn}
                 setOpen={SetWarn}
                 title={"Delete User"}
                 content={"Are you sure you want to delete this user?"}
                 action={deleteFuel}
-            // selectedData={selectedData}
+                setCardRow={setCardRow}
+                cardRow={cardRow}
             />
         </>
 

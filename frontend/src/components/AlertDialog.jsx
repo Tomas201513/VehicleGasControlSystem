@@ -23,6 +23,7 @@ import CarContext from 'src/context/CarContext';
 import UserContext from 'src/context/UserContext';
 import Draggable from 'react-draggable';
 import Paper from '@mui/material/Paper';
+import AuthContext from '/src/context/AuthContext'
 
 function PaperComponent(props) {
     return (
@@ -35,11 +36,11 @@ function PaperComponent(props) {
     );
 }
 
-export default function AlertDialog({ open, setOpen, editCard, setEditCard, cardRow,
-    setCardRow, }) {
+export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
     const { userData } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
-    const { createFuel, fuelDataByCar } = React.useContext(FuelContext);
+    const { createFuel, fuelDataByCar, cardRow, setCardRow, } = React.useContext(FuelContext);
+    const { userDetail } = React.useContext(AuthContext);
     const FormSchema = yup.object().shape({
         fuelAmount: yup.number().required("fuel amount is required"),
         // fuelDate: yup.date().required("date is required"),
@@ -77,8 +78,8 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, card
                     <Formik
                         initialValues={{
                             fuelAmount: cardRow?.fuelAmount || "",
-                            car_id: fuelDataByCar?.car?._id || "",  
-                            attendant: cardRow?.attendant?._id || "",
+                            car_id: fuelDataByCar?.car?._id || "",
+                            attendant: userDetail?._id || "",
                         }}
                         validationSchema={FormSchema}
                         onSubmit={handleSubmit}
@@ -110,6 +111,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, card
                                                     name="car_id"
                                                     onChange={handleChange}
                                                     required
+                                                    disabled={true}
                                                     value={values.car_id}
                                                     variant="standard"
                                                     error={Boolean(touched.car_id && errors.car_id)}
@@ -132,6 +134,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, card
                                                     name="attendant"
                                                     onChange={handleChange}
                                                     required
+                                                    disabled={true}
                                                     value={values.attendant}
                                                     variant="standard"
                                                     error={Boolean(touched.attendant && errors.attendant)}
@@ -155,7 +158,9 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, card
                                     <Button type="submit" sx={{ mr: 3 }}>
                                         {"Create"}
                                     </Button>
-                                    <Button onClick={handleClose}>Cancel</Button>
+                                    <Button onClick={() => { handleClose(); setEditCard(false); setCardRow(null); }} color="error">
+                                        {"Cancel"}
+                                    </Button>
                                 </Box>
                             </Form>
                         )}

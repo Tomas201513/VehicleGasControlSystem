@@ -8,7 +8,12 @@ const fuelIntakeController = {
   getAll: async (req, res) => {
     try {
       const fuelIntakes = await FuelIntake.find().populate(["car_id", "attendant", { path: "car_id", populate: { path: "driver" } }]);
-      res.json(fuelIntakes);
+      // Calculate the total fuel consumed by all cars
+      const totalFuelConsumed = fuelIntakes.reduce((acc, fuelIntake) => {
+        return acc + fuelIntake.fuelAmount;
+      }, 0);
+      res.json({ fuelIntakes, totalFuelConsumed });
+      // res.json(fuelIntakes);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

@@ -25,14 +25,17 @@ export const FuelProvider = ({ children }) => {
     };
 
     // GetUers
-    const {
-        data: fuelData,
-        isLoading,
-        error,
-        refetch,
-    } = useQuery('fuels', GetFuel, {
+
+    const queryResult = useQuery('fuels', GetFuel, {
         staleTime: 0,
     });
+
+    const isLoading = queryResult.isLoading;
+    const error = queryResult.error;
+    const refetch = queryResult.refetch;
+    const fuelData = queryResult.data?.fuelIntakes || [];
+    const totalFuelConsumed = queryResult.data?.totalFuelConsumed || 0;
+
     console.log(`fuelData`, fuelData);
 
     // GetUers
@@ -94,6 +97,7 @@ export const FuelProvider = ({ children }) => {
             value={{
                 name,
                 fuelData,
+                totalFuelConsumed,
                 isLoading,
                 error,
                 fuelDataByCar,
