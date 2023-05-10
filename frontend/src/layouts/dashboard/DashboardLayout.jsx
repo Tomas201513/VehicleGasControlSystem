@@ -13,7 +13,7 @@ const LayoutRoot = styled('div')(({ theme }) => ({
   flex: '1 1 auto',
   maxWidth: '100%',
   height: '100vh',
-  // backgroundColor: "#f8f9fa",
+  backgroundColor: "#ffffff",
   [theme.breakpoints.up('lg')]: {
     paddingLeft: SIDE_NAV_WIDTH
   }

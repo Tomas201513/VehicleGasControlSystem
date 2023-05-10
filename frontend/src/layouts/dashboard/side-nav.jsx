@@ -13,12 +13,11 @@ import {
   useMediaQuery
 } from '@mui/material';
 import useResponsive from 'src/hooks/useResponsive';
-import { Logo } from 'src/components/logo';
+// import { Logo } from 'src/components/logo';
 // import { Scrollbar } from 'src/components/scrollbar';
 // import { Scrollbar } from '../../components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
-
 
 export const SideNav = ({ open, onClose }) => {
   const { pathname } = useLocation();
@@ -54,6 +53,7 @@ export const SideNav = ({ open, onClose }) => {
           }}
         >
           {/* <Logo /> */}
+
         </Box>
         <Box
           sx={{

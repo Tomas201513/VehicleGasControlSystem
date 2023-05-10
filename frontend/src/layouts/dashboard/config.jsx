@@ -9,6 +9,8 @@ import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import { SvgIcon } from '@mui/material';
 import { AiFillCar } from "react-icons/ai";
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+
 export const items = [
   {
     title: 'Dashboard',
@@ -41,7 +43,7 @@ export const items = [
     path: '/fuel',
     icon: (
       <SvgIcon fontSize="small">
-        <UserIcon />
+        <LocalGasStationIcon />
       </SvgIcon>
     )
   },

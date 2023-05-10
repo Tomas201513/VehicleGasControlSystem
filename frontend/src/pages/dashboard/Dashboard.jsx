@@ -6,6 +6,7 @@ import CarContext from 'src/context/CarContext';
 import TotalFuelConsumed from './TotalFuelConsumed';
 import { CurrentMonthIntake } from './CurrentMonthIntake';
 import { UserCountCard } from './UserCountCard';
+import { width } from '@mui/system';
 function Dashboard() {
   const isSmallScreen = useMediaQuery('(min-width:600px)');
   const { userData, userCounts } = React.useContext(UserContext);
@@ -16,86 +17,39 @@ function Dashboard() {
 
   return (
     <>
-
-      {/* <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8
-        }}
-      > */}
-      {/* <Container maxWidth="xl"> */}
-      <Grid
-        container Spacing={5} columnSpacing={5}
-        padding={5}
-      >
-        <Grid
-          xs={12}
-          sm={6}
-          lg={3}
-        >
-          <TotalFuelConsumed
-            difference={12}
-
-            sx={{
-              height: '100%'
-            }}
-            value={totalFuelConsumed}
-          />
-        </Grid>
-        <Box sx={{ ml: 2 }} />
-        <Grid
-          xs={12}
-          sm={6}
-          lg={3}
-
-        >
-          <CurrentMonthIntake
-            difference={12}
-            sx={{
-              height: '100%'
-            }}
-            value={currentMonthIntake}
-          />
-        </Grid>
-        <Box sx={{ ml: 2 }} />
-
-        <Grid
-          xs={12}
-          sm={6}
-          lg={3}
-
-        >
-          <CurrentMonthIntake
-            difference={12}
-            sx={{
-              height: '100%'
-            }}
-            value={nonAdminUserCounts[0]?.count}
-
-          />
-        </Grid>
-        <Box sx={{ ml: 2 }} />
-
-        <Grid
-          xs={12}
-          sm={6}
-          lg={3}
-
-        >
-          <CurrentMonthIntake
-            difference={12}
-            sx={{
-              height: '100%'
-            }}
-            value={nonAdminUserCounts[1]?.count}
-          />
-        </Grid>
-
-      </Grid>
-      {/* </Container> */}
-      {/* </Box > */}
-
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 10, ml: 5, mr: 5 }}>
+        <TotalFuelConsumed
+          difference={12}
+          title={'TOTAL CONCEPTION'}
+          sx={{
+            flexGrow: 1,
+          }}
+          value={totalFuelConsumed}
+        />
+        <CurrentMonthIntake
+          difference={12}
+          sx={{
+            flexGrow: 1,
+          }}
+          value={currentMonthIntake}
+        />
+        <UserCountCard
+          difference={12}
+          sx={{
+            flexGrow: 1,
+          }}
+          value={nonAdminUserCounts[0]?.count}
+          title={nonAdminUserCounts[0]?.roleName}
+        />
+        <UserCountCard
+          difference={12}
+          sx={{
+            flexGrow: 1,
+          }}
+          value={nonAdminUserCounts[1]?.count}
+          title={nonAdminUserCounts[1]?.roleName}
+        />
+      </Box>
 
 
     </>

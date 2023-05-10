@@ -10,9 +10,9 @@ import {
     SvgIcon,
     Typography
 } from '@mui/material';
-
+import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 export const UserCountCard = (props) => {
-    const { value, sx } = props;
+    const { value, sx, title } = props;
 
     return (
         <Card sx={sx}>
@@ -29,21 +29,21 @@ export const UserCountCard = (props) => {
                             gutterBottom
                             variant="overline"
                         >
-                            Task Progress
+                            {title}S
                         </Typography>
                         <Typography variant="h4">
-                            {value}%
+                            {value}
                         </Typography>
                     </Stack>
                     <Avatar
                         sx={{
-                            backgroundColor: 'warning.main',
+                            backgroundColor: '#2eb672',
                             height: 56,
                             width: 56
                         }}
                     >
                         <SvgIcon>
-                            <ListBulletIcon />
+                            <UsersIcon />
                         </SvgIcon>
                     </Avatar>
                 </Stack>
@@ -60,5 +60,6 @@ export const UserCountCard = (props) => {
 
 UserCountCard.propTypes = {
     value: PropTypes.number.isRequired,
-    sx: PropTypes.object
+    sx: PropTypes.object,
+    title: PropTypes.string
 };

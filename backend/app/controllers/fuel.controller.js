@@ -5,6 +5,32 @@ import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
 
 const fuelIntakeController = {
+  getMonthly: async (req, res) => {
+    console.log('ola')
+    try {
+      const monthly = await FuelIntake.aggregate([
+        {
+          $group: {
+            _id: { $month: "$fuelDate" },
+            totalFuelAmountMonth: { $sum: "$fuelAmount" }
+          }
+        }
+      ]);
+      const annualy = await FuelIntake.aggregate([
+        {
+          $group: {
+            _id: { $year: "$fuelDate" },
+            totalFuelAmountAnum: { $sum: "$fuelAmount" }
+          }
+        }
+      ]);
+      res.json({ monthly, annualy });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+
   getAll: async (req, res) => {
     try {
       const currentDate = new Date();
@@ -24,7 +50,15 @@ const fuelIntakeController = {
       const totalFuelConsumed = fuelIntakes.reduce((acc, fuelIntake) => {
         return acc + fuelIntake.fuelAmount;
       }, 0);
-      res.json({ fuelIntakes, totalFuelConsumed, currentMonthIntake });
+      const result = await FuelIntake.aggregate([
+        {
+          $group: {
+            _id: { $month: "$fuelDate" },
+            totalFuelAmount: { $sum: "$fuelAmount" }
+          }
+        }
+      ]);
+      res.json({ fuelIntakes, totalFuelConsumed, currentMonthIntake, result });
       // res.json(fuelIntakes);
     } catch (error) {
       res.status(500).json({ message: error.message });

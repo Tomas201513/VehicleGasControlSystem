@@ -3,7 +3,7 @@ import ArrowDownIcon from '@heroicons/react/24/solid/ArrowDownIcon';
 import ArrowUpIcon from '@heroicons/react/24/solid/ArrowUpIcon';
 import CurrencyDollarIcon from '@heroicons/react/24/solid/CurrencyDollarIcon';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
-
+import PropaneIcon from '@mui/icons-material/Propane';
 function TotalFuelConsumed(props) {
     const { difference, positive = false, sx, value } = props;
     return (
@@ -20,7 +20,7 @@ function TotalFuelConsumed(props) {
                             color="text.secondary"
                             variant="overline"
                         >
-                            Budget
+                            {'TOTAL CONCEPTION'}
                         </Typography>
                         <Typography variant="h4">
                             {value}
@@ -28,13 +28,13 @@ function TotalFuelConsumed(props) {
                     </Stack>
                     <Avatar
                         sx={{
-                            backgroundColor: 'error.main',
+                            backgroundColor: '#f04438',
                             height: 56,
                             width: 56
                         }}
                     >
                         <SvgIcon>
-                            <CurrencyDollarIcon />
+                            <PropaneIcon />
                         </SvgIcon>
                     </Avatar>
                 </Stack>

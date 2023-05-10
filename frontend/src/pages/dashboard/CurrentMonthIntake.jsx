@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import ArrowDownIcon from '@heroicons/react/24/solid/ArrowDownIcon';
 import ArrowUpIcon from '@heroicons/react/24/solid/ArrowUpIcon';
-import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
-
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
 export const CurrentMonthIntake = (props) => {
     const { difference, positive = false, sx, value } = props;
 
@@ -21,7 +20,8 @@ export const CurrentMonthIntake = (props) => {
                             color="text.secondary"
                             variant="overline"
                         >
-                            Total Customers
+                            {'CURRENT MONTH CONCEPTION'}
+
                         </Typography>
                         <Typography variant="h4">
                             {value}
@@ -29,14 +29,14 @@ export const CurrentMonthIntake = (props) => {
                     </Stack>
                     <Avatar
                         sx={{
-                            backgroundColor: 'success.main',
+                            backgroundColor: '#d59b08',
                             height: 56,
                             width: 56
                         }}
                     >
-                        <SvgIcon>
-                            <UsersIcon />
-                        </SvgIcon>
+                        {/* <SvgIcon> */}
+                        <WaterDropIcon />
+                        {/* </SvgIcon> */}
                     </Avatar>
                 </Stack>
                 {difference && (
@@ -81,5 +81,6 @@ CurrentMonthIntake.propTypes = {
     difference: PropTypes.number,
     positive: PropTypes.bool,
     value: PropTypes.string.isRequired,
-    sx: PropTypes.object
+    sx: PropTypes.object,
+    title: PropTypes.string.isRequired
 };
