@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel } from "src/apis/FuelApi";
+import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel, GetFuelByMonth } from "src/apis/FuelApi";
 import CarContext from "./CarContext";
 const FuelContext = React.createContext({});
 
@@ -52,6 +52,14 @@ export const FuelProvider = ({ children }) => {
     });
     console.log(`fuelDataByCar`, fuelDataByCar);
 
+    const { data: fuelDataByMonth, isLoading: isLoadingByMonth, error: errorByMonth, refetch: refetchByMonth } = useQuery(
+        "fuelsByMonth",
+        GetFuelByMonth,
+        {
+            staleTime: 0,
+        }
+    );
+    console.log(`fuelDataByMonth`, fuelDataByMonth);
     // CreateFuel
     const { mutateAsync: createFuel } = useMutation(CreateFuel, {
         onSuccess: () => {
@@ -101,6 +109,9 @@ export const FuelProvider = ({ children }) => {
                 fuelData,
                 totalFuelConsumed,
                 currentMonthIntake,
+                refetch,
+                fuelDataByMonth,
+                refetchByMonth,
                 isLoading,
                 error,
                 fuelDataByCar,

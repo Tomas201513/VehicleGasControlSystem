@@ -6,25 +6,50 @@ import { ObjectId } from "mongodb";
 
 const fuelIntakeController = {
   getMonthly: async (req, res) => {
-    console.log('ola')
     try {
-      const monthly = await FuelIntake.aggregate([
+      const anualIntakes = await FuelIntake.aggregate([
+        {
+          $sort: {
+            fuelDate: 1
+          }
+        },
         {
           $group: {
-            _id: { $month: "$fuelDate" },
+            _id: {
+              year: { $year: "$fuelDate" },
+              month: { $month: "$fuelDate" }
+            },
             totalFuelAmountMonth: { $sum: "$fuelAmount" }
           }
-        }
-      ]);
-      const annualy = await FuelIntake.aggregate([
+        },
         {
           $group: {
-            _id: { $year: "$fuelDate" },
-            totalFuelAmountAnum: { $sum: "$fuelAmount" }
+            _id: "$_id.year",
+            monthlyIntakes: {
+              $push: {
+                month: "$_id.month",
+                totalFuelAmountMonth: "$totalFuelAmountMonth"
+              }
+            }
+          }
+        },
+        { $unwind: "$monthlyIntakes" },
+        { $sort: { "_id": -1, "monthlyIntakes.month": -1 } },
+        {
+          $group: {
+            _id: "$_id",
+            monthlyIntakes: {
+              $push: {
+                month: "$monthlyIntakes.month",
+                totalFuelAmountMonth: "$monthlyIntakes.totalFuelAmountMonth"
+              }
+            }
           }
         }
       ]);
-      res.json({ monthly, annualy });
+
+
+      res.json({ anualIntakes });
     } catch (error) {
       console.error(error);
     }
@@ -45,20 +70,15 @@ const fuelIntakeController = {
       const currentMonthIntake = currentMnthfuelIntakes.reduce((acc, fuelIntake) => {
         return acc + fuelIntake.fuelAmount;
       }, 0);
-      const fuelIntakes = await FuelIntake.find().populate(["car_id", "attendant", { path: "car_id", populate: { path: "driver" } }]);
+
+      const fuelIntakes = await FuelIntake.find().populate(["car_id", "attendant",
+        { path: "car_id", populate: { path: "driver" } }]).sort({ fuelDate: -1 });
       // Calculate the total fuel consumed by all cars
       const totalFuelConsumed = fuelIntakes.reduce((acc, fuelIntake) => {
         return acc + fuelIntake.fuelAmount;
       }, 0);
-      const result = await FuelIntake.aggregate([
-        {
-          $group: {
-            _id: { $month: "$fuelDate" },
-            totalFuelAmount: { $sum: "$fuelAmount" }
-          }
-        }
-      ]);
-      res.json({ fuelIntakes, totalFuelConsumed, currentMonthIntake, result });
+
+      res.json({ fuelIntakes, totalFuelConsumed, currentMonthIntake });
       // res.json(fuelIntakes);
     } catch (error) {
       res.status(500).json({ message: error.message });

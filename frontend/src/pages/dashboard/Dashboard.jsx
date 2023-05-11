@@ -8,17 +8,34 @@ import { CurrentMonthIntake } from './CurrentMonthIntake';
 import { UserCountCard } from './UserCountCard';
 import { width } from '@mui/system';
 import { OverviewSales } from './OverviewSales'
+import { CarModelPieChart } from './CarModelPieChart';
+import { LatestOilFill } from './LatestOilFill';
 function Dashboard() {
   const isSmallScreen = useMediaQuery('(min-width:600px)');
   const { userData, userCounts } = React.useContext(UserContext);
-  const { fuelData, totalFuelConsumed, currentMonthIntake } = React.useContext(FuelContext);
-  const { scanned } = React.useContext(CarContext);
+  const { fuelData, totalFuelConsumed, currentMonthIntake, fuelDataByMonth } = React.useContext(FuelContext);
+  const { scanned, groupedCars, carData } = React.useContext(CarContext);
   const nonAdminUserCounts = userCounts.filter(user => user.roleName !== 'admin');
   console.log('nonAdminUserCounts', nonAdminUserCounts);
+  const currentYear = new Date().getFullYear();
+  const thisYearData = Array(12).fill(0);
+  const lastYearData = Array(12).fill(0);
 
+  fuelDataByMonth?.anualIntakes.forEach(yearData => {
+    if (yearData._id === currentYear) {
+      yearData.monthlyIntakes.forEach(monthData => {
+        thisYearData[monthData.month - 1] = monthData.totalFuelAmountMonth;
+      });
+    } else if (yearData._id === currentYear - 1) {
+      yearData.monthlyIntakes.forEach(monthData => {
+        lastYearData[monthData.month - 1] = monthData.totalFuelAmountMonth;
+      });
+    }
+  });
+  console.log('fuelData?.fuelIntakes', fuelData)
   return (
     <>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 10, ml: 5, mr: 5 }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 15, ml: 5, mr: 5, mb: 5 }}>
         <TotalFuelConsumed
           difference={12}
           title={'TOTAL CONCEPTION'}
@@ -44,55 +61,59 @@ function Dashboard() {
         />
         <UserCountCard
           difference={12}
-          sx={{
+          sx={{ 
             flexGrow: 1,
           }}
           value={nonAdminUserCounts[1]?.count}
           title={nonAdminUserCounts[1]?.roleName}
         />
       </Box>
-      <OverviewSales
-        chartSeries={[
-          {
-            name: 'This year',
-            data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20]
-          },
-          {
-            name: 'Last year',
-            data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13]
-          }
-        ]}
-        sx={{ height: '100%' }}
-      />
 
+
+
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, m: 5 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={8}>
+            <OverviewSales
+              chartSeries={[
+                {
+                  name: 'This year',
+                  data: thisYearData
+                },
+                {
+                  name: 'Last year',
+                  data: lastYearData
+                }
+              ]}
+              sx={{ flexGrow: 1 }}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CarModelPieChart
+              chartSeries={groupedCars.map(car => car.count)}
+              labels={groupedCars.map(car => car._id)}
+              sx={{ flexGrow: 1, height: '100%' }}
+            />
+          </Grid>
+        </Grid>
+        <LatestOilFill
+          fuelIntakes={fuelData}
+        />
+
+      </Box>
+
+
+
+
+      {/* <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, m: 5 }}>
+
+        <LatestOilFill
+          fuelIntakes={fuelData}
+        />
+
+      </Box> */}
     </>
   );
 }
 
 export default Dashboard;
-{/* <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, mt: 10, ml: 10, m: 10 }}>
-  <Card sx={{ flexGrow: 1, minWidth: 200, minHeight: isSmallScreen ? 150 : 90, }}>
-    <CardContent>
-      <Typography variant="h4">{totalFuelConsumed}</Typography>
-      <Typography variant="h6">{'TOTAL CONCEPTION'}</Typography>
-    </CardContent>
-  </Card>
-  <Card sx={{ flexGrow: 1, minWidth: 200, minHeight: 150 }}>
-    <CardContent>
-      <Typography variant="h4">{currentMonthIntake}</Typography>
-      <Typography variant="h6">{'CURRENT MONTH CONCEPTION'}</Typography>
-    </CardContent>
-  </Card>
-
-  {userCounts.map((item, index) => (
-    <Card key={item.roleName} sx={{
-      flexGrow: 1, minWidth: 200, minHeight: isSmallScreen ? 150 : 90,
-    }}>
-      <CardContent>
-        <Typography variant="h4">{item.count}</Typography>
-        <Typography variant="h6">{title[index]}</Typography>
-      </CardContent>
-    </Card>
-  ))}
-
-</Box> */}

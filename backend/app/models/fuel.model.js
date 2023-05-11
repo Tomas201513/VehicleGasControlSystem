@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 const Schema = mongoose.Schema;
 
 const fuelIntakeSchema = new Schema({
-  fuelAmount: {
+  fuelAmount: { 
     type: Number,
     required: true,
   },

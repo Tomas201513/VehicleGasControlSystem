@@ -25,15 +25,16 @@ export const CarProvider = ({ children }) => {
   };
 
   // GetUers
-  const {
-    data: carData,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery("cars", GetCar, {
+  const queryResult = useQuery("cars", GetCar, {
     staleTime: 0,
   });
-  console.log(`carData`, carData);
+
+  const isLoading = queryResult.isLoading;
+  const error = queryResult.error;
+  const refetch = queryResult.refetch;
+  const carData = queryResult.data?.cars || [];
+  const groupedCars = queryResult.data?.groupedCars || [];
+
 
   // GetCarDetail
   const { data: carDetail } = useQuery(["carDetail", scanned], () => GetCarDetail(scanned), {
@@ -86,6 +87,7 @@ export const CarProvider = ({ children }) => {
       value={{
         name,
         carData,
+        groupedCars,
         carDetail,
         scanned,
         setScanned,

@@ -4,6 +4,8 @@ import axios from "axios";
 
 const api = "http://127.0.0.1:8000/api/fuel/";
 const api2 = "http://127.0.0.1:8000/api/fuel/car/";
+const api3 = "http://127.0.0.1:8000/api/fuel/monthly/1" // 1 is just a placeholder
+
 
 export const GetFuel = async () => {
   // if (localStorage.getItem("accessToken")) {
@@ -16,6 +18,15 @@ export const GetFuel = async () => {
 export const GetFuelByCar = async (id) => {
   // if (localStorage.getItem("accessToken")) {
   const res = await axios.get(`${api2}${id}/`);
+  return res.data;
+  // } else {
+  //   console.log("No token");
+  // }
+};
+
+export const GetFuelByMonth = async () => {
+  // if (localStorage.getItem("accessToken")) {
+  const res = await axios.get(api3);
   return res.data;
   // } else {
   //   console.log("No token");

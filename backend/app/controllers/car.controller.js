@@ -4,7 +4,41 @@ import User from '../models/user.model.js';
 export const getCars = async (req, res) => {
   try {
     const cars = await Car.find().populate('driver');
-    res.status(200).json(cars);
+    //groupCarsByYear
+    const groupedCars = await Car.aggregate([
+      {
+        $group: {
+          _id: {
+            $cond: [
+              { $lt: ["$year", 1980] },
+              "< 1980",
+              {
+                $cond: [
+                  { $lt: ["$year", 1990] },
+                  "1980-1990",
+                  {
+                    $cond: [
+                      { $lt: ["$year", 2000] },
+                      "1990-2000",
+                      {
+                        $cond: [
+                          { $lt: ["$year", 2010] },
+                          "2000-2010",
+                          "> 2010",
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    res.status(200).json({ cars, groupedCars });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

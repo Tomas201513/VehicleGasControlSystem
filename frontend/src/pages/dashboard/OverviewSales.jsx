@@ -11,7 +11,6 @@ import {
     SvgIcon
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { Chart } from 'src/components/chart';
 import ReactApexChart from 'react-apexcharts';
 import styled from 'styled-components';
 const Charts = styled(ReactApexChart)``;
@@ -127,7 +126,7 @@ export const OverviewSales = (props) => {
                         Sync
                     </Button>
                 )}
-                title="Sales"
+                title="Fuel Intakes"
             />
             <CardContent>
                 <Charts
@@ -156,7 +155,7 @@ export const OverviewSales = (props) => {
     );
 };
 
-OverviewSales.protoTypes = {
+OverviewSales.propTypes = {
     chartSeries: PropTypes.array.isRequired,
     sx: PropTypes.object
 };
