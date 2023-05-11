@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const tankerSchema = new Schema({
+const stationSchema = new Schema({
     FuelCapacity: {
         type: Number,
         required: true,
@@ -13,6 +13,6 @@ const tankerSchema = new Schema({
     },
 });
 
-const Tanker = mongoose.model("Tanker", tankerSchema);
+const Station = mongoose.model("Station", stationSchema);
 
-export default Tanker;
+export default Station;

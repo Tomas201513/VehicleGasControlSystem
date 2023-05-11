@@ -61,7 +61,7 @@ function Dashboard() {
         />
         <UserCountCard
           difference={12}
-          sx={{ 
+          sx={{
             flexGrow: 1,
           }}
           value={nonAdminUserCounts[1]?.count}

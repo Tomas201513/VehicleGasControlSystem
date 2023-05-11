@@ -137,8 +137,8 @@ const fuelIntakeController = {
   },
 
   update: async (req, res) => {
-    console.log(req.body);
-    console.log('dang')
+    // console.log(req.body);
+    // console.log('dang')
     try {
       // Find the user by ID
       const user = await User.findById(req.body.attendant);
