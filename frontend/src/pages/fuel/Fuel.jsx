@@ -1,16 +1,6 @@
 import React from "react";
 import Datatable from "src/components/datatable/Datatable";
-import CarContext from "src/context/CarContext";
-import {
-  Typography,
-  IconButton,
-  Tooltip,
-  Container,
-  FormControlLabel,
-  Switch,
-} from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateFuel from "./CreateUpdateFuel";
 import FuelContext from "src/context/FuelContext";
@@ -25,12 +15,9 @@ function Fuel() {
     createOpen,
     setCreateOpen,
     selectedData,
-    setSelectedData,
     editable,
     setEditable,
     handleRowClick,
-    deleteFuel,
-
   } = React.useContext(FuelContext);
 
   const columns = [
@@ -84,7 +71,6 @@ function Fuel() {
           createOpen={createOpen}
         />
       ) : (
-        <>
           <Datatable
             columns={columns}
             rows={fuelData}
@@ -97,7 +83,6 @@ function Fuel() {
             error={error}
             name={name}
           />
-        </>
       )}
     </>
   );

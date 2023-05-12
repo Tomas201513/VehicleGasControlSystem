@@ -10,6 +10,7 @@ import Cars from "./pages/car/Cars";
 import Fuel from "./pages/fuel/Fuel";
 import Users from "./pages/user/Users";
 import Scan from "./pages/Scan/Scan";
+import Station from "./pages/station/Station";
 function RoutesComponent() {
   return (
 
@@ -24,6 +25,7 @@ function RoutesComponent() {
         <Route path="/cars" element={<Cars />} />
         <Route path="/fuel" element={<Fuel />} />
         <Route path="/scan" element={<Scan />} />
+        <Route path="/station" element={<Station />} />
 
       </Route>
       <Route path="*" element={<Page404 />} />

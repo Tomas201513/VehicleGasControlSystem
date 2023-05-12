@@ -35,23 +35,21 @@ fuelIntakeSchema.pre("findOneAndUpdate", async function (next) {
   console.log("findOneAndUpdate");
   // Get the old and new fuel intake values
   const oldFuelIntake = await FuelIntake.findById(this._conditions._id);
+  console.log('ooo', oldFuelIntake);
   const newFuelIntake = this._update.fuelAmount;
-
+  console.log('nnnn', newFuelIntake);
+  console.log('olnw', oldFuelIntake.fuelAmount - newFuelIntake);
   // Find the station
   const station = await Station.findById(this._update.station);
-
+  console.log('sss', station);
   if (station && oldFuelIntake) {
-    // Subtract the old fuel intake and add the new fuel intake to the station's current fuel amount
-    station.currentFuelAmount -= oldFuelIntake.fuelAmount;
-    station.currentFuelAmount += newFuelIntake;
-
-    // Save the updated station
+    station.currentFuelAmount += (oldFuelIntake.fuelAmount - newFuelIntake)
+    console.log('nnnsss', station.currentFuelAmount);
     await station.save();
   }
 
   next();
 });
-
 
 fuelIntakeSchema.pre("save", async function (next) {
   try {
@@ -70,24 +68,15 @@ fuelIntakeSchema.pre("save", async function (next) {
       throw new Error("Monthly fuel intake limit exceeded");
     }
 
-    // For create method
-    // if (fuelIntake.isNew) {
-    //   // Do your create-specific logic here
-    // }
+    // Update the station's current fuel amount
+    const station = await Station.findById(fuelIntake.station);
+    console.log(station);
+    if (station) {
+      station.currentFuelAmount -= fuelIntake.fuelAmount;
+      console.log(station);
 
-    // // For update method
-    // if (fuelIntake.isModified('fuelAmount')) {
-    //   const oldFuelIntake = await FuelIntake.findById(fuelIntake._id);
-    //   console.log("old", oldFuelIntake);
-
-    //   const zstation = await Station.findById(fuelIntake.station);
-
-    //   if (zstation) {
-    //     zstation.currentFuelAmount -= oldFuelIntake.fuelAmount;
-    //     zstation.currentFuelAmount += fuelIntake.fuelAmount;
-    //     await zstation.save();
-    //   }
-    // }
+      await station.save();
+    }
 
     next();
   } catch (error) {

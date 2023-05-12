@@ -48,6 +48,14 @@ export const items = [
     )
   },
   {
+    title: 'Station',
+    path: '/station',
+    icon: (
+      <SvgIcon fontSize="small">
+        <QrCodeScannerIcon />
+      </SvgIcon>
+    )
+  }, {
     title: 'Scan',
     path: '/scan',
     icon: (

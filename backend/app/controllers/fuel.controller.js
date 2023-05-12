@@ -3,6 +3,7 @@ import User from "../models/user.model.js";
 import Car from "../models/car.model.js";
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
+import Station from "../models/station.model.js";
 
 const fuelIntakeController = {
   getMonthly: async (req, res) => {
@@ -121,10 +122,15 @@ const fuelIntakeController = {
 
 
       // Check if the user exists
-      if (!(attendant && car)) {
+      if (!(attendant)) {
         return res.status(404).json({ message: "User not found" });
       }
-
+      if (!(car)) {
+        return res.status(404).json({ message: "Car not found" });
+      }
+      if (!(station)) { // Add this block to check if the station exists
+        return res.status(404).json({ message: "Station not found" });
+      }
       const fuelIntake = new FuelIntake(req.body);
       await fuelIntake.save();
       console.log('s', fuelIntake);
@@ -137,33 +143,33 @@ const fuelIntakeController = {
       res.status(statusCode).json({ message: error.message });
     }
   },
-
   update: async (req, res) => {
-    // console.log(req.body);
-    // console.log('dang')
     try {
       // Find the user by ID
-      const user = await User.findById(req.body.attendant);
+      const attendant = await User.findById(req.body.attendant);
       const car = await Car.findById(req.body.car_id);
 
       // Check if the user exists
-      if (!(user && car)) {
+      if (!(attendant)) {
         return res.status(404).json({ message: "User not found" });
       }
-      // Find the fuel intake by ID
-      const fuelIntake = await FuelIntake.findById(req.params.id);
+      if (!(car)) {
+        return res.status(404).json({ message: "Car not found" });
+      }
+      // Find and update the fuel intake by ID
+      const updatedFuelIntake = await FuelIntake.findOneAndUpdate(
+        { _id: req.params.id },
+        req.body,
+        { new: true }
+      );
 
       // Check if the fuel intake exists
-      if (!fuelIntake) {
+      if (!updatedFuelIntake) {
         return res.status(404).json({ message: "Fuel intake not found" });
       }
 
-      // Update the fuel intake with the request body
-      Object.assign(fuelIntake, req.body);
-      await fuelIntake.save();
-
       // Send the updated fuel intake as a response
-      res.status(200).json(fuelIntake);
+      res.status(200).json(updatedFuelIntake);
     } catch (error) {
       // Determine the appropriate status code based on the error type
       const statusCode = error.name === 'ValidationError' ? 400 : 500;
