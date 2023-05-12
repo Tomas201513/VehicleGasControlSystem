@@ -5,7 +5,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateStation from "./CreateUpdateStation";
 import StationContext from "src/context/StationContext";
 
-function Station() {
+export default function Station() {
     const getRowId = (row) => row._id;
     const {
         name,
@@ -31,11 +31,11 @@ function Station() {
         },
         { field: "stationName", headerName: "STATION NAME", flex: 0.7, minWidth: 130 },
         { field: "stationLocation", headerName: "STATION LOCATION", flex: 0.7, minWidth: 100 },
-        {
-            field: "stationOwner", headerName: "STATION OWNER", width: 150, valueGetter: (params) => {
-                return params.row?.stationOwner?.userName;
-            }
-        },
+        { field: "stationOwner", headerName: "STATION OWNER", width: 150, },
+        { field: "FuelCapacity", headerName: "Fuel Capacity", flex: 0.7, minWidth: 130 },
+
+        { field: "currentFuelAmount", headerName: "CURRENT FUEL AMOUT", flex: 0.7, minWidth: 130 },
+
         {
             field: "actions",
             type: "actions",
@@ -85,3 +85,5 @@ function Station() {
         </>
     );
 }
+
+

@@ -2,9 +2,9 @@ import axios from "axios";
 // import { Token } from "./token/AuthToken";
 // import axiosInstance from "src/utils/useAxiosInterceptors";
 
-const api = "http://127.0.0.1:8000/api/stations/";
+const api = "http://127.0.0.1:8000/api/stations";
 
-export const getStations = async () => {
+export const GetStation = async () => {
     // if (localStorage.getItem("accessToken")) {
     const res = await axios.get(api);
     return res.data;
@@ -21,8 +21,7 @@ export const deleteStation = async (id) => {
     //     console.log("No token");
     // }
 }
-
-export const createStation = async (values) => {
+export const CreateStation = async (values) => {
     // if (localStorage.getItem("accessToken")) {
     const res = await axios.post(api, values);
     return res.data;
@@ -31,7 +30,7 @@ export const createStation = async (values) => {
     // }
 }
 
-export const updateStation = async (values) => {
+export const UpdateStation = async (values) => {
     // console.log(values);
     // if (localStorage.getItem("accessToken")) {
     const res = await axios.put(`${api}${values.selectedData}/`, values.values);
@@ -41,7 +40,7 @@ export const updateStation = async (values) => {
     // }
 }
 
-export const DeleteUers = async (id) => {
+export const DeleteStation = async (id) => {
     //   if (localStorage.getItem("accessToken")) {
     const res = await axios.delete(`${api}${id}/`);
     return res.data;

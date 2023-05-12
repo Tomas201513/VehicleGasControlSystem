@@ -23,12 +23,14 @@ export const getStationById = async (req, res) => {
 // Create a new station
 export const createStation = async (req, res) => {
     try {
-        const station = await Station.create(req.body);
+        const station = new Station(req.body);
+        await station.save();
         res.status(201).json(station);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
+
 
 // Update a station
 export const updateStation = async (req, res) => {

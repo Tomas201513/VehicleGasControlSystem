@@ -30,8 +30,8 @@ export const StationProvider = ({ children }) => {
     const isLoading = queryResult.isLoading;
     const error = queryResult.error;
     const refetch = queryResult.refetch;
-    const stationData = queryResult.data?.stationsdata || [];
-    const stationCounts = queryResult.data?.stationCounts || [];
+    const stationData = queryResult?.data;
+    console.log('station', stationData)
 
     // CreateStation
     const { mutateAsync: createStation } = useMutation(CreateStation, {
@@ -78,7 +78,6 @@ export const StationProvider = ({ children }) => {
                 isLoading,
                 error,
                 stationData,
-                stationCounts,
                 createOpen,
                 setCreateOpen,
                 selectedData,

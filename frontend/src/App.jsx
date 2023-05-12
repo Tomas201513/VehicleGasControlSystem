@@ -8,6 +8,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { UserProvider } from "src/context/UserContext";
 import { CarProvider } from "src/context/CarContext";
 import { FuelProvider } from "./context/FuelContext";
+import { StationProvider } from "src/context/StationContext"
 import { ReactQueryDevtools } from "react-query/devtools";
 // import "/src/App";
 import { useStyles } from "src/components/scrollbar";
@@ -26,9 +27,11 @@ function App() {
               <AuthProvider>
                 <UserProvider>
                   <CarProvider>
+                    <StationProvider>
                     <FuelProvider>
                       <RoutesComponent />
                     </FuelProvider>
+                    </StationProvider>
                   </CarProvider>
                 </UserProvider>
               </AuthProvider>

@@ -25,7 +25,7 @@ import PropTypes from "prop-types";
 import Warnialogue from "src/components/Warnialogue";
 import StationContext from "src/context/StationContext";
 
-function CreateUpdateStation({ selectedData, editable, setEditable }) {
+export default function CreateUpdateStation({ selectedData, editable, setEditable }) {
 
     const { createStation, updateStation, setSelectedData, setCreateOpen, deleteStation, warn, SetWarn } = React.useContext(StationContext);
 
@@ -33,6 +33,8 @@ function CreateUpdateStation({ selectedData, editable, setEditable }) {
         stationName: yup.string().required("station name is required"),
         stationLocation: yup.string().required("station location is required"),
         stationOwner: yup.string().required("station owner is required"),
+        FuelCapacity: yup.number().required("station owner is required"),
+        currentFuelAmount: yup.number().required("station owner is required"),
     })
     const handleSubmit = async (values) => {
         try {
@@ -54,6 +56,8 @@ function CreateUpdateStation({ selectedData, editable, setEditable }) {
                     stationName: selectedData?.stationName || "",
                     stationLocation: selectedData?.stationLocation || "",
                     stationOwner: selectedData?.stationOwner || "",
+                    FuelCapacity: selectedData?.FuelCapacity || "",
+                    currentFuelAmount: selectedData?.currentFuelAmount || "",
                 }}
                 validationSchema={FormSchema}
                 onSubmit={handleSubmit}
@@ -129,6 +133,28 @@ function CreateUpdateStation({ selectedData, editable, setEditable }) {
                                         onBlur={handleBlur}
                                         error={!!touched.stationOwner && !!errors.stationOwner}
                                         helperText={touched.stationOwner && errors.stationOwner}
+                                    />
+                                    <TextField
+
+                                        fullWidth
+                                        label="Fuel Capacity"
+                                        name="FuelCapacity"
+                                        value={values.FuelCapacity}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        error={!!touched.FuelCapacity && !!errors.FuelCapacity}
+                                        helperText={touched.FuelCapacity && errors.FuelCapacity}
+                                    />
+                                    <TextField
+
+                                        fullWidth
+                                        label="Current Fuel Amount"
+                                        name="currentFuelAmount"
+                                        value={values.currentFuelAmount}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        error={!!touched.currentFuelAmount && !!errors.currentFuelAmount}
+                                        helperText={touched.currentFuelAmount && errors.currentFuelAmount}
                                     />
                                 </Stack>
                             </CardContent>
