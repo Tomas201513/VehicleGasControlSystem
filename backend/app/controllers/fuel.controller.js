@@ -111,7 +111,8 @@ const fuelIntakeController = {
 
   create: async (req, res) => {
     const fuelIntakeLimit = 1000;
-
+    console.log('olaaaa');
+    console.log(req.body);
 
     try {
       // Find the user by ID
@@ -126,6 +127,7 @@ const fuelIntakeController = {
 
       const fuelIntake = new FuelIntake(req.body);
       await fuelIntake.save();
+      console.log('s', fuelIntake);
 
       // Send the created car as a response
       res.status(201).json(fuelIntake);

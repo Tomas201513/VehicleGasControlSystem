@@ -5,10 +5,6 @@ import Station from "./station.model.js";
 const Schema = mongoose.Schema;
 
 const fuelIntakeSchema = new Schema({
-  fuelAmount: { 
-    type: Number,
-    required: true,
-  },
   fuelDate: {
     type: Date,
     required: true,
@@ -24,6 +20,10 @@ const fuelIntakeSchema = new Schema({
     ref: "User",
     required: true,
   },
+  fuelAmount: {
+    type: Number,
+    required: true,
+  },
   station: {
     type: Schema.Types.ObjectId,
     ref: "Station",
@@ -31,66 +31,68 @@ const fuelIntakeSchema = new Schema({
   },
 });
 
-// fuelIntakeSchema.pre("findOneAndUpdate", async function (next, doc) {
-//   console.log({ doc });
-//   const oldFuelIntake = await FuelIntake.findById(this._conditions._id);
-//   console.log("old", oldFuelIntake);
-//   const newFuelIntake = this._update.fuelAmount;
-//   console.log('new', newFuelIntake);
-//   const station = await Station.findById(this._update.station);
+fuelIntakeSchema.pre("findOneAndUpdate", async function (next) {
+  console.log("findOneAndUpdate");
+  // Get the old and new fuel intake values
+  const oldFuelIntake = await FuelIntake.findById(this._conditions._id);
+  const newFuelIntake = this._update.fuelAmount;
 
-//   if (station) {
-//     station.currentFuelAmount -= oldFuelIntake.fuelAmount;
-//     station.currentFuelAmount += newFuelIntake;
-//     console.log(station.currentFuelAmount);
-//     await station.save();
-//   }
+  // Find the station
+  const station = await Station.findById(this._update.station);
 
-// next();
-// });
+  if (station && oldFuelIntake) {
+    // Subtract the old fuel intake and add the new fuel intake to the station's current fuel amount
+    station.currentFuelAmount -= oldFuelIntake.fuelAmount;
+    station.currentFuelAmount += newFuelIntake;
+
+    // Save the updated station
+    await station.save();
+  }
+
+  next();
+});
+
 
 fuelIntakeSchema.pre("save", async function (next) {
-  fuelIntakeSchema.pre("save", async function (next) {
-    try {
-      const fuelIntake = this;
-      const currentDate = new Date();
-      const currentMonth = currentDate.getMonth() + 1;
-      const currentYear = currentDate.getFullYear();
+  try {
+    const fuelIntake = this;
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
 
-      const totalFuelIntake = await getTotalFuelIntake(
-        fuelIntake.car_id,
-        currentMonth,
-        currentYear
-      );
+    const totalFuelIntake = await getTotalFuelIntake(
+      fuelIntake.car_id,
+      currentMonth,
+      currentYear
+    );
 
-      if (totalFuelIntake + fuelIntake.fuelAmount > 1000) {
-        throw new Error("Monthly fuel intake limit exceeded");
-      }
-
-      // For create method
-      if (fuelIntake.isNew) {
-        // Do your create-specific logic here
-      }
-
-      // For update method
-      if (fuelIntake.isModified('fuelAmount')) {
-        const oldFuelIntake = await FuelIntake.findById(fuelIntake._id);
-        console.log("old", oldFuelIntake);
-
-        const zstation = await Station.findById(fuelIntake.station);
-
-        if (zstation) {
-          zstation.currentFuelAmount -= oldFuelIntake.fuelAmount;
-          zstation.currentFuelAmount += fuelIntake.fuelAmount;
-          await zstation.save();
-        }
-      }
-
-      next();
-    } catch (error) {
-      next(error);
+    if (totalFuelIntake + fuelIntake.fuelAmount > 1000) {
+      throw new Error("Monthly fuel intake limit exceeded");
     }
-  });
+
+    // For create method
+    // if (fuelIntake.isNew) {
+    //   // Do your create-specific logic here
+    // }
+
+    // // For update method
+    // if (fuelIntake.isModified('fuelAmount')) {
+    //   const oldFuelIntake = await FuelIntake.findById(fuelIntake._id);
+    //   console.log("old", oldFuelIntake);
+
+    //   const zstation = await Station.findById(fuelIntake.station);
+
+    //   if (zstation) {
+    //     zstation.currentFuelAmount -= oldFuelIntake.fuelAmount;
+    //     zstation.currentFuelAmount += fuelIntake.fuelAmount;
+    //     await zstation.save();
+    //   }
+    // }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 
