@@ -15,8 +15,8 @@ function Dashboard() {
   const { userData, userCounts } = React.useContext(UserContext);
   const { fuelData, totalFuelConsumed, currentMonthIntake, fuelDataByMonth } = React.useContext(FuelContext);
   const { scanned, groupedCars, carData } = React.useContext(CarContext);
-  const nonAdminUserCounts = userCounts.filter(user => user.roleName !== 'admin');
-  console.log('nonAdminUserCounts', nonAdminUserCounts);
+  // const nonAdminUserCounts = userCounts.filter(user => user.roleName !== 'admin');
+
   const currentYear = new Date().getFullYear();
   const thisYearData = Array(12).fill(0);
   const lastYearData = Array(12).fill(0);
@@ -56,17 +56,18 @@ function Dashboard() {
           sx={{
             flexGrow: 1,
           }}
-          value={nonAdminUserCounts[0]?.count}
-          title={nonAdminUserCounts[0]?.roleName}
+          userCounts={userCounts}
+        // value={nonAdminUserCounts[0]?.count}
+        // title={nonAdminUserCounts[0]?.roleName}
         />
-        <UserCountCard
+        {/* <UserCountCard
           difference={12}
           sx={{
             flexGrow: 1,
           }}
           value={nonAdminUserCounts[1]?.count}
           title={nonAdminUserCounts[1]?.roleName}
-        />
+        /> */}
       </Box>
 
 

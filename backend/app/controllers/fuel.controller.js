@@ -178,16 +178,17 @@ const fuelIntakeController = {
     }
   },
 
+  // Delete function
   delete: async (req, res) => {
+    console.log('abc', req.params.id);
     try {
-      await FuelIntake.findByIdAndDelete(req.params.id);
+      await FuelIntake.findOneAndDelete({ _id: req.params.id });
       res.json({ message: "FuelIntake deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   },
-};
-
+}
 export default fuelIntakeController;
 async function getTotalFuelIntake(car_id) {
   const currentDate = new Date();

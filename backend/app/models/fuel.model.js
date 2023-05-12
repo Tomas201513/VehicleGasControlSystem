@@ -31,26 +31,35 @@ const fuelIntakeSchema = new Schema({
   },
 });
 
-fuelIntakeSchema.pre("findOneAndUpdate", async function (next) {
-  console.log("findOneAndUpdate");
-  // Get the old and new fuel intake values
-  const oldFuelIntake = await FuelIntake.findById(this._conditions._id);
-  console.log('ooo', oldFuelIntake);
-  const newFuelIntake = this._update.fuelAmount;
-  console.log('nnnn', newFuelIntake);
-  console.log('olnw', oldFuelIntake.fuelAmount - newFuelIntake);
-  // Find the station
-  const station = await Station.findById(this._update.station);
-  console.log('sss', station);
-  if (station && oldFuelIntake) {
-    station.currentFuelAmount += (oldFuelIntake.fuelAmount - newFuelIntake)
-    console.log('nnnsss', station.currentFuelAmount);
-    await station.save();
+// Add this pre-delete middleware to your fuelIntakeSchema
+fuelIntakeSchema.pre("findOneAndDelete", async function (next) {
+  const fuelIntake = await FuelIntake.findById(this.getQuery()._id);
+
+  if (fuelIntake) {
+    const station = await Station.findById(fuelIntake.station);
+
+    if (station) {
+      station.currentFuelAmount += fuelIntake.fuelAmount;
+      await station.save();
+    }
   }
 
   next();
 });
 
+
+fuelIntakeSchema.pre("findByIdAndDelete", async function (next) {
+  console.log("pre delete");
+  // Get the old fuel intake values
+  const oldFuelIntake = await FuelIntake.findById(this._conditions._id);
+  const station = await Station.findById(this._update.station);
+  if (station && oldFuelIntake) {
+    station.currentFuelAmount += oldFuelIntake.fuelAmount
+    await station.save();
+  }
+
+  next();
+});
 fuelIntakeSchema.pre("save", async function (next) {
   try {
     const fuelIntake = this;

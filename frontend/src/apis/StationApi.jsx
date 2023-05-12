@@ -13,14 +13,7 @@ export const GetStation = async () => {
     // }
 };
 
-export const deleteStation = async (id) => {
-    // if (localStorage.getItem("accessToken")) {
-    const res = await axios.delete(`${api}${id}`);
-    return res.data;
-    // } else {
-    //     console.log("No token");
-    // }
-}
+
 export const CreateStation = async (values) => {
     // if (localStorage.getItem("accessToken")) {
     const res = await axios.post(api, values);
