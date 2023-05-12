@@ -26,18 +26,21 @@ import Warnialogue from "src/components/Warnialogue";
 import FuelContext from "src/context/FuelContext";
 import CarContext from "../../context/CarContext";
 import UserContext from "../../context/UserContext";
+import StationContext from "../../context/StationContext";
 
 
 function CreateUpdateFuel({ selectedData, editable, setEditable }) {
     const { createFuel, updateFuel, setSelectedData, setCreateOpen, deleteFuel, warn, SetWarn } = React.useContext(FuelContext);
     const { userData } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
+    const { stationData } = React.useContext(StationContext);
 
     const FormSchema = yup.object().shape({
         fuelAmount: yup.number().required("fuel amount is required"),
         // fuelDate: yup.date().required("date is required"),
         car_id: yup.string().required("car id is required"),
         attendant: yup.string().required("attendant is required"),
+        station: yup.string().required("station is required"),
     })
     const handleSubmit = async (values) => {
         try {
@@ -59,6 +62,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                     fuelAmount: selectedData?.fuelAmount || "",
                     car_id: selectedData?.car_id?._id || "",
                     attendant: selectedData?.attendant?._id || "",
+                    station: selectedData?.station?._id || "",
                 }}
                 validationSchema={FormSchema}
                 onSubmit={handleSubmit}
@@ -166,6 +170,31 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             {userData?.map((user) => (
                                                 <MenuItem key={user._id} value={user._id}>
                                                     {user?.userName}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label2">
+                                            Station
+                                        </InputLabel>
+                                        <Select
+
+                                            labelId="demo-simple-select-label2"
+                                            id="demo-simple-select2"
+                                            name="station"
+                                            disabled={!editable}
+                                            autoFocus={editable}
+                                            onChange={handleChange}
+                                            required
+                                            value={values.station}
+                                            variant="standard"
+                                            error={Boolean(touched.station && errors.station)}
+                                            helperText={touched.station && errors.station}
+                                        >
+                                            {stationData?.map((station) => (
+                                                <MenuItem key={station._id} value={station._id}>
+                                                    {station?.stationName}
                                                 </MenuItem>
                                             ))}
                                         </Select>

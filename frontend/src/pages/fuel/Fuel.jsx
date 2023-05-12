@@ -20,6 +20,7 @@ function Fuel() {
     handleRowClick,
   } = React.useContext(FuelContext);
 
+
   const columns = [
     {
       field: "_id",
@@ -39,6 +40,11 @@ function Fuel() {
     {
       field: "attendant", headerName: "ATTENDANT", width: 150, valueGetter: (params) => {
         return params.row?.attendant?.userName;
+      }
+    },
+    {
+      field: "station", headerName: "STATION", width: 150, valueGetter: (params) => {
+        return params.row?.station?.stationName;
       }
     },
     {
@@ -71,18 +77,18 @@ function Fuel() {
           createOpen={createOpen}
         />
       ) : (
-          <Datatable
-            columns={columns}
-            rows={fuelData}
-            createOpen={createOpen}
-            setCreateOpen={setCreateOpen}
-            editable={editable}
-            setEditable={setEditable}
-            getRowId={getRowId}
-            isLoading={isLoading}
-            error={error}
-            name={name}
-          />
+        <Datatable
+          columns={columns}
+          rows={fuelData}
+          createOpen={createOpen}
+          setCreateOpen={setCreateOpen}
+          editable={editable}
+          setEditable={setEditable}
+          getRowId={getRowId}
+          isLoading={isLoading}
+          error={error}
+          name={name}
+        />
       )}
     </>
   );

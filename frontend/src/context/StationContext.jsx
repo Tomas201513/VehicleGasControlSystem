@@ -13,7 +13,6 @@ export const StationProvider = ({ children }) => {
     const [selectedData, setSelectedData] = React.useState(null);
     const [editable, setEditable] = React.useState(false);
     const [warn, SetWarn] = React.useState(false);
-
     const name = "Stations";
     const { showToast } = React.useContext(ToastContext);
     const handleRowClick = (params) => {
@@ -44,7 +43,8 @@ export const StationProvider = ({ children }) => {
         },
         onError: (err) => {
             console.log("Station updated successfully");
-            showToast(err.message, "error");
+            showToast(err.response.data.message, "error");
+
         },
     });
     // UpdateStation
@@ -55,7 +55,8 @@ export const StationProvider = ({ children }) => {
             refetch();
         },
         onError: (err) => {
-            showToast(err.message, "error");
+            showToast(err.response.data.message, "error");
+
         },
     });
 

@@ -10,6 +10,7 @@ import { SvgIcon } from '@mui/material';
 import { AiFillCar } from "react-icons/ai";
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import OilBarrelIcon from '@mui/icons-material/OilBarrel';
 
 export const items = [
   {
@@ -43,7 +44,7 @@ export const items = [
     path: '/fuel',
     icon: (
       <SvgIcon fontSize="small">
-        <LocalGasStationIcon />
+        <OilBarrelIcon />
       </SvgIcon>
     )
   },
@@ -52,7 +53,7 @@ export const items = [
     path: '/station',
     icon: (
       <SvgIcon fontSize="small">
-        <QrCodeScannerIcon />
+        <LocalGasStationIcon />
       </SvgIcon>
     )
   }, {

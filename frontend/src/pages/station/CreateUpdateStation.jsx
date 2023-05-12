@@ -39,6 +39,7 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
     const handleSubmit = async (values) => {
         try {
             if (selectedData) {
+                console.log('torpa', values);
                 await updateStation({ selectedData: selectedData._id, values });
             } else {
                 console.log(values);
@@ -101,12 +102,15 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                     <></>
                                 )}
                             </Box>
-                            <CardContent>
+                            <CardContent sx={{ pt: 0, mb: '5%' }}>
                                 <Stack spacing={3}>
                                     <TextField
                                         fullWidth
                                         label="Station Name"
                                         name="stationName"
+                                        disabled={!editable}
+                                        autoFocus={editable}
+                                        required
                                         value={values.stationName}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -117,6 +121,9 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Station Location"
                                         name="stationLocation"
+                                        disabled={!editable}
+                                        autoFocus={editable}
+                                        required
                                         value={values.stationLocation}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -128,6 +135,9 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Station Owner"
                                         name="stationOwner"
+                                        disabled={!editable}
+                                        autoFocus={editable}
+                                        required
                                         value={values.stationOwner}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -139,6 +149,9 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Fuel Capacity"
                                         name="FuelCapacity"
+                                        disabled={!editable}
+                                        autoFocus={editable}
+                                        required
                                         value={values.FuelCapacity}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -150,31 +163,30 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Current Fuel Amount"
                                         name="currentFuelAmount"
+                                        disabled={!editable}
+                                        autoFocus={editable}
+                                        required
                                         value={values.currentFuelAmount}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         error={!!touched.currentFuelAmount && !!errors.currentFuelAmount}
                                         helperText={touched.currentFuelAmount && errors.currentFuelAmount}
                                     />
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "flex-end",
+                                        }}
+                                    >
+                                        {editable && (
+                                            <Button b style={{ backgroundColor: '#4276a8' }}
+                                                variant="contained" type="submit" fullWidth>
+                                                {selectedData ? "Update" : "Create"}
+                                            </Button>
+                                        )}
+                                    </Box>
                                 </Stack>
                             </CardContent>
-                            <Box
-
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    p: 2,
-                                }}
-                            >
-                                <Button
-
-                                    color="primary"
-                                    variant="contained"
-                                    type="submit"
-                                >
-                                    {selectedData ? "Update" : "Create"}
-                                </Button>
-                            </Box>
                         </Container>
                     </Form>
                 )}

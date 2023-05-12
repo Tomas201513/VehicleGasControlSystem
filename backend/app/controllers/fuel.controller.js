@@ -1,9 +1,9 @@
 import FuelIntake from "../models/fuel.model.js";
 import User from "../models/user.model.js";
 import Car from "../models/car.model.js";
+import Station from "../models/station.model.js";
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
-import Station from "../models/station.model.js";
 
 const fuelIntakeController = {
   getMonthly: async (req, res) => {
@@ -67,12 +67,12 @@ const fuelIntakeController = {
           $gte: firstDayOfMonth,
           $lte: lastDayOfMonth
         }
-      }).populate(["car_id", "attendant", { path: "car_id", populate: { path: "driver" } }]);
+      }).populate(["car_id", "station", "attendant", { path: "car_id", populate: { path: "driver" } }]);
       const currentMonthIntake = currentMnthfuelIntakes.reduce((acc, fuelIntake) => {
         return acc + fuelIntake.fuelAmount;
       }, 0);
 
-      const fuelIntakes = await FuelIntake.find().populate(["car_id", "attendant",
+      const fuelIntakes = await FuelIntake.find().populate(["car_id", "station", "attendant",
         { path: "car_id", populate: { path: "driver" } }]).sort({ fuelDate: -1 });
       // Calculate the total fuel consumed by all cars
       const totalFuelConsumed = fuelIntakes.reduce((acc, fuelIntake) => {
@@ -90,8 +90,7 @@ const fuelIntakeController = {
       // const carId = req.params.carId;
       // const fuelIntakes = await FuelIntake.find({ car_id: carId })
       // res.json(fuelIntakes);
-      const car = await Car.findById(req.params.carId).populate('driver');
-
+      const car = await Car.findById(req.params.carId).populate(['driver', 'station']);
       const car_id = req.params.carId;
       const fuelIntakeDetails = await getFuelIntakeDetails(car_id);
       res.status(200).json({ car, fuelIntakeDetails });
@@ -103,7 +102,9 @@ const fuelIntakeController = {
 
   getOne: async (req, res) => {
     try {
-      const fuelIntake = await FuelIntake.findById(req.params.id).populate(["car_id", "attendant", { path: "car_id", populate: { path: "driver" } }]);
+      const fuelIntake = await FuelIntake.findById(req.params.id).populate(["car_id", "attendant", {
+        path: "car_id", populate: { path: "driver" }
+      }, "station"]); 
       res.json(fuelIntake);
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -119,7 +120,7 @@ const fuelIntakeController = {
       // Find the user by ID
       const attendant = await User.findById(req.body.attendant);
       const car = await Car.findById(req.body.car_id).populate("driver");
-
+      const station = await Station.findById(req.body.station)
 
       // Check if the user exists
       if (!(attendant)) {
