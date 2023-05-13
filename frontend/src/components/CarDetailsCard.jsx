@@ -23,15 +23,16 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
     function LinearProgressWithLabel(props) {
         return (
             <Box >
-                <Box sx={{ width: '100%', mr: 1 }}>
-                    <LinearProgress variant="determinate" {...props} color={props.index === 0 ? "primary" : "inherit"} />
-                </Box>
-                <Box sx={{ flexGrow: 1 }} />
-                <Box sx={{ minWidth: 250 }}>
-                    <Typography variant="body2" color="text.secondary">{`${Math.round(
-                        props.value,
-                    )}%`}</Typography>
-                </Box>
+                <Stack spacing={2} direction="row" sx={{ width: '100%' }}>
+                    <Box sx={{ width: '200px' }}>
+                        <LinearProgress variant="determinate" {...props} color={props.index === 0 ? "primary" : "inherit"} />
+                    </Box>
+                    <Box >
+                        <Typography variant="body2" color="text.secondary">{`${Math.round(
+                            props.value,
+                        )}%`}</Typography>
+                    </Box>
+                </Stack>
             </Box>
         );
     }
@@ -60,7 +61,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
     return (
         <>
             {/* <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, ml: 5, mr: 5, mb: 5, mt: 5, bgcolor: 'red', }}> */}
-            <Grid container spacing={2}>
+            <Grid container spacing={2}  >
                 <Grid item xs={12} sm={6} sx={{
                     display: 'flex', flexDirection: 'column',
                     justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap'
@@ -70,26 +71,50 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
 
                     }}>
                         <CardContent>
-                            <Typography variant="body1">Plate Number: {fuelDataByCar?.car?.plateNumber}</Typography>
-                            <Typography variant="body1">Model: {fuelDataByCar?.car?.model}</Typography>
-                            <Typography variant="body1">Year: {fuelDataByCar?.car?.year}</Typography>
-                            <Typography variant="body1">Color: {fuelDataByCar?.car?.color}</Typography>
-                            <Typography variant="body1">Capacity: {fuelDataByCar?.car?.capacity}</Typography>
-                            <Typography variant="body1">Engine: {fuelDataByCar?.car?.engine}</Typography>
-                            <Typography variant="body1">Transmission: {fuelDataByCar?.car?.transmission}</Typography>
+                            <Typography color="text.primary"
+                                variant="h6" whitespace="nowrap"
+                                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 0, p: 0 }}>
 
-                            {/* <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                mb: 2,
-                            }} > */}
+                                Car | User </Typography>
+                            <Divider sx={{ mb: 2 }} />
+                            <Stack
+                                alignItems="flex-start"
+                                direction="column"
+                                justifyContent="space-between">
 
-                            {/* <Avatar ariant="outlined" sizes='large' sx={{ width: 60, height: 60, }} /> */}
-                            {/* </Box> */}
-                            <Typography variant="body1" sx={{ mb: 2 }}>Driver: {fuelDataByCar?.car?.driver.userName}</Typography>
-                            <Typography variant="body1">Email: {fuelDataByCar?.car?.driver?.email}</Typography>
+
+
+
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }}>Plate Number: {fuelDataByCar?.car?.plateNumber}</Typography>
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }}>Model: {fuelDataByCar?.car?.model}</Typography>
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }}>Year: {fuelDataByCar?.car?.year}</Typography>
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }}>Color: {fuelDataByCar?.car?.color}</Typography>
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }}>Capacity: {fuelDataByCar?.car?.capacity}</Typography>
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }}>Engine: {fuelDataByCar?.car?.engine}</Typography>
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }}>Transmission: {fuelDataByCar?.car?.transmission}</Typography>
+                                <Divider sx={{ mb: 2 }} />
+
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }} >Driver: {fuelDataByCar?.car?.driver.userName}</Typography>
+                                <Typography color="text.primary"
+                                    variant="overline"
+                                    sx={{ mb: 0, p: 0 }}>Email: {fuelDataByCar?.car?.driver?.email}</Typography>
+                            </Stack>
 
 
                         </CardContent>
@@ -108,21 +133,13 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                         maxWidth: 400,
                     }}>
                         <CardContent>
+                            <Typography color="text.primary"
+                                variant="h6" whitespace="nowrap"
+                                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 0, p: 0 }}>
 
-                            {/* <Paper
-                        square
-                        elevation={0}
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            height: 50,
-                            pl: 2,
-                            bgcolor: 'background.default',
-                        }}
-                    > */}
-                            {/* <Typography>{fuelDataByCar?.fuelIntakeDetails?.[activeStep]?.fuelIntakes */}
+                                GAS INTAKE DETAIL</Typography>
+                            <Divider sx={{ mb: 2 }} />
 
-                            {/* </Paper> */}
                             <AutoPlaySwipeableViews
                                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                                 index={activeStep}
@@ -136,29 +153,27 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                                         justifyContent: 'center', alignItems: 'center',
                                     }}>
                                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', height: '100%', alignItems: 'center', }}>
-                                            <Stack>
 
 
-                                                <Typography variant="h6" component="div">
-                                                    Month: {monthDetail._id.month} Year: {monthDetail._id.year}
-                                                    {index === 0 ?
-                                                        <IconButton onClick={() => { setOpen(true); }}>
-                                                            <AddIcon />
-                                                        </IconButton>
-                                                        :
-                                                        <></>}
-                                                </Typography>
-                                                {index === 0 ? <>
-                                                    <LinearProgressWithLabel
-                                                        determinate
-                                                        value={normalise(monthDetail.totalFuelAmount, 0, 1000)}
-                                                        index={index}
-                                                    />
-                                                </> :
-                                                    <></>}
-                                                <Box sx={{ flexGrow: 1 }} />
-                                            </Stack>
+                                            <Typography component="div">
+                                                Month: {monthDetail._id.month} Year: {monthDetail._id.year}
+                                            </Typography>
+                                            <Box sx={{ flexGrow: 1 }} />
+                                            {index === 0 ?
+                                                <IconButton onClick={() => { setOpen(true); }}>
+                                                    <AddIcon />
+                                                </IconButton>
+                                                :
+                                                <></>}
                                         </Box>
+                                        {index === 0 ? <>
+                                            <LinearProgressWithLabel
+                                                determinate
+                                                value={normalise(monthDetail.totalFuelAmount, 0, 1000)}
+                                                index={index}
+                                            />
+                                        </> :
+                                            <></>}
                                         <Stack
                                             alignItems="flex-start"
                                             direction="row"
@@ -255,7 +270,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                     </Card>
 
                 </Grid>
-            </Grid>
+            </Grid >
             <AlertDialog open={open} setOpen={setOpen} editCard={editCard} setEditCard={setEditCard} />
             <WarnCard
                 open={warn}

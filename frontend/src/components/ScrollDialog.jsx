@@ -39,14 +39,15 @@ export default function ScrollDialog({ scanned, setScanned }) {
 
     return (
 
-        <Box >
+        <Box sx={{ flexGrow: 1, flexWrap: 'wrap', overflow: 'hidden' }}>
             <Dialog
                 fullScreen
                 open={scanned}
                 onClose={handleClose}
                 TransitionComponent={Transition}
-                sx={{ flexGrow: 1, flexWrap: 'wrap' }}>
-                <AppBar sx={{ position: 'relative', backgroundColor: '#4276a8' }}>
+
+            >
+                <AppBar sx={{ position: 'relative', backgroundColor: '#4276a8', mb: 5, flexWrap: 'wrap' }}>
                     <Toolbar>
                         <IconButton
                             edge="start"

@@ -71,17 +71,17 @@ export const LatestOilFill = (props) => {
                                     key={fill._id}
                                 >
                                     <TableCell>
-                                        {fill.car_id.driver.userName}
+                                        {fill?.car_id?.driver?.userName}
                                     </TableCell>
                                     <TableCell>
-                                        {fill.car_id.plateNumber}
+                                        {fill?.car_id?.plateNumber}
                                     </TableCell>
                                     <TableCell>
-                                        {fill.fuelAmount}
+                                        {fill?.fuelAmount}
                                     </TableCell>
 
                                     <TableCell>
-                                        <TimeAgo date={fill.fuelDate} />
+                                        <TimeAgo date={fill?.fuelDate} />
                                         {/* <SeverityPill color={statusMap[fill.status]}>
                                                 {fill.status}
                                             </SeverityPill> */}
@@ -113,7 +113,7 @@ export const LatestOilFill = (props) => {
     );
 };
 
-LatestOilFill.prototype = {
-    fills: PropTypes.array,
-    sx: PropTypes.object
+LatestOilFill.propTypes = {
+    sx: PropTypes.object,
+    fuelIntakes: PropTypes.array
 };
