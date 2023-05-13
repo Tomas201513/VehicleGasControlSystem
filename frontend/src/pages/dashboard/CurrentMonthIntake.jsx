@@ -16,15 +16,20 @@ export const CurrentMonthIntake = (props) => {
                     spacing={3}
                 >
                     <Stack spacing={1}>
-                        <Typography
-                            color="text.secondary"
-                            variant="overline"
-                        >
-                            {'CURRENT MONTH CONCEPTION'}
+                        <>
+                            <Typography
+                                color="text.secondary"
+                                variant="overline"
+                                sx={{ mb: 0 }}
+                            >
+                                {'CURRENT MONTH '}
+                                <br style={{ margin: 0 }} />
+                                {'GAS CONCEPTION'}
 
-                        </Typography>
+                            </Typography>
+                        </>
                         <Typography variant="h4">
-                            {value}
+                            {value}L
                         </Typography>
                     </Stack>
                     <Avatar
@@ -39,7 +44,7 @@ export const CurrentMonthIntake = (props) => {
                         {/* </SvgIcon> */}
                     </Avatar>
                 </Stack>
-                {difference && (
+                {/* {difference && (
                     <Stack
                         alignItems="center"
                         direction="row"
@@ -71,7 +76,7 @@ export const CurrentMonthIntake = (props) => {
                             Since last month
                         </Typography>
                     </Stack>
-                )}
+                )} */}
             </CardContent>
         </Card>
     );

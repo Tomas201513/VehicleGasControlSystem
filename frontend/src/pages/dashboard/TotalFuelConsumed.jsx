@@ -20,10 +20,10 @@ function TotalFuelConsumed(props) {
                             color="text.secondary"
                             variant="overline"
                         >
-                            {'TOTAL CONCEPTION'}
+                            {'TOTAL GAS CONCEPTION'}
                         </Typography>
                         <Typography variant="h4">
-                            {value}
+                            {value}L
                         </Typography>
                     </Stack>
                     <Avatar
@@ -65,8 +65,7 @@ function TotalFuelConsumed(props) {
                         </Stack>
                         <Typography
                             color="text.secondary"
-                            variant="caption"
-                        >
+                            variant="caption">
                             Since last month
                         </Typography>
                     </Stack>

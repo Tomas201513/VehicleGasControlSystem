@@ -8,7 +8,9 @@ import {
     LinearProgress,
     Stack,
     SvgIcon,
-    Typography
+    Typography,
+    linearProgressClasses,
+    styled
 } from '@mui/material';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 
@@ -30,7 +32,6 @@ export const UserCountCard = (props) => {
                         {userCounts.map((userCount) => (
                             <Stack spacing={3} direction="row" alignItems="left"
                                 key={userCount.roleName} >
-
                                 <Typography
                                     color="text.secondary"
                                     // gutterBottom
@@ -60,6 +61,13 @@ export const UserCountCard = (props) => {
                 </Stack>
 
             </CardContent>
+            {/* <Box sx={{}}>
+                <LinearProgress
+                    value={0}
+                    variant="determinate"
+                />
+            </Box> */}
+
         </Card>
     );
 };
@@ -68,10 +76,3 @@ UserCountCard.propTypes = {
     sx: PropTypes.object,
     userCounts: PropTypes.array
 };
-
-{/* <Box sx={{ mt: 3 }}>
-    <LinearProgress
-        value={54}
-        variant="determinate"
-    />
-</Box> */}

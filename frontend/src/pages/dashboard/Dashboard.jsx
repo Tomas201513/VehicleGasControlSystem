@@ -10,11 +10,14 @@ import { width } from '@mui/system';
 import { OverviewSales } from './OverviewSales'
 import { CarModelPieChart } from './CarModelPieChart';
 import { LatestOilFill } from './LatestOilFill';
+import StationContent from './StationContent';
+import StationContext from 'src/context/StationContext';
 function Dashboard() {
   const isSmallScreen = useMediaQuery('(min-width:600px)');
   const { userData, userCounts } = React.useContext(UserContext);
   const { fuelData, totalFuelConsumed, currentMonthIntake, fuelDataByMonth } = React.useContext(FuelContext);
   const { scanned, groupedCars, carData } = React.useContext(CarContext);
+  const { stationData } = React.useContext(StationContext);
   // const nonAdminUserCounts = userCounts.filter(user => user.roleName !== 'admin');
 
   const currentYear = new Date().getFullYear();
@@ -60,6 +63,14 @@ function Dashboard() {
         // value={nonAdminUserCounts[0]?.count}
         // title={nonAdminUserCounts[0]?.roleName}
         />
+        <StationContent
+          difference={12}
+          sx={{
+            flexGrow: 1,
+          }}
+          stationData={stationData}
+        />
+
         {/* <UserCountCard
           difference={12}
           sx={{
