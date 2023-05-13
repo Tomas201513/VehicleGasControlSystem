@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
@@ -38,13 +39,13 @@ export default function ScrollDialog({ scanned, setScanned }) {
 
     return (
 
-        <div>
+        <Box >
             <Dialog
                 fullScreen
                 open={scanned}
                 onClose={handleClose}
                 TransitionComponent={Transition}
-            >
+                sx={{ flexGrow: 1, flexWrap: 'wrap' }}>
                 <AppBar sx={{ position: 'relative', backgroundColor: '#4276a8' }}>
                     <Toolbar>
                         <IconButton
@@ -73,7 +74,7 @@ export default function ScrollDialog({ scanned, setScanned }) {
             </Dialog>
             {/* <AlertDialog open={open} setOpen={setOpen} /> */}
 
-        </div>
+        </Box>
     );
 }
 

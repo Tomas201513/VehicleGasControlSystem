@@ -24,6 +24,7 @@ import UserContext from 'src/context/UserContext';
 import Draggable from 'react-draggable';
 import Paper from '@mui/material/Paper';
 import AuthContext from '/src/context/AuthContext'
+import StationContext from 'src/context/StationContext';
 
 function PaperComponent(props) {
     return (
@@ -41,11 +42,13 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
     const { carData } = React.useContext(CarContext);
     const { createFuel, fuelDataByCar, cardRow, setCardRow, } = React.useContext(FuelContext);
     const { userDetail } = React.useContext(AuthContext);
+    const { stationData } = React.useContext(StationContext);
     const FormSchema = yup.object().shape({
         fuelAmount: yup.number().required("fuel amount is required"),
         // fuelDate: yup.date().required("date is required"),
         car_id: yup.string().required("car id is required"),
         attendant: yup.string().required("attendant is required"),
+        station: yup.string().required("station is required"),
     })
     const handleClickOpen = () => {
         setOpen(true);
@@ -53,6 +56,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
 
     const handleClose = () => {
         setOpen(false);
+        setCardRow(null);
     };
     const handleSubmit = async (values) => {
         try {
@@ -78,8 +82,9 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
                     <Formik
                         initialValues={{
                             fuelAmount: cardRow?.fuelAmount || "",
-                            car_id: fuelDataByCar?.car?._id || "",
-                            attendant: userDetail?._id || "",
+                            car_id: cardRow?.car_id || "",
+                            attendant: cardRow?.attendant || "",
+                            station: cardRow?.station || "",
                         }}
                         validationSchema={FormSchema}
                         onSubmit={handleSubmit}
@@ -111,7 +116,6 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
                                                     name="car_id"
                                                     onChange={handleChange}
                                                     required
-                                                    disabled={true}
                                                     value={values.car_id}
                                                     variant="standard"
                                                     error={Boolean(touched.car_id && errors.car_id)}
@@ -134,7 +138,6 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
                                                     name="attendant"
                                                     onChange={handleChange}
                                                     required
-                                                    disabled={true}
                                                     value={values.attendant}
                                                     variant="standard"
                                                     error={Boolean(touched.attendant && errors.attendant)}
@@ -143,6 +146,28 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
                                                     {userData?.map((user) => (
                                                         <MenuItem key={user._id} value={user._id}>
                                                             {user?.userName}
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label2">
+                                                    Station
+                                                </InputLabel>
+                                                <Select
+                                                    labelId="demo-simple-select-label2"
+                                                    id="demo-simple-select2"
+                                                    name="station"
+                                                    onChange={handleChange}
+                                                    required
+                                                    value={values.station}
+                                                    variant="standard"
+                                                    error={Boolean(touched.station && errors.station)}
+                                                    helperText={touched.station && errors.station}
+                                                >
+                                                    {stationData?.map((station) => (
+                                                        <MenuItem key={station._id} value={station._id}>
+                                                            {station?.stationName}
                                                         </MenuItem>
                                                     ))}
                                                 </Select>
