@@ -64,23 +64,23 @@ const useChartOptions = (labels) => {
     };
 };
 
-const iconMap = {
-    Desktop: (
-        <SvgIcon>
-            <ComputerDesktopIcon />
-        </SvgIcon>
-    ),
-    Tablet: (
-        <SvgIcon>
-            <DeviceTabletIcon />
-        </SvgIcon>
-    ),
-    Phone: (
-        <SvgIcon>
-            <PhoneIcon />
-        </SvgIcon>
-    )
-};
+// const iconMap = {
+//     Desktop: (
+//         <SvgIcon>
+//             <ComputerDesktopIcon />
+//         </SvgIcon>
+//     ),
+//     Tablet: (
+//         <SvgIcon>
+//             <DeviceTabletIcon />
+//         </SvgIcon>
+//     ),
+//     Phone: (
+//         <SvgIcon>
+//             <PhoneIcon />
+//         </SvgIcon>
+//     )
+// };
 
 export const CarModelPieChart = (props) => {
     const { chartSeries, labels, sx } = props;
@@ -90,6 +90,7 @@ export const CarModelPieChart = (props) => {
         <Card sx={sx}>
             <CardHeader title="Car Models" />
             <CardContent>
+
                 <Charts
                     height={300}
                     options={chartOptions}
@@ -112,14 +113,13 @@ export const CarModelPieChart = (props) => {
                                 key={label}
                                 sx={{
                                     display: 'flex',
-                                    flexDirection: 'column',
+                                    flexDirection: 'column ',
                                     alignItems: 'center'
-                                }}
-                            >
-                                {iconMap[label]}
+                                }}>
+                                {/* {iconMap[label]} */}
                                 <Typography
-                                    sx={{ my: 1 }}
-                                    variant="h6"
+                                    sx={{ my: 1, whiteSpace: 'nowrap' }}
+                                // variant="h6"
                                 >
                                     {label}
                                 </Typography>
@@ -127,7 +127,7 @@ export const CarModelPieChart = (props) => {
                                     color="text.secondary"
                                     variant="subtitle2"
                                 >
-                                    {item}%
+                                    {item}
                                 </Typography>
                             </Box>
                         );

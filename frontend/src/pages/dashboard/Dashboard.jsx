@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Box, Card, CardContent, Typography, Grid, useMediaQuery } from '@mui/material';
 import UserContext from 'src/context/UserContext';
 import FuelContext from 'src/context/FuelContext';
@@ -19,10 +19,22 @@ function Dashboard() {
   const { scanned, groupedCars, carData } = React.useContext(CarContext);
   const { stationData } = React.useContext(StationContext);
   // const nonAdminUserCounts = userCounts.filter(user => user.roleName !== 'admin');
-
   const currentYear = new Date().getFullYear();
   const thisYearData = Array(12).fill(0);
   const lastYearData = Array(12).fill(0);
+  // const size = fuelData?.fuelIntakes.slice(-1)[0]||0
+  const startDate = fuelData?.fuelIntakes?.slice(-1)[0]?.fuelDate
+  const x = fuelDataByMonth?.anualIntakes[0].monthlyIntakes[0].totalFuelAmountMonth
+  const y = fuelDataByMonth?.anualIntakes[0].monthlyIntakes[1].totalFuelAmountMonth
+  const percent = ((x - y) / ((y) / 2) * 100).toFixed(2)
+  const [positive, setPosetive] = React.useState(false)
+  React.useEffect(() => {
+    if (percent > 0) {
+      setPosetive(true);
+    } else {
+      setPosetive(false);
+    }
+  }, [percent]);
 
   fuelDataByMonth?.anualIntakes.forEach(yearData => {
     if (yearData._id === currentYear) {
@@ -52,7 +64,11 @@ function Dashboard() {
           sx={{
             flexGrow: 1,
           }}
+          startDate={startDate}
           value={currentMonthIntake}
+          percent={percent}
+          positive={positive}
+
         />
         <UserCountCard
           difference={12}
@@ -60,6 +76,7 @@ function Dashboard() {
             flexGrow: 1,
           }}
           userCounts={userCounts}
+
         // value={nonAdminUserCounts[0]?.count}
         // title={nonAdminUserCounts[0]?.roleName}
         />
@@ -69,6 +86,7 @@ function Dashboard() {
             flexGrow: 1,
           }}
           stationData={stationData}
+          positive
         />
 
         {/* <UserCountCard

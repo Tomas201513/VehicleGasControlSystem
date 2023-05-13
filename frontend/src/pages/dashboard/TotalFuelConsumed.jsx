@@ -22,8 +22,8 @@ function TotalFuelConsumed(props) {
                         >
                             {'TOTAL GAS CONCEPTION'}
                         </Typography>
-                        <Typography variant="h4">
-                            {value}L
+                        <Typography variant="h4" whitespace="nowrap">
+                            {value} L
                         </Typography>
                     </Stack>
                     <Avatar

@@ -1,13 +1,10 @@
 import { Card, CardContent, Typography, Grid, Box, Paper, Avatar, LinearProgress, Divider, IconButton } from '@mui/material';
 import * as React from 'react';
 import propTypes from 'prop-types';
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import AlertDialog from 'src/components/AlertDialog';
-import Warnialogue from "src/components/Warnialogue";
 import FuelContext from "src/context/FuelContext";
 import WarnCard from "src/components/WarnCard";
 
@@ -28,24 +25,26 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
     }
     // Extract relevant data from the provided object
     const [open, setOpen] = React.useState(false);
-    const { createFuel, updateFuel, setSelectedData, setCreateOpen, deleteFuel, warn, SetWarn } = React.useContext(FuelContext);
+    const { deleteFuel, warn, SetWarn } = React.useContext(FuelContext);
 
     const normalise = (value, min, max) => ((value - min) * 100) / (max - min);
 
     // Render the card with the extracted data
     return (
         <>
-            <Card sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderBottom: '0px',
-                boxSizing: 'border-box',
-                // overflow: 'auto',
-                backgroundColor: '#e7ebf0',
-            }}>
-                <CardContent>
-                    {/* <Typography variant="h5" gutterBottom sx={{
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, ml: 5, mr: 5, mb: 5 }}>
+
+                <Card sx={{
+                    // display: 'flex',
+                    // alignItems: 'center',
+                    // justifyContent: 'center',
+                    borderBottom: '0px',
+                    boxSizing: 'border-box',
+                    // overflow: 'auto',
+                    // backgroundColor: '#e7ebf0',
+                }}>
+                    <CardContent>
+                        {/* <Typography variant="h5" gutterBottom sx={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -56,21 +55,21 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                     }}>
                         Car Details
                     </Typography> */}
-                    <Card sx={{ mt: '2%' }}>
-                        <CardContent sx={{ backgroundColor: 'white', overflow: 'none' }}>
-                            <Grid container spacing={6}>
-                                <Grid item xs={6}>
-                                    <Typography variant="body1">Plate Number: {fuelDataByCar?.car?.plateNumber}</Typography>
-                                    <Typography variant="body1">Model: {fuelDataByCar?.car?.model}</Typography>
-                                    <Typography variant="body1">Year: {fuelDataByCar?.car?.year}</Typography>
-                                    <Typography variant="body1">Color: {fuelDataByCar?.car?.color}</Typography>
-                                    <Typography variant="body1">Capacity: {fuelDataByCar?.car?.capacity}</Typography>
-                                    <Typography variant="body1">Engine: {fuelDataByCar?.car?.engine}</Typography>
-                                    <Typography variant="body1">Transmission: {fuelDataByCar?.car?.transmission}</Typography>
+                        <Card sx={{ mt: '2%' }}>
+                            <CardContent sx={{ backgroundColor: 'white', overflow: 'none' }}>
+                                <Grid container spacing={6}>
+                                    <Grid item xs={6}>
+                                        <Typography variant="body1">Plate Number: {fuelDataByCar?.car?.plateNumber}</Typography>
+                                        <Typography variant="body1">Model: {fuelDataByCar?.car?.model}</Typography>
+                                        <Typography variant="body1">Year: {fuelDataByCar?.car?.year}</Typography>
+                                        <Typography variant="body1">Color: {fuelDataByCar?.car?.color}</Typography>
+                                        <Typography variant="body1">Capacity: {fuelDataByCar?.car?.capacity}</Typography>
+                                        <Typography variant="body1">Engine: {fuelDataByCar?.car?.engine}</Typography>
+                                        <Typography variant="body1">Transmission: {fuelDataByCar?.car?.transmission}</Typography>
 
-                                </Grid>
-                                <Grid item xs={6} >
-                                    {/* <Typography variant="h5" gutterBottom sx={{
+                                    </Grid>
+                                    <Grid item xs={6} >
+                                        {/* <Typography variant="h5" gutterBottom sx={{
                                         // display: 'flex',
                                         // alignItems: 'center',
                                         // justifyContent: 'center',
@@ -81,25 +80,25 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                                     }}>
                                         user
                                     </Typography> */}
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            mb: 2,
-                                        }} >
-                                        <Avatar variant="outlined" sizes='large' sx={{ width: 60, height: 60, }} />
-                                    </Box>
-                                    <Typography variant="body1" sx={{ mb: 2 }}>Driver: {fuelDataByCar?.car?.driver.userName}</Typography>
-                                    <Typography variant="body1">Email: {fuelDataByCar?.car?.driver?.email}</Typography>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                mb: 2,
+                                            }} >
+                                            <Avatar variant="outlined" sizes='large' sx={{ width: 60, height: 60, }} />
+                                        </Box>
+                                        <Typography variant="body1" sx={{ mb: 2 }}>Driver: {fuelDataByCar?.car?.driver.userName}</Typography>
+                                        <Typography variant="body1">Email: {fuelDataByCar?.car?.driver?.email}</Typography>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
 
-                </CardContent >
-            </Card >
-            <Typography variant="h6" sx={{
+                    </CardContent >
+                </Card >
+                {/* <Typography variant="h6" sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -109,9 +108,9 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                 // textShadow: "1px 1px 2px #ccc",
             }}>
                 Fuel Intake Details
-            </Typography>
-            {/* <Divider sx={{ mt: 0 }} /> */}
-            <Paper style={{ overflow: 'auto', width: '100%', padding: 2, backgroundColor: '#e7ebf0', height: '60vh' }}>
+            </Typography> */}
+                {/* <Divider sx={{ mt: 0 }} /> */}
+                {/* <Paper style={{ overflow: 'auto', width: '100%', padding: 2, backgroundColor: '#e7ebf0', height: '60vh' }}> */}
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 2, justifyContent: 'center', }}>
 
                     {fuelDataByCar?.fuelIntakeDetails.map((monthDetail, index) => (
@@ -179,7 +178,9 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                         </Card>
                     ))}
                 </Box>
-            </Paper>
+                {/* </Paper> */}
+            </Box>
+
             <AlertDialog open={open} setOpen={setOpen} editCard={editCard} setEditCard={setEditCard} />
             <WarnCard
                 open={warn}

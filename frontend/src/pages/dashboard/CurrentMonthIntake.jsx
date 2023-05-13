@@ -4,7 +4,7 @@ import ArrowUpIcon from '@heroicons/react/24/solid/ArrowUpIcon';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 export const CurrentMonthIntake = (props) => {
-    const { difference, positive = false, sx, value } = props;
+    const { startDate, percent, difference, positive = false, sx, value } = props;
 
     return (
         <Card sx={sx}>
@@ -20,16 +20,17 @@ export const CurrentMonthIntake = (props) => {
                             <Typography
                                 color="text.secondary"
                                 variant="overline"
-                                sx={{ mb: 0 }}
+                                sx={{ mb: 0, p: 0 }}
                             >
                                 {'CURRENT MONTH '}
                                 <br style={{ margin: 0 }} />
                                 {'GAS CONCEPTION'}
+                                {JSON.stringify(startDate)}
 
                             </Typography>
                         </>
-                        <Typography variant="h4">
-                            {value}L
+                        <Typography variant="h4" whitespace="nowrap">
+                            {value} L
                         </Typography>
                     </Stack>
                     <Avatar
@@ -44,7 +45,7 @@ export const CurrentMonthIntake = (props) => {
                         {/* </SvgIcon> */}
                     </Avatar>
                 </Stack>
-                {/* {difference && (
+                {difference && (
                     <Stack
                         alignItems="center"
                         direction="row"
@@ -66,7 +67,7 @@ export const CurrentMonthIntake = (props) => {
                                 color={positive ? 'success.main' : 'error.main'}
                                 variant="body2"
                             >
-                                {difference}%
+                                {percent}%
                             </Typography>
                         </Stack>
                         <Typography
@@ -76,7 +77,7 @@ export const CurrentMonthIntake = (props) => {
                             Since last month
                         </Typography>
                     </Stack>
-                )} */}
+                )}
             </CardContent>
         </Card>
     );
@@ -87,5 +88,7 @@ CurrentMonthIntake.propTypes = {
     positive: PropTypes.bool,
     value: PropTypes.string.isRequired,
     sx: PropTypes.object,
-    title: PropTypes.string.isRequired
-};
+    title: PropTypes.string.isRequired,
+    startDate: PropTypes.string.isRequired,
+    percent: PropTypes.number.isRequired
+}

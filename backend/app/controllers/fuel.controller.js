@@ -90,7 +90,7 @@ const fuelIntakeController = {
       // const carId = req.params.carId;
       // const fuelIntakes = await FuelIntake.find({ car_id: carId })
       // res.json(fuelIntakes);
-      const car = await Car.findById(req.params.carId).populate(['driver', 'station']);
+      const car = await Car.findById(req.params.carId).populate('driver');
       const car_id = req.params.carId;
       const fuelIntakeDetails = await getFuelIntakeDetails(car_id);
       res.status(200).json({ car, fuelIntakeDetails });

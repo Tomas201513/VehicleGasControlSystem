@@ -75,7 +75,7 @@ export default function StationContent(props) {
                                         color="text.secondary"
                                         variant="overline"
                                     >
-                                        {userCount.stationName}
+                                        {userCount?.stationName}
                                     </Typography>
                                     <Typography variant="h6" >
 
@@ -103,14 +103,14 @@ export default function StationContent(props) {
                                     color="text.secondary"
                                     variant="overline"
                                 >
-                                    {stationData[0].stationName}
+                                    {stationData[0]?.stationName}
 
                                 </Typography>
-                                <Typography variant="h4">
-                                    {(stationData[0].currentFuelAmount)}L
+                                <Typography variant="h4" whitespace="nowrap">
+                                    {(stationData[0]?.currentFuelAmount)} L
                                 </Typography>
                             </Stack>
-                            <CircularProgressWithLabel value={stationData[0].currentFuelAmount / stationData[0].FuelCapacity * 100} />
+                            <CircularProgressWithLabel value={stationData[0]?.currentFuelAmount / stationData[0]?.FuelCapacity * 100} />
 
                         </Stack>
                         {stationData && (
@@ -134,8 +134,9 @@ export default function StationContent(props) {
                                     <Typography
                                         color={'#1976d2'}
                                         variant="body2"
+                                        whitespace="nowrap"
                                     >
-                                        {stationData[0].FuelCapacity}L
+                                        {stationData[0]?.FuelCapacity} L
                                     </Typography>
                                 </Stack>
                                 <Typography
