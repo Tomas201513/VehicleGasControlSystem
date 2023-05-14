@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import PropTypes from "prop-types";
 
 const qrcodeRegionId = "html5qr-code-full-region";
-
 // Creates the configuration object for Html5QrcodeScanner.
 const createConfig = (props) => {
     props.setScanned(null);

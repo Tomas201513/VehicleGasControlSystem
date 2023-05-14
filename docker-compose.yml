@@ -1,13 +1,26 @@
 version: '3.8'
 
 services:
-  backend:
-    build: ./backend
-    ports:
-      - '5000:5000'
-    volumes:
-      - ./backend/app:/app
-      - /app/node_modules
+  # mongo:
+  #   image: mongo
+  #   ports:
+  #     - '27018:27017'
+  #   volumes:
+  #     - data:/data/db
+  #   networks:
+  #     - my_network
+  # backend:
+  #   build: ./backend
+  #   ports:
+  #     - '8000:8000'
+  #   volumes:
+  #     - ./backend:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - mongo
+  #   networks:
+  #     - my_network
+
   frontend:
     build: ./frontend
     ports:
@@ -15,3 +28,13 @@ services:
     volumes:
       - ./frontend/src:/app/src
       - /app/node_modules
+    # depends_on:
+    #   - backend
+    networks:
+      - my_network
+
+volumes:
+  data:
+networks:
+  my_network:
+  
