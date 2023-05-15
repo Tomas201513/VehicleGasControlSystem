@@ -25,15 +25,15 @@ function App() {
           <QueryClientProvider client={queryClient}>
             <ToastProvider>
               <AuthProvider>
+                <StationProvider>
                 <UserProvider>
-                  <CarProvider>
-                    <StationProvider>
+                    <CarProvider>
                     <FuelProvider>
                       <RoutesComponent />
-                    </FuelProvider>
-                    </StationProvider>
+                      </FuelProvider>
                   </CarProvider>
                 </UserProvider>
+                </StationProvider>
               </AuthProvider>
             </ToastProvider>
             <ReactQueryDevtools initialIsOpen={false} />

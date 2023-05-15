@@ -30,7 +30,7 @@ export const CurrentMonthIntake = (props) => {
                             </Typography>
                         </>
                         <Typography variant="h4" whitespace="nowrap">
-                            {value} L
+                            {JSON.stringify(value)} L
                         </Typography>
                     </Stack>
                     <Avatar
@@ -86,9 +86,8 @@ export const CurrentMonthIntake = (props) => {
 CurrentMonthIntake.propTypes = {
     difference: PropTypes.number,
     positive: PropTypes.bool,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
     sx: PropTypes.object,
-    title: PropTypes.string.isRequired,
-    startDate: PropTypes.string.isRequired,
-    percent: PropTypes.number.isRequired
+    startDate: PropTypes.string,
+    percent: PropTypes.string
 }

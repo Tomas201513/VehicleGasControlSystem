@@ -11,6 +11,8 @@ import Fuel from "./pages/fuel/Fuel";
 import Users from "./pages/user/Users";
 import Scan from "./pages/Scan/Scan";
 import Station from "./pages/station/Station";
+import PrivateRoute from "./utils/PrivateRoute";
+// import AuthContext from "./context/AuthContext";
 function RoutesComponent() {
   return (
 
@@ -19,7 +21,10 @@ function RoutesComponent() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
-      <Route element={<DashboardLayout />} >
+
+
+      <Route element={<PrivateRoute />} >
+        <Route path="/" element={<DashboardLayout />} >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/cars" element={<Cars />} />
@@ -27,6 +32,7 @@ function RoutesComponent() {
         <Route path="/scan" element={<Scan />} />
         <Route path="/station" element={<Station />} />
 
+        </Route>
       </Route>
       <Route path="*" element={<Page404 />} />
     </Routes>

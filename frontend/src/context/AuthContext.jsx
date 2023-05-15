@@ -14,33 +14,31 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const { showToast } = React.useContext(ToastContext);
   const [userDetail, setUserDetail] = useState(null);
-
-  async function loginUser(values) {
-    console.log("context" + JSON.stringify(values));
-    try {
-      const res = await axios.post("http://127.0.0.1:8000/api/auth/logIn", { email: values.email, password: values.password });
-      console.log("token" + JSON.stringify(res));
-      localStorage.setItem("accessToken", res.data.accessToken);
-      localStorage.setItem("refreshToken", res.data.refreshToken);
-      const decoded = jwt_decode(res.data.accessToken);
-      console.log("decoded" + JSON.stringify(decoded));
-      setUserDetail(decoded)
-      console.log("userDetail" + JSON.stringify(userDetail));
-      // navigate("/dashboard", { replace: true });
-      userDetail && showToast(`Welcome ${userDetail.userName}`, "success", 2000);
-    } catch (err) {
-      showToast("Login failed", "error", 2000);
-      console.log(err);
-    }
+  const [accessToken, setAccessTokens] = useState(() =>
+    localStorage.getItem("accessToken")
+      ? localStorage.getItem("accessToken")
+      : null
+  );
+  function loginUser(values) {
+    axios
+      .post("http://127.0.0.1:8000/api/auth/logIn", {
+        email: values.email,
+        password: values.password
+      })
+      .then((res) => {
+        localStorage.setItem("accessToken", res.data.accessToken);
+        localStorage.setItem("refreshToken", res.data.refreshToken);
+        setAccessTokens(res.data.accessToken);
+        const decoded = jwt_decode(res.data.accessToken);
+        setUserDetail(decoded);
+        navigate("/dashboard", { replace: true });
+        userDetail && showToast(`Welcome ${userDetail.userName}`, "success", 2000);
+      })
+      .catch((err) => {
+        showToast("Login failed", "error", 2000);
+        console.log(err);
+      });
   }
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      const decoded = jwt_decode(accessToken);
-      setUserDetail(decoded);
-      console.log("userDetail" + JSON.stringify(userDetail));
-    }
-  }, []);
 
 
   async function registerUser(values) {
@@ -78,15 +76,23 @@ export const AuthProvider = ({ children }) => {
       navigate("/login", { replace: true });
       // showToast("Logout successful", "success", 2000);
     } catch (err) {
+      setUserDetail(null);
+      navigate("/login", { replace: true });
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-      navigate("/login", { replace: true });
 
       showToast("Logout failed", "error", 2000);
       console.error("Error logging out user:", err.message);
     }
   }
 
+  useEffect(() => {
+    // const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      const decoded = jwt_decode(accessToken);
+      setUserDetail(decoded);
+    }
+  }, [accessToken]);
   return (
     <AuthContext.Provider
       value={{

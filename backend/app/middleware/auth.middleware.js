@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-
 const auth = async (req, res, next) => {
   const token = req.header("x-access-token");
   if (!token)
@@ -15,7 +14,7 @@ const auth = async (req, res, next) => {
     req.user = tokenDetails;
     next();
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res
       .status(403)
       .json({ error: true, message: "Access Denied: Invalid token" });

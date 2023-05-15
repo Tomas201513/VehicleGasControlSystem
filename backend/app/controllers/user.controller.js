@@ -1,5 +1,6 @@
 import User from '../models/user.model.js';
 export const getUsers = async (req, res) => {
+  console.log('controller');
   try {
     const users = await User.aggregate([
       {
@@ -29,6 +30,8 @@ export const getUsers = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
+  console.log('controller');
+
   try {
     const user = await User.findById(req.params.id);
     res.status(200).json(user);
@@ -38,6 +41,8 @@ export const getUserById = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
+  console.log('controller');
+
   const newUser = new User(req.body);
   try {
     await newUser.save();
@@ -48,6 +53,8 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
+  console.log('controller');
+
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).json(updatedUser);
@@ -57,6 +64,8 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
+  console.log('controller');
+
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'User deleted successfully' });
@@ -66,6 +75,8 @@ export const deleteUser = async (req, res) => {
 };
 
 export const getMe = async (req, res) => {
+  console.log('controller');
+
     try {
         const user = await User.findById(req.user._id);
         res.status(200).json(user);

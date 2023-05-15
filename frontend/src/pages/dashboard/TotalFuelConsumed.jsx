@@ -23,7 +23,7 @@ function TotalFuelConsumed(props) {
                             {'TOTAL GAS CONCEPTION'}
                         </Typography>
                         <Typography variant="h4" whitespace="nowrap">
-                            {value} L
+                            {JSON.stringify(value)} L
                         </Typography>
                     </Stack>
                     <Avatar
@@ -60,7 +60,7 @@ function TotalFuelConsumed(props) {
                                 color={positive ? 'success.main' : 'error.main'}
                                 variant="body2"
                             >
-                                {difference}%
+                                {JSON.stringify(difference)}%
                             </Typography>
                         </Stack>
                         <Typography

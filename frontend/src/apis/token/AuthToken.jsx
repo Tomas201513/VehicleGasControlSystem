@@ -6,3 +6,11 @@ export const Token = () => {
     },
   };
 };
+
+export const TokenJson = () => {
+  return {
+    headers: {
+      "x-access-token": `${localStorage.getItem("accessToken")}`
+    }
+  };
+};
