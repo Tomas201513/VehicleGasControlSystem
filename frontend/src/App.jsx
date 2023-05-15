@@ -18,29 +18,29 @@ function App() {
 
   const queryClient = new QueryClient();
   return (
-    <div className={classes.root}>
-      <HelmetProvider>
-        <CssBaseline />
-        <ErrorBoundary>
-          <QueryClientProvider client={queryClient}>
-            <ToastProvider>
-              <AuthProvider>
-                <StationProvider>
-                <UserProvider>
-                    <CarProvider>
+    // <div className={classes.root}>
+    <HelmetProvider>
+      <CssBaseline />
+      <QueryClientProvider client={queryClient}>
+        <ToastProvider>
+          <ErrorBoundary>
+            <AuthProvider>
+              <UserProvider>
+                <CarProvider>
+                  <StationProvider>
                     <FuelProvider>
                       <RoutesComponent />
-                      </FuelProvider>
-                  </CarProvider>
-                </UserProvider>
-                </StationProvider>
-              </AuthProvider>
-            </ToastProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
-        </ErrorBoundary>
-      </HelmetProvider>
-    </div>
+                    </FuelProvider>
+                  </StationProvider>
+                </CarProvider>
+              </UserProvider>
+            </AuthProvider>
+          </ErrorBoundary>
+        </ToastProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </HelmetProvider>
+    // </div>
 
 
   )

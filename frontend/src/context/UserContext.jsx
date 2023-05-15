@@ -23,9 +23,7 @@ export const UserProvider = ({ children }) => {
   };
 
   // GetUers
-  const queryResult = useQuery("users", GetUser, {
-    staleTime: 0,
-  });
+  const queryResult = useQuery("users", GetUser);
 
   const isLoading = queryResult.isLoading;
   const error = queryResult.error;

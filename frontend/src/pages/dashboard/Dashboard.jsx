@@ -12,7 +12,9 @@ import { CarModelPieChart } from './CarModelPieChart';
 import { LatestOilFill } from './LatestOilFill';
 import StationContent from './StationContent';
 import StationContext from 'src/context/StationContext';
+import AuthContext from 'src/context/AuthContext';
 function Dashboard() {
+  const { userDetail, GetStation } = React.useContext(AuthContext);
   const isSmallScreen = useMediaQuery('(min-width:600px)');
   const { userData, userCounts } = React.useContext(UserContext);
   const { fuelData, totalFuelConsumed, currentMonthIntake, fuelDataByMonth } = React.useContext(FuelContext);
@@ -28,6 +30,7 @@ function Dashboard() {
   const y = fuelDataByMonth?.anualIntakes[0].monthlyIntakes[1].totalFuelAmountMonth
   const percent = ((x - y) / ((y) / 2) * 100).toFixed(2)
   const [positive, setPosetive] = React.useState(false)
+
   React.useEffect(() => {
     if (percent > 0) {
       setPosetive(true);
@@ -36,6 +39,15 @@ function Dashboard() {
     }
   }, [percent]);
 
+  React.useEffect(() => {
+    if (userDetail) {
+      const fetchData = async () => {
+        await GetStation;
+      };
+
+      fetchData();
+    }
+  }, [userDetail]);
   fuelDataByMonth?.anualIntakes.forEach(yearData => {
     if (yearData._id === currentYear) {
       yearData.monthlyIntakes.forEach(monthData => {

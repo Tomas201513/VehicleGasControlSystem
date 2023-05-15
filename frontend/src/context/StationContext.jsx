@@ -13,6 +13,7 @@ export const StationProvider = ({ children }) => {
     const [selectedData, setSelectedData] = React.useState(null);
     const [editable, setEditable] = React.useState(false);
     const [warn, SetWarn] = React.useState(false);
+    const [rows, setRows] = React.useState([]);
     const name = "Stations";
     const { showToast } = React.useContext(ToastContext);
     const handleRowClick = (params) => {
@@ -22,9 +23,7 @@ export const StationProvider = ({ children }) => {
     };
 
     // GetStations
-    const queryResult = useQuery("stations", GetStation, {
-        staleTime: 0,
-    });
+    const queryResult = useQuery("stations", GetStation);
 
     const isLoading = queryResult.isLoading;
     const error = queryResult.error;
@@ -71,13 +70,20 @@ export const StationProvider = ({ children }) => {
             showToast(err.message, "error");
         },
     });
-
+    React.useEffect(() => {
+        if (stationData) {
+            GetStation()
+            setRows(stationData);
+        }
+    }, [stationData]);
     return (
         <StationContext.Provider
             value={{
+                GetStation,
                 name,
                 isLoading,
                 error,
+                rows,
                 stationData,
                 createOpen,
                 setCreateOpen,

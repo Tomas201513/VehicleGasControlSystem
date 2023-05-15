@@ -25,9 +25,7 @@ export const CarProvider = ({ children }) => {
   };
 
   // GetUers
-  const queryResult = useQuery("cars", GetCar, {
-    staleTime: 0,
-  });
+  const queryResult = useQuery("cars", GetCar);
 
   const isLoading = queryResult.isLoading;
   const error = queryResult.error;

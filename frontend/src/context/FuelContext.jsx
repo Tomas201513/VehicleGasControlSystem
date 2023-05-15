@@ -26,9 +26,7 @@ export const FuelProvider = ({ children }) => {
 
     // GetUers
 
-    const queryResult = useQuery('fuels', GetFuel, {
-        staleTime: 0,
-    });
+    const queryResult = useQuery('fuels', GetFuel);
 
     const isLoading = queryResult.isLoading;
     const error = queryResult.error;

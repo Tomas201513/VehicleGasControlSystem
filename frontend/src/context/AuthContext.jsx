@@ -19,25 +19,23 @@ export const AuthProvider = ({ children }) => {
       ? localStorage.getItem("accessToken")
       : null
   );
-  function loginUser(values) {
-    axios
-      .post("http://127.0.0.1:8000/api/auth/logIn", {
+  async function loginUser(values) {
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/api/auth/logIn", {
         email: values.email,
         password: values.password
-      })
-      .then((res) => {
-        localStorage.setItem("accessToken", res.data.accessToken);
-        localStorage.setItem("refreshToken", res.data.refreshToken);
-        setAccessTokens(res.data.accessToken);
-        const decoded = jwt_decode(res.data.accessToken);
-        setUserDetail(decoded);
-        navigate("/dashboard", { replace: true });
-        userDetail && showToast(`Welcome ${userDetail.userName}`, "success", 2000);
-      })
-      .catch((err) => {
-        showToast("Login failed", "error", 2000);
-        console.log(err);
       });
+      localStorage.setItem("accessToken", res.data.accessToken);
+      localStorage.setItem("refreshToken", res.data.refreshToken);
+      setAccessTokens(res.data.accessToken);
+      const decoded = jwt_decode(res.data.accessToken);
+      setUserDetail(decoded);
+      navigate("/dashboard", { replace: true });
+      userDetail && showToast(`Welcome ${userDetail.userName}`, "success", 2000);
+    } catch (err) {
+      showToast("Login failed", "error", 2000);
+      console.log(err);
+    }
   }
 
 
@@ -87,12 +85,14 @@ export const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    // const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       const decoded = jwt_decode(accessToken);
       setUserDetail(decoded);
     }
   }, [accessToken]);
+
+
   return (
     <AuthContext.Provider
       value={{
