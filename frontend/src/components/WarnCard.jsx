@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Draggable from 'react-draggable';
 import propTypes from 'prop-types';
+import FuelContext from "src/context/FuelContext";
 
 function PaperComponent(props) {
     return (
@@ -21,11 +22,15 @@ function PaperComponent(props) {
     );
 }
 
-export default function WarnCard({ open, setOpen, title, content, action, cardRow, setCardRow, }) {
+export default function WarnCard({ open, setOpen, title, content, action, cardRow, setCardRow,
+}) {
+    const { deleteFuel, warn, SetWarn, refetchByCar } = React.useContext(FuelContext);
 
     const handleClose = () => {
         setOpen(false);
         setCardRow(null);
+        refetchByCar();
+
     };
 
     return (
@@ -45,7 +50,11 @@ export default function WarnCard({ open, setOpen, title, content, action, cardRo
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    {<Button autoFocus onClick={() => { console.log(cardRow); action(cardRow?._id); handleClose() }} color="error">
+                    {<Button autoFocus onClick={() => {
+                        console.log(cardRow);
+                        action(cardRow?._id);
+                        handleClose();
+                    }} color="error">
                         Delete
                     </Button>}
 

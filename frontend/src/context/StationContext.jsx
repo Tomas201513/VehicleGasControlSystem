@@ -13,7 +13,6 @@ export const StationProvider = ({ children }) => {
     const [selectedData, setSelectedData] = React.useState(null);
     const [editable, setEditable] = React.useState(false);
     const [warn, SetWarn] = React.useState(false);
-    const [rows, setRows] = React.useState([]);
     const name = "Stations";
     const { showToast } = React.useContext(ToastContext);
     const handleRowClick = (params) => {
@@ -70,12 +69,6 @@ export const StationProvider = ({ children }) => {
             showToast(err.message, "error");
         },
     });
-    React.useEffect(() => {
-        if (stationData) {
-            GetStation()
-            setRows(stationData);
-        }
-    }, [stationData]);
     return (
         <StationContext.Provider
             value={{
@@ -83,7 +76,7 @@ export const StationProvider = ({ children }) => {
                 name,
                 isLoading,
                 error,
-                rows,
+                refetch,
                 stationData,
                 createOpen,
                 setCreateOpen,

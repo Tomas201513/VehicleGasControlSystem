@@ -7,19 +7,22 @@ import TotalFuelConsumed from './TotalFuelConsumed';
 import { CurrentMonthIntake } from './CurrentMonthIntake';
 import { UserCountCard } from './UserCountCard';
 import { width } from '@mui/system';
-import { OverviewSales } from './OverviewSales'
+import { FuelIntakeBarChart } from './FuelIntakeBarChart'
 import { CarModelPieChart } from './CarModelPieChart';
 import { LatestOilFill } from './LatestOilFill';
 import StationContent from './StationContent';
 import StationContext from 'src/context/StationContext';
 import AuthContext from 'src/context/AuthContext';
+import { GetStation } from '../../apis/StationApi';
 function Dashboard() {
-  const { userDetail, GetStation } = React.useContext(AuthContext);
   const isSmallScreen = useMediaQuery('(min-width:600px)');
-  const { userData, userCounts } = React.useContext(UserContext);
-  const { fuelData, totalFuelConsumed, currentMonthIntake, fuelDataByMonth } = React.useContext(FuelContext);
-  const { scanned, groupedCars, carData } = React.useContext(CarContext);
-  const { stationData } = React.useContext(StationContext);
+  const { userDetail } = React.useContext(AuthContext);
+  const { userData, userCounts, refetch: refetchUser } = React.useContext(UserContext);
+  const { fuelData, totalFuelConsumed, currentMonthIntake, fuelDataByMonth, refetch: refetchFuel,
+    refetchByCar,
+    refetchByMonth, } = React.useContext(FuelContext);
+  const { scanned, groupedCars, carData, refetch: refetchCar } = React.useContext(CarContext);
+  const { stationData, refetch: refetchStation } = React.useContext(StationContext);
   // const nonAdminUserCounts = userCounts.filter(user => user.roleName !== 'admin');
   const currentYear = new Date().getFullYear();
   const thisYearData = Array(12).fill(0);
@@ -42,7 +45,12 @@ function Dashboard() {
   React.useEffect(() => {
     if (userDetail) {
       const fetchData = async () => {
-        await GetStation;
+        refetchUser();
+        refetchFuel();
+        refetchCar();
+        refetchStation();
+        refetchByMonth();
+
       };
 
       fetchData();
@@ -116,7 +124,7 @@ function Dashboard() {
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, m: 5 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <OverviewSales
+            <FuelIntakeBarChart
               chartSeries={[
                 {
                   name: 'This year',

@@ -39,6 +39,7 @@ export const FuelProvider = ({ children }) => {
     console.log(`fuelData`, fuelData);
 
     // GetUers
+    (scanned)  
     const {
         data: fuelDataByCar,
         isLoading: isLoadingByCar,
@@ -48,6 +49,8 @@ export const FuelProvider = ({ children }) => {
         staleTime: 0,
         enabled: !!scanned,
     });
+
+
     console.log(`fuelDataByCar`, fuelDataByCar);
 
     const { data: fuelDataByMonth, isLoading: isLoadingByMonth, error: errorByMonth, refetch: refetchByMonth } = useQuery(
@@ -108,8 +111,9 @@ export const FuelProvider = ({ children }) => {
                 totalFuelConsumed,
                 currentMonthIntake,
                 refetch,
-                fuelDataByMonth,
+                refetchByCar,
                 refetchByMonth,
+                fuelDataByMonth,
                 isLoading,
                 error,
                 fuelDataByCar,

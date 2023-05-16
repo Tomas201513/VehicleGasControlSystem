@@ -38,7 +38,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
     }
     // Extract relevant data from the provided object
     const [open, setOpen] = React.useState(false);
-    const { deleteFuel, warn, SetWarn } = React.useContext(FuelContext);
+    const { deleteFuel, warn, SetWarn, refetchByCar } = React.useContext(FuelContext);
     const normalise = (value, min, max) => ((value - min) * 100) / (max - min);
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -212,7 +212,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                                                         <Box sx={{ flexGrow: 1 }} />
                                                         {index === 0 ? <>
                                                             <IconButton onClick={() => {
-                                                                setCardRow(intake); console.log("Editing:", intake); setOpen(true);
+                                                                setCardRow(intake); console.log("Editing:", intake); setOpen(true); setEditCard(true);
                                                             }}>
                                                                 <EditIcon />
                                                             </IconButton>
@@ -280,6 +280,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                 action={deleteFuel}
                 setCardRow={setCardRow}
                 cardRow={cardRow}
+                refetchByCar={refetchByCar}
             />
         </>
 

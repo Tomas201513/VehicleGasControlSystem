@@ -1,12 +1,12 @@
 import axios from "axios";
 import { TokenJson } from "./token/AuthToken";
-// import axiosInstance from "src/utils/useAxiosInterceptors";
+import axiosInstance from "src/utils/useAxiosInterceptors";
 
 const api = "http://127.0.0.1:8000/api/users/";
 
 export const GetUser = async () => {
   if (localStorage.getItem("accessToken")) {
-    const res = await axios.get(api, TokenJson());
+    const res = await axiosInstance.get(api, TokenJson());
   return res.data;
   } else {
     console.log("No token");
@@ -15,7 +15,7 @@ export const GetUser = async () => {
 
 export const DeleteUser = async (id) => {
   if (localStorage.getItem("accessToken")) {
-    const res = await axios.delete(`${api}${id}/`, TokenJson());
+    const res = await axiosInstance.delete(`${api}${id}/`, TokenJson());
     return res.data;
   } else {
     console.log("No token");
@@ -24,7 +24,7 @@ export const DeleteUser = async (id) => {
 
 export const CreateUser = async (values) => {
   if (localStorage.getItem("accessToken")) {
-    const res = await axios.post(api, values, TokenJson());
+    const res = await axiosInstance.post(api, values, TokenJson());
     return res.data;
   } else {
     console.log("No token");
@@ -34,7 +34,7 @@ export const CreateUser = async (values) => {
 export const UpdateUser = async (values) => {
   console.log(values);
   if (localStorage.getItem("accessToken")) {
-    const res = await axios.put(`${api}${values.selectedData}/`, values.values, TokenJson());
+    const res = await axiosInstance.put(`${api}${values.selectedData}/`, values.values, TokenJson());
     return res.data;
   } else {
     console.log("No token");

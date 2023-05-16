@@ -1,14 +1,19 @@
-import React, { useContext } from 'react';
-import { Box, Button, Stack, TextField, Typography } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import {
+  Box, Button, Stack, TextField, Typography, InputAdornment, IconButton
+} from '@mui/material';
 import { Link } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Helmet } from "react-helmet-async";
 import AuthContext from "src/context/AuthContext";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 function Register() {
   const { registerUser } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
+
    const formik = useFormik({
     initialValues: {
       email: '',
@@ -122,8 +127,17 @@ function Register() {
                   name="password"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={formik.values.password}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                          {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Stack>
               {formik.errors.submit && (

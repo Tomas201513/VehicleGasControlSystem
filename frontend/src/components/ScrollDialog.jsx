@@ -1,11 +1,6 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -15,8 +10,7 @@ import Slide from '@mui/material/Slide';
 import propTypes from 'prop-types';
 import FuelContext from 'src/context/FuelContext';
 import CarDetailsCard from 'src/components/CarDetailsCard';
-import AlertDialog from 'src/components/AlertDialog';
-import CollapsibleTable from 'src/components/CollapsibleTable';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });

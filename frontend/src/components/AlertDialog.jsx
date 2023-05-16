@@ -40,7 +40,7 @@ function PaperComponent(props) {
 export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
     const { userData } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
-    const { createFuel, fuelDataByCar, cardRow, setCardRow, } = React.useContext(FuelContext);
+    const { createFuel, updateFuel, fuelDataByCar, cardRow, setCardRow, refetchByCar } = React.useContext(FuelContext);
     const { userDetail } = React.useContext(AuthContext);
     const { stationData } = React.useContext(StationContext);
     const FormSchema = yup.object().shape({
@@ -60,9 +60,15 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
     };
     const handleSubmit = async (values) => {
         try {
-            console.log(values);
-            await createFuel(values);
-            setOpen(false);
+            if (cardRow) {
+                console.log('updateFuel', { cardRow: cardRow._id, values });
+                await updateFuel({ cardRow: cardRow._id, values });
+            } else {
+                console.log(values);
+                await createFuel(values);
+            }
+            handleClose();
+            refetchByCar();
         } catch (error) {
             console.log(error);
         }
@@ -181,7 +187,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
                                         justifyContent: "flex-end",
                                     }}>
                                     <Button type="submit" sx={{ mr: 3 }}>
-                                        {"Create"}
+                                        {editCard ? "Update" : "Create"}
                                     </Button>
                                     <Button onClick={() => { handleClose(); setEditCard(false); setCardRow(null); }} color="error">
                                         {"Cancel"}

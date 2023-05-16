@@ -8,7 +8,6 @@ import StationContext from "src/context/StationContext";
 export default function Station() {
     const getRowId = (row) => row._id;
     const {
-        rows,
         name,
         stationData,
         isLoading,
@@ -71,7 +70,7 @@ export default function Station() {
                 <Datatable
                     name={name}
                     columns={columns}
-                    rows={rows}
+                        rows={stationData}
                     getRowId={getRowId}
                     isLoading={isLoading}
                     error={error}

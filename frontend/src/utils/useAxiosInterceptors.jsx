@@ -7,40 +7,58 @@ const baseURL = "http://127.0.0.1:8000";
 let access = localStorage.getItem("accessToken")
     ? localStorage.getItem("accessToken")
     : null;
-console.log("access", access);
+
 const axiosInstance = axios.create({
-    baseURL,
-    headers: { Authorization: `Bearer ${access}` },
+    baseURL: baseURL,
+    timeout: 5000,
+    headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+    },
 });
 
 axiosInstance.interceptors.request.use(async (req) => {
+    console.log("req", req);
     if (!access) {
         access = localStorage.getItem("accessToken")
-            ? JSON.parse(localStorage.getItem("accessToken"))
+            ? localStorage.getItem("accessToken")
             : null;
-        req.headers.Authorization = `Bearer ${access}`;
     }
+    console.log("access", access);
 
     const user = jwt_decode(access);
-    const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+    const expirationTime = dayjs.unix(user.exp)
+    const isExpired = expirationTime.isBefore(dayjs()); // compare with current time
+    console.log("isExpired", isExpired);
+    if (isExpired) {
+        try {
+            console.log("iiiiiiiiiiiiiiiiiiiiiii");
 
-    if (!isExpired) return req;
+            const response = await axios.post(
+                `${baseURL}/api/auth/refresh`,
+                {
+                    refreshToken: localStorage.getItem("refreshToken"),
+                }
+            );
+            console.log("response", response);
 
-    try {
-        const response = await axios.post(`${baseURL}/auth/refresh`, {
-            refreshToken: localStorage.getItem("refreshToken"),
-        });
+            const { accessToken } = response.data;
 
-        const { accessToken } = response.data;
-
-        localStorage.setItem("accessToken", accessToken);
-        req.headers.Authorization = `Bearer ${accessToken}`;
-        return req;
-    } catch (error) {
-        console.log(error);
-        // Handle error here
-        throw error;
+            localStorage.setItem("accessToken", accessToken);
+            access = accessToken;
+        } catch (error) {
+            console.log(error);
+            // Handle error here
+            throw error;
+        }
     }
+
+    req.data = {
+        ...req.data,
+        accessToken: access,
+    };
+
+    return req;
 });
 
 export default axiosInstance;

@@ -3,11 +3,11 @@ import UserToken from "../models/userToken.model.js"
 
 const generateTokens = async (user) => {
   try {
-    const payload = { _id: user._id, userName: user.userName, email: user.email, role: user.roles}
+    const payload = { _id: user._id, userName: user.userName, email: user.email, roles: user.roles }
     const accessToken = jwt.sign(
       payload,
       process.env.ACCESS_TOKEN_PRIVATE_KEY,
-      { expiresIn: "15m" }
+      { expiresIn: "1m" }
     );
     const refreshToken = jwt.sign(
       payload,

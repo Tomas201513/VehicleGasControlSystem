@@ -81,5 +81,5 @@ TotalFuelConsumed.propTypes = {
     difference: PropTypes.number,
     positive: PropTypes.bool,
     sx: PropTypes.object,
-    value: PropTypes.string.isRequired
+    value: PropTypes.number.isRequired
 };

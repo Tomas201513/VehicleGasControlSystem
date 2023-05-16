@@ -106,7 +106,7 @@ const useChartOptions = () => {
     };
 };
 
-export const OverviewSales = (props) => {
+export const FuelIntakeBarChart = (props) => {
     const { chartSeries, sx } = props;
     const chartOptions = useChartOptions();
 
@@ -155,7 +155,7 @@ export const OverviewSales = (props) => {
     );
 };
 
-OverviewSales.propTypes = {
+FuelIntakeBarChart.propTypes = {
     chartSeries: PropTypes.array.isRequired,
     sx: PropTypes.object
 };

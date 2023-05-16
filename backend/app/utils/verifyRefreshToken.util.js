@@ -2,6 +2,8 @@ import UserToken from "../models/userToken.model.js"
 import jwt from "jsonwebtoken";
 
 const verifyRefreshToken = async (refreshToken) => {
+  console.log("verifyRefreshToken", refreshToken);
+
   try {
     const doc = await UserToken.findOne({ token: refreshToken });
 
@@ -13,6 +15,7 @@ const verifyRefreshToken = async (refreshToken) => {
       refreshToken,
       process.env.REFRESH_TOKEN_PRIVATE_KEY
     );
+    console.log("tokenDetails", tokenDetails);
 
     return {
       tokenDetails,
@@ -20,10 +23,8 @@ const verifyRefreshToken = async (refreshToken) => {
       message: "Valid refresh token",
     };
   } catch (err) {
-    throw {
-      error: true,
-      message: err.message,
-    };
+    console.log("errrrrrr r", err);
+    throw new Error(err.message);
   }
 };
 
