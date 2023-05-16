@@ -120,7 +120,6 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                       readOnly: !editable,
                     }}
                     variant="standard"
-                    disabled={!editable}
                     autoFocus={editable}
                     fullWidth
                     label="Username"
@@ -136,7 +135,6 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                       readOnly: !editable,
                     }}
                     variant="standard"
-                    disabled={!editable}
                     fullWidth
                     label="Email"
                     name="email"
@@ -151,7 +149,6 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                       readOnly: !editable,
                     }}
                     variant="standard"
-                    disabled={!editable}
                     fullWidth
                     label="Password"
                     name="password"
@@ -168,7 +165,6 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                         readOnly: !editable,
                       }}
                       variant="standard"
-                      disabled={!editable}
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       name="roles"

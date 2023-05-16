@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
+import React from 'react';
 import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
 import ChevronUpDownIcon from '@heroicons/react/24/solid/ChevronUpDownIcon';
 import {
@@ -16,10 +17,14 @@ import useResponsive from 'src/hooks/useResponsive';
 // import { Logo } from 'src/components/logo';
 // import { Scrollbar } from 'src/components/scrollbar';
 // import { Scrollbar } from '../../components/scrollbar';
-import { items } from './config';
+import { adminItems, attendantItems } from './config';
 import { SideNavItem } from './side-nav-item';
+import AuthContext from "src/context/AuthContext";
 
-export const SideNav = ({ open, onClose }) => {
+
+export const SideNav = ({ open, onClose, setOpenNav }) => {
+  const { userDetail } = React.useContext(AuthContext);
+
   const { pathname } = useLocation();
   const isDesktop = useResponsive("up", "lg");
 
@@ -42,6 +47,30 @@ export const SideNav = ({ open, onClose }) => {
         height: '100%'
       }}
     >
+      <Button
+        color="primary"
+        component="a"
+        size="large"
+        sx={{
+          alignItems: 'center',
+          backgroundColor: 'primary.main',
+          borderRadius: 1,
+          display: 'flex',
+          fontWeight: 'medium',
+          justifyContent: 'space-between',
+          mb: 2,
+        }}
+        onClick={() => setOpenNav(false)}
+      >
+        <SvgIcon
+          fontSize="small"
+          sx={{ color: 'primary.contrastText' }}
+        >
+          <ArrowTopRightOnSquareIcon />
+        </SvgIcon>
+      </Button>
+
+
       <Box sx={{ p: 3 }}>
         <Box
           // component={NextLink}
@@ -111,21 +140,41 @@ export const SideNav = ({ open, onClose }) => {
             m: 0
           }}
         >
-          {items.map((item) => {
-            const active = item.path ? (pathname === item.path) : false;
+          {userDetail && userDetail?.roles[0] === "admin" && (<>
 
-            return (
-              <SideNavItem
-                active={active}
-                disabled={item.disabled}
-                external={item.external}
-                icon={item.icon}
-                key={item.title}
-                path={item.path}
-                title={item.title}
-              />
-            );
-          })}
+            {adminItems.map((item) => {
+              const active = item.path ? (pathname === item.path) : false;
+
+              return (
+                <SideNavItem
+                  active={active}
+                  disabled={item.disabled}
+                  external={item.external}
+                  icon={item.icon}
+                  key={item.title}
+                  path={item.path}
+                  title={item.title}
+                />
+              );
+            })}
+          </>)}
+          {userDetail && userDetail?.roles[0] === "attendant" && (<>
+
+            {attendantItems.map((item) => {
+              const active = item.path ? (pathname === item.path) : false;
+              return (
+                <SideNavItem
+                  active={active}
+                  disabled={item.disabled}
+                  external={item.external}
+                  icon={item.icon}
+                  key={item.title}
+                  path={item.path}
+                  title={item.title}
+                />
+              );
+            })}
+          </>)}
         </Stack>
       </Box>
       <Divider sx={{ borderColor: 'neutral.700' }} />
@@ -176,5 +225,7 @@ export const SideNav = ({ open, onClose }) => {
 
 SideNav.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  setOpenNav: PropTypes.func
+
 };

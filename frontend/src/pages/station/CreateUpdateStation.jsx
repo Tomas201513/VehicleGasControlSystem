@@ -108,9 +108,12 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Station Name"
                                         name="stationName"
-                                        disabled={!editable}
+                                        InputProps={{
+                                            readOnly: !editable,
+                                        }}
                                         autoFocus={editable}
                                         required
+                                        variant="standard"
                                         value={values.stationName}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -121,9 +124,12 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Station Location"
                                         name="stationLocation"
-                                        disabled={!editable}
+                                        InputProps={{
+                                            readOnly: !editable,
+                                        }}
                                         autoFocus={editable}
                                         required
+                                        variant="standard"
                                         value={values.stationLocation}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -135,7 +141,10 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Station Owner"
                                         name="stationOwner"
-                                        disabled={!editable}
+                                        InputProps={{
+                                            readOnly: !editable,
+                                        }}
+                                        variant="standard"
                                         autoFocus={editable}
                                         required
                                         value={values.stationOwner}
@@ -149,7 +158,10 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Fuel Capacity"
                                         name="FuelCapacity"
-                                        disabled={!editable}
+                                        InputProps={{
+                                            readOnly: !editable,
+                                        }}
+                                        variant="standard"
                                         autoFocus={editable}
                                         required
                                         value={values.FuelCapacity}
@@ -163,9 +175,12 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         fullWidth
                                         label="Current Fuel Amount"
                                         name="currentFuelAmount"
-                                        disabled={!editable}
+                                        InputProps={{
+                                            readOnly: !editable,
+                                        }}
                                         autoFocus={editable}
                                         required
+                                        variant="standard"
                                         value={values.currentFuelAmount}
                                         onChange={handleChange}
                                         onBlur={handleBlur}

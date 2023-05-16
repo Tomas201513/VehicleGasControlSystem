@@ -32,6 +32,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
     const { createCar, updateCar, setSelectedData, setCreateOpen, deleteCar, warn, SetWarn, qr,
         setQr, qrId, setQrId } = React.useContext(CarContext);
     const { userData } = React.useContext(UserContext);
+    const drivers = userData.filter(item => item?.roles[0] === 'driver')
 
     const FormSchema = yup.object().shape({
         plateNumber: yup.string().required("Plate Number is required"),
@@ -127,7 +128,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                     <Grid item xs={6}>
                                         <TextField
                                             fullWidth
-                                            disabled={!editable}
+                                            InputProps={{
+                                                readOnly: !editable,
+                                            }}
                                             autoFocus={editable}
                                             variant="standard"
                                             label="Plate Number"
@@ -142,7 +145,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                     <Grid item xs={6}>
                                         <TextField
                                             variant="standard"
-                                            disabled={!editable}
+                                            InputProps={{
+                                                readOnly: !editable,
+                                            }}
                                             autoFocus={editable}
                                             fullWidth
                                             label="Model"
@@ -157,7 +162,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                     <Grid item xs={6}>
                                         <TextField
                                             fullWidth
-                                            disabled={!editable}
+                                            InputProps={{
+                                                readOnly: !editable,
+                                            }}
                                             autoFocus={editable}
                                             variant="standard"
                                             label="Make Year"
@@ -172,7 +179,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                     <Grid item xs={6}>
                                         <TextField
                                             fullWidth
-                                            disabled={!editable}
+                                            InputProps={{
+                                                readOnly: !editable,
+                                            }}
                                             autoFocus={editable}
                                             variant="standard"
                                             label="Color"
@@ -187,7 +196,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                     <Grid item xs={6}>
                                         <TextField
                                             fullWidth
-                                            disabled={!editable}
+                                            InputProps={{
+                                                readOnly: !editable,
+                                            }}
                                             autoFocus={editable}
                                             variant="standard"
                                             label="Capacity"
@@ -207,7 +218,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                 id="demo-simple-select1"
                                                 labelId="demo-simple-select-label1"
                                                 name="transmission"
-                                                disabled={!editable}
+                                                InputProps={{
+                                                    readOnly: !editable,
+                                                }}
                                                 autoFocus={editable}
                                                 label="transmission"
                                                 variant="standard"
@@ -230,7 +243,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                 id="demo-simple-select"
                                                 labelId="demo-simple-select-label"
                                                 name="engine"
-                                                disabled={!editable}
+                                                InputProps={{
+                                                    readOnly: !editable,
+                                                }}
                                                 autoFocus={editable}
                                                 label="Engine"
                                                 variant="standard"
@@ -250,7 +265,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Driver</InputLabel>
                                             <Select
-                                                disabled={!editable}
+                                                InputProps={{
+                                                    readOnly: !editable,
+                                                }}
                                                 autoFocus={editable}
                                                 labelId="demo-simple-select-label"
                                                 name="driver"
@@ -262,7 +279,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                 error={touched.driver && Boolean(errors.driver)}
                                                 helpertext={touched.driver && errors.driver}
                                             >
-                                                {userData?.map((item) => (
+                                                {drivers?.map((item) => (
                                                     <MenuItem key={item._id} value={item._id}>
                                                         {item?.userName}
                                                     </MenuItem>

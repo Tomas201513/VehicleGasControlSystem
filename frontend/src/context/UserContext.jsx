@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
   const refetch = queryResult.refetch;
   const userData = queryResult.data?.usersdata || [];
   const userCounts = queryResult.data?.userCounts || [];
-
+  console.log('userData', userData);
   // CreateUser
   const { mutateAsync: createUser } = useMutation(CreateUser, {
     onSuccess: () => {

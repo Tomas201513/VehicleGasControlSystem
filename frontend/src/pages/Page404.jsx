@@ -1,4 +1,3 @@
-// import ArrowLeftIcon from '@heroicons/react/24/solid/ArrowLeftIcon';
 import { Box, Button, Container, SvgIcon, Typography } from '@mui/material';
 import { Helmet } from "react-helmet-async";
 
@@ -12,7 +11,8 @@ const  Page404= () => (
         alignItems: 'center',
         display: 'flex',
         flexGrow: 1,
-        minHeight: '100%'
+        minHeight: '100%',
+        mt: '20%',
       }}
     >
       <Container maxWidth="md">
@@ -29,22 +29,28 @@ const  Page404= () => (
               textAlign: 'center'
             }}
           >
-            <img
+            {/* <img
               alt="Under development"
-              src="/assets/errors/error-404.png"
+              src="src/assets/errors/error-404.png"
               style={{
                 display: 'inline-block',
                 maxWidth: '100%',
                 width: 400
               }}
-            />
+            /> */}
           </Box>
           <Typography
             align="center"
             sx={{ mb: 3 }}
             variant="h3"
           >
-            404: The Page404;you are looking for isn’t here
+            404          </Typography>
+          <Typography
+            align="center"
+            sx={{ mb: 3 }}
+            variant="h5"
+          >
+            you are looking for isn’t here
           </Typography>
           <Typography
             align="center"
@@ -55,17 +61,11 @@ const  Page404= () => (
             Whichever it is, try using the navigation
           </Typography>
           <Button
-            // component={NextLink}
-            href="/"
-            startIcon={(
-              <SvgIcon fontSize="small">
-                {/* <ArrowLeftIcon /> */}
-              </SvgIcon>
-            )}
+            href="/app"           
             sx={{ mt: 3 }}
             variant="contained"
           >
-            Go back to dashboard
+            Go back 
           </Button>
         </Box>
       </Container>

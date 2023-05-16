@@ -1,17 +1,9 @@
 import React from "react";
 import Datatable from "src/components/datatable/Datatable";
 import CarContext from "src/context/CarContext";
-import {
-    Typography,
-    IconButton,
-    Tooltip,
-    Container,
-    FormControlLabel,
-    Switch,
-} from "@mui/material";
+import { IconButton } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateCar from "./CreateUpdateCar";
-import QrCode2Icon from '@mui/icons-material/QrCode2';
 function Cars() {
     const getRowId = (row) => row._id;
     const {
@@ -22,17 +14,9 @@ function Cars() {
         createOpen,
         setCreateOpen,
         selectedData,
-        setSelectedData,
         editable,
         setEditable,
         handleRowClick,
-        deleteCar,
-        warn,
-        SetWarn,
-        qr,
-        setQr,
-        qrId,
-        setQrId,
     } = React.useContext(CarContext);
 
     const columns = [

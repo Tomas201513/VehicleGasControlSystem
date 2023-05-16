@@ -63,20 +63,20 @@ export const TopNav = ({ onNavOpen }) => {
                 </SvgIcon>
               </IconButton>
             )}
-            <Tooltip title="Search">
+            {/* <Tooltip title="Search">
               <IconButton>
                 <SvgIcon fontSize="small">
                   <MagnifyingGlassIcon />
                 </SvgIcon>
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
           </Stack>
           <Stack
             alignItems="center"
             direction="row"
             spacing={2}
           >
-            <Tooltip title="Contacts">
+            {/* <Tooltip title="Contacts">
               <IconButton>
                 <SvgIcon fontSize="small">
                   <UsersIcon />
@@ -95,7 +95,7 @@ export const TopNav = ({ onNavOpen }) => {
                   </SvgIcon>
                 </Badge>
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
             {/* <Avatar
             
               sx={{

@@ -34,6 +34,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
     const { userData } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
     const { stationData } = React.useContext(StationContext);
+    const drivers = userData.filter(item => item?.roles[0] === 'driver')
 
     const FormSchema = yup.object().shape({
         fuelAmount: yup.number().required("fuel amount is required"),
@@ -116,7 +117,9 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                         fullWidth
                                         label="Fuel Amount"
                                         name="fuelAmount"
-                                        disabled={!editable}
+                                        InputProps={{
+                                            readOnly: !editable,
+                                        }}
                                         autoFocus={editable}
                                         onChange={handleChange}
                                         required
@@ -136,7 +139,9 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             name="car_id"
                                             onChange={handleChange}
                                             required
-                                            disabled={!editable}
+                                            InputProps={{
+                                                readOnly: !editable,
+                                            }}
                                             autoFocus={editable}
                                             value={values.car_id}
                                             variant="standard"
@@ -158,7 +163,9 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             labelId="demo-simple-select-label1"
                                             id="demo-simple-select1"
                                             name="attendant"
-                                            disabled={!editable}
+                                            InputProps={{
+                                                readOnly: !editable,
+                                            }}
                                             autoFocus={editable}
                                             onChange={handleChange}
                                             required
@@ -167,7 +174,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             error={Boolean(touched.attendant && errors.attendant)}
                                             helperText={touched.attendant && errors.attendant}
                                         >
-                                            {userData?.map((user) => (
+                                            {drivers?.map((user) => (
                                                 <MenuItem key={user._id} value={user._id}>
                                                     {user?.userName}
                                                 </MenuItem>
@@ -183,7 +190,9 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             labelId="demo-simple-select-label2"
                                             id="demo-simple-select2"
                                             name="station"
-                                            disabled={!editable}
+                                            InputProps={{
+                                                readOnly: !editable,
+                                            }}
                                             autoFocus={editable}
                                             onChange={handleChange}
                                             required

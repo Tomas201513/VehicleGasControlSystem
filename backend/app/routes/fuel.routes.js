@@ -5,7 +5,7 @@ import { admin, attendant, driver, adminAttendant } from "../middleware/roleChec
 
 const router = express.Router();
 
-router.get("/", auth, admin, fuelIntakeController.getAll);
+router.get("/", auth, adminAttendant, fuelIntakeController.getAll);
 router.get("/:id", auth, admin,  fuelIntakeController.getOne);
 router.post("/", auth, adminAttendant, fuelIntakeController.create);
 router.put("/:id", auth, auth, adminAttendant, fuelIntakeController.update);

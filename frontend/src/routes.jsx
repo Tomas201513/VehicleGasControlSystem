@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 import { Routes, Route } from "react-router-dom";
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
@@ -12,8 +12,10 @@ import Users from "./pages/user/Users";
 import Scan from "./pages/Scan/Scan";
 import Station from "./pages/station/Station";
 import PrivateRoute from "./utils/PrivateRoute";
-// import AuthContext from "./context/AuthContext";
+import AuthContext from "./context/AuthContext";
+import Account from "src/pages/accoun/Account"
 function RoutesComponent() {
+  const { userDetail } = React.useContext(AuthContext);
   return (
 
     <Routes>
@@ -21,20 +23,25 @@ function RoutesComponent() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
+      <Route path="*" element={<Page404 />} />
 
 
       <Route element={<PrivateRoute />} >
-        <Route path="/" element={<DashboardLayout />} >
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/cars" element={<Cars />} />
-        <Route path="/fuel" element={<Fuel />} />
-        <Route path="/scan" element={<Scan />} />
-        <Route path="/station" element={<Station />} />
+        <Route path="/app" element={<DashboardLayout />} >
+          <Route path="/app/account" element={<Account />} />
+          {userDetail && userDetail?.roles[0] === "admin" && (<>
+            <Route path="/app/dashboard" element={<Dashboard />} />
+            <Route path="/app/users" element={<Users />} />
+            <Route path="/app/cars" element={<Cars />} />
+            <Route path="/app/fuel" element={<Fuel />} />
+            <Route path="/app/station" element={<Station />} />
+          </>
+
+          )}
+          <Route path="/app/scan" element={<Scan />} />
 
         </Route>
       </Route>
-      <Route path="*" element={<Page404 />} />
     </Routes>
 
 

@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       setAccessTokens(res.data.accessToken);
       const decoded = jwt_decode(res.data.accessToken);
       setUserDetail(decoded);
-      navigate("/dashboard", { replace: true });
+      navigate("/app", { replace: true });
       userDetail && showToast(`Welcome ${userDetail.userName}`, "success", 2000);
     } catch (err) {
       showToast("Login failed", "error", 2000);

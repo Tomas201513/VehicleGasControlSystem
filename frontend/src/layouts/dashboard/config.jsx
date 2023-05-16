@@ -12,10 +12,10 @@ import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import OilBarrelIcon from '@mui/icons-material/OilBarrel';
 
-export const items = [
+export const adminItems = [
   {
     title: 'Dashboard',
-    path: '/dashboard',
+    path: '/app/dashboard',
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
@@ -24,7 +24,7 @@ export const items = [
   },
   {
     title: 'Users',
-    path: '/users',
+    path: '/app/users',
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
@@ -33,7 +33,7 @@ export const items = [
   },
   {
     title: 'Cars',
-    path: '/cars',
+    path: '/app/cars',
     icon: (
       <AiFillCar fontSize="large" />
     )
@@ -41,7 +41,7 @@ export const items = [
   },
   {
     title: 'Fuel',
-    path: '/fuel',
+    path: '/app/fuel',
     icon: (
       <SvgIcon fontSize="small">
         <OilBarrelIcon />
@@ -50,7 +50,7 @@ export const items = [
   },
   {
     title: 'Station',
-    path: '/station',
+    path: '/app/station',
     icon: (
       <SvgIcon fontSize="small">
         <LocalGasStationIcon />
@@ -58,7 +58,29 @@ export const items = [
     )
   }, {
     title: 'Scan',
-    path: '/scan',
+    path: '/app/scan',
+    icon: (
+      <SvgIcon fontSize="small">
+        <QrCodeScannerIcon />
+      </SvgIcon>
+    )
+  },
+
+];
+
+export const attendantItems = [
+  // {
+  //   title: 'Dashboard',
+  //   path: '/dashboard',
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <ChartBarIcon />
+  //     </SvgIcon>
+  //   )
+  // },
+  {
+    title: 'Scan',
+    path: '/app/scan',
     icon: (
       <SvgIcon fontSize="small">
         <QrCodeScannerIcon />

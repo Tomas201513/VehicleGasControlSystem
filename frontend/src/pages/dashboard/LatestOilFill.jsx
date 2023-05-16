@@ -96,7 +96,7 @@ export const LatestOilFill = (props) => {
             <Divider />
             <CardActions sx={{ justifyContent: 'flex-end' }}>
                 <Button
-                    onClick={() => navigate('/fuel')}
+                    onClick={() => navigate('/app/fuel')}
                     color="inherit"
                     endIcon={(
                         <SvgIcon fontSize="small">

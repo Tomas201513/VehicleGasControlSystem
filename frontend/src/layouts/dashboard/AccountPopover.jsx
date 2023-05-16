@@ -12,6 +12,7 @@ import {
   Popover,
 } from "@mui/material";
 import AuthContext from "src/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 // mocks_
 // import account from "../../../_mock/account";
@@ -22,21 +23,19 @@ const MENU_OPTIONS = [
   {
     label: "Home",
     icon: "eva:home-fill",
+    nav: "/app",
   },
   {
     label: "Profile",
     icon: "eva:person-fill",
-  },
-  {
-    label: "Settings",
-    icon: "eva:settings-2-fill",
+    nav: "/app/account",
   },
 ];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
-  
+  const navigate = useNavigate();  
   const { userDetail, logoutUser } = useContext(AuthContext);
   const [open, setOpen] = useState(null);
 
@@ -106,7 +105,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
+            <MenuItem key={option.label} onClick={() => { navigate(option.nav); handleClose() }}>
               {option.label}
             </MenuItem>
           ))}
