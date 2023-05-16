@@ -37,17 +37,17 @@ function PaperComponent(props) {
     );
 }
 
-export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
-    const { userData } = React.useContext(UserContext);
+export default function EditFuelDialogue({ open, setOpen, editCard, setEditCard, scanned }) {
+    const { userData, } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
-    const { createFuel, updateFuel, fuelDataByCar, cardRow, setCardRow, refetchByCar } = React.useContext(FuelContext);
+    const { createFuel, updateFuel, fuelDataByCar, createFuelAttendant, cardRow, setCardRow, refetchByCar } = React.useContext(FuelContext);
     const { userDetail } = React.useContext(AuthContext);
     const { stationData } = React.useContext(StationContext);
     const FormSchema = yup.object().shape({
         fuelAmount: yup.number().required("fuel amount is required"),
         // fuelDate: yup.date().required("date is required"),
-        car_id: yup.string().required("car id is required"),
-        attendant: yup.string().required("attendant is required"),
+        // car_id: yup.string().required("car id is required"),
+        // attendant: yup.string().required("attendant is required"),
         station: yup.string().required("station is required"),
     })
     const handleClickOpen = () => {
@@ -57,18 +57,18 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
     const handleClose = () => {
         setOpen(false);
         setCardRow(null);
+        refetchByCar();
     };
     const handleSubmit = async (values) => {
         try {
             if (cardRow) {
-                console.log('updateFuel', { cardRow: cardRow._id, values });
-                await updateFuel({ cardRow: cardRow._id, values });
+                console.log('updateFuel', { cardRow: cardRow._id, scanned, attendant: userDetail._id, values });
+                await updateFuel({ cardRow: cardRow._id, scanned, attendant: userDetail._id, values });
             } else {
-                console.log(values);
-                await createFuel(values);
+                console.log('0000000000000000000000000', { scanned, attendant: userDetail._id, values });
+                await createFuelAttendant({ scanned, attendant: userDetail._id, values });
             }
             handleClose();
-            refetchByCar();
         } catch (error) {
             console.log(error);
         }
@@ -112,7 +112,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
                                                 helperText={touched.fuelAmount && errors.fuelAmount}
                                             />
 
-                                            <FormControl fullWidth>
+                                            {/* <FormControl fullWidth>
                                                 <InputLabel id="demo-simple-select-label">
                                                     Car
                                                 </InputLabel>
@@ -155,7 +155,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
                                                         </MenuItem>
                                                     ))}
                                                 </Select>
-                                            </FormControl>
+                                            </FormControl> */}
                                             <FormControl fullWidth>
                                                 <InputLabel id="demo-simple-select-label2">
                                                     Station
@@ -202,7 +202,7 @@ export default function AlertDialog({ open, setOpen, editCard, setEditCard, }) {
     );
 }
 
-AlertDialog.propTypes = {
+EditFuelDialogue.propTypes = {
     open: propTypes.bool.isRequired,
     setOpen: propTypes.func.isRequired,
     carId: propTypes.string.isRequired,
@@ -211,4 +211,5 @@ AlertDialog.propTypes = {
     setEditCard: propTypes.func.isRequired,
     cardRow: propTypes.object.isRequired,
     setCardRow: propTypes.func.isRequired,
+    scanned: propTypes.string.isRequired,
 };

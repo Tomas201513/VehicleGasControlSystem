@@ -25,7 +25,7 @@ import * as yup from "yup";
 import PropTypes from "prop-types";
 import CarContext from "../../context/CarContext";
 import UserContext from "../../context/UserContext";
-import Warnialogue from "src/components/Warnialogue";
+import Warndialogue from "src/components/Warndialogue";
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 function CreateUpdateCar({ selectedData, editable, setEditable }) {
@@ -292,7 +292,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                 )}
             </Formik>
 
-            <Warnialogue
+            <Warndialogue
                 open={warn}
                 setOpen={SetWarn}
                 title={"Delete User"}

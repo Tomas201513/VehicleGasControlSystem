@@ -22,7 +22,7 @@ import * as yup from "yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PropTypes from "prop-types";
-import Warnialogue from "src/components/Warnialogue";
+import Warndialogue from "src/components/Warndialogue";
 import StationContext from "src/context/StationContext";
 
 export default function CreateUpdateStation({ selectedData, editable, setEditable }) {
@@ -191,7 +191,7 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                     </Form>
                 )}
             </Formik>
-            <Warnialogue
+            <Warndialogue
                 open={warn}
                 setOpen={SetWarn}
                 title={"Delete User"}

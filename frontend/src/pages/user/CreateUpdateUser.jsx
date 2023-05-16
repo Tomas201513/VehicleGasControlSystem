@@ -23,7 +23,7 @@ import { Formik, Form } from "formik";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 import UserContext from "src/context/UserContext";
-import Warnialogue from "src/components/Warnialogue";
+import Warndialogue from "src/components/Warndialogue";
 function CreateUpdateUser({ selectedData, editable, setEditable }) {
 
   const { createUser, updateUser, setSelectedData, setCreateOpen, deleteUser, warn, SetWarn } = React.useContext(UserContext);
@@ -197,7 +197,7 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
           </Form>
         )}
       </Formik >
-      <Warnialogue
+      <Warndialogue
         open={warn}
         setOpen={SetWarn}
         title={"Delete User"}

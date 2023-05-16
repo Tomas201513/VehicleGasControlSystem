@@ -147,7 +147,7 @@ export default function Datatable({
               getRowId={getRowId}
               pageSize={10}
                   density={isSmallScreen ? 'comfortable' : 'standard'}
-              checkboxSelection
+                  checkboxSelection
               rowHeight={60}
               slots={{
                 toolbar: CustomToolbar,

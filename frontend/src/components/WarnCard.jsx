@@ -24,12 +24,13 @@ function PaperComponent(props) {
 
 export default function WarnCard({ open, setOpen, title, content, action, cardRow, setCardRow,
 }) {
-    const { deleteFuel, warn, SetWarn, refetchByCar } = React.useContext(FuelContext);
+    const { refetchByCar, refetch } = React.useContext(FuelContext);
 
     const handleClose = () => {
+        refetchByCar();
+        refetch();
         setOpen(false);
         setCardRow(null);
-        refetchByCar();
 
     };
 

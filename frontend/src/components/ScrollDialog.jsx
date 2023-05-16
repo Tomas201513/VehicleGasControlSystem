@@ -17,8 +17,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function ScrollDialog({ scanned, setScanned }) {
     const {
-        setCreateOpen,
-        setEditable,
         fuelDataByCar,
         editCard,
         setEditCard,
@@ -27,7 +25,7 @@ export default function ScrollDialog({ scanned, setScanned }) {
     } = React.useContext(FuelContext);
 
     const handleClose = () => {
-        setScanned(false);
+        setScanned(null);
     };
 
 
@@ -39,7 +37,6 @@ export default function ScrollDialog({ scanned, setScanned }) {
                 open={scanned}
                 onClose={handleClose}
                 TransitionComponent={Transition}
-
             >
                 <AppBar sx={{ position: 'relative', backgroundColor: '#4276a8', mb: 5, flexWrap: 'wrap' }}>
                     <Toolbar>
@@ -52,23 +49,18 @@ export default function ScrollDialog({ scanned, setScanned }) {
                             <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            Car Details
+                            CAR DETAILS
                         </Typography>
-                        {/* <Button autoFocus color="inherit" onClick={() => {
-                            // setCreateOpen(true), setEditable(true);
-                            setOpen(true);
-                        }}>
-                            Add
-                        </Button> */}
                     </Toolbar>
                 </AppBar>
-                <CarDetailsCard fuelDataByCar={fuelDataByCar} editCard={editCard} setEditCard={setEditCard} cardRow={cardRow} setCardRow={setCardRow} />
-
-
-                {/* <CollapsibleTable fuelDataByCar={fuelDataByCar} /> */}
+                <CarDetailsCard
+                    fuelDataByCar={fuelDataByCar}
+                    editCard={editCard}
+                    setEditCard={setEditCard}
+                    cardRow={cardRow}
+                    setCardRow={setCardRow}
+                    scanned={scanned} />
             </Dialog>
-            {/* <AlertDialog open={open} setOpen={setOpen} /> */}
-
         </Box>
     );
 }

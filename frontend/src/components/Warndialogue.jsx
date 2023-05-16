@@ -21,7 +21,7 @@ function PaperComponent(props) {
     );
 }
 
-export default function Warnialogue({ open, setOpen, title, content, action, selectedData, qr, setQr, qrId,
+export default function Warndialogue({ open, setOpen, title, content, action, selectedData, qr, setQr, qrId,
     setQrId }) {
 
     const handleClose = () => {
@@ -58,7 +58,7 @@ export default function Warnialogue({ open, setOpen, title, content, action, sel
     );
 }
 
-Warnialogue.propTypes = {
+Warndialogue.propTypes = {
     open: propTypes.bool.isRequired,
     setOpen: propTypes.func.isRequired,
     title: propTypes.string.isRequired,

@@ -12,7 +12,7 @@ export const CarProvider = ({ children }) => {
   const [createOpen, setCreateOpen] = React.useState(false);
   const [selectedData, setSelectedData] = React.useState(null);
   const [editable, setEditable] = React.useState(false);
-  const [scanned, setScanned] = React.useState(false);
+  const [scanned, setScanned] = React.useState(null);
   const [warn, SetWarn] = React.useState(false);
   const [qr, setQr] = React.useState(false);
   const [qrId, setQrId] = React.useState(null);

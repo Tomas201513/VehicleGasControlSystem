@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel, GetFuelByMonth } from "src/apis/FuelApi";
+import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel, GetFuelByMonth, CreateFuelAttendant } from "src/apis/FuelApi";
 import CarContext from "./CarContext";
 const FuelContext = React.createContext({});
 
@@ -39,7 +39,7 @@ export const FuelProvider = ({ children }) => {
     console.log(`fuelData`, fuelData);
 
     // GetUers
-    (scanned)  
+    (scanned)
     const {
         data: fuelDataByCar,
         isLoading: isLoadingByCar,
@@ -77,6 +77,22 @@ export const FuelProvider = ({ children }) => {
 
         },
     });
+    // CreateFuelAttendant
+    const { mutateAsync: createFuelAttendant } = useMutation(CreateFuelAttendant, {
+        onSuccess: () => {
+            console.log("Fuel created successfully");
+            setCreateOpen(false);
+
+            showToast("Fuel created successfully", "success", 2000);
+            refetch();
+        },
+        onError: (err) => {
+            console.log("couldent update Fuel");
+            // showToast(err.message, "error");
+            showToast(err.response.data.message, "error");
+
+        },
+    });
 
     // UpdateFuel
     const { mutateAsync: updateFuel } = useMutation(UpdateFuel, {
@@ -84,6 +100,8 @@ export const FuelProvider = ({ children }) => {
             showToast("Fuel updated successfully", "success");
             setSelectedData(null);
             refetch();
+            refetchByCar();
+
         },
         onError: (err) => {
             // showToast(err.message, "error");
@@ -97,6 +115,7 @@ export const FuelProvider = ({ children }) => {
             showToast("Fuel deleted successfully", "success");
             setSelectedData(null);
             refetch();
+            refetchByCar();
         },
         onError: (err) => {
             showToast(err.message, "error");
@@ -127,6 +146,7 @@ export const FuelProvider = ({ children }) => {
                 editable,
                 setEditable,
                 createFuel,
+                createFuelAttendant,
                 updateFuel,
                 deleteFuel,
                 warn,

@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
-import AlertDialog from 'src/components/AlertDialog';
+import EditFuelDialogue from 'src/components/EditFuelDialogue';
 import FuelContext from "src/context/FuelContext";
 import WarnCard from "src/components/WarnCard";
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -19,7 +19,7 @@ import en from 'javascript-time-ago/locale/en';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 JavascriptTimeAgo.addLocale(en);
 
-export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, cardRow, setCardRow, }) {
+export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, cardRow, setCardRow, scanned }) {
     function LinearProgressWithLabel(props) {
         return (
             <Box >
@@ -271,7 +271,13 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
 
                 </Grid>
             </Grid >
-            <AlertDialog open={open} setOpen={setOpen} editCard={editCard} setEditCard={setEditCard} />
+            <EditFuelDialogue
+                open={open}
+                setOpen={setOpen}
+                editCard={editCard}
+                setEditCard={setEditCard}
+                scanned={scanned}
+            />
             <WarnCard
                 open={warn}
                 setOpen={SetWarn}
@@ -297,7 +303,6 @@ CarDetailsCard.propTypes = {
     setEditCard: propTypes.func,
     cardRow: propTypes.object,
     setCardRow: propTypes.func,
-
-
+    scanned: propTypes.string,
 };
 

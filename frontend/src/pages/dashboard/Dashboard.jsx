@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { Container, Box, Card, CardContent, Typography, Grid, useMediaQuery } from '@mui/material';
+import { Box, Grid, useMediaQuery } from '@mui/material';
 import UserContext from 'src/context/UserContext';
 import FuelContext from 'src/context/FuelContext';
 import CarContext from 'src/context/CarContext';
 import TotalFuelConsumed from './TotalFuelConsumed';
 import { CurrentMonthIntake } from './CurrentMonthIntake';
 import { UserCountCard } from './UserCountCard';
-import { width } from '@mui/system';
 import { FuelIntakeBarChart } from './FuelIntakeBarChart'
 import { CarModelPieChart } from './CarModelPieChart';
 import { LatestOilFill } from './LatestOilFill';
@@ -44,6 +43,7 @@ function Dashboard() {
 
   React.useEffect(() => {
     if (userDetail) {
+      console.log('userDetail', userDetail);
       const fetchData = async () => {
         refetchUser();
         refetchFuel();

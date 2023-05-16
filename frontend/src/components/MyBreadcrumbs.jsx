@@ -17,7 +17,7 @@ const Breadcrumb = () => {
             return   ( <React.Fragment key={index}>
               {isLast ? name : <Link to={routeTo}>{name}</Link>}
             </React.Fragment>);
-          })}
+          })} 
         </Stack>
       </Breadcrumbs>
     </nav>

@@ -22,7 +22,7 @@ import * as yup from "yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PropTypes from "prop-types";
-import Warnialogue from "src/components/Warnialogue";
+import Warndialogue from "src/components/Warndialogue";
 import FuelContext from "src/context/FuelContext";
 import CarContext from "../../context/CarContext";
 import UserContext from "../../context/UserContext";
@@ -219,7 +219,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                 )}
 
             </Formik >
-            <Warnialogue
+            <Warndialogue
                 open={warn}
                 setOpen={SetWarn}
                 title={"Delete User"}
