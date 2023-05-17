@@ -8,6 +8,8 @@ import { useLocation } from "react-router-dom";
 import Breadcrumb from "src/components/MyBreadcrumbs";
 import AuthContext from 'src/context/AuthContext';
 import { useNavigate } from "react-router-dom";
+import ToastContext from "src/context/hot-toast-context/HotToastContext";
+import jwt_decode from "jwt-decode";
 
 const SIDE_NAV_WIDTH = 280;
 
@@ -31,7 +33,7 @@ const LayoutContainer = styled('div')({
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
-  const { userDetail } = useContext(AuthContext);
+  const { userDetail, setUserDetail, accessToken } = useContext(AuthContext);
   const { pathname } = useLocation();
   const [openNav, setOpenNav] = useState(false);
   const handlePathnameChange = useCallback(
@@ -42,20 +44,34 @@ export default function DashboardLayout() {
     },
     [openNav]
   );
+  const { showToast } = useContext(ToastContext);
 
   useEffect(
     () => {
       handlePathnameChange();
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pathname]
   ); useEffect(() => {
     if (userDetail.roles[0] === "admin") {
       navigate("/app/dashboard");
-    } else if (userDetail.roles[0] === "attendant") {
+    } else if (userDetail.roles[0] === 'driver') {
+      navigate("/login");
+    }
+    else if (userDetail.roles[0] === "attendant") {
       navigate("/app/scan");
     }
+    showToast(`Welcome ${userDetail.userName}`, "success", 2000)
   }, [userDetail]);
+
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      const decoded = jwt_decode(accessToken);
+      setUserDetail(decoded);
+    }
+  }, [accessToken]);
+
 
   return (
     <>

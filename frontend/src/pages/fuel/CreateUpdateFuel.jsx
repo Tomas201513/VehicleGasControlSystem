@@ -33,7 +33,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
     const { createFuel, updateFuel, setSelectedData, setCreateOpen, deleteFuel, warn, SetWarn } = React.useContext(FuelContext);
     const { userData } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
-    const { stationData } = React.useContext(StationContext);
+    const { stationData, refetch } = React.useContext(StationContext);
     const drivers = userData.filter(item => item?.roles[0] === 'driver')
 
     const FormSchema = yup.object().shape({
@@ -52,10 +52,16 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                 await createFuel(values);
             }
             setEditable(false);
+            refetch();
         } catch (error) {
             console.log(error);
         }
     }
+    React.useEffect(() => {
+        console.log('warnnnnnnnnnnnnnnnnnnnnnnnnnn', warn);
+        refetch();
+    }, [warn])
+
     return (
         <>
             <Formik
@@ -95,7 +101,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                         <Tooltip title="Editable">
                                             <FormControlLabel
                                                 control={<Switch />}
-                                                label="edit"
+                                                // label="edit"
                                                 onChange={() => setEditable(!editable)}
                                             />
                                         </Tooltip>
@@ -105,7 +111,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             </IconButton>
 
                                         </Tooltip>
-                                        <Typography>{'Delete'}</Typography>
+                                        {/* <Typography>{'Delete'}</Typography> */}
 
                                     </>) : (
                                     <></>

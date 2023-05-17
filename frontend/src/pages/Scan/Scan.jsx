@@ -1,16 +1,28 @@
 import React, { useContext } from 'react';
 import { Box, } from "@mui/material";
 import CarContext from '../../context/CarContext';
+import UserContext from 'src/context/UserContext';
+import AuthContext from 'src/context/AuthContext';
 import ScrollDialog from '../../components/ScrollDialog';
 import Html5QrcodePlugin from './Html5QrcodePlugin';
 function Scan() {
     const { carDetail, setScanned, scanned } = useContext(CarContext);
+    const { refetchAccount } = useContext(UserContext);
+    const { userDetail } = React.useContext(AuthContext);
 
     const onNewScanResult = (decodedText, decodedResult) => {
         console.log(`Scan result: ${decodedText}`, decodedResult);
         setScanned(decodedText);
     };
-
+    React.useEffect(() => {
+        if (userDetail) {
+            console.log('userDetail', userDetail);
+            const fetchData = async () => {
+                refetchAccount();
+            };
+            fetchData();
+        }
+    }, [userDetail]);
     return (
         <>
             {/* {createOpen ? <CreateUpdateFuel selectedData={fuelDataByCar} editable={true} setEditable={setEditable} /> : <> */}

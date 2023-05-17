@@ -52,6 +52,7 @@ export const logIn = async (req, res) => {
 				.json({ error: true, message: error.details[0].message });
 
 		const user = await User.findOne({ email: req.body.email });
+		console.log('tomiiii', user);
 		if (!user)
 			return res
 				.status(401)
@@ -61,6 +62,11 @@ export const logIn = async (req, res) => {
 			req.body.password,
 			user.password
 		);
+		if (user.roles[0] !== "admin" && user.roles[0] !== "attendant") {
+			return res
+				.status(401)
+				.json({ error: true, message: "Unauthorized user" });
+		}
 		if (!verifiedPassword)
 			return res
 				.status(401)
@@ -118,13 +124,14 @@ export const refresh=  async (req, res) => {
 
 
 
-		console.log("tokenDetails", tokenDetails);
-		const payload = { _id: tokenDetails._id, roles: tokenDetails.roles };
+		console.log("am about to geneate token", tokenDetails);
+		const payload = { _id: tokenDetails._id, userName: tokenDetails.userName, email: tokenDetails.email, roles: tokenDetails.roles }
 		const accessToken = jwt.sign(
 			payload,
 			process.env.ACCESS_TOKEN_PRIVATE_KEY,
 			{ expiresIn: "14m" }
 		);
+		console.log("Access token created successfully", accessToken);
 		res.status(200).json({
 			error: false,
 			accessToken,

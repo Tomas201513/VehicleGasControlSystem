@@ -1,20 +1,22 @@
 // UserContext.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetUser, CreateUser, UpdateUser, DeleteUser } from "src/apis/UsersApi";
+import { GetUser, CreateUser, UpdateUser, DeleteUser, GetUserDetail } from "src/apis/UsersApi";
+import AuthContext from 'src/context/AuthContext';
 
 const UserContext = React.createContext({});
 export default UserContext;
 
 export const UserProvider = ({ children }) => {
+  const { userDetail } = React.useContext(AuthContext);
   const [createOpen, setCreateOpen] = React.useState(false);
   const [selectedData, setSelectedData] = React.useState(null);
   const [editable, setEditable] = React.useState(false);
   const [warn, SetWarn] = React.useState(false);
 
-  const name = "Users";
+  const name = "User";
   const { showToast } = React.useContext(ToastContext);
   const handleRowClick = (params) => {
     console.log(params);
@@ -31,7 +33,16 @@ export const UserProvider = ({ children }) => {
   const userData = queryResult.data?.usersdata || [];
   const userCounts = queryResult.data?.userCounts || [];
   console.log('userData', userData);
-  // CreateUser
+
+
+  const { data: accountDetail, refetch: refetchAccount } = useQuery(
+    "accountDetail",
+    () => GetUserDetail(userDetail?._id),
+    {
+      enabled: false,
+    }
+  );
+
   const { mutateAsync: createUser } = useMutation(CreateUser, {
     onSuccess: () => {
       console.log("User updated successfully");
@@ -51,6 +62,7 @@ export const UserProvider = ({ children }) => {
       showToast("User updated successfully", "success");
       setSelectedData(null);
       refetch();
+      refetchAccount();
     },
     onError: (err) => {
       showToast(err.message, "error");
@@ -67,6 +79,17 @@ export const UserProvider = ({ children }) => {
       showToast(err.message, "error");
     },
   });
+
+  useEffect(() => {
+    if (userDetail) {
+      const fetchData = async () => {
+        await refetch();
+        await GetUserDetail(userDetail?._id);
+      };
+
+      fetchData();
+    }
+  }, [userDetail, refetch]);
 
   return (
     <UserContext.Provider
@@ -85,11 +108,14 @@ export const UserProvider = ({ children }) => {
         editable,
         setEditable,
         handleRowClick,
+        accountDetail,
+        GetUserDetail,
         createUser,
         updateUser,
         deleteUser,
         warn,
         SetWarn,
+        refetchAccount,
       }}
     >
       {children}

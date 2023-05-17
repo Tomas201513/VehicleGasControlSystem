@@ -29,7 +29,7 @@ import Warndialogue from "src/components/Warndialogue";
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 function CreateUpdateCar({ selectedData, editable, setEditable }) {
-    const { createCar, updateCar, setSelectedData, setCreateOpen, deleteCar, warn, SetWarn, qr,
+    const { name, createCar, updateCar, setSelectedData, setCreateOpen, deleteCar, warn, SetWarn, qr,
         setQr, qrId, setQrId } = React.useContext(CarContext);
     const { userData } = React.useContext(UserContext);
     const drivers = userData.filter(item => item?.roles[0] === 'driver')
@@ -106,7 +106,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                         <Tooltip title="Editable">
                                             <FormControlLabel
                                                 control={<Switch />}
-                                                label="edit"
+                                                // label="edit"
                                                 onChange={() => setEditable(!editable)}
                                             />
                                         </Tooltip>
@@ -116,7 +116,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                             </IconButton>
 
                                         </Tooltip>
-                                        <Typography>{'Delete'}</Typography>
+                                        {/* <Typography>{'Delete'}</Typography> */}
 
                                     </>) : (
                                     <></>
@@ -131,7 +131,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                             InputProps={{
                                                 readOnly: !editable,
                                             }}
-                                            autoFocus={editable}
+
                                             variant="standard"
                                             label="Plate Number"
                                             name="plateNumber"
@@ -148,7 +148,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                             InputProps={{
                                                 readOnly: !editable,
                                             }}
-                                            autoFocus={editable}
+
                                             fullWidth
                                             label="Model"
                                             name="model"
@@ -165,7 +165,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                             InputProps={{
                                                 readOnly: !editable,
                                             }}
-                                            autoFocus={editable}
+
                                             variant="standard"
                                             label="Make Year"
                                             name="year"
@@ -182,7 +182,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                             InputProps={{
                                                 readOnly: !editable,
                                             }}
-                                            autoFocus={editable}
+
                                             variant="standard"
                                             label="Color"
                                             name="color"
@@ -199,7 +199,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                             InputProps={{
                                                 readOnly: !editable,
                                             }}
-                                            autoFocus={editable}
+                                            //
                                             variant="standard"
                                             label="Capacity"
                                             name="capacity"
@@ -221,7 +221,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                 InputProps={{
                                                     readOnly: !editable,
                                                 }}
-                                                autoFocus={editable}
+                                                //
                                                 label="transmission"
                                                 variant="standard"
                                                 value={values.transmission}
@@ -246,7 +246,6 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                 InputProps={{
                                                     readOnly: !editable,
                                                 }}
-                                                autoFocus={editable}
                                                 label="Engine"
                                                 variant="standard"
                                                 value={values.engine}
@@ -268,7 +267,6 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                 InputProps={{
                                                     readOnly: !editable,
                                                 }}
-                                                autoFocus={editable}
                                                 labelId="demo-simple-select-label"
                                                 name="driver"
                                                 label="driver"
@@ -312,14 +310,13 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
             <Warndialogue
                 open={warn}
                 setOpen={SetWarn}
-                title={"Delete User"}
-                content={"Are you sure you want to delete this user?"}
                 action={deleteCar}
                 selectedData={selectedData}
                 qr={qr}
                 setQr={setQr}
                 qrId={qrId}
                 setQrId={setQrId}
+                name={name}
             />
         </>
     );

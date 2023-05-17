@@ -8,11 +8,13 @@ import {
   Button,
   Divider,
   Drawer,
+  IconButton,
   Stack,
   SvgIcon,
   Typography,
   useMediaQuery
 } from '@mui/material';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import useResponsive from 'src/hooks/useResponsive';
 // import { Logo } from 'src/components/logo';
 // import { Scrollbar } from 'src/components/scrollbar';
@@ -22,7 +24,7 @@ import { SideNavItem } from './side-nav-item';
 import AuthContext from "src/context/AuthContext";
 
 
-export const SideNav = ({ open, onClose, setOpenNav }) => {
+export const SideNav = ({ open, onClose, setOpenNav, openNav }) => {
   const { userDetail } = React.useContext(AuthContext);
 
   const { pathname } = useLocation();
@@ -47,29 +49,6 @@ export const SideNav = ({ open, onClose, setOpenNav }) => {
         height: '100%'
       }}
     >
-      <Button
-        color="primary"
-        component="a"
-        size="large"
-        sx={{
-          alignItems: 'center',
-          backgroundColor: 'primary.main',
-          borderRadius: 1,
-          display: 'flex',
-          fontWeight: 'medium',
-          justifyContent: 'space-between',
-          mb: 2,
-        }}
-        onClick={() => setOpenNav(false)}
-      >
-        <SvgIcon
-          fontSize="small"
-          sx={{ color: 'primary.contrastText' }}
-        >
-          <ArrowTopRightOnSquareIcon />
-        </SvgIcon>
-      </Button>
-
 
       <Box sx={{ p: 3 }}>
         <Box
@@ -83,6 +62,7 @@ export const SideNav = ({ open, onClose, setOpenNav }) => {
         >
           {/* <Logo /> */}
 
+
         </Box>
         <Box
           sx={{
@@ -95,31 +75,41 @@ export const SideNav = ({ open, onClose, setOpenNav }) => {
             mt: 2,
             p: '12px'
           }}
+          onClick={() => setOpenNav(!openNav)}
         >
           <div>
             <Typography
-              color="inherit"
               variant="h5"
-              sx={{ color: '#fff' }}
+              sx={{
+                color: '#bdbdbe',
+                flexGrow: 1,
+                fontFamily: (theme) => theme.typography.fontFamily,
+                // fontSize: 16,
+                fontWeight: 600,
+                lineHeight: '24px',
+                whiteSpace: 'nowrap',
+              }}
 
 
             >
-              ፌቄስ
+              INSA
             </Typography>
             {"Gas Station"}
             {/* <Typography
                 color="neutral.400"
                 variant="body2"
               >
-                Production
+              Production
               </Typography> */}
           </div>
+
           <SvgIcon
             fontSize="small"
             sx={{ color: 'neutral.500' }}
           >
             <ChevronUpDownIcon />
           </SvgIcon>
+
         </Box>
       </Box>
       <Divider sx={{ borderColor: 'neutral.700' }} />
@@ -226,6 +216,7 @@ export const SideNav = ({ open, onClose, setOpenNav }) => {
 SideNav.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  setOpenNav: PropTypes.func
+  setOpenNav: PropTypes.func,
+  openNav: PropTypes.bool
 
 };

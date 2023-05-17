@@ -15,7 +15,7 @@ const verifyRefreshToken = async (refreshToken) => {
       refreshToken,
       process.env.REFRESH_TOKEN_PRIVATE_KEY
     );
-    console.log("tokenDetails", tokenDetails);
+    console.log("Valid refresh token", tokenDetails);
 
     return {
       tokenDetails,
@@ -23,7 +23,7 @@ const verifyRefreshToken = async (refreshToken) => {
       message: "Valid refresh token",
     };
   } catch (err) {
-    console.log("errrrrrr r", err);
+    console.log("errrrrrr verifyRefreshToken", err);
     throw new Error(err.message);
   }
 };

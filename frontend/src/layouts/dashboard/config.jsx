@@ -56,7 +56,17 @@ export const adminItems = [
         <LocalGasStationIcon />
       </SvgIcon>
     )
-  }, {
+  },
+  // {
+  //   title: 'Fill Station',
+  //   path: '/app/fillstation',
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <LocalGasStationIcon />
+  //     </SvgIcon>
+  //   )
+  // }, 
+  {
     title: 'Scan',
     path: '/app/scan',
     icon: (
@@ -77,7 +87,16 @@ export const attendantItems = [
   //       <ChartBarIcon />
   //     </SvgIcon>
   //   )
-  // },
+  // }, 
+  {
+    title: 'Fill Station',
+    path: '/app/fillstation',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LocalGasStationIcon />
+      </SvgIcon>
+    )
+  },
   {
     title: 'Scan',
     path: '/app/scan',

@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import Draggable from 'react-draggable';
 import propTypes from 'prop-types';
 import QRcode from './QRcode';
-
+import StationContext from 'src/context/StationContext';
 function PaperComponent(props) {
     return (
         <Draggable
@@ -21,13 +21,15 @@ function PaperComponent(props) {
     );
 }
 
-export default function Warndialogue({ open, setOpen, title, content, action, selectedData, qr, setQr, qrId,
+export default function Warndialogue({ name, open, setOpen, action, selectedData, qr, setQr, qrId,
     setQrId }) {
+    const { refetch } = React.useContext(StationContext);
 
     const handleClose = () => {
         setOpen(false);
         setQr(false);
         setQrId(null);
+        refetch();
     };
 
     return (
@@ -39,11 +41,11 @@ export default function Warndialogue({ open, setOpen, title, content, action, se
                 aria-labelledby="draggable-dialog-title"
             >
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-                    {qr ? "QR Code" : title}
+                    {qr ? "QR Code" : <>{`Delete ${name} `}</>}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {qr ? qrId ? <QRcode id={qrId} /> : <QRcode id={selectedData?._id} /> : content}
+                        {qr ? qrId ? <QRcode id={qrId} /> : <QRcode id={selectedData?._id} /> : <> {`Are you sure you want to delete this ${name}?`}</>}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -62,13 +64,13 @@ Warndialogue.propTypes = {
     open: propTypes.bool.isRequired,
     setOpen: propTypes.func.isRequired,
     title: propTypes.string.isRequired,
-    content: propTypes.string.isRequired,
     action: propTypes.func.isRequired,
     selectedData: propTypes.object.isRequired,
     qr: propTypes.bool.isRequired,
     setQr: propTypes.func.isRequired,
     qrId: propTypes.string.isRequired,
     setQrId: propTypes.func.isRequired,
+    name: propTypes.string.isRequired
 };
 
 // {

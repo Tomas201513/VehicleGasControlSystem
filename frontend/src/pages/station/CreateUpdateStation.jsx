@@ -86,7 +86,7 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         <Tooltip title="Editable">
                                             <FormControlLabel
                                                 control={<Switch />}
-                                                label="edit"
+                                                // label="edit"
                                                 onChange={() => setEditable(!editable)}
                                             />
                                         </Tooltip>
@@ -96,7 +96,7 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                             </IconButton>
 
                                         </Tooltip>
-                                        <Typography>{'Delete'}</Typography>
+                                        {/* <Typography>{'Delete'}</Typography> */}
 
                                     </>) : (
                                     <></>

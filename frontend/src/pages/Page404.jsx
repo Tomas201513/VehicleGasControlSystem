@@ -1,7 +1,15 @@
 import { Box, Button, Container, SvgIcon, Typography } from '@mui/material';
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from 'react-router-dom';
 
-const  Page404= () => (
+
+const Page404 = () => {
+
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
+  return (
   <>
     <Helmet title="404: Not found" />
    
@@ -50,7 +58,7 @@ const  Page404= () => (
             sx={{ mb: 3 }}
             variant="h5"
           >
-            you are looking for isn’t here
+              What you are looking for isn’t here
           </Typography>
           <Typography
             align="center"
@@ -61,7 +69,7 @@ const  Page404= () => (
             Whichever it is, try using the navigation
           </Typography>
           <Button
-            href="/app"           
+              onClick={goBack}     
             sx={{ mt: 3 }}
             variant="contained"
           >
@@ -71,6 +79,7 @@ const  Page404= () => (
       </Container>
     </Box>
   </>
-);
+  )
+}
 
 export default Page404;

@@ -47,6 +47,11 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
+  useEffect(() => {
+    console.log("userDetail" + JSON.stringify(userDetail));
+  }, [userDetail]);
+
+
   return (
     <>
       <IconButton

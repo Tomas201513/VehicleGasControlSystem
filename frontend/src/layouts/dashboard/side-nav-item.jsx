@@ -28,7 +28,7 @@ export const SideNavItem = ({ active, icon, path, title }) => {
           justifyContent: 'flex-start',
           pl: '16px',
           pr: '16px',
-          py: '6px',
+          py: '10px',
           textAlign: 'left',
           width: '100%',
           ...(active && {
@@ -60,10 +60,10 @@ export const SideNavItem = ({ active, icon, path, title }) => {
         <Box
           component="span"
           sx={{
-            color: 'neutral.400',
+            color: '#bdbdbe',
             flexGrow: 1,
             fontFamily: (theme) => theme.typography.fontFamily,
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: 600,
             lineHeight: '24px',
             whiteSpace: 'nowrap',

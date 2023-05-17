@@ -46,12 +46,12 @@ export default function Datatable({
         <Stack direction="row" spacing={2}>
           <Stack direction="column" spacing={5}>
             <Box >
-              <GridToolbarColumnsButton sx={{ color: "#58595b", }} size={isSmallScreen ? 'large' : 'small'}
+              <GridToolbarColumnsButton sx={{ color: "#000000", }} size={isSmallScreen ? 'large' : 'small'}
               />
-              <GridToolbarFilterButton sx={{ color: "#58595b" }} size={isSmallScreen ? 'large' : 'small'} />
-              <GridToolbarDensitySelector sx={{ color: "#58595b" }} size={isSmallScreen ? 'large' : 'small'} />
-              <GridToolbarExport sx={{ color: "#58595b" }} size={isSmallScreen ? 'large' : 'small'} />
-              {isSmallScreen ? <></> : <GridToolbarQuickFilter sx={{ color: "#58595b", width: '190px' }} />}
+              <GridToolbarFilterButton sx={{ color: "#000000" }} size={isSmallScreen ? 'large' : 'small'} />
+              <GridToolbarDensitySelector sx={{ color: "#000000" }} size={isSmallScreen ? 'large' : 'small'} />
+              <GridToolbarExport sx={{ color: "#000000" }} size={isSmallScreen ? 'large' : 'small'} />
+              {isSmallScreen ? <></> : <GridToolbarQuickFilter sx={{ color: "#000000", width: '190px' }} />}
             </Box>
           </Stack>
         </Stack>
@@ -71,12 +71,8 @@ export default function Datatable({
       <Container maxWidth="xl" className={classes.root} sx={{ marginTop: isSmallScreen ? "5vh" : "0vh" }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: "0vh", padding: isSmallScreen ? '3' : '0' }}>
           <Typography sx={{
-            fontSize: isSmallScreen ? '2.5rem' : '2rem',
             fontWeight: "bold",
-            color: "#58595b",
-            textShadow: "1px 1px 2px #ccc",
-
-          }}>{name}</Typography>
+          }} variant="h4" whitespace="nowrap">{name}s</Typography>
           <Box sx={{ flexGrow: 1 }} />
           {/* <IconButton size="large" onClick={() => { setCreateOpen(true), setEditable(true) }}
             sx={{
@@ -97,7 +93,7 @@ export default function Datatable({
               // startIcon={<AddIcon />}
               sx={{
                 mr: '5%',
-                borderRadius: "7px",
+                borderRadius: "15px",
                 backgroundColor: "#4276a8",
                 "&:hover": {
                   backgroundColor: "#1565c0",

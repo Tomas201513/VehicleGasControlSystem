@@ -16,7 +16,7 @@ import { GetStation } from '../../apis/StationApi';
 function Dashboard() {
   const isSmallScreen = useMediaQuery('(min-width:600px)');
   const { userDetail } = React.useContext(AuthContext);
-  const { userData, userCounts, refetch: refetchUser } = React.useContext(UserContext);
+  const { userData, userCounts, refetch: refetchUser, refetchAccount } = React.useContext(UserContext);
   const { fuelData, totalFuelConsumed, currentMonthIntake, fuelDataByMonth, refetch: refetchFuel,
     refetchByCar,
     refetchByMonth, } = React.useContext(FuelContext);
@@ -50,6 +50,7 @@ function Dashboard() {
         refetchCar();
         refetchStation();
         refetchByMonth();
+        refetchAccount();
 
       };
 

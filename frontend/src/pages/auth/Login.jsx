@@ -29,8 +29,8 @@ function Login() {
   const navigate = useNavigate();
 useEffect(() => {
   if (userDetail) {
-    navigate("/dashboard", { replace: true });
-    showToast("Welcome back " + userDetail.userName, "success", 2000);
+    navigate("/app", { replace: true });
+    // showToast("Welcome back " + userDetail.userName, "success", 2000);
   }
 }, [userDetail]);
   const formik = useFormik({

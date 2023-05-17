@@ -96,7 +96,7 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                     <Tooltip title="Editable">
                       <FormControlLabel
                         control={<Switch />}
-                        label="edit"
+                        // label="edit"
                         onChange={() => setEditable(!editable)}
                       />
                     </Tooltip>
@@ -106,7 +106,7 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                       </IconButton>
 
                     </Tooltip>
-                    <Typography>{'Delete'}</Typography>
+                    {/* <Typography>{'Delete'}</Typography> */}
 
                   </>) : (
                   <></>

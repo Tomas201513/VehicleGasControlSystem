@@ -16,7 +16,7 @@ export const CarProvider = ({ children }) => {
   const [warn, SetWarn] = React.useState(false);
   const [qr, setQr] = React.useState(false);
   const [qrId, setQrId] = React.useState(null);
-  const name = "Cars";
+  const name = "Car";
   const { showToast } = React.useContext(ToastContext);
   const handleRowClick = (params) => {
     console.log(params);

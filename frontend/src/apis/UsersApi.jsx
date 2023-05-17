@@ -12,6 +12,15 @@ export const GetUser = async () => {
     console.log("No token");
   }
 };
+export const GetUserDetail = async (id) => {
+  if (localStorage.getItem("accessToken")) {
+    const res = await axiosInstance.get(`${api}${id}/`, TokenJson());
+    return res.data;
+  } else {
+    console.log("No token");
+  }
+};
+
 
 export const DeleteUser = async (id) => {
   if (localStorage.getItem("accessToken")) {

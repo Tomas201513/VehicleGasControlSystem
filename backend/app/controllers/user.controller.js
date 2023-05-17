@@ -1,4 +1,6 @@
 import User from '../models/user.model.js';
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 export const getUsers = async (req, res) => {
   console.log('controller');
   try {
@@ -56,7 +58,10 @@ export const updateUser = async (req, res) => {
   console.log('controller');
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, { ...req.body, password: hashPassword }, { new: true });
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });

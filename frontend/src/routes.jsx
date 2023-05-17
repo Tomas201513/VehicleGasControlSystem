@@ -14,6 +14,7 @@ import Station from "./pages/station/Station";
 import PrivateRoute from "./utils/PrivateRoute";
 import AuthContext from "./context/AuthContext";
 import Account from "src/pages/accoun/Account"
+import FillStation from "src/pages/station/FillStation";
 function RoutesComponent() {
   const { userDetail } = React.useContext(AuthContext);
   return (
@@ -39,6 +40,7 @@ function RoutesComponent() {
 
           )}
           <Route path="/app/scan" element={<Scan />} />
+          <Route path="/app/fillstation" element={<FillStation />} />
 
         </Route>
       </Route>

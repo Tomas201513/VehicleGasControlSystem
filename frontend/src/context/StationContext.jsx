@@ -13,7 +13,7 @@ export const StationProvider = ({ children }) => {
     const [selectedData, setSelectedData] = React.useState(null);
     const [editable, setEditable] = React.useState(false);
     const [warn, SetWarn] = React.useState(false);
-    const name = "Stations";
+    const name = "Station";
     const { showToast } = React.useContext(ToastContext);
     const handleRowClick = (params) => {
         console.log(params);
