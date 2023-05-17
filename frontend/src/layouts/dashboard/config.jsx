@@ -89,20 +89,20 @@ export const attendantItems = [
   //   )
   // }, 
   {
-    title: 'Fill Station',
-    path: '/app/fillstation',
-    icon: (
-      <SvgIcon fontSize="small">
-        <LocalGasStationIcon />
-      </SvgIcon>
-    )
-  },
-  {
     title: 'Scan',
     path: '/app/scan',
     icon: (
       <SvgIcon fontSize="small">
         <QrCodeScannerIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Fill Station',
+    path: '/app/fillstation',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LocalGasStationIcon />
       </SvgIcon>
     )
   },

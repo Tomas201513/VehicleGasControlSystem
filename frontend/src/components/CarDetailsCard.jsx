@@ -296,7 +296,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
 
 
 CarDetailsCard.propTypes = {
-    data: propTypes.object.isRequired,
+    data: propTypes.object,
     fuelDataByCar: propTypes.array,
     props: propTypes.object,
     editCard: propTypes.bool,

@@ -2,6 +2,7 @@ import axios from "axios";
 import { TokenJson } from "./token/AuthToken";
 import axiosInstance from "src/utils/useAxiosInterceptors";
 const api = "http://127.0.0.1:8000/api/stations/";
+const api2 = "http://127.0.0.1:8000/api/stations/fill/";
 
 export const GetStation = async () => {
     if (localStorage.getItem("accessToken")) {
@@ -31,6 +32,18 @@ export const UpdateStation = async (values) => {
         console.log("No token");
     }
 }
+
+export const FillStation = async (values) => {
+    console.log('xxxxx', values);
+    if (localStorage.getItem("accessToken")) {
+        console.log('xxxxx', values);
+        const res = await axiosInstance.post(`${api2}${values.id}`, values, TokenJson());
+        return res.data;
+    } else {
+        console.log("No token");
+    }
+}
+
 
 export const DeleteStation = async (id) => {
     if (localStorage.getItem("accessToken")) {

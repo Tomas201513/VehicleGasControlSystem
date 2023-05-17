@@ -8,6 +8,7 @@ const router = express.Router();
 router.get("/", auth, adminAttendant, stationController.getStation);
 router.get("/:id", auth, admin, stationController.getStationById);
 router.post("/", auth, admin, stationController.create);
+router.post("/fill/:id", auth, attendant, stationController.fill);
 router.put("/:id", auth, admin, stationController.update);
 router.delete("/:id", auth, admin, stationController.delete);
 

@@ -3,7 +3,7 @@ import React from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetStation, CreateStation, UpdateStation, DeleteStation } from "src/apis/StationApi";
+import { GetStation, CreateStation, UpdateStation, DeleteStation, FillStation } from "src/apis/StationApi";
 
 const StationContext = React.createContext({});
 export default StationContext;
@@ -26,7 +26,7 @@ export const StationProvider = ({ children }) => {
 
     const isLoading = queryResult.isLoading;
     const error = queryResult.error;
-    const refetch = queryResult.refetch;
+    const refetchStation = queryResult.refetch;
     const stationData = queryResult?.data;
     console.log('station', stationData)
 
@@ -37,7 +37,7 @@ export const StationProvider = ({ children }) => {
             setCreateOpen(false);
 
             showToast("Station created successfully", "success", 2000);
-            refetch();
+            refetchStation();
         },
         onError: (err) => {
             console.log("Station updated successfully");
@@ -50,7 +50,7 @@ export const StationProvider = ({ children }) => {
         onSuccess: () => {
             showToast("Station updated successfully", "success");
             setSelectedData(null);
-            refetch();
+            refetchStation();
         },
         onError: (err) => {
             showToast(err.response.data.message, "error");
@@ -58,12 +58,25 @@ export const StationProvider = ({ children }) => {
         },
     });
 
+    // FillStation
+    const { mutateAsync: fillStation } = useMutation(FillStation, {
+        onSuccess: () => {
+            showToast("Station filled successfully", "success");
+            setSelectedData(null);
+            refetchStation();
+        },
+        onError: (err) => {
+            showToast(err.response.data.message, "error");
+        },
+    });
+
+
     // DeleteStation
     const { mutateAsync: deleteStation } = useMutation(DeleteStation, {
         onSuccess: () => {
             showToast("Station deleted successfully", "success");
             setSelectedData(null);
-            refetch();
+            refetchStation();
         },
         onError: (err) => {
             showToast(err.message, "error");
@@ -76,7 +89,7 @@ export const StationProvider = ({ children }) => {
                 name,
                 isLoading,
                 error,
-                refetch,
+                refetchStation,
                 stationData,
                 createOpen,
                 setCreateOpen,
@@ -90,6 +103,7 @@ export const StationProvider = ({ children }) => {
                 createStation,
                 updateStation,
                 deleteStation,
+                fillStation
             }}
         >
             {children}

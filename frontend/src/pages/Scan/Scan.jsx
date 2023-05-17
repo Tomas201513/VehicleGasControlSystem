@@ -3,12 +3,14 @@ import { Box, } from "@mui/material";
 import CarContext from '../../context/CarContext';
 import UserContext from 'src/context/UserContext';
 import AuthContext from 'src/context/AuthContext';
+import StationContext from 'src/context/StationContext';
 import ScrollDialog from '../../components/ScrollDialog';
 import Html5QrcodePlugin from './Html5QrcodePlugin';
 function Scan() {
     const { carDetail, setScanned, scanned } = useContext(CarContext);
     const { refetchAccount } = useContext(UserContext);
     const { userDetail } = React.useContext(AuthContext);
+    const { refetchStation } = React.useContext(StationContext);
 
     const onNewScanResult = (decodedText, decodedResult) => {
         console.log(`Scan result: ${decodedText}`, decodedResult);
@@ -19,6 +21,7 @@ function Scan() {
             console.log('userDetail', userDetail);
             const fetchData = async () => {
                 refetchAccount();
+                refetchStation();
             };
             fetchData();
         }

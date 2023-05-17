@@ -49,6 +49,23 @@ const stationController = {
     }
     },
 
+
+    fill: async (req, res) => {
+        try {
+            const station = await Station.findById(req.params.id);
+            if (!station) {
+                return res.status(404).json({ message: "Station not found" });
+            }
+            console.log(station.currentFuelAmount);
+            station.currentFuelAmount += parseInt(req.body.fuelAmount);
+            console.log(station.currentFuelAmount);
+            await station.save();
+            res.status(200).json(station);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
 // Delete a station
     delete: async (req, res) => {
     try {

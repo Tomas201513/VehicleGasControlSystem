@@ -111,7 +111,6 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         InputProps={{
                                             readOnly: !editable,
                                         }}
-                                        autoFocus={editable}
                                         required
                                         variant="standard"
                                         value={values.stationName}
@@ -127,7 +126,6 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         InputProps={{
                                             readOnly: !editable,
                                         }}
-                                        autoFocus={editable}
                                         required
                                         variant="standard"
                                         value={values.stationLocation}
@@ -145,7 +143,6 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                             readOnly: !editable,
                                         }}
                                         variant="standard"
-                                        autoFocus={editable}
                                         required
                                         value={values.stationOwner}
                                         onChange={handleChange}
@@ -162,7 +159,6 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                             readOnly: !editable,
                                         }}
                                         variant="standard"
-                                        autoFocus={editable}
                                         required
                                         value={values.FuelCapacity}
                                         onChange={handleChange}
@@ -178,7 +174,6 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         InputProps={{
                                             readOnly: !editable,
                                         }}
-                                        autoFocus={editable}
                                         required
                                         variant="standard"
                                         value={values.currentFuelAmount}

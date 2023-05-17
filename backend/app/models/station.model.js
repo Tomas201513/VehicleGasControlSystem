@@ -25,8 +25,9 @@ const stationSchema = new Schema({
     },
 });
 stationSchema.pre('save', function (next) {
+    console.log('pre save', this.FuelCapacity, this.currentFuelAmount);
     if (this.FuelCapacity < this.currentFuelAmount) {
-        const error = new Error('FuelCapacity must be greater than currentFuelAmount');
+        const error = new Error('FuelCapacity exceeded');
         next(error);
     } else {
         next();
