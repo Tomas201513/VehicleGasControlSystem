@@ -98,7 +98,7 @@ export const attendantItems = [
     )
   },
   {
-    title: 'Fill Station',
+    title: 'Station',
     path: '/app/fillstation',
     icon: (
       <SvgIcon fontSize="small">

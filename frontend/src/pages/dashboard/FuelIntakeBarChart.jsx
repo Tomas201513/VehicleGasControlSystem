@@ -14,6 +14,8 @@ import { alpha, useTheme } from '@mui/material/styles';
 import ReactApexChart from 'react-apexcharts';
 import styled from 'styled-components';
 const Charts = styled(ReactApexChart)``;
+import FuelContext from 'src/context/FuelContext';
+import React from 'react';
 
 const useChartOptions = () => {
     const theme = useTheme();
@@ -109,12 +111,13 @@ const useChartOptions = () => {
 export const FuelIntakeBarChart = (props) => {
     const { chartSeries, sx } = props;
     const chartOptions = useChartOptions();
-
+    const { refetch: refetchFuel, refetchByCar, refetchByMonth, } = React.useContext(FuelContext);
     return (
         <Card sx={sx}>
             <CardHeader
                 action={(
                     <Button
+                        onClick={() => { refetchFuel(); refetchByCar(); refetchByMonth(); }}
                         color="inherit"
                         size="small"
                         startIcon={(

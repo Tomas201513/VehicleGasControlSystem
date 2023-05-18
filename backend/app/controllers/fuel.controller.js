@@ -86,14 +86,19 @@ const fuelIntakeController = {
     }
   },
   getAllByCar: async (req, res) => {
+    console.log('carId', req.params.carId);
     try {
-      // const carId = req.params.carId;
-      // const fuelIntakes = await FuelIntake.find({ car_id: carId })
-      // res.json(fuelIntakes);
-      const car = await Car.findById(req.params.carId).populate('driver');
-      const car_id = req.params.carId;
-      const fuelIntakeDetails = await getFuelIntakeDetails(car_id);
+      // const car_id = req.params.carId;
+      if (req.params.carId.length <= 10) {
+        const car = await Car.findOne({ plateNumber: req.params.carId }).populate('driver');
+        const fuelIntakeDetails = await getFuelIntakeDetails(car._id);
+        res.status(200).json({ car, fuelIntakeDetails });
+
+      } else {
+        const car = await Car.findById(req.params.carId).populate('driver');
+        const fuelIntakeDetails = await getFuelIntakeDetails(car._id);
       res.status(200).json({ car, fuelIntakeDetails });
+      }
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

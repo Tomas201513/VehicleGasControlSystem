@@ -26,12 +26,12 @@ import HomeIcon from '@mui/icons-material/Home';
 const MENU_OPTIONS = [
   {
     label: "Home",
-    icon: < HomeIcon sx={{ mr: 1, color: 'inherit' }} />,
+    icon: < HomeIcon sx={{ mr: 1, color: '#9da4ae' }} />,
     nav: "/app",
   },
   {
     label: "Profile",
-    icon: <PersonIcon sx={{ mr: 1, color: 'inherit' }} />,
+    icon: <PersonIcon sx={{ mr: 1, color: '#9da4ae' }} />,
     nav: "/app/account",
   },
 ];
@@ -153,7 +153,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
           <MenuItem onClick={() => logoutUser()}>
-            <LogoutIcon sx={{ mr: 1 }} />
+            <LogoutIcon sx={{ mr: 1, color: '#9da4ae' }} />
             Logout
 
           </MenuItem>

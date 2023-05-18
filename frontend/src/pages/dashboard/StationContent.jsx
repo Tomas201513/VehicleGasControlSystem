@@ -71,11 +71,10 @@ export default function StationContent(props) {
                     <CardContent>
                         <Stack spacing={1} direction="column" alignItems="left">
 
-                            {stationData.map((userCount, index) => (
+                            {stationData.slice(0, 2).map((userCount, index) => (
                                 <ListItem
                                     divider
-                                    key={userCount._id}
-                                >
+                                    key={userCount._id}>
                                     <ListItemAvatar>
                                         <Box
                                             sx={{
@@ -92,20 +91,9 @@ export default function StationContent(props) {
 
                                     </ListItemAvatar>
                                     <ListItemText
-                                        primary={<React.Fragment>
-                                            <Typography
-                                                sx={{ display: 'inline' }}
-                                                component="span"
-                                                variant="body2"
-                                                color="text.primary"
-                                            >
-                                                Ali Connors
-                                            </Typography>
-                                            {" — I'll be in your neighborhood doing errands this…"}
-                                        </React.Fragment>}
-                                        // primary={`${userCount.currentFuelAmount} L Current Fuel Amount `}
+                                        primary={`${userCount.currentFuelAmount} L Current Amount `}
                                         primaryTypographyProps={{ variant: 'subtitle1' }}
-                                        secondary={`${(userCount.FuelCapacity).toFixed(2)} L Total Fuel Capacity`}
+                                        secondary={`${(userCount.FuelCapacity).toFixed(2)} L Total Capacity`}
                                         secondaryTypographyProps={{ variant: 'body2' }}
 
                                         sx={{
@@ -117,7 +105,7 @@ export default function StationContent(props) {
                                     />
                                     <br />
                                     {/* <Typography variant="h6" whitespace="nowrap"> */}
-                                        {userCount?.stationName}
+                                    {userCount?.stationName}
                                     {/* </Typography> */}
 
                                 </ListItem>
