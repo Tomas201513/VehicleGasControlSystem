@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import Car from "./car.model.js";
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -22,9 +22,15 @@ const userSchema = new Schema({
     default: ["driver"],
   },
 });
-UserSchema.pre('findByIdAndDelete', async function (next) {
+userSchema.pre('findOneAndDelete', async function (next) {
+  const userId = this.getQuery()["_id"];
+
+  console.log('pre delete', userId);
   try {
-    await this.model('Car').deleteMany({ user: this._id });
+    console.log('pre delete');
+    deletedCars = await this.model('Car').deleteMany({ driver: userId });
+    console.log('Deleted cars:', deletedCars);
+
     next();
   } catch (error) {
     next(error);
