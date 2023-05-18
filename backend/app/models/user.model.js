@@ -22,7 +22,14 @@ const userSchema = new Schema({
     default: ["driver"],
   },
 });
-
+UserSchema.pre('findByIdAndDelete', async function (next) {
+  try {
+    await this.model('Car').deleteMany({ user: this._id });
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 const User = mongoose.model("User", userSchema);
 
 export default User;

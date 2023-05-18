@@ -39,7 +39,19 @@ const carSchema = new Schema({
     ref: "User",
   },
 });
+CarSchema.pre('findByIdAndDelete', async function (next) {
+  try {
+    const fuelIntakeCount = await this.model('FuelIntake').countDocuments({ car: this._id });
 
+    if (fuelIntakeCount > 0) {
+      throw new Error('Cannot delete car with associated fuel intakes');
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 const Car = mongoose.model("Car", carSchema);
 
 export default Car;
