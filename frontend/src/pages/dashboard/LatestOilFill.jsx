@@ -15,7 +15,8 @@ import {
     TableBody,
     TableCell,
     TableHead,
-    TableRow
+    TableRow,
+
 } from '@mui/material';
 // import { Scrollbar } from 'src/components/scrollbar';
 // import { SeverityPill } from 'src/components/severity-pill';
@@ -43,8 +44,8 @@ export const LatestOilFill = (props) => {
         <Card sx={sx}>
             <CardHeader title="Latest Fills" />
             {/* <Scrollbar sx={{ flexGrow: 1 }}> */}
-            <Box sx={{ minWidth: 800 }}>
-                <Table>
+            <Box sx={{ overflowX: 'auto' }}>
+                <Table >
                     <TableHead>
                         <TableRow>
                             <TableCell>
@@ -57,11 +58,17 @@ export const LatestOilFill = (props) => {
                                 Fill Amount
                             </TableCell>
                             <TableCell>
+                                Station Name
+                            </TableCell>
+                            <TableCell>
                                 Time
                             </TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody sx={{
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
+                        borderRadius: "10px",
+                    }}>
                         {firstTenFuelIntakes.map((fill) => {
                             // const createdAt = format(fill?.fuelDate, 'dd/MM/yyyy');
 
@@ -78,6 +85,9 @@ export const LatestOilFill = (props) => {
                                     </TableCell>
                                     <TableCell>
                                         {fill?.fuelAmount}
+                                    </TableCell>
+                                    <TableCell>
+                                        {fill?.station?.stationName}
                                     </TableCell>
 
                                     <TableCell>

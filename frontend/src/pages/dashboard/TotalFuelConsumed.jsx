@@ -45,7 +45,7 @@ function TotalFuelConsumed(props) {
                         spacing={2}
                         sx={{ mt: 2 }}
                     >
-                        <Stack
+                        {/* <Stack
                             alignItems="center"
                             direction="row"
                             spacing={0.5}
@@ -62,11 +62,11 @@ function TotalFuelConsumed(props) {
                             >
                                 {JSON.stringify(difference)}%
                             </Typography>
-                        </Stack>
+                        </Stack> */}
                         <Typography
-                            color="text.secondary"
+                            color="#f04438"
                             variant="caption">
-                            Since last month
+                            Since start recording data
                         </Typography>
                     </Stack>
                 )}

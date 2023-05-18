@@ -16,7 +16,7 @@ import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 
 
 export const UserCountCard = (props) => {
-    const { userCounts, sx } = props;
+    const { difference, userCounts, sx } = props;
 
     return (
         <Card sx={sx}>
@@ -26,11 +26,11 @@ export const UserCountCard = (props) => {
                     alignItems="flex-start"
                     direction="row"
                     justifyContent="space-between"
-                    spacing={3}
+                    spacing={2}
                 >
                     <Stack spacing={1} direction="column" alignItems="left">
                         {userCounts.map((userCount) => (
-                            <Stack spacing={3} direction="row" alignItems="left"
+                            <Stack spacing={2} direction="row" alignItems="left"
                                 key={userCount.roleName} >
                                 <Typography
                                     color="text.secondary"
@@ -59,7 +59,38 @@ export const UserCountCard = (props) => {
                         </SvgIcon>
                     </Avatar>
                 </Stack>
-
+                {difference && (
+                    <Stack
+                        alignItems="center"
+                        direction="row"
+                        spacing={2}
+                        sx={{ mt: 2 }}
+                    >
+                        {/* <Stack
+                            alignItems="center"
+                            direction="row"
+                            spacing={0.5}
+                        >
+                            <SvgIcon
+                                color={positive ? 'success' : 'error'}
+                                fontSize="small"
+                            >
+                                {positive ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                            </SvgIcon>
+                            <Typography
+                                color={positive ? 'success.main' : 'error.main'}
+                                variant="body2"
+                            >
+                                {JSON.stringify(difference)}%
+                            </Typography>
+                        </Stack> */}
+                        <Typography
+                            color="#2eb672"
+                            variant="caption">
+                            Users count
+                        </Typography>
+                    </Stack>
+                )}
             </CardContent>
             {/* <Box sx={{}}>
                 <LinearProgress
@@ -74,5 +105,6 @@ export const UserCountCard = (props) => {
 
 UserCountCard.propTypes = {
     sx: PropTypes.object,
-    userCounts: PropTypes.array
+    userCounts: PropTypes.array,
+    difference: PropTypes.number,
 };

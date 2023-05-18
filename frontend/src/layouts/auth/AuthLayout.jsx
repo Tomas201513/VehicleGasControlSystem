@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import { Logo } from 'src/components/logo';
-import { Outlet,  } from "react-router-dom";
-
+// import car from 'src/assets/delivery-truck.gif';
+import { Outlet, } from "react-router-dom";
 function AuthLayout() {
   return (
     <Box
@@ -44,8 +44,8 @@ function AuthLayout() {
               sx={{
                 
                 display: 'inline-flex',
-                height: 32,
-                width: 32
+                height: 45,
+                width: 45
               }}
             >
               <Logo />
@@ -79,17 +79,17 @@ function AuthLayout() {
               }}
               variant="h1"
             >
-              {/* Welcome to{' '} */}
               <Box
                 component="a"
                 sx={{ color: '#15B79E' }}
                 target="_blank"
 
 
-              >
-                {/* ጦርጳ GAS STATION */}
-                <Typography variant="h2" component="div" gutterBottom>
-                ጦርጳ
+              >              
+              {/* <img src={car} alt="car" style={{ width: 45, height: 45 }} /> */}
+
+                <Typography variant="h4" component="div" gutterBottom>
+                  INSA GAS STATION
                 </Typography>
               </Box>
             </Typography>
@@ -98,7 +98,7 @@ function AuthLayout() {
               sx={{ mb: 3 }}
               variant="subtitle1"
             >
-              A vehicle gas control system for ጦርጳ gas stations
+              A vehicle gas control system 
             </Typography>
             {/* <img
               alt=""

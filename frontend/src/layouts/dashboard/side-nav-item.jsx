@@ -26,7 +26,7 @@ export const SideNavItem = ({ active, icon, path, title }) => {
           borderRadius: 1,
           display: 'flex',
           justifyContent: 'flex-start',
-          pl: '16px',
+          pl: '10px',
           pr: '16px',
           py: '10px',
           textAlign: 'left',
@@ -45,7 +45,7 @@ export const SideNavItem = ({ active, icon, path, title }) => {
             component="span"
             sx={{
               alignItems: 'center',
-              color: 'neutral.400',
+              color: '#9da4ae',
               display: 'inline-flex',
               justifyContent: 'center',
               mr: 2,
@@ -60,10 +60,10 @@ export const SideNavItem = ({ active, icon, path, title }) => {
         <Box
           component="span"
           sx={{
-            color: '#bdbdbe',
+            color: '#9da4ae',
             flexGrow: 1,
             fontFamily: (theme) => theme.typography.fontFamily,
-            fontSize: 16,
+            fontSize: 17,
             fontWeight: 600,
             lineHeight: '24px',
             whiteSpace: 'nowrap',

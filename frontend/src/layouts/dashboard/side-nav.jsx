@@ -12,11 +12,11 @@ import {
   Stack,
   SvgIcon,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import useResponsive from 'src/hooks/useResponsive';
-// import { Logo } from 'src/components/logo';
+import { Logo } from 'src/components/logo';
 // import { Scrollbar } from 'src/components/scrollbar';
 // import { Scrollbar } from '../../components/scrollbar';
 import { adminItems, attendantItems } from './config';
@@ -56,11 +56,11 @@ export const SideNav = ({ open, onClose, setOpenNav, openNav }) => {
           href="/"
           sx={{
             display: 'inline-flex',
-            height: 32,
-            width: 32
+            height: 40,
+            width: 40
           }}
         >
-          {/* <Logo /> */}
+          <Logo />
 
 
         </Box>
@@ -72,8 +72,8 @@ export const SideNav = ({ open, onClose, setOpenNav, openNav }) => {
             cursor: 'pointer',
             display: 'flex',
             justifyContent: 'space-between',
-            mt: 2,
-            p: '12px'
+            mt: '20%',
+            p: '15px'
           }}
           onClick={() => setOpenNav(!openNav)}
         >
@@ -95,12 +95,6 @@ export const SideNav = ({ open, onClose, setOpenNav, openNav }) => {
               INSA
             </Typography>
             {"Gas Station"}
-            {/* <Typography
-                color="neutral.400"
-                variant="body2"
-              >
-              Production
-              </Typography> */}
           </div>
 
           <SvgIcon
@@ -112,12 +106,12 @@ export const SideNav = ({ open, onClose, setOpenNav, openNav }) => {
 
         </Box>
       </Box>
-      <Divider sx={{ borderColor: 'neutral.700' }} />
+      <Divider sx={{ borderStyle: "dashed", borderColor: '#293242' }} />
       <Box
         component="nav"
         sx={{
           flexGrow: 1,
-          px: 2,
+          px: 1,
           py: 3
         }}
       >
@@ -127,7 +121,7 @@ export const SideNav = ({ open, onClose, setOpenNav, openNav }) => {
           sx={{
             listStyle: 'none',
             p: 0,
-            m: 0
+            m: 2
           }}
         >
           {userDetail && userDetail?.roles[0] === "admin" && (<>
@@ -180,9 +174,9 @@ export const SideNav = ({ open, onClose, setOpenNav, openNav }) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: "#202124",
+            backgroundColor: "#1c2536",
             color: "common.white",
-            width: 280,
+            width: 300,
           },
         }}
         variant="permanent"

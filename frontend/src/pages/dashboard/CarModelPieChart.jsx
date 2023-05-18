@@ -10,8 +10,11 @@ import {
     Stack,
     SvgIcon,
     Typography,
-    useTheme
+    useTheme, Button, CardActions
 } from '@mui/material';
+import ArrowRightIcon from '@heroicons/react/24/solid/ArrowRightIcon';
+import { useNavigate } from 'react-router-dom';
+
 import ReactApexChart from 'react-apexcharts';
 import styled from 'styled-components';
 const Charts = styled(ReactApexChart)``;
@@ -85,10 +88,27 @@ const useChartOptions = (labels) => {
 export const CarModelPieChart = (props) => {
     const { chartSeries, labels, sx } = props;
     const chartOptions = useChartOptions(labels);
+    const navigate = useNavigate();
 
     return (
         <Card sx={sx}>
+            <CardActions sx={{ justifyContent: 'space-between' }}>
             <CardHeader title="Car Models" />
+
+                <Button
+                    onClick={() => navigate('/app/cars')}
+                    color="inherit"
+                    endIcon={(
+                        <SvgIcon fontSize="small">
+                            <ArrowRightIcon />
+                        </SvgIcon>
+                    )}
+                    size="small"
+                    variant="text"
+                >
+                    View all
+                </Button>
+            </CardActions>
             <CardContent>
 
                 <Charts

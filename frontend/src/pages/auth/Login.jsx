@@ -2,7 +2,6 @@ import {useContext, useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import {
-  Alert,
   Box,
   Button,
   Stack,
@@ -15,22 +14,18 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import AuthLayout from 'src/layouts/auth/AuthLayout';
 import { Link } from "react-router-dom";
 import AuthContext from 'src/context/AuthContext';
-import ToastContext from "src/context/hot-toast-context/HotToastContext";
 import React from "react";
 
 function Login() {
   const { userDetail,loginUser } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
-    const { showToast } = React.useContext(ToastContext);
 
   const navigate = useNavigate();
 useEffect(() => {
   if (userDetail) {
     navigate("/app", { replace: true });
-    // showToast("Welcome back " + userDetail.userName, "success", 2000);
   }
 }, [userDetail]);
   const formik = useFormik({
@@ -57,9 +52,7 @@ useEffect(() => {
         await loginUser(values);
         console.log("login");
         helpers.setStatus({ success: true });
-        helpers.setSubmitting(false);
-        // navigate('/dashboard', { replace: true });
-       
+        helpers.setSubmitting(false);       
       } catch (err) {
         console.log(err);
         helpers.setStatus({ success: false });
@@ -71,7 +64,6 @@ useEffect(() => {
 
   return (
     <>
-      {/* <AuthLayout> */}
       <Helmet title="Login" />
       <Box
         sx={{
@@ -116,8 +108,8 @@ useEffect(() => {
                 />
                 <TextField
                   error={!!(formik.touched.password && formik.errors.password)}
-                  fullWidth
                   helperText={formik.touched.password && formik.errors.password}
+                  fullWidth
                   label="Password"
                   name="password"
                   onBlur={formik.handleBlur}
@@ -147,23 +139,13 @@ useEffect(() => {
                 sx={{ mt: 3 }}
                 type="submit"
                 variant="contained"
-                // onClick={() => {
-                // navigate("/dashboard");
-                // }}
               >
                 Continue
               </Button>
-
-              <Alert color="primary" severity="info" sx={{ mt: 3 }}>
-                <div>
-                  Email <b>admin@admin.com</b> and password <b>201513119T@m</b>
-                </div>
-              </Alert>
             </form>
           </div>
         </Box>
       </Box>
-      {/* </AuthLayout> */}
     </>
   );
 }

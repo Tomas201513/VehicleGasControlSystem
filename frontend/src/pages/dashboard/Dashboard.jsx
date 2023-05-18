@@ -70,22 +70,25 @@ function Dashboard() {
     }
   });
   console.log('fuelData?.fuelIntakes', fuelData)
+  const sx = {
+    flexGrow: 1, border: "none",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
+    borderRadius: "10px",
+
+  }
+
   return (
     <>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 15, ml: 5, mr: 5, mb: 5 }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '5%', ml: '5%', mr: '5%', mb: 5, }}>
         <TotalFuelConsumed
           difference={12}
           title={'TOTAL CONCEPTION'}
-          sx={{
-            flexGrow: 1,
-          }}
+          sx={sx}
           value={totalFuelConsumed}
         />
         <CurrentMonthIntake
           difference={12}
-          sx={{
-            flexGrow: 1,
-          }}
+          sx={sx}
           startDate={startDate}
           value={currentMonthIntake}
           percent={percent}
@@ -94,36 +97,20 @@ function Dashboard() {
         />
         <UserCountCard
           difference={12}
-          sx={{
-            flexGrow: 1,
-          }}
+          sx={sx}
           userCounts={userCounts}
-
-        // value={nonAdminUserCounts[0]?.count}
-        // title={nonAdminUserCounts[0]?.roleName}
         />
         <StationContent
           difference={12}
-          sx={{
-            flexGrow: 1,
-          }}
+          sx={sx}
           stationData={stationData}
           positive
         />
-
-        {/* <UserCountCard
-          difference={12}
-          sx={{
-            flexGrow: 1,
-          }}
-          value={nonAdminUserCounts[1]?.count}
-          title={nonAdminUserCounts[1]?.roleName}
-        /> */}
       </Box>
 
 
 
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, m: 5 }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '5%', ml: '5%', mr: '5%', mb: 5, }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             <FuelIntakeBarChart
@@ -137,33 +124,31 @@ function Dashboard() {
                   data: lastYearData
                 }
               ]}
-              sx={{ flexGrow: 1 }}
+              sx={sx}
             />
           </Grid>
           <Grid item xs={12} md={4}>
             <CarModelPieChart
               chartSeries={groupedCars.map(car => car.count)}
               labels={groupedCars.map(car => car._id)}
-              sx={{ flexGrow: 1, height: '100%' }}
+              sx={{
+                flexGrow: 1, height: '100%', boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.10)",
+                borderRadius: "10px",
+              }}
             />
           </Grid>
         </Grid>
         <LatestOilFill
           fuelIntakes={fuelData}
+          sx={{
+            flexGrow: 1,
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.10)",
+            borderRadius: "10px",
+            mt: '5%'
+          }}
         />
 
       </Box>
-
-
-
-
-      {/* <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, m: 5 }}>
-
-        <LatestOilFill
-          fuelIntakes={fuelData}
-        />
-
-      </Box> */}
     </>
   );
 }

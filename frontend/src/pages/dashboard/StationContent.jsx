@@ -3,6 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types';
 import ListBulletIcon from '@heroicons/react/24/solid/ListBulletIcon';
 import {
+    IconButton,
     Avatar,
     Box,
     Card,
@@ -12,7 +13,15 @@ import {
     SvgIcon,
     Typography,
     linearProgressClasses,
-    styled
+    styled, Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
 } from '@mui/material';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
@@ -61,31 +70,59 @@ export default function StationContent(props) {
                 <Card sx={sx} >
                     <CardContent>
                         <Stack spacing={1} direction="column" alignItems="left">
-                            {stationData.map((userCount) => (
 
-                                <Stack
-                                    alignItems="flex-start"
-                                    direction="row"
-                                    justifyContent="space-between"
-                                    spacing={3}
+                            {stationData.map((userCount, index) => (
+                                <ListItem
+                                    divider
                                     key={userCount._id}
                                 >
-                                    {/* <Stack spacing={1}> */}
-                                    <Typography
-                                        color="text.secondary"
-                                        variant="overline"
-                                    >
-                                        {userCount?.stationName}
-                                    </Typography>
-                                    <Typography variant="h6" >
+                                    <ListItemAvatar>
+                                        <Box
+                                            sx={{
+                                                borderRadius: 1,
+                                                backgroundColor: 'neutral.200',
+                                                height: '100%',
+                                                width: 60,
+                                                pr: 1,
+                                            }}
+                                        >
+                                            {/* {userCount?.stationName} */}
+                                            <CircularProgressWithLabel value={stationData[index]?.currentFuelAmount / stationData[index]?.FuelCapacity * 100} />
+                                        </Box    >
 
-                                        {(userCount.currentFuelAmount).toFixed(2)}L / {userCount.FuelCapacity}L
-                                    </Typography>
-                                    <Box sx={{ flexGrow: 1 }} />
-                                    {/* </Stack> */}
-                                    <CircularProgressWithLabel value={userCount.currentFuelAmount / userCount.FuelCapacity * 100} />
-                                </Stack>
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={<React.Fragment>
+                                            <Typography
+                                                sx={{ display: 'inline' }}
+                                                component="span"
+                                                variant="body2"
+                                                color="text.primary"
+                                            >
+                                                Ali Connors
+                                            </Typography>
+                                            {" — I'll be in your neighborhood doing errands this…"}
+                                        </React.Fragment>}
+                                        // primary={`${userCount.currentFuelAmount} L Current Fuel Amount `}
+                                        primaryTypographyProps={{ variant: 'subtitle1' }}
+                                        secondary={`${(userCount.FuelCapacity).toFixed(2)} L Total Fuel Capacity`}
+                                        secondaryTypographyProps={{ variant: 'body2' }}
+
+                                        sx={{
+                                            // borderRadius: 1,
+                                            backgroundColor: 'neutral.200',
+                                            // height: '100%',
+                                            width: 70,
+                                        }}
+                                    />
+                                    <br />
+                                    {/* <Typography variant="h6" whitespace="nowrap"> */}
+                                        {userCount?.stationName}
+                                    {/* </Typography> */}
+
+                                </ListItem>
                             ))}
+
                         </Stack>
                     </CardContent>
                 </Card>

@@ -22,8 +22,6 @@ export const CurrentMonthIntake = (props) => {
                                 variant="overline"
                                 sx={{ mb: 0, p: 0 }}
                             >
-                                {'CURRENT MONTH '}
-                                <br style={{ margin: 0 }} />
                                 {'GAS CONCEPTION'}
                                 {JSON.stringify(startDate)}
 
@@ -52,7 +50,7 @@ export const CurrentMonthIntake = (props) => {
                         spacing={2}
                         sx={{ mt: 2 }}
                     >
-                        <Stack
+                        {/* <Stack
                             alignItems="center"
                             direction="row"
                             spacing={0.5}
@@ -69,9 +67,9 @@ export const CurrentMonthIntake = (props) => {
                             >
                                 {percent}%
                             </Typography>
-                        </Stack>
+                        </Stack> */}
                         <Typography
-                            color="text.secondary"
+                            color="#d59b08"
                             variant="caption"
                         >
                             Since last month
