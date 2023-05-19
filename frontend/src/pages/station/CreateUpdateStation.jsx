@@ -1,33 +1,34 @@
-import React from "react";
+import { useContext } from 'react';
 import {
+    Box,
     Button,
-    Stack,
-    TextField,
-    MenuItem,
-    Select,
-    InputLabel,
-    FormControl,
+    Card,
+    CardActions,
     CardContent,
     CardHeader,
-    Box,
-    IconButton,
+    Divider,
+    TextField,
+    Unstable_Grid2 as Grid,
+    Container,
     Tooltip,
+    IconButton,
     FormControlLabel,
     Switch,
-    Container,
-    Typography,
-} from "@mui/material";
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+} from '@mui/material';
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DeleteIcon from "@mui/icons-material/Delete";
 import PropTypes from "prop-types";
 import Warndialogue from "src/components/Warndialogue";
-import StationContext from "src/context/StationContext";
 
+import StationContext from "src/context/StationContext";
 export default function CreateUpdateStation({ selectedData, editable, setEditable }) {
 
-    const { createStation, updateStation, setSelectedData, setCreateOpen, deleteStation, warn, SetWarn } = React.useContext(StationContext);
+    const { name, createStation, updateStation, setSelectedData, setCreateOpen, deleteStation, warn, SetWarn } = useContext(StationContext);
 
     const FormSchema = yup.object().shape({
         stationName: yup.string().required("station name is required"),
@@ -52,58 +53,97 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
     }
     return (
         <>
-            <Formik
-                initialValues={{
-                    stationName: selectedData?.stationName || "",
-                    stationLocation: selectedData?.stationLocation || "",
-                    stationOwner: selectedData?.stationOwner || "",
-                    FuelCapacity: selectedData?.FuelCapacity || "",
-                    currentFuelAmount: selectedData?.currentFuelAmount || "",
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    py: '10%'
                 }}
-                validationSchema={FormSchema}
-                onSubmit={handleSubmit}
             >
-                {({ values, errors, touched, handleChange, handleBlur }) => (
-                    <Form>
-                        <Container maxWidth="md" sx={{ marginTop: "13vh", maxWidth: 600 }}>
+                <Container maxWidth="lg">
 
-                            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
+                    < Box>
+                        <Grid
+                            container
+                            spacing={3}
+                        >
+                            <Grid
+                                xs={12}
+                                md={12}
+                                lg={4}
+                            >
+                                <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
 
-                                <Tooltip title="Back">
-                                    <IconButton
-                                        onClick={() => {
-                                            setSelectedData(null), setEditable(false), setCreateOpen(false);
-                                        }}
-                                        size="small"
-                                    >
-                                        <ArrowBackIcon size="small" />
-                                    </IconButton>
-                                </Tooltip>
-                                <Box sx={{ flexGrow: 1 }} />
-                                {selectedData ? (
+                                    <Tooltip title="Back">
+                                        <IconButton
+                                            onClick={() => {
+                                                setSelectedData(null), setEditable(false), setCreateOpen(false);
+                                            }}
+                                            size="small"
+                                        >
+                                            <ArrowBackIcon size="small" />
+                                        </IconButton>
+                                    </Tooltip>
+                                    {/* <Box sx={{ flexGrow: 1 }} /> */}
 
-                                    <>
-                                        <Tooltip title="Editable">
-                                            <FormControlLabel
-                                                control={<Switch />}
-                                                // label="edit"
-                                                onChange={() => setEditable(!editable)}
-                                            />
-                                        </Tooltip>
-                                        <Tooltip title="Delete">
-                                            <IconButton size="small" onClick={() => SetWarn(true)}>
-                                                <DeleteIcon size="small" color="error" />
-                                            </IconButton>
+                                </Box>
+                            </Grid>
+                            <Grid
+                                xs={12}
+                                md={12}
+                                lg={12}
+                            >
+                                <Formik
+                                    initialValues={{
+                                        stationName: selectedData?.stationName || "",
+                                        stationLocation: selectedData?.stationLocation || "",
+                                        stationOwner: selectedData?.stationOwner || "",
+                                        FuelCapacity: selectedData?.FuelCapacity || "",
+                                        currentFuelAmount: selectedData?.currentFuelAmount || "",
+                                    }}
+                                    validationSchema={FormSchema}
+                                    onSubmit={handleSubmit}
+                                >
+                                    {({ values, errors, touched, handleChange, handleBlur }) => (
+                                        <Form>
+                                            <Card const sx={{
+                                                flexGrow: 1,
+                                                border: "none",
+                                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
+                                                borderRadius: "10px",
+                                            }}>
+                                                <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'2%'}>
 
-                                        </Tooltip>
-                                        {/* <Typography>{'Delete'}</Typography> */}
+                                                    <CardHeader
+                                                        title={selectedData ? "Update Station" : "Create Station"}
+                                                        subheader={selectedData ? "The information can be edited" : "Fill in the required information"}
+                                                    />
+                                                    {selectedData ? (
 
-                                    </>) : (
-                                    <></>
-                                )}
-                            </Box>
-                            <CardContent sx={{ pt: 0, mb: '5%' }}>
-                                <Stack spacing={3}>
+                                                        <>
+                                                            <Tooltip title="Editable">
+                                                                <FormControlLabel
+                                                                    control={<Switch />}
+                                                                    // label="edit"
+                                                                    onChange={() => setEditable(!editable)}
+                                                                />
+                                                            </Tooltip>
+                                                        </>) : (
+                                                        <></>
+                                                    )}
+
+                                                </Box>
+                                                <CardContent sx={{ pt: 0 }}>
+                                                    <Box sx={{ m: -1.5 }}>
+                                                        <Grid
+                                                            container
+                                                            spacing={3}
+                                                        >
+
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
                                     <TextField
                                         fullWidth
                                         label="Station Name"
@@ -111,14 +151,17 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         InputProps={{
                                             readOnly: !editable,
                                         }}
-                                        required
-                                        variant="standard"
+                                                                    required
                                         value={values.stationName}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         error={!!touched.stationName && !!errors.stationName}
                                         helperText={touched.stationName && errors.stationName}
-                                    />
+                                                                /> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
                                     <TextField
                                         fullWidth
                                         label="Station Location"
@@ -126,14 +169,17 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         InputProps={{
                                             readOnly: !editable,
                                         }}
-                                        required
-                                        variant="standard"
+                                                                    required
                                         value={values.stationLocation}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         error={!!touched.stationLocation && !!errors.stationLocation}
                                         helperText={touched.stationLocation && errors.stationLocation}
-                                    />
+                                                                /> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
                                     <TextField
 
                                         fullWidth
@@ -142,14 +188,17 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         InputProps={{
                                             readOnly: !editable,
                                         }}
-                                        variant="standard"
                                         required
                                         value={values.stationOwner}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         error={!!touched.stationOwner && !!errors.stationOwner}
                                         helperText={touched.stationOwner && errors.stationOwner}
-                                    />
+                                                                /> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
                                     <TextField
 
                                         fullWidth
@@ -158,14 +207,17 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         InputProps={{
                                             readOnly: !editable,
                                         }}
-                                        variant="standard"
                                         required
                                         value={values.FuelCapacity}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         error={!!touched.FuelCapacity && !!errors.FuelCapacity}
                                         helperText={touched.FuelCapacity && errors.FuelCapacity}
-                                    />
+                                                                /> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
                                     <TextField
 
                                         fullWidth
@@ -174,50 +226,65 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                         InputProps={{
                                             readOnly: !editable,
                                         }}
-                                        required
-                                        variant="standard"
+                                                                    required
                                         value={values.currentFuelAmount}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         error={!!touched.currentFuelAmount && !!errors.currentFuelAmount}
                                         helperText={touched.currentFuelAmount && errors.currentFuelAmount}
                                     />
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            justifyContent: "flex-end",
-                                        }}
-                                    >
-                                        {editable && (
-                                            <Button b style={{ backgroundColor: '#4276a8' }}
-                                                variant="contained" type="submit" fullWidth>
-                                                {selectedData ? "Update" : "Create"}
-                                            </Button>
-                                        )}
-                                    </Box>
-                                </Stack>
-                            </CardContent>
-                        </Container>
-                    </Form>
-                )}
-            </Formik>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
+                                                </CardContent >
+                                                <Divider />
+                                                <CardActions sx={{ justifyContent: 'flex-end', mt: 2 }}>
+                                                    {selectedData ? (
+
+                                                        <>
+                                                            <Button variant="contained" type="submit">
+                                                                {"Update"}
+                                                            </Button>
+                                                            <Tooltip title="Delete">
+                                                                <Button variant="contained" color="error" onClick={() => SetWarn(true)}>
+                                                                    {"Delete"}
+                                                                </Button>
+                                                            </Tooltip>
+
+                                                        </>) : (
+                                                        <> <Button variant="contained" type="submit">
+                                                            {"Create"}
+                                                        </Button></>
+                                                    )}
+
+                                                </CardActions>
+                                            </Card>
+                                        </Form>)}
+                                </Formik >
+                            </Grid>
+
+                        </Grid>
+                    </Box>
+                </Container>
+            </Box>
             <Warndialogue
                 open={warn}
                 setOpen={SetWarn}
-                title={"Delete User"}
-                content={"Are you sure you want to delete this user?"}
+                name={name}
                 action={deleteStation}
                 selectedData={selectedData}
             />
         </>
-    );
+    )
 }
 
 CreateUpdateStation.propTypes = {
-    selectedData: PropTypes.object,
-    editable: PropTypes.bool,
-    setEditable: PropTypes.func,
+    selectedData: PropTypes.object.isRequired,
+    editable: PropTypes.bool.isRequired,
+    createOpen: PropTypes.bool.isRequired,
+    createUser: PropTypes.func,
+    updateUser: PropTypes.func.isRequired,
+    setEditable: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
 };
-
-
 

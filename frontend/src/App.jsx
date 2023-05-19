@@ -10,15 +10,13 @@ import { CarProvider } from "src/context/CarContext";
 import { FuelProvider } from "./context/FuelContext";
 import { StationProvider } from "src/context/StationContext"
 import { ReactQueryDevtools } from "react-query/devtools";
+import './App.css';
 // import "/src/App";
-import { useStyles } from "src/components/scrollbar";
 
 function App() {
-  const classes = useStyles();
 
   const queryClient = new QueryClient();
   return (
-    // <div className={classes.root}>
     <HelmetProvider>
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
@@ -40,7 +38,6 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </HelmetProvider>
-    // </div>
 
 
   )

@@ -8,7 +8,9 @@ import {
     CardContent,
     CardHeader,
     Divider,
-    SvgIcon
+    SvgIcon,
+    Typography,
+    Box,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 import ReactApexChart from 'react-apexcharts';
@@ -114,23 +116,27 @@ export const FuelIntakeBarChart = (props) => {
     const { refetch: refetchFuel, refetchByCar, refetchByMonth, } = React.useContext(FuelContext);
     return (
         <Card sx={sx}>
-            <CardHeader
-                action={(
-                    <Button
-                        onClick={() => { refetchFuel(); refetchByCar(); refetchByMonth(); }}
-                        color="inherit"
-                        size="small"
-                        startIcon={(
-                            <SvgIcon fontSize="small">
-                                <ArrowPathIcon />
-                            </SvgIcon>
-                        )}
-                    >
-                        Sync
-                    </Button>
-                )}
-                title="Fuel Intakes"
-            />
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
+                <Typography sx={{
+                    fontWeight: "bold",
+                    color: "#000",
+                }} variant="h6" >
+                    Fuel Intakes
+                </Typography>
+                <Button
+                    onClick={() => { refetchFuel(); refetchByCar(); refetchByMonth(); }}
+                    color="inherit"
+                    size="small"
+                    startIcon={(
+                        <SvgIcon fontSize="small">
+                            <ArrowPathIcon />
+                        </SvgIcon>
+                    )}
+                >
+                    Sync
+                </Button>
+            </Box>
             <CardContent>
                 <Charts
                     height={350}
@@ -140,9 +146,9 @@ export const FuelIntakeBarChart = (props) => {
                     width="100%"
                 />
             </CardContent>
-            <Divider />
+            {/* <Divider /> */}
             <CardActions sx={{ justifyContent: 'flex-end' }}>
-                <Button
+                {/* <Button
                     color="inherit"
                     endIcon={(
                         <SvgIcon fontSize="small">
@@ -152,7 +158,7 @@ export const FuelIntakeBarChart = (props) => {
                     size="small"
                 >
                     Overview
-                </Button>
+                </Button> */}
             </CardActions>
         </Card>
     );

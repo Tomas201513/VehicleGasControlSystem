@@ -20,6 +20,10 @@ function Fuel() {
     handleRowClick,
   } = React.useContext(FuelContext);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString();
+  };
 
   const columns = [
     {
@@ -30,20 +34,22 @@ function Fuel() {
       type: "number",
       hideable: true,
     },
-    { field: "fuelAmount", headerName: "FUEL AMOUNT", flex: 0.7, minWidth: 130 },
-    { field: "fuelDate", headerName: "FUEL DATE", flex: 0.7, minWidth: 100 },
+    { field: "fuelAmount", headerName: "FUEL AMOUNT(L)", flex: 0.7, minWidth: 130 },
     {
-      field: "car_id", headerName: "CAR", width: 150, valueGetter: (params) => {
+      field: "fuelDate", headerName: "FILL DATE(GC)", flex: 0.7, minWidth: 190, valueFormatter: (params) => formatDate(params.value),
+    },
+    {
+      field: "car_id", headerName: "CAR PLATE NO.", flex: 0.7, minWidth: 150, valueGetter: (params) => {
         return params.row?.car_id?.plateNumber;
       }
     },
     {
-      field: "attendant", headerName: "ATTENDANT", width: 150, valueGetter: (params) => {
+      field: "attendant", headerName: "ATTENDANT", flex: 0.7, minWidth: 150, valueGetter: (params) => {
         return params.row?.attendant?.userName;
       }
     },
     {
-      field: "station", headerName: "STATION", width: 150, valueGetter: (params) => {
+      field: "station", headerName: "STATION", flex: 0.7, minWidth: 150, valueGetter: (params) => {
         return params.row?.station?.stationName;
       }
     },

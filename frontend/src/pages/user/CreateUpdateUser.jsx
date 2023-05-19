@@ -1,32 +1,34 @@
-import React from "react";
+import { useContext } from 'react';
 import {
+  Box,
   Button,
-  Stack,
-  TextField,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
+  Card,
+  CardActions,
   CardContent,
   CardHeader,
-  Box,
-  IconButton,
+  Divider,
+  TextField,
+  Unstable_Grid2 as Grid,
+  Container,
   Tooltip,
+  IconButton,
   FormControlLabel,
   Switch,
-  Container,
-  Typography,
-} from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DeleteIcon from "@mui/icons-material/Delete";
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@mui/material';
 import { Formik, Form } from "formik";
 import * as yup from "yup";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PropTypes from "prop-types";
-import UserContext from "src/context/UserContext";
 import Warndialogue from "src/components/Warndialogue";
-function CreateUpdateUser({ selectedData, editable, setEditable }) {
 
-  const { createUser, updateUser, setSelectedData, setCreateOpen, deleteUser, warn, SetWarn } = React.useContext(UserContext);
+import UserContext from "src/context/UserContext";
+function CreateUpdateUser({ selectedData, editable, setEditable, name }) {
+
+  const { createUser, updateUser, setSelectedData, setCreateOpen, deleteUser, warn, SetWarn } = useContext(UserContext);
 
   const FormSchema = yup.object().shape({
     userName: yup.string().required("Username is required"),
@@ -46,7 +48,7 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
     try {
       if (selectedData) {
         // console.log(selectedData._id);
-        await updateUser({ selectedData: selectedData._id, values });
+        await updateUser({ selectedData: selectedData?._id, values });
       } else {
         console.log(values);
         await createUser(values);
@@ -58,68 +60,107 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
   };
   return (
     <>
-      <Formik
-        initialValues={{
-          userName: selectedData?.userName || "",
-          email: selectedData?.email || "",
-          password: selectedData?.password || "",
-          roles: selectedData?.roles[0] || "",
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: '10%'
         }}
-        validationSchema={FormSchema}
-        onSubmit={handleSubmit}
-
-
       >
-        {({ errors, touched, values, handleChange }) => (
-          <Form>
-            {/* <CardHeader
-              title={selectedData ? "Update Car" : "Create Car"}
-            /> */}
-            <Container maxWidth="md" sx={{ marginTop: "13vh", maxWidth: 600 }}>
+        <Container maxWidth="lg">
 
-              <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
+          < Box>
+            <Grid
+              container
+              spacing={3}
+            >
+              <Grid
+                xs={12}
+                md={12}
+                lg={4}
+              >
+                <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
 
-                <Tooltip title="Back">
-                  <IconButton
-                    onClick={() => {
-                      setSelectedData(null), setEditable(false), setCreateOpen(false);
-                    }}
-                    size="small"
-                  >
-                    <ArrowBackIcon size="small" />
-                  </IconButton>
-                </Tooltip>
-                <Box sx={{ flexGrow: 1 }} />
-                {selectedData ? (
+                  <Tooltip title="Back">
+                    <IconButton
+                      onClick={() => {
+                        setSelectedData(null), setEditable(false), setCreateOpen(false);
+                      }}
+                      size="small"
+                    >
+                      <ArrowBackIcon size="small" />
+                    </IconButton>
+                  </Tooltip>
+                  {/* <Box sx={{ flexGrow: 1 }} /> */}
 
-                  <>
-                    <Tooltip title="Editable">
-                      <FormControlLabel
-                        control={<Switch />}
-                        // label="edit"
-                        onChange={() => setEditable(!editable)}
-                      />
-                    </Tooltip>
-                    <Tooltip title="Delete">
-                      <IconButton size="small" onClick={() => SetWarn(true)}>
-                        <DeleteIcon size="small" color="error" />
-                      </IconButton>
+                </Box>
+              </Grid>
+              <Grid
+                xs={12}
+                md={12}
+                lg={12}
+              >
+                <Formik
+                  initialValues={{
+                    userName: selectedData?.userName || "",
+                    email: selectedData?.email || "",
+                    password: selectedData?.password || "",
+                    roles: selectedData?.roles[0] || "",
+                  }}
+                  validationSchema={FormSchema}
+                  onSubmit={handleSubmit}
 
-                    </Tooltip>
-                    {/* <Typography>{'Delete'}</Typography> */}
 
-                  </>) : (
-                  <></>
-                )}
-              </Box>
-              <CardContent sx={{ pt: 0, mb: '5%' }}>
-                {/* <Box sx={{ m: -1.5 }}> */}
-                <Stack spacing={2}>
-                  <TextField
+                >
+                  {({ errors, touched, values, handleChange, resetForm }) => (
+                    <Form
+                    // autoComplete="off"
+                    // noValidate
+                    // onSubmit={handleSubmit}
+                    >
+                      <Card const sx={{
+                        flexGrow: 1,
+                        border: "none",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
+                        borderRadius: "10px",
+                      }}>
+                        <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'2%'}>
+
+                          <CardHeader
+                            title={selectedData ? "Update User" : "Create User"}
+                            subheader={selectedData ? "The information can be edited" : "Fill in the required information"}
+                          />
+                          {selectedData ? (
+
+                            <>
+                              <Tooltip title="Editable">
+                                <FormControlLabel
+                                  control={<Switch />}
+                                  // label="edit"
+                                  onChange={() => setEditable(!editable)}
+                                />
+                              </Tooltip>
+                            </>) : (
+                            <></>
+                          )}
+
+                        </Box>
+                        <CardContent sx={{ pt: 0 }}>
+                          <Box sx={{ m: -1.5 }}>
+                            <Grid
+                              container
+                              spacing={3}
+                            >
+
+                              <Grid
+                                xs={12}
+                                md={6}
+                              >
+                                <TextField
                     InputProps={{
                       readOnly: !editable,
                     }}
-                    variant="standard"
+
                     autoFocus={editable}
                     fullWidth
                     label="Username"
@@ -129,12 +170,16 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                     error={Boolean(touched.userName && errors.userName)}
                     helperText={touched.userName && errors.userName}
                   />
-
+                              </Grid>
+                              <Grid
+                                xs={12}
+                                md={6}
+                              >
                   <TextField
                     InputProps={{
                       readOnly: !editable,
                     }}
-                    variant="standard"
+
                     fullWidth
                     label="Email"
                     name="email"
@@ -142,13 +187,17 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                     onChange={handleChange}
                     error={Boolean(touched.email && errors.email)}
                     helperText={touched.email && errors.email}
-                  />
+                                /> </Grid>
+                              <Grid
+                                xs={12}
+                                md={6}
+                              >
 
                   <TextField
                     InputProps={{
                       readOnly: !editable,
                     }}
-                    variant="standard"
+
                     fullWidth
                     label="Password"
                     name="password"
@@ -157,6 +206,12 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                     error={Boolean(touched.password && errors.password)}
                     helperText={touched.password && errors.password}
                   />
+                              </Grid>
+                              <Grid
+
+                                xs={12}
+                                md={6}
+                              >
 
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Role</InputLabel>
@@ -164,7 +219,7 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                       inputProps={{
                         readOnly: !editable,
                       }}
-                      variant="standard"
+
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       name="roles"
@@ -179,31 +234,50 @@ function CreateUpdateUser({ selectedData, editable, setEditable }) {
                       <MenuItem value={"super_admin"}>super_admin</MenuItem>
                     </Select>
                   </FormControl>
-                </Stack>
-                {/* </Box> */}
-              </CardContent>
-              {editable && (
-                <Button b style={{ backgroundColor: '#4276a8' }}
-                  variant="contained" type="submit" fullWidth>
-                  {selectedData ? "Update" : "Create"}
-                </Button>
-              )}
-            </Container>
 
-          </Form>
-        )}
-      </Formik >
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        </CardContent >
+                        <Divider />
+                        <CardActions sx={{ justifyContent: 'flex-end', mt: 2 }}>
+                          {selectedData ? (
+
+                            <>
+                              <Button variant="contained" type="submit">
+                                {"Update"}
+                              </Button>
+                              <Tooltip title="Delete">
+                                <Button variant="contained" color="error" onClick={() => SetWarn(true)}>
+                                  {"Delete"}
+                                </Button>
+                              </Tooltip>
+
+                            </>) : (
+                            <> <Button variant="contained" type="submit">
+                              {"Create"}
+                            </Button></>
+                          )}
+
+                        </CardActions>
+                      </Card>
+                    </Form>)}
+                </Formik >
+              </Grid>
+
+            </Grid>
+          </Box>
+        </Container>
+      </Box>
       <Warndialogue
         open={warn}
         setOpen={SetWarn}
-        title={"Delete User"}
-        content={"Are you sure you want to delete this user?"}
+        name={name}
         action={deleteUser}
         selectedData={selectedData}
       />
     </>
-
-  );
+  )
 }
 
 export default CreateUpdateUser;
@@ -215,8 +289,6 @@ CreateUpdateUser.propTypes = {
   createUser: PropTypes.func,
   updateUser: PropTypes.func.isRequired,
   setEditable: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
-
-
-
 

@@ -1,9 +1,7 @@
 import React from 'react';
 import Datatable from 'src/components/datatable/Datatable';
 import UserContext from 'src/context/UserContext';
-import { Typography, IconButton, Tooltip, Container, FormControlLabel, Switch } from '@mui/material';
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton, Link } from '@mui/material';
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateUser from './CreateUpdateUser';
 
@@ -18,11 +16,9 @@ function Users() {
     createOpen,
     setCreateOpen,
     selectedData,
-    setSelectedData,
     editable,
     setEditable,
     handleRowClick,
-    deleteUser,
   } = React.useContext(UserContext);
 
   const columns = [
@@ -50,20 +46,26 @@ function Users() {
       minWidth: 100,
       editable: true,
       type: 'email',
+      renderCell: (params) => (
+        <Link sx={{ color: '#1c2536' }} href={`mailto:${params.value}`}>{params.value}</Link>
+      ),
     },
     {
       field: 'password',
       headerName: 'PASSWORD',
       flex: 0.7,
       minWidth: 110,
-      editable: true,
+      // editable: true,
       type: 'string',
+      hideable: true,
+      hide: true,
+
     },
     {
       field: 'roles',
       headerName: 'ROLE',
       flex: 0.7,
-      maxWidth: 200,
+      // maxWidth: 200,
       minWidth: 30,
       editable: true,
       type: 'string',
@@ -92,6 +94,7 @@ function Users() {
     <>
       {createOpen || selectedData ? (
         <CreateUpdateUser
+          name={name}
           selectedData={selectedData}
           editable={editable}
           setEditable={setEditable}

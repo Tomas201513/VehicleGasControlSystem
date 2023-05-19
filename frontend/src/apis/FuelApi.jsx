@@ -70,7 +70,7 @@ export const CreateFuelAttendant = async (values) => {
 
 export const UpdateFuel = async (values) => {
   console.log(values);
-  console.log('bem');
+  console.log('bem'); 
   if (localStorage.getItem("accessToken")) {
     const res = await axiosInstance.put(`${api}${values.cardRow}/`, values.values, TokenJson());
     return res.data;

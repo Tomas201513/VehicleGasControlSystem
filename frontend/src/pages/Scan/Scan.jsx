@@ -91,8 +91,9 @@ export default function Scan() {
             <Box sx={{ width: '100%', height: '50%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                        <Tab label="Camera" {...a11yProps(0)} />
-                        <Tab label="Input" {...a11yProps(1)} />
+                        <Tab fontWeight="bold"
+                            label="Camera" {...a11yProps(0)} />
+                        <Tab fontWeight="bold" label="Input" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -116,7 +117,7 @@ export default function Scan() {
                                     <TextField
                                         size="small"
                                         fullWidth
-                                        label="Car Id"
+                                        label="Plate Number"
                                         name="CarId"
                                         onChange={handleChange}
                                         required

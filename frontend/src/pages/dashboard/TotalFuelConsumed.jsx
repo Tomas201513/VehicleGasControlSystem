@@ -5,7 +5,7 @@ import CurrencyDollarIcon from '@heroicons/react/24/solid/CurrencyDollarIcon';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
 import PropaneIcon from '@mui/icons-material/Propane';
 function TotalFuelConsumed(props) {
-    const { difference, positive = false, sx, value } = props;
+    const { difference, positive = false, sx, sx2, sx3, value } = props;
     return (
         <Card sx={sx}>
             <CardContent>
@@ -17,12 +17,19 @@ function TotalFuelConsumed(props) {
                 >
                     <Stack spacing={1}>
                         <Typography
+                            sx={{
+                                fontSize: '0.9rem',
+                                fontWeight: "bold",
+                                color: "#9da4ae",
+                            }}
                             color="text.secondary"
                             variant="overline"
                         >
                             {'TOTAL GAS CONCEPTION'}
                         </Typography>
-                        <Typography variant="h4" whitespace="nowrap">
+                        <Typography sx={{
+                            fontWeight: "bold",
+                        }} variant="h4" whitespace="nowrap">
                             {JSON.stringify(value)} L
                         </Typography>
                     </Stack>
@@ -64,6 +71,9 @@ function TotalFuelConsumed(props) {
                             </Typography>
                         </Stack> */}
                         <Typography
+                            sx={{
+                                fontSize: '0.9rem',
+                            }}
                             color="#f04438"
                             variant="caption">
                             Since start recording data

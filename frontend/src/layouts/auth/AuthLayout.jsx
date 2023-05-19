@@ -88,14 +88,18 @@ function AuthLayout() {
               >              
               {/* <img src={car} alt="car" style={{ width: 45, height: 45 }} /> */}
 
-                <Typography variant="h4" component="div" gutterBottom>
+                <Typography variant="h4" sx={{
+                  fontWeight: "bold",
+                }} component="div" gutterBottom>
                   INSA GAS STATION
                 </Typography>
               </Box>
             </Typography>
             <Typography
               align="center"
-              sx={{ mb: 3 }}
+              sx={{
+                mb: 3, fontWeight: "bold",
+              }}
               variant="subtitle1"
             >
               A vehicle gas control system 

@@ -1,39 +1,39 @@
-import React from "react";
+import { useContext, useEffect } from 'react';
 import {
+    Box,
     Button,
-    Stack,
-    TextField,
-    MenuItem,
-    Select,
-    InputLabel,
-    FormControl,
+    Card,
+    CardActions,
     CardContent,
     CardHeader,
-    Box,
-    IconButton,
+    Divider,
+    TextField,
+    Unstable_Grid2 as Grid,
+    Container,
     Tooltip,
+    IconButton,
     FormControlLabel,
     Switch,
-    Container,
-    Typography,
-} from "@mui/material";
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+} from '@mui/material';
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DeleteIcon from "@mui/icons-material/Delete";
 import PropTypes from "prop-types";
 import Warndialogue from "src/components/Warndialogue";
-import FuelContext from "src/context/FuelContext";
 import CarContext from "../../context/CarContext";
+import FuelContext from "src/context/FuelContext";
 import UserContext from "../../context/UserContext";
 import StationContext from "../../context/StationContext";
 
-
 function CreateUpdateFuel({ selectedData, editable, setEditable }) {
-    const { createFuel, updateFuel, setSelectedData, setCreateOpen, deleteFuel, warn, SetWarn } = React.useContext(FuelContext);
-    const { userData } = React.useContext(UserContext);
-    const { carData } = React.useContext(CarContext);
-    const { stationData, refetch } = React.useContext(StationContext);
+    const { name, createFuel, updateFuel, setSelectedData, setCreateOpen, deleteFuel, warn, SetWarn } = useContext(FuelContext);
+    const { userData } = useContext(UserContext);
+    const { carData } = useContext(CarContext);
+    const { stationData, refetch } = useContext(StationContext);
     const drivers = userData.filter(item => item?.roles[0] === 'driver')
 
     const FormSchema = yup.object().shape({
@@ -46,24 +46,63 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
     const handleSubmit = async (values) => {
         try {
             if (selectedData) {
-                await updateFuel({ selectedData: selectedData._id, values });
+                console.log('xxxxxxxxxxx', selectedData._id);
+                await updateFuel({ cardRow: selectedData?._id, values });
             } else {
                 console.log(values);
                 await createFuel(values);
             }
             setEditable(false);
-            refetch();
         } catch (error) {
             console.log(error);
         }
     }
-    React.useEffect(() => {
+    useEffect(() => {
         console.log('warnnnnnnnnnnnnnnnnnnnnnnnnnn', warn);
-        refetch();
     }, [warn])
 
     return (
         <>
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    py: '10%'
+                }}
+            >
+                <Container maxWidth="lg">
+
+                    < Box>
+                        <Grid
+                            container
+                            spacing={3}
+                        >
+                            <Grid
+                                xs={12}
+                                md={12}
+                                lg={4}
+                            >
+                                <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
+
+                                    <Tooltip title="Back">
+                                        <IconButton
+                                            onClick={() => {
+                                                setSelectedData(null), setEditable(false), setCreateOpen(false);
+                                            }}
+                                            size="small"
+                                        >
+                                            <ArrowBackIcon size="small" />
+                                        </IconButton>
+                                    </Tooltip>
+                                    {/* <Box sx={{ flexGrow: 1 }} /> */}
+
+                                </Box>
+                            </Grid>
+                            <Grid
+                                xs={12}
+                                md={12}
+                                lg={12}
+                            >
             <Formik
                 initialValues={{
                     fuelAmount: selectedData?.fuelAmount || "",
@@ -80,45 +119,44 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
 
                             title={selectedData ? "Update Fuel" : "Create Fuel"}
                         /> */}
-                        <Container maxWidth="md" sx={{ marginTop: "13vh", maxWidth: 600 }}>
+                                            <Card const sx={{
+                                                flexGrow: 1,
+                                                border: "none",
+                                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
+                                                borderRadius: "10px",
+                                            }}>
+                                                <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'2%'}>
 
-                            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
+                                                    <CardHeader
+                                                        title={selectedData ? "Update Fuel" : "Create Fuel"}
+                                                        subheader={selectedData ? "The information can be edited" : "Fill in the required information"}
+                                                    />
+                                                    {selectedData ? (
 
-                                <Tooltip title="Back">
-                                    <IconButton
-                                        onClick={() => {
-                                            setSelectedData(null), setEditable(false), setCreateOpen(false);
-                                        }}
-                                        size="small"
-                                    >
-                                        <ArrowBackIcon size="small" />
-                                    </IconButton>
-                                </Tooltip>
-                                <Box sx={{ flexGrow: 1 }} />
-                                {selectedData ? (
+                                                        <>
+                                                            <Tooltip title="Editable">
+                                                                <FormControlLabel
+                                                                    control={<Switch />}
+                                                                    // label="edit"
+                                                                    onChange={() => setEditable(!editable)}
+                                                                />
+                                                            </Tooltip>
+                                                        </>) : (
+                                                        <></>
+                                                    )}
 
-                                    <>
-                                        <Tooltip title="Editable">
-                                            <FormControlLabel
-                                                control={<Switch />}
-                                                // label="edit"
-                                                onChange={() => setEditable(!editable)}
-                                            />
-                                        </Tooltip>
-                                        <Tooltip title="Delete">
-                                            <IconButton size="small" onClick={() => SetWarn(true)}>
-                                                <DeleteIcon size="small" color="error" />
-                                            </IconButton>
+                                                </Box>
+                                                <CardContent sx={{ pt: 0 }}>
+                                                    <Box sx={{ m: -1.5 }}>
+                                                        <Grid
+                                                            container
+                                                            spacing={3}
+                                                        >
 
-                                        </Tooltip>
-                                        {/* <Typography>{'Delete'}</Typography> */}
-
-                                    </>) : (
-                                    <></>
-                                )}
-                            </Box>
-                            <CardContent sx={{ pt: 0, mb: '5%' }}>
-                                <Stack spacing={3}>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
                                     <TextField
                                         fullWidth
                                         label="Fuel Amount"
@@ -130,10 +168,14 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                         onChange={handleChange}
                                         required
                                         value={values.fuelAmount}
-                                        variant="standard"
+
                                         error={Boolean(touched.fuelAmount && errors.fuelAmount)}
                                         helperText={touched.fuelAmount && errors.fuelAmount}
-                                    />
+                                                                /> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
 
                                     <FormControl fullWidth>
                                         <InputLabel id="demo-simple-select-label">
@@ -150,7 +192,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             }}
                                             autoFocus={editable}
                                             value={values.car_id}
-                                            variant="standard"
+
                                             error={Boolean(touched.car_id && errors.car_id)}
                                             helperText={touched.car_id && errors.car_id}
                                         >
@@ -160,7 +202,11 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                                 </MenuItem>
                                             ))}
                                         </Select>
-                                    </FormControl>
+                                                                </FormControl> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
                                     <FormControl fullWidth>
                                         <InputLabel id="demo-simple-select-label1">
                                             Attendant
@@ -176,7 +222,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             onChange={handleChange}
                                             required
                                             value={values.attendant}
-                                            variant="standard"
+
                                             error={Boolean(touched.attendant && errors.attendant)}
                                             helperText={touched.attendant && errors.attendant}
                                         >
@@ -186,7 +232,11 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                                 </MenuItem>
                                             ))}
                                         </Select>
-                                    </FormControl>
+                                                                </FormControl> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
                                     <FormControl fullWidth>
                                         <InputLabel id="demo-simple-select-label2">
                                             Station
@@ -203,7 +253,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             onChange={handleChange}
                                             required
                                             value={values.station}
-                                            variant="standard"
+
                                             error={Boolean(touched.station && errors.station)}
                                             helperText={touched.station && errors.station}
                                         >
@@ -214,44 +264,60 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            justifyContent: "flex-end",
-                                        }}
-                                    >
-                                        {editable && (
-                                            <Button b style={{ backgroundColor: '#4276a8' }}
-                                                variant="contained" type="submit" fullWidth>
-                                                {selectedData ? "Update" : "Create"}
-                                            </Button>
-                                        )}
-                                    </Box>
-                                </Stack>
-                            </CardContent>
-                        </Container>
-                    </Form>
-                )}
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
+                                                </CardContent >
+                                                <Divider />
+                                                <CardActions sx={{ justifyContent: 'flex-end', mt: 2 }}>
+                                                    {selectedData ? (
 
-            </Formik >
+                                                        <>
+                                                            <Button variant="contained" type="submit">
+                                                                {"Update"}
+                                                            </Button>
+                                                            <Tooltip title="Delete">
+                                                                <Button variant="contained" color="error" onClick={() => SetWarn(true)}>
+                                                                    {"Delete"}
+                                                                </Button>
+                                                            </Tooltip>
+
+                                                        </>) : (
+                                                        <> <Button variant="contained" type="submit">
+                                                            {"Create"}
+                                                        </Button></>
+                                                    )}
+
+                                                </CardActions>
+                                            </Card>
+                                        </Form>)}
+                                </Formik >
+                            </Grid>
+
+                        </Grid>
+                    </Box>
+                </Container>
+            </Box>
             <Warndialogue
                 open={warn}
                 setOpen={SetWarn}
-                title={"Delete User"}
-                content={"Are you sure you want to delete this user?"}
+                name={name}
                 action={deleteFuel}
                 selectedData={selectedData}
             />
         </>
-    );
-
+    )
 }
 
 export default CreateUpdateFuel;
 CreateUpdateFuel.propTypes = {
-    selectedData: PropTypes.object,
-    editable: PropTypes.bool,
-    setEditable: PropTypes.func,
+    selectedData: PropTypes.object.isRequired,
+    editable: PropTypes.bool.isRequired,
+    createOpen: PropTypes.bool.isRequired,
+    createUser: PropTypes.func,
+    updateUser: PropTypes.func.isRequired,
+    setEditable: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 

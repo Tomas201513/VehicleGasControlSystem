@@ -27,7 +27,7 @@ const MENU_OPTIONS = [
   {
     label: "Home",
     icon: < HomeIcon sx={{ mr: 1, color: '#9da4ae' }} />,
-    nav: "/app",
+    nav: "/app/home",
   },
   {
     label: "Profile",

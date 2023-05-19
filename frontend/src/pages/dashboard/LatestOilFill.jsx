@@ -16,6 +16,7 @@ import {
     TableCell,
     TableHead,
     TableRow,
+    Typography
 
 } from '@mui/material';
 // import { Scrollbar } from 'src/components/scrollbar';
@@ -35,32 +36,38 @@ const statusMap = {
 };
 
 export const LatestOilFill = (props) => {
-    const { fuelIntakes = [], sx } = props;
+    const { fuelIntakes = [], sx, sx2, sx3 } = props;
     const firstTenFuelIntakes = fuelIntakes.slice(0, 6);
 
     const navigate = useNavigate();
 
     return (
         <Card sx={sx}>
-            <CardHeader title="Latest Fills" />
-            {/* <Scrollbar sx={{ flexGrow: 1 }}> */}
-            <Box sx={{ overflowX: 'auto' }}>
+            <Typography sx={{
+                fontWeight: "bold",
+                color: "#000",
+                padding: "10px",
+            }} variant="h6" >
+                Latest Oil Fill
+            </Typography>
+
+            <Box sx={{ overflowX: 'auto', }}>
                 <Table >
                     <TableHead>
                         <TableRow>
-                            <TableCell>
+                            <TableCell sx={sx3}>
                                 Driver
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={sx3}>
                                 Car Plate Number
                             </TableCell>
-                            <TableCell sortDirection="desc">
+                            <TableCell sortDirection="desc" sx={sx3}>
                                 Fill Amount
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={sx3}>
                                 Station Name
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={sx3}>
                                 Time
                             </TableCell>
                         </TableRow>
@@ -68,6 +75,7 @@ export const LatestOilFill = (props) => {
                     <TableBody sx={{
                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
                         borderRadius: "10px",
+
                     }}>
                         {firstTenFuelIntakes.map((fill) => {
                             // const createdAt = format(fill?.fuelDate, 'dd/MM/yyyy');
@@ -77,20 +85,20 @@ export const LatestOilFill = (props) => {
                                     hover
                                     key={fill._id}
                                 >
-                                    <TableCell>
+                                    <TableCell sx={sx2}>
                                         {fill?.car_id?.driver?.userName}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell sx={sx2}>
                                         {fill?.car_id?.plateNumber}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell sx={sx2}>
                                         {fill?.fuelAmount}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell sx={sx2}>
                                         {fill?.station?.stationName}
                                     </TableCell>
 
-                                    <TableCell>
+                                    <TableCell sx={sx2}>
                                         <TimeAgo date={fill?.fuelDate} />
                                         {/* <SeverityPill color={statusMap[fill.status]}>
                                                 {fill.status}
@@ -126,4 +134,6 @@ export const LatestOilFill = (props) => {
 LatestOilFill.propTypes = {
     sx: PropTypes.object,
     fuelIntakes: PropTypes.array
+
+
 };

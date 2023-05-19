@@ -91,12 +91,23 @@ export default function StationContent(props) {
 
                                     </ListItemAvatar>
                                     <ListItemText
-                                        primary={`${userCount.currentFuelAmount} L Current Amount `}
-                                        primaryTypographyProps={{ variant: 'subtitle1' }}
+
+                                        primary={`${userCount.currentFuelAmount} L`}
+                                        primaryTypographyProps={{
+                                            fontWeight: "bold",
+                                            fontSize: '0.9rem',
+
+                                            variant: 'subtitle1'
+                                        }}
                                         secondary={`${(userCount.FuelCapacity).toFixed(2)} L Total Capacity`}
-                                        secondaryTypographyProps={{ variant: 'body2' }}
+                                        secondaryTypographyProps={{
+                                            fontSize: '0.9rem',
+                                            fontWeight: "bold",
+                                            color: "#9da4ae", variant: 'body2'
+                                        }}
 
                                         sx={{
+
                                             // borderRadius: 1,
                                             backgroundColor: 'neutral.200',
                                             // height: '100%',
@@ -104,9 +115,13 @@ export default function StationContent(props) {
                                         }}
                                     />
                                     <br />
-                                    {/* <Typography variant="h6" whitespace="nowrap"> */}
+                                    <Typography sx={{
+                                        fontSize: '0.9rem',
+                                        fontWeight: "bold",
+                                        color: "#9da4ae",
+                                    }} whitespace="nowrap">
                                     {userCount?.stationName}
-                                    {/* </Typography> */}
+                                    </Typography>
 
                                 </ListItem>
                             ))}
@@ -127,11 +142,18 @@ export default function StationContent(props) {
                                 <Typography
                                     color="text.secondary"
                                     variant="overline"
+                                    sx={{
+                                        fontSize: '0.9rem',
+                                        fontWeight: "bold",
+                                        color: "#9da4ae",
+                                    }}
                                 >
                                     {stationData[0]?.stationName}
 
                                 </Typography>
-                                <Typography variant="h4" whitespace="nowrap">
+                                <Typography
+                                    fontWeight="bold"
+                                    variant="h4" whitespace="nowrap">
                                     {(stationData[0]?.currentFuelAmount)} L
                                 </Typography>
                             </Stack>
@@ -160,11 +182,16 @@ export default function StationContent(props) {
                                         color={'#1976d2'}
                                         variant="body2"
                                         whitespace="nowrap"
+                                        fontSize='0.9rem'
+
+
                                     >
                                         {stationData[0]?.FuelCapacity} L
                                     </Typography>
                                 </Stack>
                                 <Typography
+                                    fontSize='0.9rem'
+
                                     color="text.secondary"
                                     variant="caption"
                                 >

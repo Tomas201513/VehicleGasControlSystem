@@ -77,20 +77,33 @@ function Register() {
               spacing={1}
               sx={{ mb: 3 }}
             >
-              <Typography variant="h4">
+              <Typography variant="h4" sx={{
+                fontWeight: "bold",
+              }}>
                 Register
               </Typography>
               <Typography
                 color="text.secondary"
-                variant="body2"
+                variant="body3"
               >
                 Already have an account?
                 &nbsp;
-                 <Link
+                <Button
+                  component={Link}
                   to="/login"
+                  sx={{
+                    color: "#1976d2",
+                    textDecoration: "none",
+                    fontWeight: "bold",
+                    "&:hover": {
+                      textDecoration: "underline",
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                  variant="text"
                 >
                   Login
-                </Link>
+                </Button>
               </Typography>
             </Stack>
             <form

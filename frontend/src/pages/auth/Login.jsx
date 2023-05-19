@@ -82,14 +82,28 @@ useEffect(() => {
             width: "100%",
           }}
         >
-          <div>
+          {/* <div> */}
             <Stack spacing={1} sx={{ mb: 3 }}>
-              <Typography variant="h4">Login</Typography>
-              <Typography color="text.secondary" variant="body2">
+            <Typography sx={{ fontWeight: "bold", }}
+              variant="h4">Login</Typography>
+            <Typography color="text.secondary" variant="body3">
                 Don&apos;t have an account? &nbsp;
-                <Link to="/register" variant="h6">
-                  Register
-                </Link>
+              <Button
+                component={Link}
+                to="/register"
+                sx={{
+                  color: "#1976d2",
+                  textDecoration: "none",
+                  fontWeight: "bold",
+                  "&:hover": {
+                    textDecoration: "underline",
+                    backgroundColor: "transparent",
+                  },
+                }}
+                variant="text"
+              >
+                Register
+              </Button>
               </Typography>
             </Stack>
 
@@ -143,7 +157,7 @@ useEffect(() => {
                 Continue
               </Button>
             </form>
-          </div>
+          {/* </div> */}
         </Box>
       </Box>
     </>

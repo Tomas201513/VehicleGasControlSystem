@@ -74,9 +74,15 @@ function Dashboard() {
     flexGrow: 1, border: "none",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
     borderRadius: "10px",
-
   }
-
+  const sx2 = {
+    fontSize: '0.97rem',
+    fontWeight: "normal",
+  }
+  const sx3 = {
+    fontSize: '0.97rem',
+    fontWeight: "bold",
+  }
   return (
     <>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '5%', ml: '5%', mr: '5%', mb: 5, }}>
@@ -84,6 +90,8 @@ function Dashboard() {
           difference={12}
           title={'TOTAL CONCEPTION'}
           sx={sx}
+          sx2={sx2}
+          sx3={sx3}
           value={totalFuelConsumed}
         />
         <CurrentMonthIntake
@@ -146,6 +154,8 @@ function Dashboard() {
             borderRadius: "10px",
             mt: '5%'
           }}
+          sx2={sx2}
+          sx3={sx3}
         />
 
       </Box>

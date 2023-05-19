@@ -68,11 +68,18 @@ export default function Datatable({
 
   return (
     <>
-      <Container maxWidth="xl" className={classes.root} sx={{ marginTop: isSmallScreen ? "5vh" : "0vh" }}>
-        <Box sx={{ display: "flex", alignItems: "center", mb: "0vh", padding: isSmallScreen ? '3' : '0' }}>
-          <Typography sx={{
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '5%', ml: '5%', mr: '5%', mb: 5, }}>
+
+        <Container maxWidth="xl" className={classes.root} >
+          <Box sx={{ display: "flex", alignItems: "center", }}>
+            <Typography
+              sx={{
             fontWeight: "bold",
-          }} variant="h4" whitespace="nowrap">{name}s</Typography>
+              }}
+              variant="h4"
+              whitespace="nowrap">
+              {name}s
+            </Typography>
           <Box sx={{ flexGrow: 1 }} />
           {/* <IconButton size="large" onClick={() => { setCreateOpen(true), setEditable(true) }}
             sx={{
@@ -93,8 +100,7 @@ export default function Datatable({
               // startIcon={<AddIcon />}
               sx={{
                 mr: '5%',
-                borderRadius: "15px",
-                backgroundColor: "#4276a8",
+                borderRadius: "25px",
                 "&:hover": {
                   backgroundColor: "#1565c0",
                 },
@@ -124,26 +130,27 @@ export default function Datatable({
               </Typography>
             </Box>
           ) : (
-            <DataGrid
-                  size={isSmallScreen ? 'large' : 'small'}
-              sx={{
-                marginTop: isSmallScreen ? '5vh' : '0',
-                marginBottom: 2,
-                border: 0,
-                boxShadow: 0.5,
-                borderColor: "grey.500",
+                  <DataGrid
+                    sx={{
+                      marginTop: isSmallScreen ? '2vh' : '0',
+                      marginBottom: 2,
+                      border: 0,
+                      // boxShadow: 0.5,
+                      borderColor: "grey.100",
                 padding: isSmallScreen ? '0' : '4',
+                      fontSize: '0.97rem',
                 height: isSmallScreen ? '80vh' : '100vh',
                 "& .MuiDataGrid-columnHeaders": {
                   fontWeight: "normal",
                 },
               }}
+                    size={isSmallScreen ? 'large' : 'small'}
               columns={columns}
               rows={rows}
               getRowId={getRowId}
               pageSize={10}
-                  density={isSmallScreen ? 'comfortable' : 'standard'}
-                  checkboxSelection
+                    density={isSmallScreen ? 'comfortable' : 'standard'}
+                    checkboxSelection
               rowHeight={60}
               slots={{
                 toolbar: CustomToolbar,
@@ -152,7 +159,11 @@ export default function Datatable({
                 columns: {
                   columnVisibilityModel: {
                     _id: false,
+                    password: false,
+
                   },
+
+
                 },
               }}
             />
@@ -160,6 +171,7 @@ export default function Datatable({
           )}
         </motion.div>
       </Container >
+      </Box>
     </>
   );
 }

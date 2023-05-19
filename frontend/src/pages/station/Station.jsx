@@ -32,9 +32,9 @@ export default function Station() {
         { field: "stationName", headerName: "STATION NAME", flex: 0.7, minWidth: 130 },
         { field: "stationLocation", headerName: "STATION LOCATION", flex: 0.7, minWidth: 100 },
         { field: "stationOwner", headerName: "STATION OWNER", width: 150, },
-        { field: "FuelCapacity", headerName: "Fuel Capacity", flex: 0.7, minWidth: 130 },
+        { field: "FuelCapacity", headerName: "FUEL CAPACITY(L)", flex: 0.7, minWidth: 130 },
 
-        { field: "currentFuelAmount", headerName: "CURRENT FUEL AMOUT", flex: 0.7, minWidth: 130 },
+        { field: "currentFuelAmount", headerName: "CURRENT FUEL AMOUNT(L)", flex: 0.7, minWidth: 130 },
 
         {
             field: "actions",

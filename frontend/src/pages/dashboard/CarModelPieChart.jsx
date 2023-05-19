@@ -93,7 +93,12 @@ export const CarModelPieChart = (props) => {
     return (
         <Card sx={sx}>
             <CardActions sx={{ justifyContent: 'space-between' }}>
-            <CardHeader title="Car Models" />
+                <Typography sx={{
+                    fontWeight: "bold",
+                    color: "#000",
+                }} variant="h6" >
+                    Car Model
+                </Typography>
 
                 <Button
                     onClick={() => navigate('/app/cars')}

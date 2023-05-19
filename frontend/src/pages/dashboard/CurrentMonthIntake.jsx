@@ -20,14 +20,19 @@ export const CurrentMonthIntake = (props) => {
                             <Typography
                                 color="text.secondary"
                                 variant="overline"
-                                sx={{ mb: 0, p: 0 }}
-                            >
+                                sx={{
+                                    fontSize: '0.9rem',
+                                    fontWeight: "bold",
+                                    color: "#9da4ae",
+                                }}                            >
                                 {'GAS CONCEPTION'}
                                 {JSON.stringify(startDate)}
 
                             </Typography>
                         </>
-                        <Typography variant="h4" whitespace="nowrap">
+                        <Typography sx={{
+                            fontWeight: "bold",
+                        }} variant="h4" whitespace="nowrap">
                             {JSON.stringify(value)} L
                         </Typography>
                     </Stack>
@@ -69,6 +74,9 @@ export const CurrentMonthIntake = (props) => {
                             </Typography>
                         </Stack> */}
                         <Typography
+                            sx={{
+                                fontSize: '0.9rem',
+                            }}
                             color="#d59b08"
                             variant="caption"
                         >

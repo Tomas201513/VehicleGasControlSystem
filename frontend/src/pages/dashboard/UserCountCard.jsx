@@ -36,11 +36,17 @@ export const UserCountCard = (props) => {
                                     color="text.secondary"
                                     // gutterBottom
                                     variant="overline"
+                                    sx={{
+                                        fontWeight: "bold",
+                                        color: "#9da4ae",
+                                    }} 
                                 >
                                     {userCount.roleName}S
                                 </Typography>
                                 <Box sx={{ flexGrow: 1 }} />
-                                <Typography variant="h5" >
+                                <Typography sx={{
+                                    fontWeight: "bold",
+                                }} variant="h5"  >
                                     {userCount.count}
                                 </Typography>
 
@@ -85,6 +91,9 @@ export const UserCountCard = (props) => {
                             </Typography>
                         </Stack> */}
                         <Typography
+                            sx={{
+                                fontSize: '0.9rem',
+                            }}
                             color="#2eb672"
                             variant="caption">
                             Users count

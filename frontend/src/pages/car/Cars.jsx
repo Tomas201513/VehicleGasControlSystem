@@ -30,9 +30,9 @@ function Cars() {
         },
         { field: "plateNumber", headerName: "PLATE NUMBER", flex: 0.7, minWidth: 130, editable: true, type: "string" },
         { field: "model", headerName: "MODEL", flex: 0.7, minWidth: 100, editable: true, type: "string" },
-        { field: "year", headerName: "YEAR", flex: 0.7, minWidth: 110, editable: true, type: "number" },
+        { field: "year", headerName: "YEAR(GC)", flex: 0.7, minWidth: 110, editable: true, type: "string" },
         { field: "color", headerName: "COLOR", flex: 0.7, minWidth: 110, editable: true, type: "string" },
-        { field: "capacity", headerName: "CAPACITY", flex: 0.7, minWidth: 110, editable: true, type: "number" },
+        { field: "capacity", headerName: "CAPACITY(L)", flex: 0.7, minWidth: 110, editable: true, type: "string" },
         {
             field: "engine",
             headerName: "ENGINE",
@@ -107,6 +107,7 @@ function Cars() {
             {createOpen || selectedData ? (
 
                 <CreateUpdateCar
+                    name={name}
                     selectedData={selectedData}
                     editable={editable}
                     setEditable={setEditable}
