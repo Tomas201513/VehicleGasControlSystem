@@ -65,7 +65,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    py: '10%'
+                    py: '10%',
+                    ml: '5%',
+                    mr: '5%',
                 }}
             >
                 <Container maxWidth="lg">
@@ -154,7 +156,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                     )}
 
                                                 </Box>
-                                                <CardContent sx={{ pt: 0 }}>
+                                                <CardContent sx={{ p: '5%' }}>
                                                     <Box sx={{ m: -1.5 }}>
                                                         <Grid
                                                             container
@@ -165,186 +167,186 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                        <TextField
-                                            fullWidth
-                                            InputProps={{
-                                                readOnly: !editable,
-                                            }}
+                                                                <TextField
+                                                                    fullWidth
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
 
 
-                                            label="Plate Number"
-                                            name="plateNumber"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.plateNumber}
-                                            error={Boolean(touched.plateNumber && errors.plateNumber)}
-                                            helperText={touched.plateNumber && errors.plateNumber}
-                                        />
-                                    </Grid>
-                                                            <Grid
-                                                                xs={12}
-                                                                md={6}
-                                                            >
-                                        <TextField
-
-                                            InputProps={{
-                                                readOnly: !editable,
-                                            }}
-
-                                            fullWidth
-                                            label="Model"
-                                            name="model"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.model}
-                                            error={Boolean(touched.model && errors.model)}
-                                            helperText={touched.model && errors.model}
-                                        />
+                                                                    label="Plate Number"
+                                                                    name="plateNumber"
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    value={values.plateNumber}
+                                                                    error={Boolean(touched.plateNumber && errors.plateNumber)}
+                                                                    helperText={touched.plateNumber && errors.plateNumber}
+                                                                />
                                                             </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                        <TextField
-                                            fullWidth
-                                            InputProps={{
-                                                readOnly: !editable,
-                                            }}
+                                                                <TextField
 
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
 
-                                            label="Make Year"
-                                            name="year"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.year}
-                                            error={Boolean(touched.year && errors.year)}
-                                            helperText={touched.year && errors.year}
-                                        />
-                                    </Grid>
-                                                            <Grid
-                                                                xs={12}
-                                                                md={6}
-                                                            >
-                                        <TextField
-                                            fullWidth
-                                            InputProps={{
-                                                readOnly: !editable,
-                                            }}
-
-
-                                            label="Color"
-                                            name="color"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.color}
-                                            error={Boolean(touched.color && errors.color)}
-                                            helperText={touched.color && errors.color}
-                                        />
+                                                                    fullWidth
+                                                                    label="Model"
+                                                                    name="model"
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    value={values.model}
+                                                                    error={Boolean(touched.model && errors.model)}
+                                                                    helperText={touched.model && errors.model}
+                                                                />
                                                             </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                        <TextField
-                                            fullWidth
-                                            InputProps={{
-                                                readOnly: !editable,
-                                            }}
-                                            //
+                                                                <TextField
+                                                                    fullWidth
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
 
-                                            label="Capacity"
-                                            name="capacity"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.capacity}
-                                            error={Boolean(touched.capacity && errors.capacity)}
-                                            helperText={touched.capacity && errors.capacity}
-                                        />
-                                    </Grid>
-                                                            <Grid
-                                                                xs={12}
-                                                                md={6}
-                                                            >
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label1">transmission</InputLabel>
 
-                                            <Select
-                                                id="demo-simple-select1"
-                                                labelId="demo-simple-select-label1"
-                                                name="transmission"
-                                                InputProps={{
-                                                    readOnly: !editable,
-                                                }}
-                                                //
-                                                label="transmission"
-
-                                                value={values.transmission}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                error={Boolean(touched.transmission && errors.transmission)}
-                                                helpertext={touched.transmission && errors.transmission}
-                                            >
-                                                <MenuItem value="manual">manual</MenuItem>
-                                                <MenuItem value="automatic">automatic</MenuItem>
-                                            </Select>
-                                        </FormControl>
+                                                                    label="Make Year"
+                                                                    name="year"
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    value={values.year}
+                                                                    error={Boolean(touched.year && errors.year)}
+                                                                    helperText={touched.year && errors.year}
+                                                                />
                                                             </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Engine</InputLabel>
+                                                                <TextField
+                                                                    fullWidth
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
 
-                                            <Select
-                                                id="demo-simple-select"
-                                                labelId="demo-simple-select-label"
-                                                name="engine"
-                                                InputProps={{
-                                                    readOnly: !editable,
-                                                }}
-                                                label="Engine"
 
-                                                value={values.engine}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                error={Boolean(touched.engine && errors.engine)}
-                                                helpertext={touched.engine && errors.engine}
-                                            >
-                                                <MenuItem value="gasoline">gasoline</MenuItem>
-                                                <MenuItem value="diesel">diesel</MenuItem>
-                                                <MenuItem value="electric">electric</MenuItem>
-                                            </Select>
-                                        </FormControl>
+                                                                    label="Color"
+                                                                    name="color"
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    value={values.color}
+                                                                    error={Boolean(touched.color && errors.color)}
+                                                                    helperText={touched.color && errors.color}
+                                                                />
                                                             </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Driver</InputLabel>
-                                            <Select
-                                                InputProps={{
-                                                    readOnly: !editable,
-                                                }}
-                                                labelId="demo-simple-select-label"
-                                                name="driver"
-                                                label="driver"
+                                                                <TextField
+                                                                    fullWidth
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
+                                                                    //
 
-                                                value={values?.driver}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                error={touched.driver && Boolean(errors.driver)}
-                                                helpertext={touched.driver && errors.driver}
-                                            >
-                                                {drivers?.map((item) => (
-                                                    <MenuItem key={item._id} value={item._id}>
-                                                        {item?.userName}
-                                                    </MenuItem>
-                                                ))}
+                                                                    label="Capacity"
+                                                                    name="capacity"
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    value={values.capacity}
+                                                                    error={Boolean(touched.capacity && errors.capacity)}
+                                                                    helperText={touched.capacity && errors.capacity}
+                                                                />
+                                                            </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label1">transmission</InputLabel>
 
-                                            </Select>
-                                        </FormControl>
+                                                                    <Select
+                                                                        id="demo-simple-select1"
+                                                                        labelId="demo-simple-select-label1"
+                                                                        name="transmission"
+                                                                        InputProps={{
+                                                                            readOnly: !editable,
+                                                                        }}
+                                                                        //
+                                                                        label="transmission"
+
+                                                                        value={values.transmission}
+                                                                        onChange={handleChange}
+                                                                        onBlur={handleBlur}
+                                                                        error={Boolean(touched.transmission && errors.transmission)}
+                                                                        helpertext={touched.transmission && errors.transmission}
+                                                                    >
+                                                                        <MenuItem value="manual">manual</MenuItem>
+                                                                        <MenuItem value="automatic">automatic</MenuItem>
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label">Engine</InputLabel>
+
+                                                                    <Select
+                                                                        id="demo-simple-select"
+                                                                        labelId="demo-simple-select-label"
+                                                                        name="engine"
+                                                                        InputProps={{
+                                                                            readOnly: !editable,
+                                                                        }}
+                                                                        label="Engine"
+
+                                                                        value={values.engine}
+                                                                        onChange={handleChange}
+                                                                        onBlur={handleBlur}
+                                                                        error={Boolean(touched.engine && errors.engine)}
+                                                                        helpertext={touched.engine && errors.engine}
+                                                                    >
+                                                                        <MenuItem value="gasoline">gasoline</MenuItem>
+                                                                        <MenuItem value="diesel">diesel</MenuItem>
+                                                                        <MenuItem value="electric">electric</MenuItem>
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label">Driver</InputLabel>
+                                                                    <Select
+                                                                        InputProps={{
+                                                                            readOnly: !editable,
+                                                                        }}
+                                                                        labelId="demo-simple-select-label"
+                                                                        name="driver"
+                                                                        label="driver"
+
+                                                                        value={values?.driver}
+                                                                        onChange={handleChange}
+                                                                        onBlur={handleBlur}
+                                                                        error={touched.driver && Boolean(errors.driver)}
+                                                                        helpertext={touched.driver && errors.driver}
+                                                                    >
+                                                                        {drivers?.map((item) => (
+                                                                            <MenuItem key={item._id} value={item._id}>
+                                                                                {item?.userName}
+                                                                            </MenuItem>
+                                                                        ))}
+
+                                                                    </Select>
+                                                                </FormControl>
                                                             </Grid>
                                                         </Grid>
                                                     </Box>

@@ -64,7 +64,9 @@ function CreateUpdateUser({ selectedData, editable, setEditable, name }) {
         component="main"
         sx={{
           flexGrow: 1,
-          py: '10%'
+          py: '10%',
+          ml: '5%',
+          mr: '5%',
         }}
       >
         <Container maxWidth="lg">
@@ -79,7 +81,7 @@ function CreateUpdateUser({ selectedData, editable, setEditable, name }) {
                 md={12}
                 lg={4}
               >
-                <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'}>
+                <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={'5%'} >
 
                   <Tooltip title="Back">
                     <IconButton
@@ -145,7 +147,7 @@ function CreateUpdateUser({ selectedData, editable, setEditable, name }) {
                           )}
 
                         </Box>
-                        <CardContent sx={{ pt: 0 }}>
+                        <CardContent sx={{ p: '5%' }}>
                           <Box sx={{ m: -1.5 }}>
                             <Grid
                               container

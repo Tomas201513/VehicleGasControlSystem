@@ -57,7 +57,8 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    py: '10%'
+                    py: '10%', ml: '5%',
+                    mr: '5%',
                 }}
             >
                 <Container maxWidth="lg">
@@ -133,7 +134,7 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                                     )}
 
                                                 </Box>
-                                                <CardContent sx={{ pt: 0 }}>
+                                                <CardContent sx={{ p: '5%' }}>
                                                     <Box sx={{ m: -1.5 }}>
                                                         <Grid
                                                             container
@@ -144,95 +145,95 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                    <TextField
-                                        fullWidth
-                                        label="Station Name"
-                                        name="stationName"
-                                        InputProps={{
-                                            readOnly: !editable,
-                                        }}
+                                                                <TextField
+                                                                    fullWidth
+                                                                    label="Station Name"
+                                                                    name="stationName"
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
                                                                     required
-                                        value={values.stationName}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        error={!!touched.stationName && !!errors.stationName}
-                                        helperText={touched.stationName && errors.stationName}
+                                                                    value={values.stationName}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    error={!!touched.stationName && !!errors.stationName}
+                                                                    helperText={touched.stationName && errors.stationName}
                                                                 /> </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                    <TextField
-                                        fullWidth
-                                        label="Station Location"
-                                        name="stationLocation"
-                                        InputProps={{
-                                            readOnly: !editable,
-                                        }}
+                                                                <TextField
+                                                                    fullWidth
+                                                                    label="Station Location"
+                                                                    name="stationLocation"
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
                                                                     required
-                                        value={values.stationLocation}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        error={!!touched.stationLocation && !!errors.stationLocation}
-                                        helperText={touched.stationLocation && errors.stationLocation}
+                                                                    value={values.stationLocation}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    error={!!touched.stationLocation && !!errors.stationLocation}
+                                                                    helperText={touched.stationLocation && errors.stationLocation}
                                                                 /> </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                    <TextField
+                                                                <TextField
 
-                                        fullWidth
-                                        label="Station Owner"
-                                        name="stationOwner"
-                                        InputProps={{
-                                            readOnly: !editable,
-                                        }}
-                                        required
-                                        value={values.stationOwner}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        error={!!touched.stationOwner && !!errors.stationOwner}
-                                        helperText={touched.stationOwner && errors.stationOwner}
-                                                                /> </Grid>
-                                                            <Grid
-                                                                xs={12}
-                                                                md={6}
-                                                            >
-                                    <TextField
-
-                                        fullWidth
-                                        label="Fuel Capacity"
-                                        name="FuelCapacity"
-                                        InputProps={{
-                                            readOnly: !editable,
-                                        }}
-                                        required
-                                        value={values.FuelCapacity}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        error={!!touched.FuelCapacity && !!errors.FuelCapacity}
-                                        helperText={touched.FuelCapacity && errors.FuelCapacity}
-                                                                /> </Grid>
-                                                            <Grid
-                                                                xs={12}
-                                                                md={6}
-                                                            >
-                                    <TextField
-
-                                        fullWidth
-                                        label="Current Fuel Amount"
-                                        name="currentFuelAmount"
-                                        InputProps={{
-                                            readOnly: !editable,
-                                        }}
+                                                                    fullWidth
+                                                                    label="Station Owner"
+                                                                    name="stationOwner"
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
                                                                     required
-                                        value={values.currentFuelAmount}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        error={!!touched.currentFuelAmount && !!errors.currentFuelAmount}
-                                        helperText={touched.currentFuelAmount && errors.currentFuelAmount}
-                                    />
+                                                                    value={values.stationOwner}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    error={!!touched.stationOwner && !!errors.stationOwner}
+                                                                    helperText={touched.stationOwner && errors.stationOwner}
+                                                                /> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
+                                                                <TextField
+
+                                                                    fullWidth
+                                                                    label="Fuel Capacity"
+                                                                    name="FuelCapacity"
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
+                                                                    required
+                                                                    value={values.FuelCapacity}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    error={!!touched.FuelCapacity && !!errors.FuelCapacity}
+                                                                    helperText={touched.FuelCapacity && errors.FuelCapacity}
+                                                                /> </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
+                                                                <TextField
+
+                                                                    fullWidth
+                                                                    label="Current Fuel Amount"
+                                                                    name="currentFuelAmount"
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
+                                                                    required
+                                                                    value={values.currentFuelAmount}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    error={!!touched.currentFuelAmount && !!errors.currentFuelAmount}
+                                                                    helperText={touched.currentFuelAmount && errors.currentFuelAmount}
+                                                                />
                                                             </Grid>
                                                         </Grid>
                                                     </Box>

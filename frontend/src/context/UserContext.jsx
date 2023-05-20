@@ -24,7 +24,7 @@ export const UserProvider = ({ children }) => {
     console.log(selectedData);
   };
 
-  // GetUers
+  // GetUsers
   const queryResult = useQuery("users", GetUser);
 
   const isLoading = queryResult.isLoading;
@@ -53,7 +53,8 @@ export const UserProvider = ({ children }) => {
     },
     onError: (err) => {
       console.log("User updated successfully");
-      showToast(err.message, "error");
+      showToast(err.response
+        .data.message, "error");
     },
   });
   // UpdateUser
@@ -65,7 +66,8 @@ export const UserProvider = ({ children }) => {
       refetchAccount();
     },
     onError: (err) => {
-      showToast(err.message, "error");
+      showToast(err.response
+        .data.message, "error");
     },
   });
   // DeleteUser
@@ -76,7 +78,8 @@ export const UserProvider = ({ children }) => {
       refetch();
     },
     onError: (err) => {
-      showToast(err.message, "error");
+      showToast(err.response
+        .data.message, "error");
     },
   });
 

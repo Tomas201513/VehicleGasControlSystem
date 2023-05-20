@@ -24,7 +24,7 @@ export const FuelProvider = ({ children }) => {
         console.log(selectedData);
     };
 
-    // GetUers
+    // GetUsers
 
     const queryResult = useQuery('fuels', GetFuel);
 
@@ -38,7 +38,7 @@ export const FuelProvider = ({ children }) => {
 
     console.log(`fuelData`, fuelData);
 
-    // GetUers
+    // GetUsers
     (scanned)
     const {
         data: fuelDataByCar,
@@ -71,7 +71,7 @@ export const FuelProvider = ({ children }) => {
             refetch();
         },
         onError: (err) => {
-            console.log("couldent update Fuel");
+            console.log("couldn't update Fuel");
             // showToast(err.message, "error");
             showToast(err.response.data.message, "error");
 
@@ -87,7 +87,7 @@ export const FuelProvider = ({ children }) => {
             refetch();
         },
         onError: (err) => {
-            console.log("couldent update Fuel");
+            console.log("couldn't update Fuel");
             // showToast(err.message, "error");
             showToast(err.response.data.message, "error");
 
@@ -104,8 +104,8 @@ export const FuelProvider = ({ children }) => {
 
         },
         onError: (err) => {
-            // showToast(err.message, "error");
-            showToast(err.response.data.message, "error");
+            showToast(err.response
+                .data.message, "error");
         },
     });
 

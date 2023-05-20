@@ -1,8 +1,11 @@
 import React from 'react'
+import Pic from 'src/assets/station.png'
+
 import { Box, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import { Logo } from 'src/components/logo';
 // import car from 'src/assets/delivery-truck.gif';
 import { Outlet, } from "react-router-dom";
+import { Stack } from '@mui/system';
 function AuthLayout() {
   return (
     <Box
@@ -68,7 +71,13 @@ function AuthLayout() {
             }
           }}
         >
-          <Box sx={{ p: 3 }}>
+
+          <Stack direction={'column'} sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+
             <Typography
               align="center"
               color="inherit"
@@ -81,21 +90,22 @@ function AuthLayout() {
             >
               <Box
                 component="a"
-                sx={{ color: '#15B79E' }}
+                sx={{ color: '#e1e1e1' }}
                 target="_blank"
 
 
               >              
-              {/* <img src={car} alt="car" style={{ width: 45, height: 45 }} /> */}
+                {/* <img src={car} alt="car" style={{ width: 45, height: 45 }} /> */}
 
                 <Typography variant="h4" sx={{
                   fontWeight: "bold",
                 }} component="div" gutterBottom>
                   INSA GAS STATION
                 </Typography>
+                <img src={Pic} alt="Wavy" style={{ width: '70%', height: '50%', objectFit: 'cover' }} />
               </Box>
             </Typography>
-            <Typography
+            {/* <Typography
               align="center"
               sx={{
                 mb: 3, fontWeight: "bold",
@@ -103,12 +113,13 @@ function AuthLayout() {
               variant="subtitle1"
             >
               A vehicle gas control system 
-            </Typography>
+            </Typography> */}
             {/* <img
               alt=""
               src="/assets/auth-illustration.svg"
             /> */}
-          </Box>
+          </Stack>
+
         </Grid>
       </Grid>
     </Box>

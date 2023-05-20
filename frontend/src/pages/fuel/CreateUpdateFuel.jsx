@@ -34,7 +34,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
     const { userData } = useContext(UserContext);
     const { carData } = useContext(CarContext);
     const { stationData, refetch } = useContext(StationContext);
-    const drivers = userData.filter(item => item?.roles[0] === 'driver')
+    const attendant = userData.filter(item => item?.roles[0] === 'attendant')
 
     const FormSchema = yup.object().shape({
         fuelAmount: yup.number().required("fuel amount is required"),
@@ -67,7 +67,9 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    py: '10%'
+                    py: '10%',
+                    ml: '5%',
+                    mr: '5%',
                 }}
             >
                 <Container maxWidth="lg">
@@ -103,19 +105,19 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                 md={12}
                                 lg={12}
                             >
-            <Formik
-                initialValues={{
-                    fuelAmount: selectedData?.fuelAmount || "",
-                    car_id: selectedData?.car_id?._id || "",
-                    attendant: selectedData?.attendant?._id || "",
-                    station: selectedData?.station?._id || "",
-                }}
-                validationSchema={FormSchema}
-                onSubmit={handleSubmit}
-            >
-                {({ errors, touched, values, handleChange }) => (
-                    <Form>
-                        {/* <CardHeader
+                                <Formik
+                                    initialValues={{
+                                        fuelAmount: selectedData?.fuelAmount || "",
+                                        car_id: selectedData?.car_id?._id || "",
+                                        attendant: selectedData?.attendant?._id || "",
+                                        station: selectedData?.station?._id || "",
+                                    }}
+                                    validationSchema={FormSchema}
+                                    onSubmit={handleSubmit}
+                                >
+                                    {({ errors, touched, values, handleChange }) => (
+                                        <Form>
+                                            {/* <CardHeader
 
                             title={selectedData ? "Update Fuel" : "Create Fuel"}
                         /> */}
@@ -146,7 +148,7 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                                     )}
 
                                                 </Box>
-                                                <CardContent sx={{ pt: 0 }}>
+                                                <CardContent sx={{ p: '5%' }}>
                                                     <Box sx={{ m: -1.5 }}>
                                                         <Grid
                                                             container
@@ -157,113 +159,113 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                    <TextField
-                                        fullWidth
-                                        label="Fuel Amount"
-                                        name="fuelAmount"
-                                        InputProps={{
-                                            readOnly: !editable,
-                                        }}
-                                        autoFocus={editable}
-                                        onChange={handleChange}
-                                        required
-                                        value={values.fuelAmount}
+                                                                <TextField
+                                                                    fullWidth
+                                                                    label="Fuel Amount"
+                                                                    name="fuelAmount"
+                                                                    InputProps={{
+                                                                        readOnly: !editable,
+                                                                    }}
+                                                                    autoFocus={editable}
+                                                                    onChange={handleChange}
+                                                                    required
+                                                                    value={values.fuelAmount}
 
-                                        error={Boolean(touched.fuelAmount && errors.fuelAmount)}
-                                        helperText={touched.fuelAmount && errors.fuelAmount}
+                                                                    error={Boolean(touched.fuelAmount && errors.fuelAmount)}
+                                                                    helperText={touched.fuelAmount && errors.fuelAmount}
                                                                 /> </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
 
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">
-                                            Car
-                                        </InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            name="car_id"
-                                            onChange={handleChange}
-                                            required
-                                            InputProps={{
-                                                readOnly: !editable,
-                                            }}
-                                            autoFocus={editable}
-                                            value={values.car_id}
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label">
+                                                                        Car
+                                                                    </InputLabel>
+                                                                    <Select
+                                                                        labelId="demo-simple-select-label"
+                                                                        id="demo-simple-select"
+                                                                        name="car_id"
+                                                                        onChange={handleChange}
+                                                                        required
+                                                                        InputProps={{
+                                                                            readOnly: !editable,
+                                                                        }}
+                                                                        autoFocus={editable}
+                                                                        value={values.car_id}
 
-                                            error={Boolean(touched.car_id && errors.car_id)}
-                                            helperText={touched.car_id && errors.car_id}
-                                        >
-                                            {carData?.map((car) => (
-                                                <MenuItem key={car._id} value={car._id}>
-                                                    {car?.plateNumber}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
+                                                                        error={Boolean(touched.car_id && errors.car_id)}
+                                                                        helperText={touched.car_id && errors.car_id}
+                                                                    >
+                                                                        {carData?.map((car) => (
+                                                                            <MenuItem key={car._id} value={car._id}>
+                                                                                {car?.plateNumber}
+                                                                            </MenuItem>
+                                                                        ))}
+                                                                    </Select>
                                                                 </FormControl> </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label1">
-                                            Attendant
-                                        </InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label1"
-                                            id="demo-simple-select1"
-                                            name="attendant"
-                                            InputProps={{
-                                                readOnly: !editable,
-                                            }}
-                                            autoFocus={editable}
-                                            onChange={handleChange}
-                                            required
-                                            value={values.attendant}
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label1">
+                                                                        Attendant
+                                                                    </InputLabel>
+                                                                    <Select
+                                                                        labelId="demo-simple-select-label1"
+                                                                        id="demo-simple-select1"
+                                                                        name="attendant"
+                                                                        InputProps={{
+                                                                            readOnly: !editable,
+                                                                        }}
+                                                                        autoFocus={editable}
+                                                                        onChange={handleChange}
+                                                                        required
+                                                                        value={values.attendant}
 
-                                            error={Boolean(touched.attendant && errors.attendant)}
-                                            helperText={touched.attendant && errors.attendant}
-                                        >
-                                            {drivers?.map((user) => (
-                                                <MenuItem key={user._id} value={user._id}>
-                                                    {user?.userName}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
+                                                                        error={Boolean(touched.attendant && errors.attendant)}
+                                                                        helperText={touched.attendant && errors.attendant}
+                                                                    >
+                                                                        {attendant?.map((user) => (
+                                                                            <MenuItem key={user._id} value={user._id}>
+                                                                                {user?.userName}
+                                                                            </MenuItem>
+                                                                        ))}
+                                                                    </Select>
                                                                 </FormControl> </Grid>
                                                             <Grid
                                                                 xs={12}
                                                                 md={6}
                                                             >
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label2">
-                                            Station
-                                        </InputLabel>
-                                        <Select
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label2">
+                                                                        Station
+                                                                    </InputLabel>
+                                                                    <Select
 
-                                            labelId="demo-simple-select-label2"
-                                            id="demo-simple-select2"
-                                            name="station"
-                                            InputProps={{
-                                                readOnly: !editable,
-                                            }}
-                                            autoFocus={editable}
-                                            onChange={handleChange}
-                                            required
-                                            value={values.station}
+                                                                        labelId="demo-simple-select-label2"
+                                                                        id="demo-simple-select2"
+                                                                        name="station"
+                                                                        InputProps={{
+                                                                            readOnly: !editable,
+                                                                        }}
+                                                                        autoFocus={editable}
+                                                                        onChange={handleChange}
+                                                                        required
+                                                                        value={values.station}
 
-                                            error={Boolean(touched.station && errors.station)}
-                                            helperText={touched.station && errors.station}
-                                        >
-                                            {stationData?.map((station) => (
-                                                <MenuItem key={station._id} value={station._id}>
-                                                    {station?.stationName}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
+                                                                        error={Boolean(touched.station && errors.station)}
+                                                                        helperText={touched.station && errors.station}
+                                                                    >
+                                                                        {stationData?.map((station) => (
+                                                                            <MenuItem key={station._id} value={station._id}>
+                                                                                {station?.stationName}
+                                                                            </MenuItem>
+                                                                        ))}
+                                                                    </Select>
+                                                                </FormControl>
                                                             </Grid>
                                                         </Grid>
                                                     </Box>

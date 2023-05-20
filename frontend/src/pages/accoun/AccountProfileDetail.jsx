@@ -69,7 +69,7 @@ function AccountProfileDetail() {
                                 subheader="The information can be edited"
                                 title="Profile"
                             />
-                            <CardContent sx={{ pt: 0 }}>
+                            <CardContent sx={{ p: '5%' }}>
                                 <Box sx={{ m: -1.5 }}>
                                     <Grid
                                         container

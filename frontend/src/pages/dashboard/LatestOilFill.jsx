@@ -36,7 +36,7 @@ const statusMap = {
 };
 
 export const LatestOilFill = (props) => {
-    const { fuelIntakes = [], sx, sx2, sx3 } = props;
+    const { fuelIntakes = [], sx, } = props;
     const firstTenFuelIntakes = fuelIntakes.slice(0, 6);
 
     const navigate = useNavigate();
@@ -55,19 +55,34 @@ export const LatestOilFill = (props) => {
                 <Table >
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={sx3}>
+                            <TableCell sx={{
+                                fontSize: '0.97rem',
+                                fontWeight: "bold",
+                            }}>
                                 Driver
                             </TableCell>
-                            <TableCell sx={sx3}>
+                            <TableCell sx={{
+                                fontSize: '0.97rem',
+                                fontWeight: "bold",
+                            }}>
                                 Car Plate Number
                             </TableCell>
-                            <TableCell sortDirection="desc" sx={sx3}>
+                            <TableCell sortDirection="desc" sx={{
+                                fontSize: '0.97rem',
+                                fontWeight: "bold",
+                            }}>
                                 Fill Amount
                             </TableCell>
-                            <TableCell sx={sx3}>
+                            <TableCell sx={{
+                                fontSize: '0.97rem',
+                                fontWeight: "bold",
+                            }}>
                                 Station Name
                             </TableCell>
-                            <TableCell sx={sx3}>
+                            <TableCell sx={{
+                                fontSize: '0.97rem',
+                                fontWeight: "bold",
+                            }}>
                                 Time
                             </TableCell>
                         </TableRow>
@@ -85,20 +100,35 @@ export const LatestOilFill = (props) => {
                                     hover
                                     key={fill._id}
                                 >
-                                    <TableCell sx={sx2}>
+                                    <TableCell sx={{
+                                        fontSize: '0.97rem',
+                                        fontWeight: "normal"
+                                    }}>
                                         {fill?.car_id?.driver?.userName}
                                     </TableCell>
-                                    <TableCell sx={sx2}>
+                                    <TableCell sx={{
+                                        fontSize: '0.97rem',
+                                        fontWeight: "normal"
+                                    }}>
                                         {fill?.car_id?.plateNumber}
                                     </TableCell>
-                                    <TableCell sx={sx2}>
+                                    <TableCell sx={{
+                                        fontSize: '0.97rem',
+                                        fontWeight: "normal"
+                                    }}>
                                         {fill?.fuelAmount}
                                     </TableCell>
-                                    <TableCell sx={sx2}>
+                                    <TableCell sx={{
+                                        fontSize: '0.97rem',
+                                        fontWeight: "normal"
+                                    }}>
                                         {fill?.station?.stationName}
                                     </TableCell>
 
-                                    <TableCell sx={sx2}>
+                                    <TableCell sx={{
+                                        fontSize: '0.97rem',
+                                        fontWeight: "normal"
+                                    }}>
                                         <TimeAgo date={fill?.fuelDate} />
                                         {/* <SeverityPill color={statusMap[fill.status]}>
                                                 {fill.status}

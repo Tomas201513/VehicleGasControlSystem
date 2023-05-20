@@ -41,8 +41,8 @@ export const StationProvider = ({ children }) => {
         },
         onError: (err) => {
             console.log("Station updated successfully");
-            showToast(err.response.data.message, "error");
-
+            showToast(err.response
+                .data.message, "error");
         },
     });
     // UpdateStation
@@ -53,8 +53,8 @@ export const StationProvider = ({ children }) => {
             refetchStation();
         },
         onError: (err) => {
-            showToast(err.response.data.message, "error");
-
+            showToast(err.response
+                .data.message, "error");
         },
     });
 
@@ -66,7 +66,8 @@ export const StationProvider = ({ children }) => {
             refetchStation();
         },
         onError: (err) => {
-            showToast(err.response.data.message, "error");
+            showToast(err.response
+                .data.message, "error");
         },
     });
 
@@ -79,7 +80,8 @@ export const StationProvider = ({ children }) => {
             refetchStation();
         },
         onError: (err) => {
-            showToast(err.message, "error");
+            showToast(err.response
+                .data.message, "error");
         },
     });
     return (

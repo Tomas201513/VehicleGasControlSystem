@@ -52,7 +52,8 @@ export const CarProvider = ({ children }) => {
     },
     onError: (err) => {
       console.log("couldent update Car");
-      showToast(err.message, "error");
+      showToast(err.response
+        .data.message, "error");
     },
   });
 
@@ -64,7 +65,8 @@ export const CarProvider = ({ children }) => {
       refetch();
     },
     onError: (err) => {
-      showToast(err.message, "error");
+      showToast(err.response
+        .data.message, "error");
     },
   });
 
@@ -76,7 +78,8 @@ export const CarProvider = ({ children }) => {
       refetch();
     },
     onError: (err) => {
-      showToast(err.message, "error");
+      showToast(err.response
+        .data.message, "error");
     },
   });
 

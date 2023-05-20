@@ -21,7 +21,7 @@ function Dashboard() {
     refetchByCar,
     refetchByMonth, } = React.useContext(FuelContext);
   const { scanned, groupedCars, carData, refetch: refetchCar } = React.useContext(CarContext);
-  const { stationData, refetch: refetchStation } = React.useContext(StationContext);
+  const { stationData, refetchStation } = React.useContext(StationContext);
   // const nonAdminUserCounts = userCounts.filter(user => user.roleName !== 'admin');
   const currentYear = new Date().getFullYear();
   const thisYearData = Array(12).fill(0);
@@ -75,14 +75,7 @@ function Dashboard() {
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
     borderRadius: "10px",
   }
-  const sx2 = {
-    fontSize: '0.97rem',
-    fontWeight: "normal",
-  }
-  const sx3 = {
-    fontSize: '0.97rem',
-    fontWeight: "bold",
-  }
+
   return (
     <>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '5%', ml: '5%', mr: '5%', mb: 5, }}>
@@ -90,8 +83,6 @@ function Dashboard() {
           difference={12}
           title={'TOTAL CONCEPTION'}
           sx={sx}
-          sx2={sx2}
-          sx3={sx3}
           value={totalFuelConsumed}
         />
         <CurrentMonthIntake
@@ -154,8 +145,14 @@ function Dashboard() {
             borderRadius: "10px",
             mt: '5%'
           }}
-          sx2={sx2}
-          sx3={sx3}
+          sx2={{
+            fontSize: '0.97rem',
+            fontWeight: "normal"
+          }}
+          sx3={{
+            fontSize: '0.97rem',
+            fontWeight: "bold"
+          }}
         />
 
       </Box>

@@ -11,15 +11,17 @@ function Account() {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    py: 8
+                    py: 8,
+                    ml: '5%',
+                    mr: '5%',
                 }}
             >
                 <Container maxWidth="lg">
                     <Stack spacing={'10%'}>
                         <div>
-                            <Typography variant="h4">
+                            {/* <Typography variant="h4">
                                 Account
-                            </Typography>
+                            </Typography> */}
                         </div>
                         < Box>
                             <Grid
