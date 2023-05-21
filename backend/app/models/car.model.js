@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import FuelIntake from "./fuel.model.js";
 
 const Schema = mongoose.Schema;
 
@@ -39,19 +40,25 @@ const carSchema = new Schema({
     ref: "User",
   },
 });
-// carSchema.pre('findByIdAndDelete', async function (next) {
-//   try {
-//     const fuelIntakeCount = await this.model('FuelIntake').countDocuments({ car: this._id });
+carSchema.pre('findOneAndDelete', async function (next) {
+  console.log('xxxxx', this.getQuery()["_id"])
+  try {
+    const fuelIntakeCount = await FuelIntake.countDocuments({ car_id: { $in: this.getQuery()["_id"] } });
 
-//     if (fuelIntakeCount > 0) {
-//       throw new Error('Cannot delete car with associated fuel intakes');
-//     }
+    if (fuelIntakeCount > 0) {
+      // The user has cars with associated fuel fill records, do not delete the user
+      const error = new Error('Cannot delete car associated with fuel records');
+      next(error);
+    } else {
+      // The user's cars have no associated fuel fill records, proceed with deletion
+      next();
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
-//     next();
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+
 const Car = mongoose.model("Car", carSchema);
 
 export default Car;

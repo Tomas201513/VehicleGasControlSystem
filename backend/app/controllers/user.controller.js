@@ -72,6 +72,12 @@ export const deleteUser = async (req, res) => {
   console.log('deleteUser controller');
 
   try {
+    const user = await User.findById(req.params.id);
+
+    if (user.roles == 'admin') {
+      return res.status(403).json({ message: `Admin can't be deleted!` });
+
+    }
     await User.findOneAndDelete({ _id: req.params.id });
     res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {
