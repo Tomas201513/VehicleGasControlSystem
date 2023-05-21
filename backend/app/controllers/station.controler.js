@@ -69,7 +69,7 @@ const stationController = {
 // Delete a station
     delete: async (req, res) => {
     try {
-        await Station.findOneAndDelete({ _id: req.params.id });
+        await Station.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: "Station deleted successfully." });
     } catch (error) {
         res.status(500).json({ message: error.message });
