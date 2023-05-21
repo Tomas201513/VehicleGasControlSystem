@@ -90,8 +90,7 @@ export const updateCar = async (req, res) => {
       return res.status(404).json({ message: "Car not found" });
     }
     const existingCar = await Car.findOne({ driver: req.body.driver });
-
-    if (existingCar) {
+    if (!(existingCar._id == req.params.id)) {
       return res.status(400).json({ message: "User already has an associated car" });
     }
     Object.assign(car, req.body);
@@ -105,12 +104,11 @@ export const updateCar = async (req, res) => {
 
 // Delete a car
 export const deleteCar = async (req, res) => {
+  console.log('deleteUser controller', req.params.id);
   try {
-    const deletedCar = await Car.findOneAndDelete({ _id: req.params.id });
-    if (!deletedCar) {
-      return res.status(404).json({ message: "Car not found" });
-    }
-    res.status(200).json({ message: "Car deleted successfully" });
+
+    await Car.findOneAndDelete({ _id: req.params.id });
+    res.status(200).json({ message: 'Car deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
