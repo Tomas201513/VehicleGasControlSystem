@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const { showToast } = React.useContext(ToastContext);
   const [userDetail, setUserDetail] = useState(null);
+  const [isLoading , setIsLoading] = useState(true);
   const [accessToken, setAccessTokens] = useState(() =>
     localStorage.getItem("accessToken")
       ? localStorage.getItem("accessToken")
@@ -27,10 +28,13 @@ export const AuthProvider = ({ children }) => {
       });
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
+
       setAccessTokens(res.data.accessToken);
       const decoded = jwt_decode(res.data.accessToken);
       setUserDetail(decoded);
+      // localStorage.setItem("hasLoggedIn", true);
       navigate("/app", { replace: true });
+
     } catch (err) {
       showToast("Login failed", "error", 2000);
       console.log(err);
@@ -48,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       });
       console.log("token" + JSON.stringify(res));
       if (res.status === 201) {
-        navigate("/login", { replace: true });
+        navigate("/", { replace: true });
       } else {
         throw new Error("Registration failed");
       }
@@ -70,11 +74,12 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       setUserDetail(null);
-      navigate("/login", { replace: true });
+      localStorage.removeItem("hasLoggedIn");
+      navigate("/", { replace: true });
       // showToast("Logout successful", "success", 2000);
     } catch (err) {
       setUserDetail(null);
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
 
@@ -88,6 +93,9 @@ export const AuthProvider = ({ children }) => {
     if (accessToken) {
       const decoded = jwt_decode(accessToken);
       setUserDetail(decoded);
+    } else {
+      setUserDetail(null);
+      navigate("/", { replace: true });
     }
   }, [accessToken]);
 
@@ -100,7 +108,9 @@ export const AuthProvider = ({ children }) => {
         registerUser,
         logoutUser,
         accessToken,
-        setUserDetail
+        setUserDetail,
+        isLoading,
+        setIsLoading
       }}
     >
       {children}

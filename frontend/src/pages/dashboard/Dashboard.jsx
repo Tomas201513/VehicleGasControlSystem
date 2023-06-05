@@ -46,8 +46,8 @@ function Dashboard() {
   const lastYearData = Array(12).fill(0);
   // const size = fuelData?.fuelIntakes.slice(-1)[0]||0
   const startDate = fuelData?.fuelIntakes?.slice(-1)[0]?.fuelDate
-  const x = fuelDataByMonth?.anualIntakes[0].monthlyIntakes[0].totalFuelAmountMonth
-  const y = fuelDataByMonth?.anualIntakes[0].monthlyIntakes[1].totalFuelAmountMonth
+  const x = fuelDataByMonth?.anualIntakes[0]?.monthlyIntakes[0]?.totalFuelAmountMonth
+  const y = fuelDataByMonth?.anualIntakes[0]?.monthlyIntakes[1]?.totalFuelAmountMonth
   const percent = ((x - y) / ((y) / 2) * 100).toFixed(2)
   const [positive, setPosetive] = React.useState(false)
 

@@ -49,18 +49,16 @@ export default function DashboardLayout() {
   useEffect(
     () => {
       handlePathnameChange();
-    },
-    [pathname]
-  ); useEffect(() => {
-    if (userDetail.roles[0] === "admin") {
+    }, [pathname]); 
+  
+  useEffect(() => {
+    if (userDetail?.roles[0] === "admin") {
       navigate("/app/dashboard");
-    } else if (userDetail.roles[0] === 'driver') {
-      navigate("/login");
-    }
-    else if (userDetail.roles[0] === "attendant") {
+    } else if (userDetail?.roles[0] === "attendant") {
       navigate("/app/scan");
+    }else {
+      navigate("/");
     }
-    showToast(`Welcome ${userDetail.userName}`, "success", 2000)
   }, [userDetail]);
 
 
@@ -69,8 +67,15 @@ export default function DashboardLayout() {
     if (accessToken) {
       const decoded = jwt_decode(accessToken);
       setUserDetail(decoded);
+      const hasLoggedIn = localStorage.getItem("hasLoggedIn");
+
+      if (userDetail?.userName && !hasLoggedIn) {
+        showToast(`Welcome ${userDetail?.userName}`, "success", 2000);
+        localStorage.setItem("hasLoggedIn", "true");
+
+      }
     }
-  }, [accessToken]);
+  }, [accessToken, setUserDetail, userDetail?.userName, showToast]);
 
 
   return (

@@ -1,40 +1,52 @@
 version: '3.8'
 
 services:
-  # mongo:
-  #   image: mongo
-  #   ports:
-  #     - '27018:27017'
-  #   volumes:
-  #     - data:/data/db
-  #   networks:
-  #     - my_network
-  # backend:
-  #   build: ./backend
-  #   ports:
-  #     - '8000:8000'
-  #   volumes:
-  #     - ./backend:/app
-  #     - /app/node_modules
-  #   depends_on:
-  #     - mongo
-  #   networks:
-  #     - my_network
+  mongo:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - '27018:27017'
+    volumes:
+      - data:/data/db
+    networks:
+       my_network:
+        aliases:
+          - mydatabase
+  backend:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - '8000:8000'
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+       my_network:
+        aliases:
+          - mybackend
 
   frontend:
     build: ./frontend
     ports:
       - '3000:3000'
+    depends_on:
+      - backend
     volumes:
       - ./frontend/src:/app/src
       - /app/node_modules
-    # depends_on:
-    #   - backend
     networks:
-      - my_network
+       my_network:
+        aliases:
+          - myfrontend
 
 volumes:
   data:
+   driver: local
+
 networks:
   my_network:
+   driver: bridge
   

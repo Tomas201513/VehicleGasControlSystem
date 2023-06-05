@@ -93,7 +93,7 @@ function Register() {
                 &nbsp;
                 <Button
                   component={Link}
-                  to="/login"
+                  to="/"
                   sx={{
                     color: "#1976d2",
                     textDecoration: "none",
