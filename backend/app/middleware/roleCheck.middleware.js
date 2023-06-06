@@ -12,8 +12,8 @@
 // export default roleCheck;
 
 export const admin = (req, res, next) => {
-	console.log('roles', req.user.roles)
 	const roles = req.user?.roles || [];
+	console.log(roles)
 	if (roles[0]?.includes("admin")) {
 		// console.log('roles', req.user.role)
 

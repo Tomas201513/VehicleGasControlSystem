@@ -21,15 +21,26 @@ function PaperComponent(props) {
     );
 }
 
-export default function Warndialogue({ name, open, setOpen, action, selectedData, qr, setQr, qrId,
+export default function Warndialogue({ name, open, setOpen, action,setSelectedData, selectedData, qr, setQr, qrId,
     setQrId }) {
     const { refetch } = React.useContext(StationContext);
 
     const handleClose = () => {
         setOpen(false);
-        setQr(false);
-        setQrId(null);
-        refetch();
+        try{
+
+            setSelectedData(null);
+            refetch();
+        } catch(e){
+            // console.log(e);
+        }
+        try{
+
+            setQr(false);
+            setQrId(null);
+        }catch(e){
+            // console.log(e);
+        }
     };
 
     return (

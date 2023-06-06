@@ -29,6 +29,7 @@ const fuelIntakeSchema = new Schema({
     ref: "Station",
     required: true,
   },
+  
 });
 
 // Add this pre-delete middleware to your fuelIntakeSchema

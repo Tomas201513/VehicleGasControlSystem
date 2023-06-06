@@ -12,11 +12,13 @@ import { LatestOilFill } from './LatestOilFill';
 import StationContent from './StationContent';
 import StationContext from 'src/context/StationContext';
 import AuthContext from 'src/context/AuthContext';
+import QuotaContext from '../../context/QuotaContext';
 import { Helmet } from "react-helmet-async";
 
 // import { GetStation } from '../../apis/StationApi';
 function Dashboard() {
   <Helmet title="Dashboard" />
+  const { refetch: refetchQuota } = React.useContext(QuotaContext);
   const { userDetail } = React.useContext(AuthContext);
   const {
     // userData, 
@@ -69,6 +71,7 @@ function Dashboard() {
         refetchStation();
         refetchByMonth();
         refetchAccount();
+        refetchQuota();
       };
       fetchData();
     }

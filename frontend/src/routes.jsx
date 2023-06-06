@@ -16,6 +16,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import AuthContext from "./context/AuthContext";
 import Account from "src/pages/account/Account"
 import FillStation from "src/pages/station/FillStation";
+import Quota from './pages/quota/Quota';
 import Home from "src/pages/home/Home";
 import { Navigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
@@ -51,6 +52,8 @@ function RoutesComponent() {
             <Route path="/app/cars" element={<Cars />} />
             <Route path="/app/fuel" element={<Fuel />} />
             <Route path="/app/station" element={<Station />} />
+            <Route path="/app/quota" element={<Quota />} />
+            
           </>
           )}
           <Route path="/app/scan" element={<Scan />} />

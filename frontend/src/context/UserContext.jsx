@@ -54,32 +54,32 @@ export const UserProvider = ({ children }) => {
     onError: (err) => {
       console.log("User updated successfully");
       showToast(err.response
-        .data.message, "error");
+        .data.message, "error", 3000);
     },
   });
   // UpdateUser
   const { mutateAsync: updateUser } = useMutation(UpdateUser, {
     onSuccess: () => {
-      showToast("User updated successfully", "success");
+      showToast("User updated successfully", "success", 2000);
       setSelectedData(null);
       refetch();
       refetchAccount();
     },
     onError: (err) => {
       showToast(err.response
-        .data.message, "error");
+        .data.message, "error", 3000);
     },
   });
   // DeleteUser
   const { mutateAsync: deleteUser } = useMutation(DeleteUser, {
     onSuccess: () => {
-      showToast("User deleted successfully", "success");
+      showToast("User deleted successfully", "success", 2000);
       setSelectedData(null);
       refetch();
     },
     onError: (err) => {
       showToast(err.response
-        .data.message, "error");
+        .data.message, "error", 3000);
     },
   });
 

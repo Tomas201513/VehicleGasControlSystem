@@ -8,6 +8,7 @@ import carRoutes from "./app/routes/car.routes.js"
 import userRoute from "./app/routes/user.routes.js"
 import fuelRoute from "./app/routes/fuel.routes.js"
 import stationRoute from "./app/routes/station.routes.js"
+import quotaRoute from "./app/routes/quota.routes.js"
 config();
 dbConnect();
 
@@ -19,6 +20,7 @@ app.use("/api/users", userRoute);
 app.use("/api/cars", carRoutes);
 app.use("/api/fuel", fuelRoute);
 app.use("/api/stations", stationRoute);
+app.use("/api/quotas", quotaRoute);
 
 
 app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT || 5000}`));

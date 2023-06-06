@@ -3,6 +3,7 @@ import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import OilBarrelIcon from '@mui/icons-material/OilBarrel';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled'; import GroupIcon from '@mui/icons-material/Group';
 export const adminItems = [
   {
@@ -20,6 +21,15 @@ export const adminItems = [
     icon: (
       <SvgIcon fontSize="small">
         <GroupIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Quota',
+    path: '/app/quota',
+    icon: (
+      <SvgIcon fontSize="small">
+        <AssignmentIcon />
       </SvgIcon>
     )
   },

@@ -40,34 +40,34 @@ export const StationProvider = ({ children }) => {
             refetchStation();
         },
         onError: (err) => {
-            console.log("Station updated successfully");
+            console.log("Station updated successfully", "success", 2000);
             showToast(err.response
-                .data.message, "error");
+                .data.message, "error", 3000);
         },
     });
     // UpdateStation
     const { mutateAsync: updateStation } = useMutation(UpdateStation, {
         onSuccess: () => {
-            showToast("Station updated successfully", "success");
+            showToast("Station updated successfully", "success", 2000);
             setSelectedData(null);
             refetchStation();
         },
         onError: (err) => {
             showToast(err.response
-                .data.message, "error");
+                .data.message, "error", 3000);
         },
     });
 
     // FillStation
     const { mutateAsync: fillStation } = useMutation(FillStation, {
         onSuccess: () => {
-            showToast("Station filled successfully", "success");
+            showToast("Station filled successfully", "success", 2000);
             setSelectedData(null);
             refetchStation();
         },
         onError: (err) => {
             showToast(err.response
-                .data.message, "error");
+                .data.message, "error", 3000);
         },
     });
 
@@ -75,13 +75,13 @@ export const StationProvider = ({ children }) => {
     // DeleteStation
     const { mutateAsync: deleteStation } = useMutation(DeleteStation, {
         onSuccess: () => {
-            showToast("Station deleted successfully", "success");
+            showToast("Station deleted successfully", "success", 2000);
             setSelectedData(null);
             refetchStation();
         },
         onError: (err) => {
             showToast(err.response
-                .data.message, "error");
+                .data.message, "error", 3000);
         },
     });
     return (
