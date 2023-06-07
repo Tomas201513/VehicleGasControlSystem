@@ -15,9 +15,10 @@ import {
 import FuelContext from 'src/context/FuelContext';
 import { alpha, useTheme } from '@mui/material/styles';
 import ReactApexChart from 'react-apexcharts';
-import styled from 'styled-components';
-const Charts = styled(ReactApexChart)``;
-
+import { css } from '@emotion/react';
+const Charts = ({ css: styles, ...rest }) => (
+    <ReactApexChart css={css`${styles}`} {...rest} />
+);
 const useChartOptions = () => {
     const theme = useTheme();
 
@@ -99,7 +100,7 @@ const useChartOptions = () => {
         },
         yaxis: {
             labels: {
-                formatter: (value) => (value > 0 ? `${value}K` : `${value}`),
+                formatter: (value) => (value > 0 ? `${value}L` : `${value}`),
                 offsetX: -10,
                 style: {
                     colors: theme.palette.text.secondary
@@ -153,5 +154,6 @@ export const FuelIntakeBarChart = (props) => {
 
 FuelIntakeBarChart.propTypes = {
     chartSeries: PropTypes.array.isRequired,
-    sx: PropTypes.object
+    sx: PropTypes.object,
+    css: PropTypes.string,
 };

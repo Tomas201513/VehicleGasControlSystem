@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
 import Station from "./station.model.js";
-
+import Car from "./car.model.js";
 const Schema = mongoose.Schema;
 
 const fuelIntakeSchema = new Schema({
@@ -29,6 +29,7 @@ const fuelIntakeSchema = new Schema({
     ref: "Station",
     required: true,
   },
+  
 });
 
 // Add this pre-delete middleware to your fuelIntakeSchema
@@ -73,7 +74,9 @@ fuelIntakeSchema.pre("save", async function (next) {
       currentYear
     );
 
-    if (totalFuelIntake + fuelIntake.fuelAmount > 1000) {
+    const car = await Car.findById(fuelIntake.car_id).populate('quota');
+    console.log('fffffffffffffff',car);
+    if (totalFuelIntake + fuelIntake.fuelAmount > car.quota.fuelQuotas) {
       throw new Error("Monthly fuel intake limit exceeded");
     }
 

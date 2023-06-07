@@ -1,16 +1,20 @@
 FROM node:18.14.0-alpine
 
-ENV NODE_ENV development
+# RUN addgroup app && adduser -S -G app app
+
+# USER app
+
+COPY . ./app
 
 WORKDIR /app
+COPY package*.json ./
 
-COPY ./package*.json ./
-
-RUN npm install --legacy-peer-deps
+RUN npm install 
 
 COPY . .
 
 EXPOSE 3000
+
 
 CMD ["npm", "run", "dev"]
 

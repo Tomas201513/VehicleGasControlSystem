@@ -1,5 +1,5 @@
 import React from 'react'
-import Pic from 'src/assets/station.png'
+import Pic from 'src/assets/station4.png'
 
 import { Box, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import { Logo } from 'src/components/logo';
@@ -76,21 +76,28 @@ function AuthLayout() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            className: 'ola',
           }}>
-            <Typography variant="h4" sx={{
-              mt: '5%',
-                  fontWeight: "bold",
-              border: "none",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
-              borderRadius: "10px",
-              transition: "all 0.3s ease-in-out",
-              '&:hover': {
-                boxShadow: "0px 4px 10px rgba(255, 255, 255, 0.09)",
-              }
-            }} >
-                  INSA GAS STATION
-                </Typography>
-                <img src={Pic} alt="Wavy" style={{ width: '70%', height: '50%', objectFit: 'cover' }} />
+            <Typography
+              variant="h1"
+              sx={{
+                fontFamily: 'Neuton',
+                fontSize: '2em',
+                lineHeight: '1.5',
+                color: '#e2e2e2',
+                textAlign: 'center',
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '.5em',
+                display: 'inline-block',
+                border: '4px double rgba(255,255,255,.25)',
+                borderWidth: '4px 0',
+              }}
+            >
+              INSA GAS STATION
+            </Typography>
+            <img src={Pic} alt="Wavy" style={{ width: '60%', objectFit: 'cover' }} />
+
 
           </Stack>
 

@@ -3,7 +3,7 @@ import User from '../models/user.model.js';
 // Get all cars
 export const getCars = async (req, res) => {
   try {
-    const cars = await Car.find().populate('driver');
+    const cars = await Car.find().populate(['driver','quota']);
     //groupCarsByYear
     const groupedCars = await Car.aggregate([
       {
@@ -47,7 +47,7 @@ export const getCars = async (req, res) => {
 // Get a car by ID
 export const getCarById = async (req, res) => {
   try {
-    const car = await Car.findById(req.params.id).populate('driver');
+    const car = await Car.findById(req.params.id).populate(['driver','quota'])
     res.status(200).json([car]);
   } catch (error) {
     res.status(404).json({ message: error.message });

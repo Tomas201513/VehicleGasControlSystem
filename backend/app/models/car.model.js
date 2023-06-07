@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import FuelIntake from "./fuel.model.js";
+import FuelQuota from "./fuel.quota.model.js";
 
 const Schema = mongoose.Schema;
 
@@ -23,6 +24,11 @@ const carSchema = new Schema({
   },
   capacity: {
     type: Number,
+    required: true,
+  },
+  quota : {
+    type: Schema.Types.ObjectId,
+    ref: "FuelQuota",
     required: true,
   },
   engine: {

@@ -12,11 +12,13 @@ import { LatestOilFill } from './LatestOilFill';
 import StationContent from './StationContent';
 import StationContext from 'src/context/StationContext';
 import AuthContext from 'src/context/AuthContext';
+import QuotaContext from '../../context/QuotaContext';
 import { Helmet } from "react-helmet-async";
 
 // import { GetStation } from '../../apis/StationApi';
 function Dashboard() {
   <Helmet title="Dashboard" />
+  const { refetch: refetchQuota } = React.useContext(QuotaContext);
   const { userDetail } = React.useContext(AuthContext);
   const {
     // userData, 
@@ -46,8 +48,8 @@ function Dashboard() {
   const lastYearData = Array(12).fill(0);
   // const size = fuelData?.fuelIntakes.slice(-1)[0]||0
   const startDate = fuelData?.fuelIntakes?.slice(-1)[0]?.fuelDate
-  const x = fuelDataByMonth?.anualIntakes[0].monthlyIntakes[0].totalFuelAmountMonth
-  const y = fuelDataByMonth?.anualIntakes[0].monthlyIntakes[1].totalFuelAmountMonth
+  const x = fuelDataByMonth?.anualIntakes[0]?.monthlyIntakes[0]?.totalFuelAmountMonth
+  const y = fuelDataByMonth?.anualIntakes[0]?.monthlyIntakes[1]?.totalFuelAmountMonth
   const percent = ((x - y) / ((y) / 2) * 100).toFixed(2)
   const [positive, setPosetive] = React.useState(false)
 
@@ -69,6 +71,7 @@ function Dashboard() {
         refetchStation();
         refetchByMonth();
         refetchAccount();
+        refetchQuota();
       };
       fetchData();
     }

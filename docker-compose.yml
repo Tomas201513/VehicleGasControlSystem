@@ -1,25 +1,30 @@
 version: '3.8'
 
 services:
-  # mongo:
-  #   image: mongo
-  #   ports:
-  #     - '27018:27017'
-  #   volumes:
-  #     - data:/data/db
-  #   networks:
-  #     - my_network
-  # backend:
-  #   build: ./backend
-  #   ports:
-  #     - '8000:8000'
-  #   volumes:
-  #     - ./backend:/app
-  #     - /app/node_modules
-  #   depends_on:
-  #     - mongo
-  #   networks:
-  #     - my_network
+  mongo:
+    image: mongo
+    ports:
+      - '27018:27017'
+    volumes:
+      - data:/data/db
+    networks:
+      - my_network
+  backend:
+    build: ./backend
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+    networks:
+      - my_network
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://localhost:27017/gasControl
+    env_file:
+      - ./backend/.env
 
   frontend:
     build: ./frontend
@@ -28,8 +33,8 @@ services:
     volumes:
       - ./frontend/src:/app/src
       - /app/node_modules
-    # depends_on:
-    #   - backend
+    depends_on:
+      - backend
     networks:
       - my_network
 

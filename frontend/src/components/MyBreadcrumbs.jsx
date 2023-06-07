@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Stack } from "@mui/system";
+import { Stack } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 const Breadcrumb = () => {

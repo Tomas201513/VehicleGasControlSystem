@@ -9,11 +9,11 @@ import FuelContext from "src/context/FuelContext";
 import WarnCard from "src/components/WarnCard";
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
+// import SwipeableViews from 'react-swipeable-views';
+// import { autoPlay } from 'react-swipeable-views-utils';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+// const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 import {
     Container,
     CardHeader,
@@ -157,13 +157,13 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                             <CardContent >
                                 <Divider sx={{ mb: 2 }} />
 
-                            <AutoPlaySwipeableViews
+                            {/* <AutoPlaySwipeableViews
                                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                                 index={activeStep}
                                 // onChangeIndex={handleStepChange}
                                 enableMouseEvents
                                 sx={{ maxWidth: 400, flexGrow: 1, }}
-                            >
+                            > */}
                                 {fuelDataByCar?.fuelIntakeDetails.map((monthDetail, index) => (
                                     <Box key={index} sx={{
                                         maxWidth: '100%', whiteSpace: 'normal', overflow: 'visible', textOverflow: 'clip', display: 'flex', flexDirection: 'column',
@@ -254,7 +254,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
                                         </ul>
                                     </Box>
                                 ))}
-                            </AutoPlaySwipeableViews>
+                            {/* </AutoPlaySwipeableViews>s */}
 
                             <MobileStepper
                                 sx={{ flexGrow: 1, }}

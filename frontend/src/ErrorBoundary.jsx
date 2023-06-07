@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import swr from "src/assets/swr.png";
+import swr from "src/assets/swr.gif";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Typography } from "@mui/material";
@@ -11,6 +11,8 @@ class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false, error: null, info: null, show: false };
+    this.toggleVisibility = this.toggleVisibility.bind(this);
+
   }
 
   static getDerivedStateFromError(error) {
@@ -29,19 +31,23 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <Box sx={{ backgroundColor: "#649691", height: "100vh" }}>
+        <Box sx={{ p: 35 }}>
+          <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <img
             alt="Under development"
             src={swr}
-          />
-          <h2>Something went wrong.</h2>
+              style={{ width: "19%", height: "10%" }}
+            />
+
+            <h1 sx={{ color: "#0f6eff" }}>Something went wrong!</h1>
           <Button
             variant="contained"
             startIcon={this.state.show ? <VisibilityOffRoundedIcon /> : <RemoveRedEyeRoundedIcon />}
             onClick={this.toggleVisibility}
-          >
+            >
             {this.state.show ? "Hide Details" : "Show Details"}
           </Button>
+          </Box>
           {this.state.show && (
             <>
               <p>{this.state.error.toString()}</p>

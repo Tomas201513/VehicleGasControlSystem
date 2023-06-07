@@ -26,14 +26,17 @@ import PropTypes from "prop-types";
 import Warndialogue from "src/components/Warndialogue";
 
 import CarContext from "../../context/CarContext";
+import QuotaContext from "../../context/QuotaContext";
 import UserContext from "../../context/UserContext";
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 function CreateUpdateCar({ selectedData, editable, setEditable }) {
-    const { name, createCar, updateCar, setSelectedData, setCreateOpen, deleteCar, warn, SetWarn, qr,
+    const { name, createCar, updateCar, setSelectedData, setCreateOpen,
+         deleteCar, warn, SetWarn, qr,
         setQr, qrId, setQrId } = useContext(CarContext);
     const { userData } = useContext(UserContext);
     const drivers = userData.filter(item => item?.roles[0] === 'driver')
 
+    const { quotaData } = useContext(QuotaContext);
     const FormSchema = yup.object().shape({
         plateNumber: yup.string().required("Plate Number is required"),
         model: yup.number().required("Model is required"),
@@ -43,12 +46,16 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
         transmission: yup.string().required("transmission is required"),
         engine: yup.string().required("Engine is required"),
         driver: yup.string().required("driver is required"),
+        quota: yup.string().required("Quota is required"),
     });
 
     const handleSubmit = async (values) => {
         try {
             if (selectedData) {
+                console.log('ssssssssssssssssss',values);
                 await updateCar({ selectedData: selectedData._id, values });
+                setEditable(false);
+
             } else {
                 console.log(values);
                 await createCar(values);
@@ -113,6 +120,7 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                         transmission: selectedData?.transmission || "",
                                         engine: selectedData?.engine || "",
                                         driver: selectedData?.driver?._id || "",
+                                        quota: selectedData?.quota?._id || "",
                                     }}
                                     validationSchema={FormSchema}
                                     onSubmit={handleSubmit}
@@ -352,6 +360,36 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                                                     </Select>
                                                                 </FormControl>
                                                             </Grid>
+                                                            <Grid
+                                                                xs={12}
+                                                                md={6}
+                                                            >
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label">Quota</InputLabel>
+                                                                    <Select
+                                                                        InputProps={{
+                                                                            readOnly: !editable,
+                                                                        }}
+                                                                        labelId="demo-simple-select-label"
+                                                                        name="quota"
+                                                                        label="quota"
+
+                                                                        value={values?.quota}
+                                                                        onChange={handleChange}
+                                                                        onBlur={handleBlur}
+                                                                        error={touched.quota && Boolean(errors.quota)}
+                                                                        helpertext={touched.quota && errors.quota}
+                                                                    >
+                                                                        {quotaData?.map((item) => (
+                                                                            <MenuItem key={item._id} value={item._id}>
+                                                                                {item?.quotaName}
+                                                                            </MenuItem>
+                                                                        ))}
+
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </Grid>
+
                                                         </Grid>
                                                     </Box>
                                                 </CardContent >

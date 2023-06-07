@@ -26,7 +26,6 @@ export const CarProvider = ({ children }) => {
 
   // GetUers
   const queryResult = useQuery("cars", GetCar);
-
   const isLoading = queryResult.isLoading;
   const error = queryResult.error;
   const refetch = queryResult.refetch;
@@ -44,42 +43,41 @@ export const CarProvider = ({ children }) => {
   // CreateCar
   const { mutateAsync: createCar } = useMutation(CreateCar, {
     onSuccess: () => {
-      console.log("Car created successfully");
-      setCreateOpen(false);
-
+      console.log("Car created successfully", "success", 2000);
       showToast("Car created successfully", "success", 2000);
+      setCreateOpen(false);
       refetch();
     },
     onError: (err) => {
       console.log("couldent update Car");
       showToast(err.response
-        .data.message, "error");
+        .data.message, "error", 3000);
     },
   });
 
   // UpdateCar
   const { mutateAsync: updateCar } = useMutation(UpdateCar, {
     onSuccess: () => {
-      showToast("Car updated successfully", "success");
+      showToast("Car updated successfully", "success", 2000);
       setSelectedData(null);
       refetch();
     },
     onError: (err) => {
       showToast(err.response
-        .data.message, "error");
+        .data.message, "error", 3000);
     },
   });
 
   // DeleteCar
   const { mutateAsync: deleteCar } = useMutation(DeleteCar, {
     onSuccess: () => {
-      showToast("Car deleted successfully", "success");
+      showToast("Car deleted successfully", "success", 2000);
       setSelectedData(null);
       refetch();
     },
     onError: (err) => {
       showToast(err.response
-        .data.message, "error");
+        .data.message, "error", 3000);
     },
   });
 

@@ -117,7 +117,6 @@ const fuelIntakeController = {
   },
 
   create: async (req, res) => {
-    const fuelIntakeLimit = 1000;
     console.log('olaaaa');
     console.log(req.body);
 

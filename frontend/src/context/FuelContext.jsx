@@ -66,21 +66,20 @@ export const FuelProvider = ({ children }) => {
         onSuccess: () => {
             console.log("Fuel created successfully");
             setCreateOpen(false);
-
             showToast("Fuel created successfully", "success", 2000);
             refetch();
         },
         onError: (err) => {
             console.log("couldn't update Fuel");
             // showToast(err.message, "error");
-            showToast(err.response.data.message, "error");
+            showToast(err.response.data.message, "error", 3000);
 
         },
     });
     // CreateFuelAttendant
     const { mutateAsync: createFuelAttendant } = useMutation(CreateFuelAttendant, {
         onSuccess: () => {
-            console.log("Fuel created successfully");
+            console.log("Fuel created successfully", "success", 2000);
             setCreateOpen(false);
 
             showToast("Fuel created successfully", "success", 2000);
@@ -89,7 +88,7 @@ export const FuelProvider = ({ children }) => {
         onError: (err) => {
             console.log("couldn't update Fuel");
             // showToast(err.message, "error");
-            showToast(err.response.data.message, "error");
+            showToast(err.response.data.message, "error", 3000);
 
         },
     });
@@ -97,7 +96,7 @@ export const FuelProvider = ({ children }) => {
     // UpdateFuel
     const { mutateAsync: updateFuel } = useMutation(UpdateFuel, {
         onSuccess: () => {
-            showToast("Fuel updated successfully", "success");
+            showToast("Fuel updated successfully", "success", "success", 2000);
             setSelectedData(null);
             refetch();
             refetchByCar();
@@ -105,20 +104,20 @@ export const FuelProvider = ({ children }) => {
         },
         onError: (err) => {
             showToast(err.response
-                .data.message, "error");
+                .data.message, "error", 3000);
         },
     });
 
     // DeleteFuel
     const { mutateAsync: deleteFuel } = useMutation(DeleteFuel, {
         onSuccess: () => {
-            showToast("Fuel deleted successfully", "success");
+            showToast("Fuel deleted successfully", "success", 2000);
             setSelectedData(null);
             refetch();
             refetchByCar();
         },
         onError: (err) => {
-            showToast(err.message, "error");
+            showToast(err.message, "error", 3000);
         },
     });
 

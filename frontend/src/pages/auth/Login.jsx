@@ -32,7 +32,7 @@ useEffect(() => {
   const formik = useFormik({
     initialValues: {
       email: 'admin@admin.com',
-      password: '201513119T@m',
+      password: 'admin',
       submit: null
     },
     validationSchema: Yup.object({

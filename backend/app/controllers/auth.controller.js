@@ -22,6 +22,7 @@ export const signUp = async (req, res) => {
 				.json({ error: true, message: error.details[0].message });
 
 		const user = await User.findOne({ email: req.body.email });
+		console.log(user);
 		if (user)
 			return res
 				.status(400)
@@ -70,7 +71,7 @@ export const logIn = async (req, res) => {
 		if (!verifiedPassword)
 			return res
 				.status(401)
-				.json({ error: true, message: "Invalid email or password" });
+				.json({ error: true, message: "Invalid password" });
 
 		const { accessToken, refreshToken } = await generateTokens(user);
 

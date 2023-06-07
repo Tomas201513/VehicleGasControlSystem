@@ -10,6 +10,7 @@ import { CarProvider } from "src/context/CarContext";
 import { FuelProvider } from "./context/FuelContext";
 import { StationProvider } from "src/context/StationContext"
 import { ReactQueryDevtools } from "react-query/devtools";
+import {QuotaProvider} from "src/context/QuotaContext";
 import './App.css';
 // import "/src/App";
 
@@ -24,6 +25,7 @@ function App() {
           <ErrorBoundary>
             <AuthProvider>
               <UserProvider>
+                <QuotaProvider>
                 <CarProvider>
                   <StationProvider>
                     <FuelProvider>
@@ -31,6 +33,7 @@ function App() {
                     </FuelProvider>
                   </StationProvider>
                 </CarProvider>
+                </QuotaProvider>
               </UserProvider>
             </AuthProvider>
           </ErrorBoundary>

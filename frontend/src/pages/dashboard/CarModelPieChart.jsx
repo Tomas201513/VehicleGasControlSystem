@@ -11,8 +11,10 @@ import {
 import EastIcon from '@mui/icons-material/East';
 import { useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
-import styled from 'styled-components';
-const Charts = styled(ReactApexChart)``;
+import { css } from '@emotion/react';
+const Charts = ({ css: styles, ...rest }) => (
+    <ReactApexChart css={css`${styles}`} {...rest} />
+);
 const useChartOptions = (labels) => {
     const theme = useTheme();
 
@@ -161,5 +163,7 @@ export const CarModelPieChart = (props) => {
 CarModelPieChart.propTypes = {
     chartSeries: PropTypes.array.isRequired,
     labels: PropTypes.array.isRequired,
-    sx: PropTypes.object
+    sx: PropTypes.object,
+    css: PropTypes.string
+    
 };
