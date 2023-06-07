@@ -2,12 +2,18 @@ version: '3.8'
 
 services:
   mongo:
+<<<<<<< HEAD
     image: mongo
+=======
+    image: mongo:latest
+    container_name: mongo-db
+>>>>>>> 34dfaf2a7647667a0963ec461269e1fd66bf3464
     ports:
       - '27018:27017'
     volumes:
       - data:/data/db
     networks:
+<<<<<<< HEAD
       - my_network
   backend:
     build: ./backend
@@ -25,21 +31,51 @@ services:
       MONGO_URI: mongodb://localhost:27017/gasControl
     env_file:
       - ./backend/.env
+=======
+       my_network:
+        aliases:
+          - mydatabase
+  backend:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - '8000:8000'
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+       my_network:
+        aliases:
+          - mybackend
+>>>>>>> 34dfaf2a7647667a0963ec461269e1fd66bf3464
 
   frontend:
     build: ./frontend
     ports:
       - '3000:3000'
+    depends_on:
+      - backend
     volumes:
       - ./frontend/src:/app/src
       - /app/node_modules
+<<<<<<< HEAD
     depends_on:
       - backend
+=======
+>>>>>>> 34dfaf2a7647667a0963ec461269e1fd66bf3464
     networks:
-      - my_network
+       my_network:
+        aliases:
+          - myfrontend
 
 volumes:
   data:
+   driver: local
+
 networks:
   my_network:
+   driver: bridge
   
