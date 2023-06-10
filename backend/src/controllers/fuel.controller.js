@@ -56,6 +56,29 @@ const fuelIntakeController = {
     }
   },
 
+  getPaginated: async (req, res) => {
+    console.log("getPaginatedoooooooooooooooooooooooooooooooo");
+    try {
+      const { page, limit } = req.params;
+      const fuelIntakes = await FuelIntake.find()
+        .populate(["car_id", "station", "attendant", { path: "car_id", populate: { path: "driver" } }])
+        .skip((page - 1) * limit)
+        .limit(limit * 1)
+        .sort({ fuelDate: -1 });
+      const count = await FuelIntake.countDocuments();
+      console.log("count", count);
+      console.log("limit", limit);
+      res.json({
+        fuelIntakes,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  
+
 
   getAll: async (req, res) => {
     try {

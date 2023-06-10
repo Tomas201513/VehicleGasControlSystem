@@ -9,10 +9,8 @@ import {
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateStation from "./CreateUpdateStation";
 import StationContext from "src/context/StationContext";
-import { Helmet } from "react-helmet-async";
 
 export default function Station() {
-    <Helmet title="Station" />
     const getRowId = (row) => row._id;
     const {
         name,

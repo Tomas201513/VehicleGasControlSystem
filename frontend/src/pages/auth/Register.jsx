@@ -5,13 +5,11 @@ import {
 import { Link } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Helmet } from "react-helmet-async";
 import AuthContext from "src/context/AuthContext";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 function Register() {
-  <Helmet title="Register" />
   const { registerUser } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
 

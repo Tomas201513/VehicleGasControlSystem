@@ -5,10 +5,8 @@ import * as Yup from 'yup';
 import AuthContext from 'src/context/AuthContext';
 import StationContext from 'src/context/StationContext';
 import UserContext from 'src/context/UserContext';
-import { Helmet } from "react-helmet-async";
 
 function FillStation() {
-    <Helmet title="Fill Station" />
     const { refetchAccount } = React.useContext(UserContext);
     const { fillStation, stationData, refetch: refetchStation } = React.useContext(StationContext);
     const { userDetail } = React.useContext(AuthContext);

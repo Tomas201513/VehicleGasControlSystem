@@ -11,6 +11,7 @@ const fuelQuotaController = {
             console.error(error);
         }
     },
+  
 
     getOne: async (req, res) => {
        try {

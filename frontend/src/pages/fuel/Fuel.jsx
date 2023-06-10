@@ -1,5 +1,6 @@
 import React from "react";
-import Datatable from "src/components/datatable/Datatable";
+import PaginDatatable from "src/components/datatable/PaginDatatable";
+
 import {
   IconButton,
   // Link,
@@ -8,10 +9,8 @@ import {
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateFuel from "./CreateUpdateFuel";
 import FuelContext from "src/context/FuelContext";
-import { Helmet } from "react-helmet-async";
 
 function Fuel() {
-  <Helmet title="Fuel" />;
   const getRowId = (row) => row._id;
   const {
     name,
@@ -24,6 +23,9 @@ function Fuel() {
     editable,
     setEditable,
     handleRowClick,
+    errorPaginated,
+    refetchPaginated,
+    fuelDataPaginated,
   } = React.useContext(FuelContext);
 
   const formatDate = (dateString) => {
@@ -92,16 +94,16 @@ function Fuel() {
           createOpen={createOpen}
         />
       ) : (
-        <Datatable
+        <PaginDatatable
           columns={columns}
-          rows={fuelData}
+          rows={fuelDataPaginated?.fuelIntakes}
           createOpen={createOpen}
           setCreateOpen={setCreateOpen}
           editable={editable}
           setEditable={setEditable}
           getRowId={getRowId}
           isLoading={isLoading}
-          error={error}
+          error={errorPaginated }
           name={name}
         />
       )}

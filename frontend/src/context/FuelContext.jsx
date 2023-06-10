@@ -2,7 +2,8 @@ import React from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel, GetFuelByMonth, CreateFuelAttendant } from "src/apis/FuelApi";
+import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel, 
+    GetFuelByMonth, CreateFuelAttendant ,GetFuelPaginated} from "src/apis/FuelApi";
 import CarContext from "./CarContext";
 const FuelContext = React.createContext({});
 
@@ -53,7 +54,8 @@ export const FuelProvider = ({ children }) => {
 
     console.log(`fuelDataByCar`, fuelDataByCar);
 
-    const { data: fuelDataByMonth, isLoading: isLoadingByMonth, error: errorByMonth, refetch: refetchByMonth } = useQuery(
+    const { data: fuelDataByMonth, isLoading: isLoadingByMonth,
+         error: errorByMonth, refetch: refetchByMonth } = useQuery(
         "fuelsByMonth",
         GetFuelByMonth,
         {
@@ -61,6 +63,18 @@ export const FuelProvider = ({ children }) => {
         }
     );
     console.log(`fuelDataByMonth`, fuelDataByMonth);
+
+    //GetUsersPaginated
+    const { data: fuelDataPaginated, isLoading: isLoadingPaginated, 
+        error: errorPaginated, refetch: refetchPaginated } = useQuery(
+        "fuelsPaginated",
+        GetFuelPaginated,
+        {
+            staleTime: 0,
+        }
+    );
+    console.log(`fuelDataPaginated`, fuelDataPaginated);
+    
     // CreateFuel
     const { mutateAsync: createFuel } = useMutation(CreateFuel, {
         onSuccess: () => {
@@ -154,6 +168,12 @@ export const FuelProvider = ({ children }) => {
                 setEditCard,
                 cardRow,
                 setCardRow,
+                isLoadingByMonth,
+                isLoadingPaginated,
+                errorPaginated,
+                refetchPaginated,
+                fuelDataPaginated,
+
             }}
         >
             {children}

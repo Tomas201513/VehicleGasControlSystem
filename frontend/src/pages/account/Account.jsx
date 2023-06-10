@@ -2,10 +2,7 @@ import React from 'react'
 import { Box, Container, Stack, Unstable_Grid2 as Grid } from '@mui/material';
 import AccountProfile from './AccountProfile';
 import AccountProfileDetail from './AccountProfileDetail';
-import { Helmet } from "react-helmet-async";
-
 function Account() {
-    <Helmet title="Account" />
     return (
         <>
             <Box

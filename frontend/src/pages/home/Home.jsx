@@ -1,6 +1,5 @@
 import React from 'react'
 import Pic from 'src/assets/Wavy.jpg'
-import { Helmet } from "react-helmet-async";
 import {
     Box,
     Typography,
@@ -9,7 +8,6 @@ import {
     Grid
 } from '@mui/material'
 function Home() {
-    <Helmet title="Home" />
     return (
         <Box
             component="main"

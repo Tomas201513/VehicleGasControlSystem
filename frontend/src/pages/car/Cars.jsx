@@ -4,11 +4,9 @@ import CarContext from "src/context/CarContext";
 import { IconButton } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateCar from "./CreateUpdateCar";
-import { Helmet } from "react-helmet-async";
 import { Tooltip } from "@mui/material";
 
 function Cars() {
-    <Helmet title="Cars" />;
     const getRowId = (row) => row._id;
     const {
         name,

@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get("/", auth, adminAttendant, fuelIntakeController.getAll);
 router.get("/:id", auth, admin,  fuelIntakeController.getOne);
+router.get("/paginated/:page/:limit", auth, adminAttendant, fuelIntakeController.getPaginated);
 router.post("/", auth, adminAttendant, fuelIntakeController.create);
 router.put("/:id", auth, auth, adminAttendant, fuelIntakeController.update);
 router.delete("/:id", auth, adminAttendant, fuelIntakeController.delete);

@@ -6,10 +6,8 @@ import {
 } from '@mui/material';
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateQuota from './CreateUpdateQuota';                                                                                                                                                 
-import { Helmet } from "react-helmet-async";
 
 function Quota() {
-  <Helmet title="Quotas" />
   const getRowId = (row) => row._id;
 
   const {                                                                                                                                                                                                                                   

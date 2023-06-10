@@ -1,6 +1,5 @@
 import {useContext, useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import { Helmet } from "react-helmet-async";
 import {
   Box,
   Button,
@@ -19,7 +18,6 @@ import AuthContext from 'src/context/AuthContext';
 import React from "react";
 
 function Login() {
-  <Helmet title="Login" />
   const { userDetail,loginUser } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -65,7 +63,6 @@ useEffect(() => {
 
   return (
     <>
-      <Helmet title="Login" />
       <Box
         sx={{
           backgroundColor: "background.paper",

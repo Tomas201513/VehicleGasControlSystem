@@ -6,10 +6,8 @@ import {
 } from '@mui/material';
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CreateUpdateUser from './CreateUpdateUser';
-import { Helmet } from "react-helmet-async";
 
 function Users() {
-  <Helmet title="Users" />
   const getRowId = (row) => row._id;
 
   const {

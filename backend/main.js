@@ -1,14 +1,14 @@
 import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
-import dbConnect from "./app/config/database.config.js"
-const app = express();
-import authRoutes from "./app/routes/auth.routes.js"
-import carRoutes from "./app/routes/car.routes.js"
-import userRoute from "./app/routes/user.routes.js"
-import fuelRoute from "./app/routes/fuel.routes.js"
-import stationRoute from "./app/routes/station.routes.js"
-import quotaRoute from "./app/routes/quota.routes.js"
+import dbConnect from "./src/config/database.config.js"
+const app = express(); 
+import authRoutes from "./src/routes/auth.routes.js"
+import carRoutes from "./src/routes/car.routes.js"
+import userRoute from "./src/routes/user.routes.js"
+import fuelRoute from "./src/routes/fuel.routes.js"
+import stationRoute from "./src/routes/station.routes.js"
+import quotaRoute from "./src/routes/quota.routes.js"
 config();
 dbConnect();
 
