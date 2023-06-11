@@ -95,16 +95,16 @@ function Fuel() {
         />
       ) : (
         <PaginDatatable
-          columns={columns}
-          rows={fuelDataPaginated?.fuelIntakes}
-          createOpen={createOpen}
-          setCreateOpen={setCreateOpen}
-          editable={editable}
-          setEditable={setEditable}
-          getRowId={getRowId}
-          isLoading={isLoading}
-          error={errorPaginated }
-          name={name}
+          // columns={columns}
+          rows={fuelDataPaginated}
+          // createOpen={createOpen}
+          // setCreateOpen={setCreateOpen}
+          // editable={editable}
+          // setEditable={setEditable}
+          // getRowId={getRowId}
+          // isLoading={isLoading}
+          // error={errorPaginated }
+          // name={name}
         />
       )}
     </>

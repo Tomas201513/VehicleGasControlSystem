@@ -17,8 +17,9 @@ export const GetFuel = async () => {
   }
 };
 export const GetFuelPaginated = async (values) => {
+  console.log('ddddddddddddddddddddd',values);
   if (localStorage.getItem("accessToken")) {
-    const res = await axiosInstance.get(`${api4}${values.page ? values.page:1}/${values.limit?values.limit:10}/`, TokenJson());
+    const res = await axiosInstance.get(`${api4}${values.page}/${values.limit}`, TokenJson());
     return res.data;
   } else {
     console.log("No token");
