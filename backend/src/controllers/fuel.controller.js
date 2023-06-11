@@ -55,10 +55,10 @@ const fuelIntakeController = {
       console.error(error);
     }
   },
-
+  
   getPaginated: async (req, res) => {
-    console.log("getPaginatedoooooooooooooooooooooooooooooooo");
     try {
+      console.log("ttttttttttt", req.params);
       const { page, limit } = req.params;
       const fuelIntakes = await FuelIntake.find()
         .populate(["car_id", "station", "attendant", { path: "car_id", populate: { path: "driver" } }])
@@ -66,12 +66,11 @@ const fuelIntakeController = {
         .limit(limit * 1)
         .sort({ fuelDate: -1 });
       const count = await FuelIntake.countDocuments();
-      console.log("count", count);
-      console.log("limit", limit);
       res.json({
         fuelIntakes,
         totalPages: Math.ceil(count / limit),
-        currentPage: page
+        currentPage: page,
+        totalIems: count
       });
     } catch (error) {
       console.error(error);

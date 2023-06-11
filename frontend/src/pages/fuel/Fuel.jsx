@@ -96,7 +96,7 @@ function Fuel() {
       ) : (
         <PaginDatatable
           // columns={columns}
-          rows={fuelDataPaginated}
+          // rows={fuelDataPaginated}
           // createOpen={createOpen}
           // setCreateOpen={setCreateOpen}
           // editable={editable}
