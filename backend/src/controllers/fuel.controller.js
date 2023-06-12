@@ -62,7 +62,7 @@ const fuelIntakeController = {
       const { page, limit } = req.params;
       const fuelIntakes = await FuelIntake.find()
         .populate(["car_id", "station", "attendant", { path: "car_id", populate: { path: "driver" } }])
-        .skip((page - 1) * limit)
+        .skip((page ) * limit)
         .limit(limit * 1)
         .sort({ fuelDate: -1 });
       const count = await FuelIntake.countDocuments();

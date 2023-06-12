@@ -13,39 +13,52 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  IconButton
+  IconButton,
+  Tooltip,
+  Button,
+  Container,
+  
 } from '@mui/material';
+import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import {GetFuelPaginated} from 'src/apis/FuelApi'
-// import TablePagination from '@mui/material/TablePagination';
 import axios from "axios";
 import { TokenJson } from "src/apis/token/AuthToken";
 import axiosInstance from "src/utils/useAxiosInterceptors";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Warndialogue from "src/components/Warndialogue";
 
-import Pagination from './Pagination';
-function PaginDatatable() {
+function PaginDatatable({
+  handleRowClick,
+    setCreateOpen,
+  setEditable,
+  name,
+  SetWarn
+}) {
 
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [posts, setPosts] = useState([]);
+  const [fuelIntakes , setFuelIntakes] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage , setCurrentPage] = useState(0);
+  const [totalItem, setTotalItems] = useState(0);
+  
+  
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [totalItem, setTotalItems] = useState(0);
+  
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
 
-  const [page, setPage] = useState(1)
-  const [pages, setPages] = useState(0);
- 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 0));
+    setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-
   useEffect(() => {
-    const fecthPosts = async () => {
+    const fecthFuelIntakes = async () => {
       setLoading(true);
       try {
         const api4 = "http://127.0.0.1:8000/api/fuel/paginated/"
@@ -54,15 +67,17 @@ function PaginDatatable() {
           `http://127.0.0.1:8000/api/fuel/paginated/${page}/${rowsPerPage}`);
         console.log('11111111ddddddddddddddddddddooosss',res);
 
-        const { fuelIntakes:data, pages: totalPages, currentPage: currentPage ,totalIems} = res.data;
-        console.log('datatatatatataat',data);
+        const { fuelIntakes:fuelIntakes, totalPages: totalPages, currentPage: currentPage ,totalIems} = res.data;
+        console.log('datatatatatataat',fuelIntakes);
         console.log('totalPages',totalPages);
         console.log('currentPage',currentPage);
 
-        setPage(currentPage);
-        setPosts(data);
-        setLoading(false);
+        setFuelIntakes(fuelIntakes);
+        setCurrentPage(currentPage);
+        setTotalPages(totalPages);
         setTotalItems(totalIems);
+
+        setLoading(false);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -70,33 +85,103 @@ function PaginDatatable() {
       }
     };
 
-    fecthPosts();
-  }, [page]);
-  let  selected = []
-  let items = []
-  const selectedSome = (selected.length > 0) && (selected.length < items.length);
-  const selectedAll = (items.length > 0) && (selected.length === items.length);
+    fecthFuelIntakes();
+  }, [page, rowsPerPage]);
+
+  //select row
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const handleSelectRow = (event, id) => {
+    const selectedIndex = selectedRows.indexOf(id);
+    let newSelectedRows = [];
+
+    if (selectedIndex === -1) {
+      newSelectedRows = newSelectedRows.concat(selectedRows, id);
+    } else if (selectedIndex === 0) {
+      newSelectedRows = newSelectedRows.concat(selectedRows.slice(1));
+    } else if (selectedIndex === selectedRows.length - 1) {
+      newSelectedRows = newSelectedRows.concat(selectedRows.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelectedRows = newSelectedRows.concat(
+        selectedRows.slice(0, selectedIndex),
+        selectedRows.slice(selectedIndex + 1)
+      );
+    }
+    console.log("newSelectedRows", newSelectedRows,'selectedRows',selectedRows);
+
+    setSelectedRows(newSelectedRows);
+  };
+
+
+
+//select all
+  const selectedAll = fuelIntakes.length > 0 && selectedRows.length === fuelIntakes.length;
+  const selectedSome = selectedRows.length > 0 && selectedRows.length < fuelIntakes.length;
+
+  const handleSelectAll = (event) => {
+    if (event.target.checked) {
+      const newSelectedRows = fuelIntakes.map((fuelIntake) => fuelIntake._id);
+      setSelectedRows(newSelectedRows);
+      return;
+    }
+    setSelectedRows([]);
+  };
 
 
   return (
-    <Card>
-      <Box sx={{ minWidth: 800 }}>
-        <Table>
+    <>
+      <Box sx={{ overflowX: 'auto', display: 'flex', flexWrap: 'wrap', gap: 2, mt: '5%', 
+      ml: '5%', mr: '5%', mb: 5,  flexDirection: "column", height: "100%",  }}>
+        <Container maxWidth="xl" >
+  
+          <Box sx={{ display: "flex", alignItems: "center", }}>
+            <Typography
+              sx={{
+            fontWeight: "bold",
+              }}
+              variant="h4"
+              whitespace="nowrap">
+              {name}s
+            </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+         
+          <Tooltip title="Add User">
+            <Button
+              // size={isSmallScreen ? 'medium' : 'small'}
+              variant="contained"
+              // startIcon={<AddIcon />}
+              sx={{
+                mr: '5%',
+                borderRadius: "25px",
+                "&:hover": {
+                  backgroundColor: "#1565c0",
+                },
+              }}
+              onClick={() => {
+                setCreateOpen(true), setEditable(true);
+              }}
+            >
+              {"Add"}
+            </Button>
+          </Tooltip>
+           </Box>
+           <Box sx={{ display: "flex", alignItems: "center", }}>
+            <IconButton onClick={() =>{ SetWarn(true); console.log("wa")}}>
+              <AutoDeleteIcon sx={{ color: "red" }} />
+            </IconButton>
+          </Box>
+
+         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                {/* <Checkbox
-                  checked={selectedAll}
-                  indeterminate={selectedSome}
-                  onChange={(event) => {
-                    if (event.target.checked) {
-                      onSelectAll?.();
-                    } else {
-                      onDeselectAll?.();
-                    }
-                  }}
-                /> */}
-              </TableCell>
+            <TableCell padding="checkbox">
+     <Checkbox
+       checked={selectedAll}
+       indeterminate={selectedSome}
+       onChange={handleSelectAll}
+     />
+   </TableCell>
+
               <TableCell>
                 <Typography
                   color="textSecondary"
@@ -147,37 +232,39 @@ function PaginDatatable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {posts?.map((post) => (
+            {fuelIntakes?.map((fuelIntake) => (
               <TableRow
                 hover
-                key={post.id}
-                selected={selected.indexOf(post.id) !== -1}
+                key={fuelIntake._id}
+                selected={selectedRows.indexOf(fuelIntake._id) !== -1}
               >
                 <TableCell padding="checkbox">
-                  <Checkbox
+                <Checkbox
+     onChange={(event) => {
+       handleSelectRow(event, fuelIntake._id);
+     }}
+     checked={selectedRows.indexOf(fuelIntake._id) !== -1}
+     value="true"
+   />
 
-                    checked={selected.indexOf(post.id) !== -1}
-                    onChange={(event) => onSelectOne(event, post.id)}
-                    value="true"
-                  />
                 </TableCell>
                 <TableCell>
-                 { post.fuelAmount}
+                 { fuelIntake.fuelAmount}
                 </TableCell>
                 <TableCell>
-                  {post.fuelDate}
+                  {fuelIntake.fuelDate}
                 </TableCell>
                 <TableCell>
-                  {post.car_id?.plateNumber}
+                  {fuelIntake.car_id?.plateNumber}
                 </TableCell>
                 <TableCell>
-                  {post.attendant?.userName}
+                  {fuelIntake.attendant?.userName}
                 </TableCell>
                 <TableCell>
-                  {post.station?.stationName}
+                  {fuelIntake.station?.stationName}
                 </TableCell>
-                <TableCell>
-                <IconButton aria-label="delete" onClick={() => handleDelete(post.id)}>
+                <TableCell style={{ width: 120 }}  >
+                <IconButton aria-label="delete" onClick={() => {handleRowClick(fuelIntake)}}>
                   <ArrowForwardIcon />
                 </IconButton>
                 </TableCell>
@@ -187,8 +274,28 @@ function PaginDatatable() {
             ))}
           </TableBody>
         </Table>
+        </Container>
+       <Box sx={{ flexGrow: 1 }} />
+       <Box sx={{ mr: '5%' }}>
+        <TablePagination
+      component="div"
+      count={totalItem}
+      page={page}
+      onPageChange={handleChangePage}
+      rowsPerPage={rowsPerPage}
+      onRowsPerPageChange={handleChangeRowsPerPage}
+    />
+    </Box>
       </Box>
-      </Card>
+       <Warndialogue
+       open={warn}
+       setOpen={SetWarn}
+       name={name}
+       action={deleteCar}
+       selectedData={selectedData}
+   />
+   
+   </>
   );
 }
 

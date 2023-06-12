@@ -17,6 +17,7 @@ function Fuel() {
     fuelData,
     isLoading,
     error,
+    SetWarn,
     createOpen,
     setCreateOpen,
     selectedData,
@@ -33,56 +34,56 @@ function Fuel() {
     return date.toLocaleString();
   };
 
-  const columns = [
-    {
-      field: "_id",
-      headerName: "ID",
-      flex: 0.3,
-      minWidth: 30,
-      type: "number",
-      hideable: true,
-    },
-    { field: "fuelAmount", headerName: "FUEL AMOUNT(L)", flex: 0.7, minWidth: 130 },
-    {
-      field: "fuelDate", headerName: "FILL DATE(GC)", flex: 0.7, minWidth: 190, valueFormatter: (params) => formatDate(params.value),
-    },
-    {
-      field: "car_id", headerName: "CAR PLATE NO.", flex: 0.7, minWidth: 150, valueGetter: (params) => {
-        return params.row?.car_id?.plateNumber;
-      }
-    },
-    {
-      field: "attendant", headerName: "ATTENDANT", flex: 0.7, minWidth: 150, valueGetter: (params) => {
-        return params.row?.attendant?.userName;
-      }
-    },
-    {
-      field: "station", headerName: "STATION", flex: 0.7, minWidth: 150, valueGetter: (params) => {
-        return params.row?.station?.stationName;
-      }
-    },
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "ACTIONS",
-      flex: 0.7,
-      maxWidth: 100,
-      minWidth: 60,
-      renderCell: (params) => {
-        return (
-          <Tooltip title="View Details">
+  // const columns = [
+  //   {
+  //     field: "_id",
+  //     headerName: "ID",
+  //     flex: 0.3,
+  //     minWidth: 30,
+  //     type: "number",
+  //     hideable: true,
+  //   },
+  //   { field: "fuelAmount", headerName: "FUEL AMOUNT(L)", flex: 0.7, minWidth: 130 },
+  //   {
+  //     field: "fuelDate", headerName: "FILL DATE(GC)", flex: 0.7, minWidth: 190, valueFormatter: (params) => formatDate(params.value),
+  //   },
+  //   {
+  //     field: "car_id", headerName: "CAR PLATE NO.", flex: 0.7, minWidth: 150, valueGetter: (params) => {
+  //       return params.row?.car_id?.plateNumber;
+  //     }
+  //   },
+  //   {
+  //     field: "attendant", headerName: "ATTENDANT", flex: 0.7, minWidth: 150, valueGetter: (params) => {
+  //       return params.row?.attendant?.userName;
+  //     }
+  //   },
+  //   {
+  //     field: "station", headerName: "STATION", flex: 0.7, minWidth: 150, valueGetter: (params) => {
+  //       return params.row?.station?.stationName;
+  //     }
+  //   },
+  //   {
+  //     field: "actions",
+  //     type: "actions",
+  //     headerName: "ACTIONS",
+  //     flex: 0.7,
+  //     maxWidth: 100,
+  //     minWidth: 60,
+  //     renderCell: (params) => {
+  //       return (
+  //         <Tooltip title="View Details">
 
-          <IconButton>
-            <ArrowForwardIcon
-              style={{ color: "#666666", cursor: "pointer" }}
-              onClick={() => handleRowClick(params.row)}
-            />
-          </IconButton>
-          </Tooltip>
-        );
-      },
-    },
-  ];
+  //         <IconButton>
+  //           <ArrowForwardIcon
+  //             style={{ color: "#666666", cursor: "pointer" }}
+  //             onClick={() => handleRowClick(params.row)}
+  //           />
+  //         </IconButton>
+  //         </Tooltip>
+  //       );
+  //     },
+  //   },
+  // ];
 
   return (
     <>
@@ -95,16 +96,18 @@ function Fuel() {
         />
       ) : (
         <PaginDatatable
+        handleRowClick={handleRowClick}
+        SetWarn={SetWarn}
           // columns={columns}
           // rows={fuelDataPaginated}
           // createOpen={createOpen}
-          // setCreateOpen={setCreateOpen}
+          setCreateOpen={setCreateOpen}
           // editable={editable}
-          // setEditable={setEditable}
+          setEditable={setEditable}
           // getRowId={getRowId}
           // isLoading={isLoading}
           // error={errorPaginated }
-          // name={name}
+          name={name}
         />
       )}
     </>

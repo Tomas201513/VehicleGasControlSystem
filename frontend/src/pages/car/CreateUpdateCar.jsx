@@ -24,7 +24,6 @@ import * as yup from "yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PropTypes from "prop-types";
 import Warndialogue from "src/components/Warndialogue";
-
 import CarContext from "../../context/CarContext";
 import QuotaContext from "../../context/QuotaContext";
 import UserContext from "../../context/UserContext";
@@ -94,7 +93,9 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
                                     <Tooltip title="Back">
                                         <IconButton
                                             onClick={() => {
-                                                setSelectedData(null), setEditable(false), setCreateOpen(false);
+                                                setSelectedData(null), 
+                                                setEditable(false), 
+                                                setCreateOpen(false);
                                             }}
                                             size="small"
                                         >

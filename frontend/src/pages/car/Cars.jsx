@@ -107,7 +107,7 @@ function Cars() {
                     <IconButton>
                         <ArrowForwardIcon
                             style={{ color: "#666666", cursor: "pointer" }}
-                            onClick={() => handleRowClick(params.row)}
+                            onClick={() => {handleRowClick(params.row);console.log('olas',params.row);}}   
                         />
                     </IconButton>
                     </Tooltip>
