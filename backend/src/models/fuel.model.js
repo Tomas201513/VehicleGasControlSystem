@@ -49,18 +49,18 @@ fuelIntakeSchema.pre("findOneAndDelete", async function (next) {
 });
 
 
-fuelIntakeSchema.pre("findByIdAndDelete", async function (next) {
-  console.log("pre delete");
-  // Get the old fuel intake values
-  const oldFuelIntake = await FuelIntake.findById(this._conditions._id);
-  const station = await Station.findById(this._update.station);
-  if (station && oldFuelIntake) {
-    station.currentFuelAmount += oldFuelIntake.fuelAmount
-    await station.save();
-  }
+// fuelIntakeSchema.pre("findByIdAndDelete", async function (next) {
+//   console.log("pre delete");
+//   // Get the old fuel intake values
+//   const oldFuelIntake = await FuelIntake.findById(this._conditions._id);
+//   const station = await Station.findById(this._update.station);
+//   if (station && oldFuelIntake) {
+//     station.currentFuelAmount += oldFuelIntake.fuelAmount
+//     await station.save();
+//   }
 
-  next();
-});
+//   next();
+// });
 fuelIntakeSchema.pre("save", async function (next) {
   try {
     const fuelIntake = this;

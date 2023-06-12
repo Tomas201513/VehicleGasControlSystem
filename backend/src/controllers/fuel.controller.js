@@ -214,8 +214,22 @@ const fuelIntakeController = {
       res.status(500).json({ message: error.message });
     }
   },
+  // Delete Many function
+  deleteMany: async (req, res) => {
+    console.log('abc', req.body);
+    const { ids } = req.body;
+
+    try {
+      await FuelIntake.deleteMany({ _id: { $in: ids } });
+      res.status(200).json({ message: 'Successfully deleted selected fuel intakes' });
+     } catch (error) {
+       res.status(500).json({ error: 'Error deleting selected fuel intakes' });
+     }
+   }
 }
 export default fuelIntakeController;
+
+
 async function getTotalFuelIntake(car_id) {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1;

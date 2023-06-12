@@ -11,6 +11,7 @@ router.get("/paginated/:page/:limit", fuelIntakeController.getPaginated);
 router.post("/", auth, adminAttendant, fuelIntakeController.create);
 router.put("/:id", auth, auth, adminAttendant, fuelIntakeController.update);
 router.delete("/:id", auth, adminAttendant, fuelIntakeController.delete);
+router.deleteMany("/", auth, adminAttendant, fuelIntakeController.deleteMany);
 router.get("/car/:carId", auth, adminAttendant, fuelIntakeController.getAllByCar);
 router.get("/monthly/:month", auth, adminAttendant, fuelIntakeController.getMonthly);
 
