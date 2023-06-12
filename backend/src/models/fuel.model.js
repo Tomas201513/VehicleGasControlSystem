@@ -49,6 +49,24 @@ fuelIntakeSchema.pre("findOneAndDelete", async function (next) {
 });
 
 
+fuelIntakeSchema.statics.deleteManyWithPreHooks = async function (ids) {
+  console.log("delete many with pre hooks");
+  // Ids= ids.split(',')
+  // console.log(Ids);
+  const fuelIntakes = await this.find({ _id: { $in: ids } });
+
+  for (const fuelIntake of fuelIntakes) {
+    const station = await Station.findById(fuelIntake.station);
+
+    if (station) {
+      station.currentFuelAmount += fuelIntake.fuelAmount;
+      await station.save();
+    }
+  }
+
+  return this.deleteMany({ _id: { $in: ids } });
+};
+
 // fuelIntakeSchema.pre("findByIdAndDelete", async function (next) {
 //   console.log("pre delete");
 //   // Get the old fuel intake values

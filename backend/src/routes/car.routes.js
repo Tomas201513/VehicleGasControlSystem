@@ -5,7 +5,7 @@ import { getCars, getCarById, createCar, updateCar, deleteCar } from '../control
 const router = express.Router();
 
 // Car routes
-router.get('/', auth, adminAttendant, getCars);
+router.get('/', getCars);
 router.get('/:id', auth, admin,  getCarById);
 router.post('/', auth, admin, createCar);
 router.put('/:id', auth, admin, updateCar);

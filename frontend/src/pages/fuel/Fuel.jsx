@@ -18,6 +18,7 @@ function Fuel() {
     isLoading,
     error,
     SetWarn,
+    warn,
     createOpen,
     setCreateOpen,
     selectedData,
@@ -27,6 +28,8 @@ function Fuel() {
     errorPaginated,
     refetchPaginated,
     fuelDataPaginated,
+    deleteFuel,
+    deleteMultipleFuel,
   } = React.useContext(FuelContext);
 
   const formatDate = (dateString) => {
@@ -98,6 +101,7 @@ function Fuel() {
         <PaginDatatable
         handleRowClick={handleRowClick}
         SetWarn={SetWarn}
+        warn={warn}
           // columns={columns}
           // rows={fuelDataPaginated}
           // createOpen={createOpen}
@@ -108,6 +112,8 @@ function Fuel() {
           // isLoading={isLoading}
           // error={errorPaginated }
           name={name}
+          deleteFuel={deleteFuel}
+          deleteMultipleFuel={deleteMultipleFuel}
         />
       )}
     </>

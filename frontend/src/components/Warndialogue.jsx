@@ -10,6 +10,7 @@ import Draggable from 'react-draggable';
 import propTypes from 'prop-types';
 import QRcode from './QRcode';
 import StationContext from 'src/context/StationContext';
+import FuelContext from '../context/FuelContext';
 function PaperComponent(props) {
     return (
         <Draggable
@@ -21,16 +22,20 @@ function PaperComponent(props) {
     );
 }
 
-export default function Warndialogue({ name, open, setOpen, action,setSelectedData, selectedData, qr, setQr, qrId,
+export default function Warndialogue({ name, open, setOpen, action,setSelectedData, selectedData,selectedRows,setSelectedRows, qr, setQr, qrId,
     setQrId }) {
     const { refetch } = React.useContext(StationContext);
+    const { refetch: refetchFuel } = React.useContext(FuelContext);
+
 
     const handleClose = () => {
         setOpen(false);
         try{
 
             setSelectedData(null);
+            setSelectedRows([]);
             refetch();
+            refetchFuel();
         } catch(e){
             // console.log(e);
         }
@@ -60,7 +65,7 @@ export default function Warndialogue({ name, open, setOpen, action,setSelectedDa
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    {qr ? <></> : <Button autoFocus onClick={() => { console.log(selectedData); action(selectedData._id); handleClose() }} color="error">
+                    {qr ? <></> : <Button autoFocus onClick={() => { console.log('selectedData',selectedData); action(selectedData ? selectedData._id: selectedRows); handleClose() }} color="error">
                         Delete
                     </Button>}
 

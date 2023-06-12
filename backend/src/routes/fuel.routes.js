@@ -5,13 +5,13 @@ import { admin, attendant, driver, adminAttendant } from "../middleware/roleChec
 
 const router = express.Router();
 
-router.get("/", auth, adminAttendant, fuelIntakeController.getAll);
+router.get("/", fuelIntakeController.getAll);
 router.get("/:id", auth, admin,  fuelIntakeController.getOne);
 router.get("/paginated/:page/:limit", fuelIntakeController.getPaginated);
 router.post("/", auth, adminAttendant, fuelIntakeController.create);
 router.put("/:id", auth, auth, adminAttendant, fuelIntakeController.update);
 router.delete("/:id", auth, adminAttendant, fuelIntakeController.delete);
-router.deleteMany("/", auth, adminAttendant, fuelIntakeController.deleteMany);
+router.delete("/delete/multiple/:ids", auth, adminAttendant, fuelIntakeController.deleteMany);
 router.get("/car/:carId", auth, adminAttendant, fuelIntakeController.getAllByCar);
 router.get("/monthly/:month", auth, adminAttendant, fuelIntakeController.getMonthly);
 

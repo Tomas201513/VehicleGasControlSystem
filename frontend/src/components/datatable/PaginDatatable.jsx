@@ -31,8 +31,14 @@ function PaginDatatable({
   handleRowClick,
     setCreateOpen,
   setEditable,
+  warn,
+  SetWarn,
   name,
-  SetWarn
+  deleteFuel,
+  deleteMultipleFuel,
+
+  
+
 }) {
 
   const [fuelIntakes , setFuelIntakes] = useState([]);
@@ -65,12 +71,12 @@ function PaginDatatable({
         // const res = await fetch(`${api4}${page}/9`);
         const res = await axiosInstance.get(
           `http://127.0.0.1:8000/api/fuel/paginated/${page}/${rowsPerPage}`);
-        console.log('11111111ddddddddddddddddddddooosss',res);
+        // console.log('11111111ddddddddddddddddddddooosss',res);
 
-        const { fuelIntakes:fuelIntakes, totalPages: totalPages, currentPage: currentPage ,totalIems} = res.data;
-        console.log('datatatatatataat',fuelIntakes);
-        console.log('totalPages',totalPages);
-        console.log('currentPage',currentPage);
+        // const { fuelIntakes:fuelIntakes, totalPages: totalPages, currentPage: currentPage ,totalIems} = res.data;
+        // console.log('datatatatatataat',fuelIntakes);
+        // console.log('totalPages',totalPages);
+        // console.log('currentPage',currentPage);
 
         setFuelIntakes(fuelIntakes);
         setCurrentPage(currentPage);
@@ -166,7 +172,7 @@ function PaginDatatable({
           </Tooltip>
            </Box>
            <Box sx={{ display: "flex", alignItems: "center", }}>
-            <IconButton onClick={() =>{ SetWarn(true); console.log("wa")}}>
+            <IconButton onClick={() =>{ SetWarn(true); console.log(warn);}}>
               <AutoDeleteIcon sx={{ color: "red" }} />
             </IconButton>
           </Box>
@@ -291,8 +297,10 @@ function PaginDatatable({
        open={warn}
        setOpen={SetWarn}
        name={name}
-       action={deleteCar}
-       selectedData={selectedData}
+       action={deleteMultipleFuel}
+      //  selectedData={selectedData}
+       selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
    />
    
    </>

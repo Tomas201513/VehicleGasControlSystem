@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
 import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel, 
-    GetFuelByMonth, CreateFuelAttendant ,GetFuelPaginated} from "src/apis/FuelApi";
+    GetFuelByMonth, CreateFuelAttendant ,GetFuelPaginated, DeleteMultipleFuel} from "src/apis/FuelApi";
 import CarContext from "./CarContext";
 const FuelContext = React.createContext({});
 
@@ -135,6 +135,20 @@ export const FuelProvider = ({ children }) => {
         },
     });
 
+    // DeleteMultipleFuel
+    const { mutateAsync: deleteMultipleFuel } = useMutation(DeleteMultipleFuel, {
+        onSuccess: () => {
+            showToast("Fuels deleted successfully", "success", 2000);
+            setSelectedData(null);
+            refetch();
+            refetchByCar();
+        },
+        onError: (err) => {
+            showToast(err.message, "error", 3000);
+        },
+    });
+
+
     return (
         <FuelContext.Provider
             value={{
@@ -162,6 +176,7 @@ export const FuelProvider = ({ children }) => {
                 createFuelAttendant,
                 updateFuel,
                 deleteFuel,
+                deleteMultipleFuel,
                 warn,
                 SetWarn,
                 editCard,

@@ -5,7 +5,7 @@ import { admin, attendant, driver, adminAttendant } from "../middleware/roleChec
 
 const router = Router();
 
-router.get('/', auth, adminAttendant, getUsers);
+router.get('/', getUsers);
 router.get('/:id', auth, adminAttendant, getUserById);
 router.get("/details", auth, admin, getMe)
 router.post('/', auth, admin, createUser);

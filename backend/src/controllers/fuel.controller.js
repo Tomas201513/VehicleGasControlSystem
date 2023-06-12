@@ -216,11 +216,10 @@ const fuelIntakeController = {
   },
   // Delete Many function
   deleteMany: async (req, res) => {
-    console.log('abc', req.body);
-    const { ids } = req.body;
-
+    const  ids  = req.params.ids.split(',');
+    // console.log('ids', req.params.ids.split(','));
     try {
-      await FuelIntake.deleteMany({ _id: { $in: ids } });
+      await FuelIntake.deleteManyWithPreHooks(ids);
       res.status(200).json({ message: 'Successfully deleted selected fuel intakes' });
      } catch (error) {
        res.status(500).json({ error: 'Error deleting selected fuel intakes' });

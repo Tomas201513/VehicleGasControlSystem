@@ -6,6 +6,7 @@ const api = "http://127.0.0.1:8000/api/fuel/";
 const api2 = "http://127.0.0.1:8000/api/fuel/car/";
 const api3 = "http://127.0.0.1:8000/api/fuel/monthly/1" // 1 is just a placeholder
 const api4 = "http://127.0.0.1:8000/api/fuel/paginated/"
+const api5 = "http://127.0.0.1:8000/api/fuel/delete/multiple/"
 
 
 export const GetFuel = async () => {
@@ -48,6 +49,18 @@ export const GetFuelByMonth = async () => {
 export const DeleteFuel = async (id) => {
   if (localStorage.getItem("accessToken")) {
     const res = await axiosInstance.delete(`${api}${id}/`, TokenJson());
+    return res.data;
+  } else {
+    console.log("No token");
+  }
+};
+
+export const DeleteMultipleFuel = async (ids) => {
+  if (localStorage.getItem("accessToken")) {
+    const idString = ids.join(',');
+
+    console.log('ids',idString);
+    const res = await axiosInstance.delete(`${api5}${ids}`, TokenJson());
     return res.data;
   } else {
     console.log("No token");
