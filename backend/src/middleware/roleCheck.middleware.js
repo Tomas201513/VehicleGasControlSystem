@@ -40,10 +40,10 @@ export const attendant = (req, res, next) => {
 }
 
 export const adminAttendant = (req, res, next) => {
-	console.log('roles', req.user.roles)
 	const roles = req.user?.roles || [];
+	// console.log('roles', req.user.roles)
 	if (roles[0]?.includes("admin") || roles[0]?.includes("attendant")) {
-		// console.log('roles', req.user.role)
+		console.log('roles', req.user.role)
 
 		next();
 	} else {

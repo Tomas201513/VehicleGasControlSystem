@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 const auth = async (req, res, next) => {
-  console.log('-------',JSON.stringify(req.header));
   const token = req.header("x-access-token");
+  console.log('tooken',JSON.stringify(token))
   if (!token)
     return res
       .status(403)

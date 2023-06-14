@@ -71,9 +71,9 @@ function PaginDatatable({
         // const res = await fetch(`${api4}${page}/9`);
         const res = await axiosInstance.get(
           `http://127.0.0.1:8000/api/fuel/paginated/${page}/${rowsPerPage}`);
-        // console.log('11111111ddddddddddddddddddddooosss',res);
+        console.log('11111111ddddddddddddddddddddooosss',res);
 
-        // const { fuelIntakes:fuelIntakes, totalPages: totalPages, currentPage: currentPage ,totalIems} = res.data;
+        const { fuelIntakes:fuelIntakes, totalPages: totalPages, currentPage: currentPage ,totalIems} = res.data;
         // console.log('datatatatatataat',fuelIntakes);
         // console.log('totalPages',totalPages);
         // console.log('currentPage',currentPage);
@@ -258,7 +258,7 @@ function PaginDatatable({
                  { fuelIntake.fuelAmount}
                 </TableCell>
                 <TableCell>
-                  {fuelIntake.fuelDate}
+                  {new Date(fuelIntake.fuelDate).toLocaleString()}
                 </TableCell>
                 <TableCell>
                   {fuelIntake.car_id?.plateNumber}

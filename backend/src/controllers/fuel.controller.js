@@ -224,7 +224,21 @@ const fuelIntakeController = {
      } catch (error) {
        res.status(500).json({ error: 'Error deleting selected fuel intakes' });
      }
-   }
+   },
+   search: async (req, res) => {
+    console.log('searchhhhhhhhhhh', req.query);
+    try {
+      // console.log('searchhhhhhhhhhh', req.query);
+      // const fuelIntakes = await FuelIntake.find({ $text: { $search: req.query.search } }).populate(["car_id", "attendant", {
+      //   path: "car_id", populate: { path: "driver" }
+      // }, "station"]);
+
+      // res.json(fuelIntakes);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+  
 }
 export default fuelIntakeController;
 
