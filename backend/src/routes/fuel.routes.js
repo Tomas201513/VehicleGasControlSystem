@@ -14,6 +14,6 @@ router.delete("/:id", auth, adminAttendant, fuelIntakeController.delete);
 router.delete("/delete/multiple/:ids", auth, adminAttendant, fuelIntakeController.deleteMany);
 router.get("/car/:carId", auth, adminAttendant, fuelIntakeController.getAllByCar);
 router.get("/monthly/:month", auth, adminAttendant, fuelIntakeController.getMonthly);
-router.get("/ok/", auth, adminAttendant, fuelIntakeController.search)
+router.get("/search/:key", auth, adminAttendant, fuelIntakeController.search)
 
 export default router;
