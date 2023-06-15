@@ -19,11 +19,38 @@ export const FuelProvider = ({ children }) => {
     const [warn, SetWarn] = React.useState(false);
     const name = "Fuel";
     const { showToast } = React.useContext(ToastContext);
+
+
+    // const [fuelIntakes , setFuelIntakes] = useState([]);
+    // const [totalPages, setTotalPages] = useState(0);
+    // const [currentPage , setCurrentPage] = useState(0);
+    // const [totalItem, setTotalItems] = useState(0);
+    
+    
+    const [loading, setLoading] = React.useState(false);
+    // const [error, setError] = useState(false);
+    
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = React.useState(0);
+    const [selectedRows, setSelectedRows] = React.useState([]);
+    const [searchKeyword, setSearchKeyword] = React.useState("");
+    
+  
+
     const handleRowClick = (params) => {
         console.log(params);
         setSelectedData(params);
         console.log(selectedData);
     };
+  const {
+    data:fuelIntake2,
+    isLoading: isLoading2,
+    error: error2,
+    refetch: refetch2,
+} = useQuery('fuel', () => GetFuel(page, rowsPerPage, searchKeyword),{
+    staleTime: 0,
+    enabled: true ,
+});
 
     // GetUsers
 
@@ -188,6 +215,22 @@ export const FuelProvider = ({ children }) => {
                 errorPaginated,
                 refetchPaginated,
                 fuelDataPaginated,
+                isLoading2,
+                error2,
+                refetch2,
+                fuelIntake2,
+
+                rowsPerPage,
+                setRowsPerPage,
+                page,
+                setPage,
+                selectedRows,
+                setSelectedRows,
+                searchKeyword,
+                setSearchKeyword,
+                loading,
+                setLoading,
+
 
             }}
         >

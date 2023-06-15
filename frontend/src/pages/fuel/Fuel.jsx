@@ -30,6 +30,22 @@ function Fuel() {
     fuelDataPaginated,
     deleteFuel,
     deleteMultipleFuel,
+    isLoading2,
+    error2,
+    refetch2,
+    fuelIntake2,
+
+
+    rowsPerPage,
+    setRowsPerPage,
+    page,
+    setPage,
+    selectedRows,
+    setSelectedRows,
+    searchKeyword,
+    setSearchKeyword,
+    loading,
+    setLoading,
   } = React.useContext(FuelContext);
 
   const formatDate = (dateString) => {
@@ -114,6 +130,22 @@ function Fuel() {
           name={name}
           deleteFuel={deleteFuel}
           deleteMultipleFuel={deleteMultipleFuel}
+          isLoading2={isLoading2}
+          error2={error2}
+          refetch2={refetch2}
+          fuelIntake2={fuelIntake2}
+
+
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
+          page={page}
+          setPage={setPage}
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+          loading={loading}
+          setLoading={setLoading}
         />
       )}
     </>

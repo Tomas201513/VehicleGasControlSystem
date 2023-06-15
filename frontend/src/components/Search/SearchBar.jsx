@@ -2,7 +2,7 @@ import { Card, InputAdornment, OutlinedInput, SvgIcon } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchBar = ({ setSearchKeyword }) => (
-  <Card sx={{ p: 2 }}>
+  // <Card sx={{ p: 2 }}>
     <OutlinedInput
       defaultValue=""
       fullWidth
@@ -20,5 +20,5 @@ export const SearchBar = ({ setSearchKeyword }) => (
       )}
       sx={{ maxWidth: 500 }}
     />
-  </Card>
+  // </Card>
 );

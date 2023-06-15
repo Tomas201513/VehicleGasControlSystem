@@ -17,8 +17,10 @@ import {
   Tooltip,
   Button,
   Container,
-  
+
 } from '@mui/material';
+import {GetFueld} from 'src/apis/FuelApi'
+import { useQuery, useMutation } from "react-query";
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import {GetFuelPaginated} from 'src/apis/FuelApi'
 import axios from "axios";
@@ -27,7 +29,6 @@ import axiosInstance from "src/utils/useAxiosInterceptors";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Warndialogue from "src/components/Warndialogue";
 import {SearchBar} from "src/components/Search/SearchBar";
-
 function PaginDatatable({
   handleRowClick,
     setCreateOpen,
@@ -38,22 +39,38 @@ function PaginDatatable({
   deleteFuel,
   deleteMultipleFuel,
 
-  
+  isLoading2,
+  error2,
+  refetch2,
+  fuelIntake2,
+  rowsPerPage,
+  setRowsPerPage,
+  page,
+  setPage,
+  selectedRows,
+  setSelectedRows,
+  searchKeyword,
+  setSearchKeyword,
+  loading,
+  setLoading,
 
 }) {
 
-  const [fuelIntakes , setFuelIntakes] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
-  const [currentPage , setCurrentPage] = useState(0);
-  const [totalItem, setTotalItems] = useState(0);
+  // const [fuelIntakes , setFuelIntakes] = useState([]);
+  // const [totalPages, setTotalPages] = useState(0);
+  // const [currentPage , setCurrentPage] = useState(0);
+  // const [totalItem, setTotalItems] = useState(0);
   
   
   
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // // const [error, setError] = useState(false);
   
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [page, setPage] = useState(0);
+  // const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const [page, setPage] = useState(0);
+  // const [selectedRows, setSelectedRows] = useState([]);
+  // const [searchKeyword, setSearchKeyword] = useState("");
+  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -63,42 +80,13 @@ function PaginDatatable({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const [searchKeyword, setSearchKeyword] = useState("");
-  useEffect(() => {
-    const fecthFuelIntakes = async () => {
-      setLoading(true);
-      try {
-        const res = await axiosInstance.get(
-          `http://127.0.0.1:8000/api/fuel/paginated/${page}/${rowsPerPage}`, {
-            params: { keyword: searchKeyword },
-          }
-        );
-  
-        const { fuelIntakes, totalPages, currentPage, totalItems } = res.data;
-  
-        setFuelIntakes(fuelIntakes);
-        setCurrentPage(currentPage);
-        setTotalPages(totalPages);
-        setTotalItems(totalItems);
-  
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-        setError("Some error occured");
-      }
-    };
-  
-    fecthFuelIntakes();
-  }, [page, rowsPerPage, searchKeyword]);
-
   //select row
-  const [selectedRows, setSelectedRows] = useState([]);
-
+  
   const handleSelectRow = (event, id) => {
+    
     const selectedIndex = selectedRows.indexOf(id);
     let newSelectedRows = [];
-
+    
     if (selectedIndex === -1) {
       newSelectedRows = newSelectedRows.concat(selectedRows, id);
     } else if (selectedIndex === 0) {
@@ -112,16 +100,44 @@ function PaginDatatable({
       );
     }
     console.log("newSelectedRows", newSelectedRows,'selectedRows',selectedRows);
-
+    
     setSelectedRows(newSelectedRows);
   };
+  
 
+  
+  
 
-
-//select all
-  const selectedAll = fuelIntakes.length > 0 && selectedRows.length === fuelIntakes.length;
-  const selectedSome = selectedRows.length > 0 && selectedRows.length < fuelIntakes.length;
-
+  useEffect(() => {
+    const fecthFuelIntakes = async () => {
+      setLoading(true);
+      try {
+        // console.log('page',page,'rowsPerPage',rowsPerPage,'searchKeyword',searchKeyword)
+        const { fuelIntakes, totalPages, currentPage, totalIems  } =fuelIntake2
+        console.log('xxxxxxxxxxxx',fuelIntake2)
+        // refetch();
+        console.log('totalPages',totalPages,'currentPage',currentPage,'totalItems',totalIems)
+        setFuelIntakes(fuelIntakes);
+        setCurrentPage(currentPage);
+        setTotalPages(totalPages);
+        setTotalItems(totalIems);
+        
+        
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        // setError("Some error occured");
+      }
+    };
+    
+    fecthFuelIntakes();
+  }, [page, rowsPerPage, searchKeyword, selectedRows]);
+  
+  //select all
+  const selectedAll = fuelIntakes?.length > 0 && selectedRows?.length === fuelIntakes?.length;
+  const selectedSome = selectedRows?.length > 0 && selectedRows?.length < fuelIntakes?.length;
+  
   const handleSelectAll = (event) => {
     if (event.target.checked) {
       const newSelectedRows = fuelIntakes.map((fuelIntake) => fuelIntake._id);
@@ -130,18 +146,16 @@ function PaginDatatable({
     }
     setSelectedRows([]);
   };
-
-
   return (
     <>
-      <Box sx={{ overflowX: 'auto', display: 'flex', flexWrap: 'wrap', gap: 2, mt: '5%', 
-      ml: '5%', mr: '5%', mb: 5,  flexDirection: "column", height: "100%",  }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '5%', 
+      ml: '5%', mr: '5%', mb: 5,  flexDirection: "column", }}>
         <Container maxWidth="xl" >
   
           <Box sx={{ display: "flex", alignItems: "center", }}>
             <Typography
               sx={{
-            fontWeight: "bold",
+                fontWeight: "bold",
               }}
               variant="h4"
               whitespace="nowrap">
@@ -284,7 +298,7 @@ function PaginDatatable({
        <Box sx={{ mr: '5%' }}>
         <TablePagination
       component="div"
-      count={totalItem}
+      count={totalIems}
       page={page}
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}
@@ -297,6 +311,7 @@ function PaginDatatable({
        setOpen={SetWarn}
        name={name}
        action={deleteMultipleFuel}
+      //  refetch={refetch}
       //  selectedData={selectedData}
        selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}

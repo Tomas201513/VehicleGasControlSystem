@@ -22,9 +22,9 @@ function PaperComponent(props) {
     );
 }
 
-export default function Warndialogue({ name, open, setOpen, action,setSelectedData, selectedData,selectedRows,setSelectedRows, qr, setQr, qrId,
+export default function Warndialogue({  name, open, setOpen, action,setSelectedData, selectedData,selectedRows,setSelectedRows, qr, setQr, qrId,
     setQrId }) {
-    const { refetch } = React.useContext(StationContext);
+    const { refetch: refetchStation } = React.useContext(StationContext);
     const { refetch: refetchFuel } = React.useContext(FuelContext);
 
 
@@ -34,8 +34,9 @@ export default function Warndialogue({ name, open, setOpen, action,setSelectedDa
 
             setSelectedData(null);
             setSelectedRows([]);
-            refetch();
+            // refetch();
             refetchFuel();
+            refetchStation();
         } catch(e){
             // console.log(e);
         }
