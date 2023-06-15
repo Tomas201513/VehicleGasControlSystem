@@ -1,12 +1,16 @@
-import { Card, InputAdornment, OutlinedInput, SvgIcon } from '@mui/material';
+import { Box, InputAdornment, OutlinedInput, SvgIcon, 
+  TextField, Typography
+
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchBar = ({ setSearchKeyword }) => (
-  // <Card sx={{ p: 2 }}>
-    <OutlinedInput
+  <Box >
+    <TextField
+      variant="standard"
       defaultValue=""
       fullWidth
-      placeholder="Search customer"
+      placeholder="Search..."
       onChange={(e) => setSearchKeyword(e.target.value)}
       startAdornment={(
         <InputAdornment position="start">
@@ -18,7 +22,7 @@ export const SearchBar = ({ setSearchKeyword }) => (
           </SvgIcon>
         </InputAdornment>
       )}
-      sx={{ maxWidth: 500 }}
+      sx={{ maxWidth: 500, height: '6vh' }}
     />
-  // </Card>
+ </Box>
 );

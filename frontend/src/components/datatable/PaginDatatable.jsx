@@ -29,6 +29,8 @@ import axiosInstance from "src/utils/useAxiosInterceptors";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Warndialogue from "src/components/Warndialogue";
 import {SearchBar} from "src/components/Search/SearchBar";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 function PaginDatatable({
   handleRowClick,
   setCreateOpen,
@@ -100,7 +102,7 @@ function PaginDatatable({
         setLoading(false);
 
       } catch (error) {
-        
+
         console.log(error);
         setLoading(false);
         // setError("Some error occured");
@@ -137,6 +139,7 @@ function PaginDatatable({
               whitespace="nowrap">
               {name}s
             </Typography>
+
           <Box sx={{ flexGrow: 1 }} />
          
           <Tooltip title="Add User">
@@ -153,18 +156,36 @@ function PaginDatatable({
               }}
               onClick={() => {
                 setCreateOpen(true), setEditable(true);
-              }}
+              }}  
             >
               {"Add"}
             </Button>
           </Tooltip>
            </Box>
-           <Box sx={{ display: "flex", alignItems: "center", }}>
-            <IconButton onClick={() =>{ SetWarn(true); console.log(warn);}}>
-              <AutoDeleteIcon sx={{ color: "red" }} />
-            </IconButton>
-          </Box>
+
+
+           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '1%', mb: 5, }}>
+          <Button onClick={() =>{ }}
+              sx={{color:  "black"}}
+              variant="text" startIcon={<FormatAlignJustifyIcon />}>
+              {" Density"}
+            </Button>
+            <Button onClick={() =>{ }}
+              sx={{color:  "black"}}
+              variant="text" startIcon={<FileDownloadIcon />}>
+              {" Export"}
+            </Button>
+          <Tooltip title="Delete Selected">
+            <Button onClick={() =>{ SetWarn(true); console.log(warn);}} 
+            sx={{color: selectedRows && selectedRows.length > 0 ? "red" : "black"}}
+             variant="text" startIcon={<AutoDeleteIcon />}>
+              {" Delete"}
+            </Button>
+          </Tooltip>
+
+          <Box sx={{ flexGrow: 1 }} />
           <SearchBar setSearchKeyword={setSearchKeyword} />
+          </Box>
 
          <Table>
           <TableHead>
@@ -177,7 +198,7 @@ function PaginDatatable({
      />
    </TableCell>
 
-              <TableCell>
+              <TableCell sx={{ color: "red" }}>
                 <Typography
                   color="textSecondary"
                   variant="subtitle2"
