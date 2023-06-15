@@ -57,21 +57,72 @@ const fuelIntakeController = {
   },
   
   getPaginated: async (req, res) => {
+    console.log("getPaginated");
     try {
-      console.log("ttttttttttt", req.params);
       const { page, limit } = req.params;
-      const fuelIntakes = await FuelIntake.find()
+      const { s:search } = req.query;
+      console.log("key", req.params);
+      console.log("key",req.query);
+
+        if(search !== undefined && search !== null && search !== ""){
+          console.log("Search")
+
+          // const fuelIntakes = await FuelIntake.find()
+          // .populate(["car_id", "station", "attendant", { path: "car_id", populate: { path: "driver" } }])
+          // // .skip((page ) * limit)
+          // // .limit(limit * 1)
+          // // .sort({ fuelDate: -1 });
+
+          // const filteredFuelIntakes = fuelIntakes.filter(fuelIntake => {
+          //   return fuelIntake.car_id.plateNumber.toLowerCase().includes(req.params.search)
+          //   || fuelIntake.car_id.driver.userName.toLowerCase().includes(req.params.search)
+          //   || fuelIntake.station.stationName.toLowerCase().includes(req.params.search)
+          //   || fuelIntake.attendant.userName.toLowerCase().includes(req.params.search)
+          //   || fuelIntake.fuelAmount.toString().toLowerCase().includes(req.params.search)
+          //   || fuelIntake.fuelDate.toString().toLowerCase().includes(req.params.search)
+          // }
+          // )
+          // const filteredCount = filteredFuelIntakes.length;
+
+          // res.json({
+          //   filteredFuelIntakes,
+          //   totalPages: Math.ceil(filteredCount / limit),
+          //   currentPage: page,
+          //   totalIems: filteredCount
+          // });
+          const name= search.toLowerCase();
+          const fuelIntakes = await FuelIntake.find().populate(["car_id", "station", "attendant",
+          { path: "car_id", populate: { path: "driver" } }]).sort({ fuelDate: -1 });
+        const filteredFuelIntakes = fuelIntakes.filter(fuelIntake => {
+          return fuelIntake.car_id.plateNumber.toLowerCase().includes(search)
+            || fuelIntake.car_id.driver.userName.toLowerCase().includes(name)
+            || fuelIntake.station.stationName.toLowerCase().includes(name)
+            || fuelIntake.attendant.userName.toLowerCase().includes(name)
+            || fuelIntake.fuelAmount.toString().toLowerCase().includes(search)
+            || fuelIntake.fuelDate.toString().toLowerCase().includes(search)
+        }
+        );
+        res.json(filteredFuelIntakes);
+        
+        }
+      else{
+        console.log("No Search")
+
+        const fuelIntakes = await FuelIntake.find()
         .populate(["car_id", "station", "attendant", { path: "car_id", populate: { path: "driver" } }])
         .skip((page ) * limit)
         .limit(limit * 1)
         .sort({ fuelDate: -1 });
-      const count = await FuelIntake.countDocuments();
-      res.json({
-        fuelIntakes,
-        totalPages: Math.ceil(count / limit),
-        currentPage: page,
-        totalIems: count
-      });
+        
+        const count = await FuelIntake.countDocuments();
+        res.json({
+          fuelIntakes,
+          totalPages: Math.ceil(count / limit),
+          currentPage: page,
+          totalIems: count
+        });
+      }
+
     } catch (error) {
       console.error(error);
     }
@@ -230,13 +281,18 @@ const fuelIntakeController = {
   search: async (req, res) => {
     console.log('search', req.params.key);
     try {
-      const fuelIntakes = await FuelIntake.find({ 
-        "car_id.plateNumber": req.params.key
-      }).populate(["car_id", "attendant", {
-        path: "car_id", populate: { path: "driver" }
-      }, "station"]);
-
-      res.status(200).json(fuelIntakes);
+      const fuelIntakes = await FuelIntake.find().populate(["car_id", "station", "attendant",
+        { path: "car_id", populate: { path: "driver" } }]).sort({ fuelDate: -1 });
+      const filteredFuelIntakes = fuelIntakes.filter(fuelIntake => {
+        return fuelIntake.car_id.plateNumber.toLowerCase().includes(req.params.key)
+          || fuelIntake.car_id.driver.userName.toLowerCase().includes(req.params.key)
+          || fuelIntake.station.stationName.toLowerCase().includes(req.params.key)
+          || fuelIntake.attendant.userName.toLowerCase().includes(req.params.key)
+          || fuelIntake.fuelAmount.toString().toLowerCase().includes(req.params.key)
+          || fuelIntake.fuelDate.toString().toLowerCase().includes(req.params.key)
+      }
+      );
+      res.json(filteredFuelIntakes);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

@@ -26,6 +26,7 @@ import { TokenJson } from "src/apis/token/AuthToken";
 import axiosInstance from "src/utils/useAxiosInterceptors";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Warndialogue from "src/components/Warndialogue";
+import {SearchBar} from "src/components/Search/SearchBar";
 
 function PaginDatatable({
   handleRowClick,
@@ -62,27 +63,24 @@ function PaginDatatable({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
+  const [searchKeyword, setSearchKeyword] = useState("");
   useEffect(() => {
     const fecthFuelIntakes = async () => {
       setLoading(true);
       try {
-        const api4 = "http://127.0.0.1:8000/api/fuel/paginated/"
-        // const res = await fetch(`${api4}${page}/9`);
         const res = await axiosInstance.get(
-          `http://127.0.0.1:8000/api/fuel/paginated/${page}/${rowsPerPage}`);
-        console.log('11111111ddddddddddddddddddddooosss',res);
-
-        const { fuelIntakes:fuelIntakes, totalPages: totalPages, currentPage: currentPage ,totalIems} = res.data;
-        // console.log('datatatatatataat',fuelIntakes);
-        // console.log('totalPages',totalPages);
-        // console.log('currentPage',currentPage);
-
+          `http://127.0.0.1:8000/api/fuel/paginated/${page}/${rowsPerPage}`, {
+            params: { keyword: searchKeyword },
+          }
+        );
+  
+        const { fuelIntakes, totalPages, currentPage, totalItems } = res.data;
+  
         setFuelIntakes(fuelIntakes);
         setCurrentPage(currentPage);
         setTotalPages(totalPages);
-        setTotalItems(totalIems);
-
+        setTotalItems(totalItems);
+  
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -90,9 +88,9 @@ function PaginDatatable({
         setError("Some error occured");
       }
     };
-
+  
     fecthFuelIntakes();
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, searchKeyword]);
 
   //select row
   const [selectedRows, setSelectedRows] = useState([]);
@@ -176,6 +174,7 @@ function PaginDatatable({
               <AutoDeleteIcon sx={{ color: "red" }} />
             </IconButton>
           </Box>
+          <SearchBar setSearchKeyword={setSearchKeyword} />
 
          <Table>
           <TableHead>
