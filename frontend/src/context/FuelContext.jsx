@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery, useMutation } from "react-query";
 import PropTypes from "prop-types";
 import ToastContext from "src/context/hot-toast-context/HotToastContext";
-import { GetFuel, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel, 
+import { GetFuel,GetFueld, GetFuelByCar, CreateFuel, UpdateFuel, DeleteFuel, 
     GetFuelByMonth, CreateFuelAttendant ,GetFuelPaginated, DeleteMultipleFuel} from "src/apis/FuelApi";
 import CarContext from "./CarContext";
 const FuelContext = React.createContext({});
@@ -47,10 +47,12 @@ export const FuelProvider = ({ children }) => {
     isLoading: isLoading2,
     error: error2,
     refetch: refetch2,
-} = useQuery('fuel', () => GetFuel(page, rowsPerPage, searchKeyword),{
+} = useQuery('fuel', () => GetFueld(page, rowsPerPage, searchKeyword),{
     staleTime: 0,
     enabled: true ,
 });
+
+console.log(`=====`, fuelIntake2);
 
     // GetUsers
 
@@ -109,6 +111,8 @@ export const FuelProvider = ({ children }) => {
             setCreateOpen(false);
             showToast("Fuel created successfully", "success", 2000);
             refetch();
+            refetchByCar();
+            refetch2();
         },
         onError: (err) => {
             console.log("couldn't update Fuel");
@@ -125,6 +129,7 @@ export const FuelProvider = ({ children }) => {
 
             showToast("Fuel created successfully", "success", 2000);
             refetch();
+            refetch2();
         },
         onError: (err) => {
             console.log("couldn't update Fuel");
@@ -141,6 +146,7 @@ export const FuelProvider = ({ children }) => {
             setSelectedData(null);
             refetch();
             refetchByCar();
+            refetch2();
 
         },
         onError: (err) => {
@@ -156,6 +162,7 @@ export const FuelProvider = ({ children }) => {
             setSelectedData(null);
             refetch();
             refetchByCar();
+            refetch2();
         },
         onError: (err) => {
             showToast(err.message, "error", 3000);
@@ -169,6 +176,7 @@ export const FuelProvider = ({ children }) => {
             setSelectedData(null);
             refetch();
             refetchByCar();
+            refetch2();
         },
         onError: (err) => {
             showToast(err.message, "error", 3000);

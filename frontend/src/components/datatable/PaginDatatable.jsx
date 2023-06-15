@@ -31,7 +31,7 @@ import Warndialogue from "src/components/Warndialogue";
 import {SearchBar} from "src/components/Search/SearchBar";
 function PaginDatatable({
   handleRowClick,
-    setCreateOpen,
+  setCreateOpen,
   setEditable,
   warn,
   SetWarn,
@@ -56,21 +56,6 @@ function PaginDatatable({
 
 }) {
 
-  // const [fuelIntakes , setFuelIntakes] = useState([]);
-  // const [totalPages, setTotalPages] = useState(0);
-  // const [currentPage , setCurrentPage] = useState(0);
-  // const [totalItem, setTotalItems] = useState(0);
-  
-  
-  
-  // const [loading, setLoading] = useState(false);
-  // // const [error, setError] = useState(false);
-  
-  // const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [page, setPage] = useState(0);
-  // const [selectedRows, setSelectedRows] = useState([]);
-  // const [searchKeyword, setSearchKeyword] = useState("");
-  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -100,31 +85,22 @@ function PaginDatatable({
       );
     }
     console.log("newSelectedRows", newSelectedRows,'selectedRows',selectedRows);
-    
+
     setSelectedRows(newSelectedRows);
   };
-  
-
-  
   
 
   useEffect(() => {
     const fecthFuelIntakes = async () => {
       setLoading(true);
+
       try {
-        // console.log('page',page,'rowsPerPage',rowsPerPage,'searchKeyword',searchKeyword)
-        const { fuelIntakes, totalPages, currentPage, totalIems  } =fuelIntake2
-        console.log('xxxxxxxxxxxx',fuelIntake2)
-        // refetch();
-        console.log('totalPages',totalPages,'currentPage',currentPage,'totalItems',totalIems)
-        setFuelIntakes(fuelIntakes);
-        setCurrentPage(currentPage);
-        setTotalPages(totalPages);
-        setTotalItems(totalIems);
-        
-        
+
+        refetch2();
         setLoading(false);
+
       } catch (error) {
+        
         console.log(error);
         setLoading(false);
         // setError("Some error occured");
@@ -135,8 +111,8 @@ function PaginDatatable({
   }, [page, rowsPerPage, searchKeyword, selectedRows]);
   
   //select all
-  const selectedAll = fuelIntakes?.length > 0 && selectedRows?.length === fuelIntakes?.length;
-  const selectedSome = selectedRows?.length > 0 && selectedRows?.length < fuelIntakes?.length;
+  const selectedAll = fuelIntake2?.fuelIntakes?.length > 0 && selectedRows?.length === fuelIntake2?.fuelIntakes?.length;
+  const selectedSome = fuelIntake2?.selectedRows?.length > 0 && selectedRows?.length < fuelIntake2?.fuelIntakes?.length;
   
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -251,7 +227,7 @@ function PaginDatatable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {fuelIntakes?.map((fuelIntake) => (
+            {fuelIntake2?.fuelIntakes?.map((fuelIntake) => (
               <TableRow
                 hover
                 key={fuelIntake._id}
@@ -298,7 +274,7 @@ function PaginDatatable({
        <Box sx={{ mr: '5%' }}>
         <TablePagination
       component="div"
-      count={totalIems}
+      count={fuelIntake2?.totalIems}
       page={page}
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}

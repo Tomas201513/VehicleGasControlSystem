@@ -14,7 +14,7 @@ export const GetFueld = async (page, rowsPerPage, searchKeyword) => {
       params: { s: searchKeyword },
     }
   );
-  console.log('olaaaaaaaaaaaaaa',res.data);
+  console.log('======0',res.data);
   return res.data;
 };
 
