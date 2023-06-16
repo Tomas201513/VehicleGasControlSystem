@@ -1,7 +1,6 @@
-import { Box, InputAdornment, OutlinedInput, SvgIcon, 
-  TextField, Typography
+import { Box, InputAdornment, OutlinedInput, SvgIcon, TextField, Typography } from '@mui/material';
+import propTypes from 'prop-types';
 
-} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchBar = ({ setSearchKeyword }) => (
@@ -26,3 +25,7 @@ export const SearchBar = ({ setSearchKeyword }) => (
     />
  </Box>
 );
+
+SearchBar.propTypes = {
+  setSearchKeyword: propTypes.func.isRequired,
+};

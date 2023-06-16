@@ -11,6 +11,7 @@ import propTypes from 'prop-types';
 import QRcode from './QRcode';
 import StationContext from 'src/context/StationContext';
 import FuelContext from '../context/FuelContext';
+
 function PaperComponent(props) {
     return (
         <Draggable
@@ -87,7 +88,12 @@ Warndialogue.propTypes = {
     setQr: propTypes.func.isRequired,
     qrId: propTypes.string.isRequired,
     setQrId: propTypes.func.isRequired,
-    name: propTypes.string.isRequired
+    name: propTypes.string.isRequired,
+    selectedRows: propTypes.array.isRequired,
+    setSelectedRows: propTypes.func.isRequired,
+    setSelectedData: propTypes.func.isRequired,
+    
+
 };
 
 // {

@@ -19,6 +19,7 @@ import {
   Container,
 
 } from '@mui/material';
+import Export from "src/components/export/Export";
 import {GetFueld} from 'src/apis/FuelApi'
 import { useQuery, useMutation } from "react-query";
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
@@ -31,6 +32,10 @@ import Warndialogue from "src/components/Warndialogue";
 import {SearchBar} from "src/components/Search/SearchBar";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+import { PropTypes } from "@mui/material";
+import propTypes from 'prop-types';
+
+
 function PaginDatatable({
   handleRowClick,
   setCreateOpen,
@@ -51,8 +56,8 @@ function PaginDatatable({
   setPage,
   selectedRows,
   setSelectedRows,
-  searchKeyword,
   setSearchKeyword,
+  searchKeyword,
   loading,
   setLoading,
 
@@ -118,7 +123,7 @@ function PaginDatatable({
   
   const handleSelectAll = (event) => {
     if (event.target.checked) {
-      const newSelectedRows = fuelIntakes.map((fuelIntake) => fuelIntake._id);
+      const newSelectedRows = fuelIntake2?.fuelIntakes.map((fuelIntake) => fuelIntake._id);
       setSelectedRows(newSelectedRows);
       return;
     }
@@ -170,11 +175,12 @@ function PaginDatatable({
               variant="text" startIcon={<FormatAlignJustifyIcon />}>
               {" Density"}
             </Button>
-            <Button onClick={() =>{ }}
+            {/* <Button onClick={() =>{ }}
               sx={{color:  "black"}}
               variant="text" startIcon={<FileDownloadIcon />}>
               {" Export"}
-            </Button>
+            </Button> */}
+            <Export />
           <Tooltip title="Delete Selected">
             <Button onClick={() =>{ SetWarn(true); console.log(warn);}} 
             sx={{color: selectedRows && selectedRows.length > 0 ? "red" : "black"}}
@@ -198,7 +204,7 @@ function PaginDatatable({
      />
    </TableCell>
 
-              <TableCell sx={{ color: "red" }}>
+              <TableCell sx={{ color: "red", }}>
                 <Typography
                   color="textSecondary"
                   variant="subtitle2"
@@ -256,12 +262,12 @@ function PaginDatatable({
               >
                 <TableCell padding="checkbox">
                 <Checkbox
-     onChange={(event) => {
-       handleSelectRow(event, fuelIntake._id);
-     }}
-     checked={selectedRows.indexOf(fuelIntake._id) !== -1}
-     value="true"
-   />
+                onChange={(event) => {
+                  handleSelectRow(event, fuelIntake._id);
+                }}
+                checked={selectedRows.indexOf(fuelIntake._id) !== -1}
+                value="true"
+              />
 
                 </TableCell>
                 <TableCell>
@@ -319,6 +325,47 @@ function PaginDatatable({
 }
 
 export default PaginDatatable;
+
+PaginDatatable.propTypes = {
+  fuelIntakes: PropTypes.array,
+  name: PropTypes.string,
+  setCreateOpen: PropTypes.func,
+  setEditable: PropTypes.func,
+  handleRowClick: PropTypes.func,
+  deleteMultipleFuel: PropTypes.func,
+  fuelIntake2: PropTypes.object,
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  rowsPerPage: PropTypes.number,
+  setRowsPerPage: PropTypes.func,
+  selectedRows: PropTypes.array,
+  setSelectedRows: PropTypes.func,
+  selectedAll: PropTypes.bool,
+  selectedSome: PropTypes.bool,
+  handleSelectAll: PropTypes.func,
+  handleSelectRow: PropTypes.func,
+  handleChangePage: PropTypes.func,
+  handleChangeRowsPerPage: PropTypes.func,
+  setSearchKeyword: PropTypes.func,
+  warn: PropTypes.bool,
+  SetWarn: PropTypes.func,
+  refetch: PropTypes.func,
+  selectedData: PropTypes.array,
+  deleteFuel: PropTypes.func,
+  isLoading2: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  error2: PropTypes.object,
+  refetch2: PropTypes.func,
+  searchKeyword: PropTypes.string,
+  loading: PropTypes.bool,
+  setLoading: PropTypes.func,
+
+
+};
+
+
+
+
       
 
                     
