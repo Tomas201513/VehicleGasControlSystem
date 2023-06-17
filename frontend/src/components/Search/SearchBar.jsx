@@ -1,10 +1,9 @@
 import { Box, InputAdornment, OutlinedInput, SvgIcon, TextField, Typography } from '@mui/material';
 import propTypes from 'prop-types';
-
 import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchBar = ({ setSearchKeyword }) => (
-  <Box >
+  <Box sx={{ width:'300px'}}>
     <TextField
       variant="standard"
       defaultValue=""
@@ -21,7 +20,7 @@ export const SearchBar = ({ setSearchKeyword }) => (
           </SvgIcon>
         </InputAdornment>
       )}
-      sx={{ maxWidth: 500, height: '6vh' }}
+      sx={{ maxWidth: 500,}}
     />
  </Box>
 );

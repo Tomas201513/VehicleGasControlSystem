@@ -33,7 +33,7 @@ import {SearchBar} from "src/components/Search/SearchBar";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import PropTypes from 'prop-types';
-import FuelContext from 'src/contexts/FuelContext';
+import SyncIcon from '@mui/icons-material/Sync';
 
 function PaginDatatable({
   handleRowClick,
@@ -62,7 +62,6 @@ function PaginDatatable({
 
 }) {
 
-  const {fuelData} = React.useContext(FuelContext);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -91,7 +90,6 @@ function PaginDatatable({
         selectedRows.slice(selectedIndex + 1)
       );
     }
-    console.log("newSelectedRows", newSelectedRows,'selectedRows',selectedRows);
 
     setSelectedRows(newSelectedRows);
   };
@@ -108,7 +106,6 @@ function PaginDatatable({
 
       } catch (error) {
 
-        console.log(error);
         setLoading(false);
         // setError("Some error occured");
       }
@@ -120,7 +117,7 @@ function PaginDatatable({
   //select all
   const selectedAll = fuelIntake2?.fuelIntakes?.length > 0 && selectedRows?.length === fuelIntake2?.fuelIntakes?.length;
   const selectedSome = fuelIntake2?.selectedRows?.length > 0 && selectedRows?.length < fuelIntake2?.fuelIntakes?.length;
-  
+
   const handleSelectAll = (event) => {
     if (event.target.checked) {
       const newSelectedRows = fuelIntake2?.fuelIntakes.map((fuelIntake) => fuelIntake._id);
@@ -154,7 +151,7 @@ function PaginDatatable({
               // startIcon={<AddIcon />}
               sx={{
                 mr: '5%',
-                borderRadius: "25px",
+                borderRadius: "12px",
                 "&:hover": {
                   backgroundColor: "#1565c0",
                 },
@@ -169,33 +166,35 @@ function PaginDatatable({
            </Box>
 
 
-           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '1%', mb: 5, }}>
-          <Button onClick={() =>{ }}
-              sx={{color:  "black"}}
-              variant="text" startIcon={<FormatAlignJustifyIcon />}>
-              {" Density"}
-            </Button>
+           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '2%', mb: 5, }}>
             {/* <Button onClick={() =>{ }}
               sx={{color:  "black"}}
               variant="text" startIcon={<FileDownloadIcon />}>
               {" Export"}
             </Button> */}
-            <Export fuelIntake2={fuelIntake2} />
+            <Tooltip title="Export into Excel">
+            <Export/>
+            </Tooltip>
           <Tooltip title="Delete Selected">
-            <Button onClick={() =>{ SetWarn(true); console.log(warn);}} 
-            sx={{color: selectedRows && selectedRows.length > 0 ? "red" : "black"}}
+            <Button onClick={() =>{ SetWarn(true);}} 
+            sx={{color: "black"}}
              variant="text" startIcon={<AutoDeleteIcon />}>
               {" Delete"}
             </Button>
           </Tooltip>
+            <Button onClick={() =>{refetch2();}}
+                sx={{color:  "black"}}
+                variant="text" startIcon={<SyncIcon />}>
+                {" Sync"}
+              </Button>
 
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1,}} />
           <SearchBar setSearchKeyword={setSearchKeyword} />
           </Box>
 
          <Table>
           <TableHead>
-            <TableRow>
+            <TableRow  sx={{ color: "black", weight: "bold" }}>
             <TableCell padding="checkbox">
      <Checkbox
        checked={selectedAll}
@@ -204,9 +203,8 @@ function PaginDatatable({
      />
    </TableCell>
 
-              <TableCell sx={{ color: "red", }}>
+              <TableCell>
                 <Typography
-                  color="textSecondary"
                   variant="subtitle2"
                 >
                   FUEL AMOUNT(L)
@@ -214,14 +212,12 @@ function PaginDatatable({
               </TableCell>
               <TableCell>
                 <Typography
-                  color="textSecondary"
                   variant="subtitle2"
                 >
                 FILL DATE(GC)
                 </Typography>
               </TableCell><TableCell>
                 <Typography
-                  color="textSecondary"
                   variant="subtitle2"
                 >
                   CAR PLATE NO.
@@ -229,7 +225,6 @@ function PaginDatatable({
               </TableCell>
               <TableCell>
                 <Typography
-                  color="textSecondary"
                   variant="subtitle2"
                 >
                   ATTENDANT
@@ -237,7 +232,6 @@ function PaginDatatable({
               </TableCell>
               <TableCell>
                 <Typography
-                  color="textSecondary"
                   variant="subtitle2"
                 >
                   STATION
@@ -245,7 +239,6 @@ function PaginDatatable({
               </TableCell>
               <TableCell>
                 <Typography
-                  color="textSecondary"
                   variant="subtitle2"
                 >
                   ACTION

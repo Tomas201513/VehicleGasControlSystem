@@ -95,7 +95,7 @@ export default function Datatable({
               // startIcon={<AddIcon />}
               sx={{
                 mr: '5%',
-                borderRadius: "25px",
+                borderRadius: "12px",
                 "&:hover": {
                   backgroundColor: "#1565c0",
                 },
