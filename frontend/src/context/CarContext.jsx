@@ -19,9 +19,9 @@ export const CarProvider = ({ children }) => {
   const name = "Car";
   const { showToast } = React.useContext(ToastContext);
   const handleRowClick = (params) => {
-    console.log(params);
+    // console.log(params);
     setSelectedData(params);
-    console.log(selectedData);
+    // console.log(selectedData);
   };
 
   // GetUers
@@ -38,18 +38,18 @@ export const CarProvider = ({ children }) => {
     enabled: !!scanned,
     staleTime: 0,
   });
-  console.log(`carDetail`, carDetail);
+  // console.log(`carDetail`, carDetail);
 
   // CreateCar
   const { mutateAsync: createCar } = useMutation(CreateCar, {
     onSuccess: () => {
-      console.log("Car created successfully", "success", 2000);
+      // console.log("Car created successfully", "success", 2000);
       showToast("Car created successfully", "success", 2000);
       setCreateOpen(false);
       refetch();
     },
     onError: (err) => {
-      console.log("couldent update Car");
+      // console.log("couldent update Car");
       showToast(err.response
         .data.message, "error", 3000);
     },

@@ -19,10 +19,10 @@ import {
   Container,
 
 } from '@mui/material';
-import Export from "src/components/export/Export";
+import {Export} from "src/components/export/Export";
 import {GetFueld} from 'src/apis/FuelApi'
 import { useQuery, useMutation } from "react-query";
-import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {GetFuelPaginated} from 'src/apis/FuelApi'
 import axios from "axios";
 import { TokenJson } from "src/apis/token/AuthToken";
@@ -31,10 +31,10 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Warndialogue from "src/components/Warndialogue";
 import {SearchBar} from "src/components/Search/SearchBar";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import PropTypes from 'prop-types';
 import SyncIcon from '@mui/icons-material/Sync';
-
+import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 function PaginDatatable({
   handleRowClick,
   setCreateOpen,
@@ -62,6 +62,7 @@ function PaginDatatable({
 
 }) {
 
+   const [dense, setDense] = React.useState(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -167,32 +168,43 @@ function PaginDatatable({
 
 
            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: '2%', mb: 5, }}>
-            {/* <Button onClick={() =>{ }}
+           <Tooltip title="Row width">
+            <Button
               sx={{color:  "black"}}
-              variant="text" startIcon={<FileDownloadIcon />}>
-              {" Export"}
-            </Button> */}
-            <Tooltip title="Export into Excel">
-            <Export/>
-            </Tooltip>
-          <Tooltip title="Delete Selected">
-            <Button onClick={() =>{ SetWarn(true);}} 
-            sx={{color: "black"}}
-             variant="text" startIcon={<AutoDeleteIcon />}>
-              {" Delete"}
+              variant="text" 
+              onClick={() => setDense((prev) => !prev)}
+              startIcon={dense ? <DensityMediumIcon  /> : <FormatAlignJustifyIcon />}>
+              {" DENSITY"}
             </Button>
           </Tooltip>
+            <Export/>
+          <Tooltip title="Delete Selected">
+            <Button 
+            onClick={() =>{ 
+              if(selectedRows.length > 0){
+                SetWarn(true);
+              }else{
+                alert("Please select a row")
+              }
+            }} 
+            sx={{color: "black"}}
+             variant="text" startIcon={<DeleteIcon />}>
+              {" DELETE"}
+            </Button>
+          </Tooltip>
+          <Tooltip title="Refresh">
             <Button onClick={() =>{refetch2();}}
                 sx={{color:  "black"}}
                 variant="text" startIcon={<SyncIcon />}>
-                {" Sync"}
+                {" SYNC"}
               </Button>
+          </Tooltip>
 
           <Box sx={{ flexGrow: 1,}} />
           <SearchBar setSearchKeyword={setSearchKeyword} />
           </Box>
 
-         <Table>
+         <Table size={dense ? 'small': 'medium'}>
           <TableHead>
             <TableRow  sx={{ color: "black", weight: "bold" }}>
             <TableCell padding="checkbox">

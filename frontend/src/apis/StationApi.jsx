@@ -9,7 +9,7 @@ export const GetStation = async () => {
         const res = await axiosInstance.get(api, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 };
 
@@ -19,28 +19,25 @@ export const CreateStation = async (values) => {
         const res = await axiosInstance.post(api, values, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 }
 
 export const UpdateStation = async (values) => {
-    console.log('xxxxx', values);
     if (localStorage.getItem("accessToken")) {
         const res = await axiosInstance.put(`${api}${values.selectedData}`, values.values, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 }
 
 export const FillStation = async (values) => {
-    console.log('xxxxx', values);
     if (localStorage.getItem("accessToken")) {
-        console.log('xxxxx', values);
         const res = await axiosInstance.post(`${api2}${values.id}`, values, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 }
 
@@ -50,6 +47,6 @@ export const DeleteStation = async (id) => {
         const res = await axiosInstance.delete(`${api}${id}`, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 };

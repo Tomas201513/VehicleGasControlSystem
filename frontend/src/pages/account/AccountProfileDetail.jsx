@@ -36,11 +36,11 @@ function AccountProfileDetail() {
 
     const handleSubmit = async (values, { resetForm }) => {
         try {
-            console.log('sssssssssssssssssssssssssss', JSON.stringify(userDetail._id, values));
+            // console.log('sssssssssssssssssssssssssss', JSON.stringify(userDetail._id, values));
             await updateUser({ selectedData: userDetail._id, values });
             resetForm();
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
         refetchAccount();
     };

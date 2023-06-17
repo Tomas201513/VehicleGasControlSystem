@@ -38,9 +38,9 @@ export const FuelProvider = ({ children }) => {
   
 
     const handleRowClick = (params) => {
-        console.log(params);
+        // console.log(params);
         setSelectedData(params);
-        console.log(selectedData);
+        // console.log(selectedData);
     };
   const {
     data:fuelIntake2,
@@ -52,7 +52,7 @@ export const FuelProvider = ({ children }) => {
     enabled: true ,
 });
 
-console.log(`=====`, fuelIntake2);
+// console.log(`=====`, fuelIntake2);
 
     // GetUsers
 
@@ -66,7 +66,7 @@ console.log(`=====`, fuelIntake2);
     const currentMonthIntake = queryResult.data?.currentMonthIntake || 0;
 
 
-    console.log(`fuelData`, fuelData);
+    // console.log(`fuelData`, fuelData);
 
     // GetUsers
     (scanned)
@@ -81,7 +81,7 @@ console.log(`=====`, fuelIntake2);
     });
 
 
-    console.log(`fuelDataByCar`, fuelDataByCar);
+    // console.log(`fuelDataByCar`, fuelDataByCar);
 
     const { data: fuelDataByMonth, isLoading: isLoadingByMonth,
          error: errorByMonth, refetch: refetchByMonth } = useQuery(
@@ -91,7 +91,7 @@ console.log(`=====`, fuelIntake2);
             staleTime: 0,
         }
     );
-    console.log(`fuelDataByMonth`, fuelDataByMonth);
+    // console.log(`fuelDataByMonth`, fuelDataByMonth);
 
     //GetUsersPaginated
     const { data: fuelDataPaginated, isLoading: isLoadingPaginated, 
@@ -102,12 +102,12 @@ console.log(`=====`, fuelIntake2);
             staleTime: 0,
         }
     );
-    console.log(`fuelDataPaginated`, fuelDataPaginated);
+    // console.log(`fuelDataPaginated`, fuelDataPaginated);
     
     // CreateFuel
     const { mutateAsync: createFuel } = useMutation(CreateFuel, {
         onSuccess: () => {
-            console.log("Fuel created successfully");
+            // console.log("Fuel created successfully");
             setCreateOpen(false);
             showToast("Fuel created successfully", "success", 2000);
             refetch();
@@ -115,7 +115,7 @@ console.log(`=====`, fuelIntake2);
             refetch2();
         },
         onError: (err) => {
-            console.log("couldn't update Fuel");
+            // console.log("couldn't update Fuel");
             // showToast(err.message, "error");
             showToast(err.response.data.message, "error", 3000);
 
@@ -124,7 +124,7 @@ console.log(`=====`, fuelIntake2);
     // CreateFuelAttendant
     const { mutateAsync: createFuelAttendant } = useMutation(CreateFuelAttendant, {
         onSuccess: () => {
-            console.log("Fuel created successfully", "success", 2000);
+            // console.log("Fuel created successfully", "success", 2000);
             setCreateOpen(false);
 
             showToast("Fuel created successfully", "success", 2000);
@@ -132,7 +132,7 @@ console.log(`=====`, fuelIntake2);
             refetch2();
         },
         onError: (err) => {
-            console.log("couldn't update Fuel");
+            // console.log("couldn't update Fuel");
             // showToast(err.message, "error");
             showToast(err.response.data.message, "error", 3000);
 

@@ -50,12 +50,12 @@ function CreateUpdateUser({ selectedData, editable, setEditable, name }) {
         // console.log(selectedData._id);
         await updateUser({ selectedData: selectedData?._id, values });
       } else {
-        console.log(values);
+        // console.log(values);
         await createUser(values);
       }
       setEditable(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   return (

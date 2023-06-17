@@ -67,16 +67,16 @@ export default function Scan() {
     const { refetchStation } = React.useContext(StationContext);
 
     const handleSubmit = (CarId) => {
-        console.log('CarId', CarId);
+        // console.log('CarId', CarId);
         setScanned(CarId);
     };
     const onNewScanResult = (decodedText, decodedResult) => {
-        console.log(`Scan result: ${decodedText}`, decodedResult);
+        // console.log(`Scan result: ${decodedText}`, decodedResult);
         setScanned(decodedText);
     };
     React.useEffect(() => {
         if (userDetail) {
-            console.log('userDetail', userDetail);
+            // console.log('userDetail', userDetail);
             const fetchData = async () => {
                 refetchAccount();
                 refetchStation();

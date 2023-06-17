@@ -12,7 +12,8 @@ import {
   Popover,
   Badge,
   styled,
-  Button
+  Button,
+  Tooltip
 } from "@mui/material";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { useNavigate } from "react-router-dom";
@@ -23,32 +24,9 @@ import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 import FuelContext from 'src/context/FuelContext';
 
-// mocks_
-// import account from "../../../_mock/account";
-
 // ----------------------------------------------------------------------
 
-const MENU_OPTIONS = [
-  {
-    label: "Export Selected",
-    icon: < HomeIcon sx={{ mr: 1, color: '#9da4ae' }} />,
-    nav: "/app/home",
-  },
-  {
-    label: "Export this page",
-    icon: <PersonIcon sx={{ mr: 1, color: '#9da4ae' }} />,
-    nav: "/app/account",
-  },
-  {
-    label: "Export all pages",
-    icon: <PersonIcon sx={{ mr: 1, color: '#9da4ae' }} />,
-    nav: "/app/account",
-  },
-];
-
-// ----------------------------------------------------------------------
-
-export default function Export() {
+export function Export() {
 
   const {fuelData, fuelIntake2, selectedRows} = useContext(FuelContext);
   const [selected, setSelected] = useState([]);
@@ -100,6 +78,7 @@ export default function Export() {
 
   return (
     <>
+      <Tooltip title="Export to Excel">
       <Button
         onClick={handleOpen}
         sx={{
@@ -110,6 +89,7 @@ export default function Export() {
       >       
       {" Export"}
       </Button>
+      </Tooltip>
 
       <Popover
         open={Boolean(open)}
@@ -132,7 +112,14 @@ export default function Export() {
       >
        
         <Stack >
-            <MenuItem key={"Export Selected"} onClick={() => { ExportToExcel(selected);handleClose(); }}>
+            <MenuItem key={"Export Selected"} onClick={() => { 
+              if (selected.length === 0) {
+                alert("Please select at least one row to export");
+                return;
+              } else{              
+              ExportToExcel(selected);handleClose(); 
+              }
+              }}>
               {"Export Selected"}
             </MenuItem>
             <MenuItem key={"Export This Page"} onClick={() => {ExportToExcel(fuelIntake2?.fuelIntakes); handleClose(); }}>

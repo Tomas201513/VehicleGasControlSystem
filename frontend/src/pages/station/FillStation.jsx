@@ -15,13 +15,13 @@ function FillStation() {
     });
 
     const handleSubmit = (id, fuelAmount) => {
-        console.log('oooooooooooo', id, fuelAmount);
+        // console.log('oooooooooooo', id, fuelAmount);
         fillStation({ id, fuelAmount });
         refetchStation();
     };
     React.useEffect(() => {
         if (userDetail) {
-            console.log('userDetail', userDetail);
+            // console.log('userDetail', userDetail);
             const fetchData = async () => {
                 refetchAccount();
                 refetchStation();

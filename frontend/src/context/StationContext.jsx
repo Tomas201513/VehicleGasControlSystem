@@ -16,9 +16,9 @@ export const StationProvider = ({ children }) => {
     const name = "Station";
     const { showToast } = React.useContext(ToastContext);
     const handleRowClick = (params) => {
-        console.log(params);
+        // console.log(params);
         setSelectedData(params);
-        console.log(selectedData);
+        // console.log(selectedData);
     };
 
     // GetStations
@@ -28,19 +28,19 @@ export const StationProvider = ({ children }) => {
     const error = queryResult.error;
     const refetchStation = queryResult.refetch;
     const stationData = queryResult?.data;
-    console.log('station', stationData)
+    // console.log('station', stationData)
 
     // CreateStation
     const { mutateAsync: createStation } = useMutation(CreateStation, {
         onSuccess: () => {
-            console.log("Station updated successfully");
+            // console.log("Station updated successfully");
             setCreateOpen(false);
 
             showToast("Station created successfully", "success", 2000);
             refetchStation();
         },
         onError: (err) => {
-            console.log("Station updated successfully", "success", 2000);
+            // console.log("Station updated successfully", "success", 2000);
             showToast(err.response
                 .data.message, "error", 3000);
         },

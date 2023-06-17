@@ -17,23 +17,23 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (req) => {
-    console.log("req", req);
+    // console.log("req", req);
     if (!access) {
         access = localStorage.getItem("accessToken")
             ? localStorage.getItem("accessToken")
             : null;
     }
-    console.log("access", access);
+    // console.log("access", access);
 
     const user = jwt_decode(access);
 
     const expirationTime = new Date(user.exp * 1000);
     const isExpired = expirationTime < new Date();
      // compare with current time
-    console.log("isExpired", isExpired);
+    // console.log("isExpired", isExpired);
     if (isExpired) {
         try {
-            console.log("iiiiiiiiiiiiiiiiiiiiiii");
+            // console.log("iiiiiiiiiiiiiiiiiiiiiii");
 
             const response = await axios.post(
                 `${baseURL}/api/auth/refresh`,
@@ -41,14 +41,14 @@ axiosInstance.interceptors.request.use(async (req) => {
                     refreshToken: localStorage.getItem("refreshToken"),
                 }
             );
-            console.log("response", response);
+            // console.log("response", response);
 
             const { accessToken } = response.data;
 
             localStorage.setItem("accessToken", accessToken);
             access = accessToken;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             // Handle error here
             throw error;
         }

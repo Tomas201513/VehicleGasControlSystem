@@ -18,9 +18,9 @@ export const QuotaProvider = ({ children }) => {
     const name = "Quota";
     const { showToast } = React.useContext(ToastContext);
     const handleRowClick = (params) => {
-        console.log(params);
+        // console.log(params);
         setSelectedData(params);
-        console.log(selectedData);
+        // console.log(selectedData);
     };
 
     // GetUsers
@@ -34,8 +34,8 @@ export const QuotaProvider = ({ children }) => {
 
 
 
-    console.log(`queryResult`, queryResult);
-    console.log(`quotaData`, quotaData);
+    // console.log(`queryResult`, queryResult);
+    // console.log(`quotaData`, quotaData);
 
     const { data: quotaDetail, refetch: refetchAccount } = useQuery(
         "quotaDetail",

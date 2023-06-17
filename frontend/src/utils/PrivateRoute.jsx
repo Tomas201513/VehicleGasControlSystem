@@ -7,7 +7,7 @@ import { CircularProgress } from '@mui/material';
 
 const PrivateRoute = ({ children, ...rest }) => {
     let { isLoading, userDetail } = useContext(AuthContext);
-    console.log(userDetail);
+    // console.log(userDetail);
     if (isLoading) {
         return <CircularProgress />;
       }

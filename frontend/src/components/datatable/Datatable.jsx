@@ -32,7 +32,6 @@ export default function Datatable({
 
 }) {
   const isSmallScreen = useMediaQuery('(min-width:600px)');
-  console.log('rows', rows);
   function CustomToolbar() {
     return (
       <GridToolbarContainer sx={{

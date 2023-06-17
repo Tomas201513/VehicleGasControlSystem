@@ -67,7 +67,15 @@ export default function Warndialogue({  name, open, setOpen, action,setSelectedD
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    {qr ? <></> : <Button autoFocus onClick={() => { console.log('selectedData',selectedData); action(selectedData ? selectedData._id: selectedRows); handleClose() }} color="error">
+                    {qr ? <></> : <Button autoFocus 
+                    onClick={() => {
+                         action(selectedData ? selectedData._id: selectedRows); 
+                         setSelectedRows([]);
+                        setSelectedData(null);
+                        setSelectedRows([]);
+                         handleClose();
+                         }}
+                         color="error">
                         Delete
                     </Button>}
 

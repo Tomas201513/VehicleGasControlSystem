@@ -84,7 +84,7 @@ const fuelIntakeController = {
             || fuelIntake.station.stationName.toLowerCase().includes(name)
             || fuelIntake.attendant.userName.toLowerCase().includes(name)
             || fuelIntake.fuelAmount.toString().toLowerCase().includes(search)
-            || fuelIntake.fuelDate.toString().toLowerCase().includes(search)
+            // || fuelIntake.fuelDate.toString().toLowerCase().includes(search)
         }
         )
         const count = fuelIntake.length;
@@ -150,6 +150,7 @@ const fuelIntakeController = {
       res.status(500).json({ message: error.message });
     }
   },
+  
   getAllByCar: async (req, res) => {
     console.log('carId', req.params.carId);
     try {

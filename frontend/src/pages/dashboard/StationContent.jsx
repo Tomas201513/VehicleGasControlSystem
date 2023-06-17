@@ -187,9 +187,7 @@ export default function StationContent(props) {
                         )}
                     </CardContent>
                 </Card>
-
             }
-
         </>
     );
 }

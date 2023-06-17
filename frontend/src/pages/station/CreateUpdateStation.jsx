@@ -40,15 +40,15 @@ export default function CreateUpdateStation({ selectedData, editable, setEditabl
     const handleSubmit = async (values) => {
         try {
             if (selectedData) {
-                console.log('torpa', values);
+                // console.log('torpa', values);
                 await updateStation({ selectedData: selectedData._id, values });
             } else {
-                console.log(values);
+                // console.log(values);
                 await createStation(values);
             }
             setEditable(false);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     return (

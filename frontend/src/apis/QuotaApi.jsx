@@ -6,10 +6,9 @@ const api = "http://127.0.0.1:8000/api/quotas/";
 export const GetQuota = async () => {
     if (localStorage.getItem("accessToken")) {
         const res = await axiosInstance.get(api, TokenJson());
-        console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzz',res.data);
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 }
 
@@ -18,7 +17,7 @@ export const GetQuotaDetail = async (id) => {
         const res = await axiosInstance.get(`${api}${id}`, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 }
 
@@ -28,17 +27,16 @@ export const CreateQuota = async (values) => {
         const res = await axiosInstance.post(api, values, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 }
 
 export const UpdateQuota = async (values) => {
-    console.log('xxxxx', values);
     if (localStorage.getItem("accessToken")) {
         const res = await axiosInstance.put(`${api}${values.selectedData}`, values.values, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 }
 
@@ -48,7 +46,7 @@ export const DeleteQuota = async (id) => {
         const res = await axiosInstance.delete(`${api}${id}`, TokenJson());
         return res.data;
     } else {
-        console.log("No token");
+        // console.log("No token");
     }
 }
 

@@ -38,18 +38,18 @@ const FormSchema = yup.object().shape({
     const handleSubmit = async (values) => {
         try {
           if (selectedData) {
-            // console.log(selectedData._id);
+            console.log(selectedData._id);
             await updateQuota({ selectedData: selectedData?._id, values });
           } else {
-            console.log(values);
+            // console.log(values);
             await createQuota(values);
           }
-          console.log("ooooooooooxxxxxxxxxoooooo",editable);
+          // console.log("ooooooooooxxxxxxxxxoooooo",editable);
           setSelectedData(null);
           setCreateOpen(false);
           setEditable(false);
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       };
       return (
@@ -80,7 +80,7 @@ const FormSchema = yup.object().shape({
                       <Tooltip title="Back">
                         <IconButton
                           onClick={() => {
-                            console.log("oooooooooooooooo"), 
+                            // console.log("oooooooooooooooo"), 
                             setSelectedData(null),
                             setEditable(false),
                             setCreateOpen(false);

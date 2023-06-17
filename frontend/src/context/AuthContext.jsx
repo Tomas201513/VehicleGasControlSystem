@@ -36,20 +36,20 @@ export const AuthProvider = ({ children }) => {
 
     } catch (err) {
       showToast("Login failed", "error", 2000);
-      console.log(err);
+      // console.log(err);
     }
   }
 
 
   async function registerUser(values) {
-    console.log("context" + JSON.stringify(values));
+    // console.log("context" + JSON.stringify(values));
     try {
       const res = await axios.post("http://localhost:8000/api/auth/register", {
         userName: values.name,
         email: values.email,
         password: values.password,
       });
-      console.log("token" + JSON.stringify(res));
+      // console.log("token" + JSON.stringify(res));
       if (res.status === 201) {
         navigate("/", { replace: true });
       } else {
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
       showToast("Registration successful", "success", 2000);
     } catch (err) {
       showToast("Registration failed", "error", 2000);
-      console.error("Error registering user:", err.message);
+      // console.error("Error registering user:", err.message);
     }
   }
 
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
           refreshToken: localStorage.getItem("refreshToken"),
         },
       });
-      console.log(res);
+      // console.log(res);
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       setUserDetail(null);
@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("refreshToken");
 
       showToast("Logout failed", "error", 2000);
-      console.error("Error logging out user:", err.message);
+      // console.error("Error logging out user:", err.message);
     }
   }
 

@@ -46,14 +46,14 @@ useEffect(() => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        console.log(values);
-        console.log(helpers);
+        // console.log(values);
+        // console.log(helpers);
         await loginUser(values);
-        console.log("login");
+        // console.log("login");
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);       
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);

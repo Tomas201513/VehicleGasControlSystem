@@ -62,15 +62,15 @@ export default function EditFuelDialogue({ open, setOpen, editCard, setEditCard,
     const handleSubmit = async (values) => {
         try {
             if (cardRow) {
-                console.log('updateFuel', { cardRow: cardRow._id, scanned, attendant: userDetail._id, values });
+                // console.log('updateFuel', { cardRow: cardRow._id, scanned, attendant: userDetail._id, values });
                 await updateFuel({ cardRow: cardRow._id, scanned, attendant: userDetail._id, values });
             } else {
-                console.log('0000000000000000000000000', { scanned, attendant: userDetail._id, values });
+                // console.log('0000000000000000000000000', { scanned, attendant: userDetail._id, values });
                 await createFuelAttendant({ scanned, attendant: userDetail._id, values });
             }
             handleClose();
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     return (

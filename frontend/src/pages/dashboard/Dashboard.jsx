@@ -62,7 +62,7 @@ function Dashboard() {
 
   React.useEffect(() => {
     if (userDetail) {
-      console.log('userDetail', userDetail);
+      // console.log('userDetail', userDetail);
       const fetchData = async () => {
         refetchUser();
         refetchFuel();
@@ -87,7 +87,7 @@ function Dashboard() {
       });
     }
   });
-  console.log('fuelData?.fuelIntakes', fuelData)
+  // console.log('fuelData?.fuelIntakes', fuelData)
   const sx = {
     flexGrow: 1,
     border: "none",

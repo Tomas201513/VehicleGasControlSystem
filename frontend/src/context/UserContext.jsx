@@ -19,9 +19,9 @@ export const UserProvider = ({ children }) => {
   const name = "User";
   const { showToast } = React.useContext(ToastContext);
   const handleRowClick = (params) => {
-    console.log(params);
+    // console.log(params);
     setSelectedData(params);
-    console.log(selectedData);
+    // console.log(selectedData);
   };
 
   // GetUsers
@@ -32,7 +32,7 @@ export const UserProvider = ({ children }) => {
   const refetch = queryResult.refetch;
   const userData = queryResult.data?.usersdata || [];
   const userCounts = queryResult.data?.userCounts || [];
-  console.log('userData', userData);
+  // console.log('userData', userData);
 
 
   const { data: accountDetail, refetch: refetchAccount } = useQuery(
@@ -45,14 +45,14 @@ export const UserProvider = ({ children }) => {
 
   const { mutateAsync: createUser } = useMutation(CreateUser, {
     onSuccess: () => {
-      console.log("User updated successfully");
+      // console.log("User updated successfully");
       setCreateOpen(false);
 
       showToast("User created successfully", "success", 2000);
       refetch();
     },
     onError: (err) => {
-      console.log("User updated successfully");
+      // console.log("User updated successfully");
       showToast(err.response
         .data.message, "error", 3000);
     },

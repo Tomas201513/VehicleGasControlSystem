@@ -51,17 +51,17 @@ function CreateUpdateCar({ selectedData, editable, setEditable }) {
     const handleSubmit = async (values) => {
         try {
             if (selectedData) {
-                console.log('ssssssssssssssssss',values);
+                // console.log('ssssssssssssssssss',values);
                 await updateCar({ selectedData: selectedData._id, values });
                 setEditable(false);
 
             } else {
-                console.log(values);
+                // console.log(values);
                 await createCar(values);
             }
             setEditable(false);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     return (

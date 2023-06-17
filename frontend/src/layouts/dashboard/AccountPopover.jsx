@@ -80,7 +80,7 @@ export default function AccountPopover() {
     },
   }));
   useEffect(() => {
-    console.log("userDetail" + JSON.stringify(userDetail));
+    // console.log("userDetail" + JSON.stringify(userDetail));
   }, [userDetail]);
 
   return (

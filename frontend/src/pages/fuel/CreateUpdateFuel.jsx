@@ -46,19 +46,19 @@ function CreateUpdateFuel({ selectedData, editable, setEditable }) {
     const handleSubmit = async (values) => {
         try {
             if (selectedData) {
-                console.log('xxxxxxxxxxx', selectedData._id);
+                // console.log('xxxxxxxxxxx', selectedData._id);
                 await updateFuel({ cardRow: selectedData?._id, values });
             } else {
-                console.log(values);
+                // console.log(values);
                 await createFuel(values);
             }
             setEditable(false);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     useEffect(() => {
-        console.log('warnnnnnnnnnnnnnnnnnnnnnnnnnn', warn);
+        // console.log('warnnnnnnnnnnnnnnnnnnnnnnnnnn', warn);
     }, [warn])
 
     return (

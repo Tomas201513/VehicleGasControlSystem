@@ -20,7 +20,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    console.log("Error Boundary Caught an error:", error, info);
+    // console.log("Error Boundary Caught an error:", error, info);
     this.setState({ info });
   }
 
@@ -31,7 +31,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <Box sx={{ p: 35 }}>
+        <Box sx={{ p: '5rem' }}>
           <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <img
             alt="Under development"

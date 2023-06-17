@@ -37,10 +37,10 @@ function Register() {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        console.log(values);
-        console.log(helpers);
+        // console.log(values);
+        // console.log(helpers);
         await registerUser(values);
-        console.log("register");
+        // console.log("register");
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
         // await auth.signUp(values.email, values.name, values.password);
@@ -54,7 +54,6 @@ function Register() {
   });
   return (
     <>
-      <Helmet title="Register" />
      <Box
         sx={{
           flex: '1 1 auto',
