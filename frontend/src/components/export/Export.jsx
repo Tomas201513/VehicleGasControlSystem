@@ -48,9 +48,7 @@ const MENU_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function Export() {
-  const navigate = useNavigate();  
-  const { userDetail, logoutUser } = useContext(AuthContext);
+export default function Export({fuelIntake2}) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -89,9 +87,6 @@ export default function Export() {
       },
     },
   }));
-  useEffect(() => {
-    console.log("userDetail" + JSON.stringify(userDetail));
-  }, [userDetail]);
 
   return (
     <>
@@ -129,10 +124,10 @@ export default function Export() {
       >
        
         <Stack >
-            <MenuItem key={"Export Selected"} onClick={() => {ExportToExcel(); handleClose(); }}>
+            <MenuItem key={"Export Selected"} onClick={() => { handleClose(); }}>
               {"Export Selected"}
             </MenuItem>
-            <MenuItem key={"Export This Page"} onClick={() => { }}>
+            <MenuItem key={"Export This Page"} onClick={() => {ExportToExcel(fuelIntake2?.fuelIntakes); handleClose(); }}>
               {"Export This Page"}
             </MenuItem>
             <MenuItem key={"Export All"} onClick={() => {  }}>
@@ -145,17 +140,25 @@ export default function Export() {
 }
 
 
-const ExportToExcel = ({ apiData, fileName }) => {
-    const fileType =
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+const ExportToExcel = (apiData) => {
+  const fileName = "ExcelSheet";
+  const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
   const fileExtension = ".xlsx";
 
-  const exportToCSV = (apiData, fileName) => {
-    const ws = XLSX.utils.json_to_sheet(apiData);
+  const exportToExcel = (apiData, fileName) => {
+    const formattedData = apiData.map((item) => ({
+      fuelAmount: item.fuelAmount,
+      fillDate: item.fuelDate,
+      car_id: item.car_id.plateNumber,
+      attendant: item.attendant.userName,
+      station: item.station.stationName,
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(formattedData);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, fileName + fileExtension);
-  };
-
-}
+  }
+   exportToExcel(apiData, fileName);
+};

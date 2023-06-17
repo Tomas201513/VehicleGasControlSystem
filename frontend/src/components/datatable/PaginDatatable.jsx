@@ -32,9 +32,8 @@ import Warndialogue from "src/components/Warndialogue";
 import {SearchBar} from "src/components/Search/SearchBar";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import { PropTypes } from "@mui/material";
-import propTypes from 'prop-types';
-
+import PropTypes from 'prop-types';
+import FuelContext from 'src/contexts/FuelContext';
 
 function PaginDatatable({
   handleRowClick,
@@ -63,6 +62,7 @@ function PaginDatatable({
 
 }) {
 
+  const {fuelData} = React.useContext(FuelContext);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -180,7 +180,7 @@ function PaginDatatable({
               variant="text" startIcon={<FileDownloadIcon />}>
               {" Export"}
             </Button> */}
-            <Export />
+            <Export fuelIntake2={fuelIntake2} />
           <Tooltip title="Delete Selected">
             <Button onClick={() =>{ SetWarn(true); console.log(warn);}} 
             sx={{color: selectedRows && selectedRows.length > 0 ? "red" : "black"}}
