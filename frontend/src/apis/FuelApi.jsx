@@ -96,7 +96,7 @@ export const CreateFuelAttendant = async (values) => {
   if (localStorage.getItem("accessToken")) {
     const res = await axiosInstance.post(api, {
       attendant: values.attendant,
-      car_id: values.scanned,
+      car_id: values.car,
       fuelAmount: values.values.fuelAmount,
       station: values.values.station,
     }, TokenJson());

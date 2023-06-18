@@ -52,22 +52,24 @@ export default function Scan() {
       >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab fontWeight="bold" label="Camera" />
-            <Tab fontWeight="bold" label="Input" />
+            <Tab fontWeight="bold" label="Qr" />
+            <Tab fontWeight="bold" label="Input Plate No." />
           </Tabs>
         </Box>
         {value === 0 ?
-          <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-            <Box sx={{
-              width: '400px', height: '100%', mt: '5%', flexGrow: 1,
-              border: "none",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
-              borderRadius: "10px",
-              transition: "all 0.3s ease-in-out",
-              '&:hover': {
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-              }
-            }}>
+                        <TabPanel value={value} index={0}>
+
+           <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+           <Box sx={{
+               width: '400px', height: '100%', mt: '5%', flexGrow: 1,
+               border: "none",
+               boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.06)",
+               borderRadius: "10px",
+               transition: "all 0.3s ease-in-out",
+               '&:hover': {
+                   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+               }
+           }}>
               <Html5QrcodePlugin
                 fps={10}
                 qrbox={200}
@@ -77,15 +79,16 @@ export default function Scan() {
                 }}
                 setScanned={setScanned}
               />
-            </Box>
-          </Box>
+           </Box>
+       </Box>
+           </TabPanel>
           :
-          <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <TabPanel value={value} index={1}>
+              <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
               <Formik initialValues={{ CarId: '' }} validationSchema={validationSchema} onSubmit={(values) => setScanned(values.CarId)}>
                 {({ errors, touched, values, handleChange }) => (
                   <Form>
-                    <Stack direction="column" spacing={2} sx={{ maxWidth: 300, justifyContent: 'center', alignItems: 'center', mt: 12 }}>
+                    <Stack direction="column" spacing={2} sx={{ maxWidth: 300, justifyContent: 'center', alignItems: 'center', mt:6,mb: 6 }}>
                       <TextField
                         size="small"
                         fullWidth
@@ -109,8 +112,8 @@ export default function Scan() {
                   </Form>
                 )}
               </Formik>
-            </TabPanel>
           </Box>
+            </TabPanel>
         }
       </Box>
       <ScrollDialog carDetail={carDetail} scanned={scanned} setScanned={setScanned} />

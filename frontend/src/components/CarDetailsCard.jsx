@@ -295,6 +295,7 @@ export default function CarDetailsCard({ fuelDataByCar, editCard, setEditCard, c
 
             <EditFuelDialogue
                 open={open}
+                car={fuelDataByCar?.car?._id}
                 setOpen={setOpen}
                 editCard={editCard}
                 setEditCard={setEditCard}

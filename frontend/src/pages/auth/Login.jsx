@@ -148,7 +148,7 @@ useEffect(() => {
               <Button
                 fullWidth
                 size="large"
-                sx={{ mt: 3, backgroundColor: '#112343'}}
+                sx={{ mt: 3}}
                 type="submit"
                 variant="contained"
               >

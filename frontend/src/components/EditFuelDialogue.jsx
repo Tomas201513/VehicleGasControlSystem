@@ -37,7 +37,7 @@ function PaperComponent(props) {
     );
 }
 
-export default function EditFuelDialogue({ open, setOpen, editCard, setEditCard, scanned }) {
+export default function EditFuelDialogue({ open, setOpen, editCard, setEditCard, scanned ,car}) {
     const { userData, } = React.useContext(UserContext);
     const { carData } = React.useContext(CarContext);
     const { createFuel, updateFuel, fuelDataByCar, createFuelAttendant, cardRow, setCardRow, refetchByCar } = React.useContext(FuelContext);
@@ -66,7 +66,7 @@ export default function EditFuelDialogue({ open, setOpen, editCard, setEditCard,
                 await updateFuel({ cardRow: cardRow._id, scanned, attendant: userDetail._id, values });
             } else {
                 console.log('0000000000000000000000000', { scanned, attendant: userDetail._id, values });
-                await createFuelAttendant({ scanned, attendant: userDetail._id, values });
+                await createFuelAttendant({car, scanned, attendant: userDetail._id, values });
             }
             handleClose();
         } catch (error) {
