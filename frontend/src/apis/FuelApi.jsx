@@ -8,17 +8,18 @@ const api3 = "http://127.0.0.1:8000/api/fuel/monthly/1" // 1 is just a placehold
 const api4 = "http://127.0.0.1:8000/api/fuel/paginated/"
 const api5 = "http://127.0.0.1:8000/api/fuel/delete/multiple/"
 
-export const GetFueld = async (page, rowsPerPage, searchKeyword) => {
+export const GetFueld = async (page=0, rowsPerPage=10, searchKeyword) => {
   if (localStorage.getItem("accessToken")) {
   const res = await axiosInstance.get(
     `http://127.0.0.1:8000/api/fuel/paginated/${page}/${rowsPerPage}`, {
       params: { s: searchKeyword },
-    }
-  );
+      headers: {
+        "x-access-token": `${localStorage.getItem("accessToken")}`
+      }
+    },);
   return res.data;
 } else {
   // console.log("No token");
-
 }  
 };
 

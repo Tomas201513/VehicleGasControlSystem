@@ -57,11 +57,11 @@ const fuelIntakeController = {
   },
   
   getPaginated: async (req, res) => {
-    console.log("getPaginated");
+    console.log("getPaginateeeeeeeeed");
     try {
-      const { page, limit } = req.params;
+      const { page = 0, limit = 10 } = req.params;
       const { s:search } = req.query;
-      console.log("key", req.params);
+      console.log("key", page, limit, search);
       console.log("key",req.query);
 
         if(search !== undefined && search !== null && search !== ""){
@@ -123,6 +123,7 @@ const fuelIntakeController = {
 
 
   getAll: async (req, res) => {
+
     try {
       const currentDate = new Date();
       const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -150,8 +151,9 @@ const fuelIntakeController = {
       res.status(500).json({ message: error.message });
     }
   },
-  
+
   getAllByCar: async (req, res) => {
+
     console.log('carId', req.params.carId);
     try {
       // const car_id = req.params.carId;
@@ -191,7 +193,9 @@ const fuelIntakeController = {
       const attendant = await User.findById(req.body.attendant);
       const car = await Car.findById(req.body.car_id).populate("driver");
       const station = await Station.findById(req.body.station)
-
+      console.log('attendanttttttttttt', attendant);
+      console.log('car', car);
+      console.log('station', station);
       // Check if the user exists
       if (!(attendant)) {
         return res.status(404).json({ message: "User not found" });

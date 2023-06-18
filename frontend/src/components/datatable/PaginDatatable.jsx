@@ -201,7 +201,7 @@ function PaginDatatable({
           </Tooltip>
 
           <Box sx={{ flexGrow: 1,}} />
-          <SearchBar setSearchKeyword={setSearchKeyword} />
+          <SearchBar setSearchKeyword={setSearchKeyword} refetch2={refetch2} />
           </Box>
 
          <Table size={dense ? 'small': 'medium'}>
