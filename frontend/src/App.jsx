@@ -1,4 +1,4 @@
-import { HelmetProvider } from "react-helmet-async";
+// import { HelmetProvider } from "react-helmet-async";
 import RoutesComponent from "./routes";
 import { CssBaseline } from "@mui/material";
 import ErrorBoundary from "./ErrorBoundary";
@@ -18,7 +18,8 @@ function App() {
 
   const queryClient = new QueryClient();
   return (
-    <HelmetProvider>
+    <>
+    {/* <HelmetProvider> */}
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
         <ToastProvider>
@@ -40,7 +41,8 @@ function App() {
         </ToastProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </HelmetProvider>
+    {/* </HelmetProvider> */}
+    </>
 
 
   )

@@ -1,5 +1,5 @@
 import { Box, Button, Container, SvgIcon, Typography } from '@mui/material';
-import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 import { useNavigate } from 'react-router-dom';
 import fof from 'src/assets/fof.gif';
 
@@ -11,7 +11,7 @@ const Page404 = () => {
   };
   return (
   <>
-    <Helmet title="404: Not found" />
+    {/* <Helmet title="404: Not found" /> */}
    
     <Box
       component="main"

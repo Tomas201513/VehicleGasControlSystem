@@ -22,6 +22,7 @@ export default function ScrollDialog({ scanned, setScanned }) {
         setEditCard,
         cardRow,
         setCardRow,
+         refetchByCar
     } = React.useContext(FuelContext);
 
     const handleClose = () => {
@@ -38,7 +39,7 @@ export default function ScrollDialog({ scanned, setScanned }) {
                 onClose={handleClose}
                 TransitionComponent={Transition}
             >
-                <AppBar sx={{ position: 'relative', backgroundColor: '#4276a8', mb: 5, flexWrap: 'wrap' }}>
+                <AppBar sx={{ position: 'relative', backgroundColor: 'primary.main', mb: '5%', flexWrap: 'wrap' }}>
                     <Toolbar>
                         <IconButton
                             edge="start"
@@ -59,7 +60,8 @@ export default function ScrollDialog({ scanned, setScanned }) {
                     setEditCard={setEditCard}
                     cardRow={cardRow}
                     setCardRow={setCardRow}
-                    scanned={scanned} />
+                    scanned={scanned} 
+                    />
             </Dialog>
         </Box>
     );

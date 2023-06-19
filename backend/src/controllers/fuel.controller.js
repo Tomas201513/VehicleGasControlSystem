@@ -153,19 +153,31 @@ const fuelIntakeController = {
   },
 
   getAllByCar: async (req, res) => {
+    const { page = 0 } = req.params;
 
-    console.log('carId', req.params.carId);
+    console.log('carId', req.params.carId,'page',page);
     try {
       // const car_id = req.params.carId;
       if (req.params.carId.length <= 10) {
         const car = await Car.findOne({ plateNumber: req.params.carId }).populate('driver');
-        const fuelIntakeDetails = await getFuelIntakeDetails(car._id);
-        res.status(200).json({ car, fuelIntakeDetails });
+        const fuelIntakeDetails = await getFuelIntakeDetails(car._id)
+        const fuelIntakeDetail= fuelIntakeDetails.slice(page, page+1)
+        res.status(200).json({  car, 
+          fuelIntakeDetail,
+          totalPages: Math.ceil(fuelIntakeDetails.length),
+          currentPage: page, });
 
       } else {
         const car = await Car.findById(req.params.carId).populate('driver');
-        const fuelIntakeDetails = await getFuelIntakeDetails(car._id);
-      res.status(200).json({ car, fuelIntakeDetails });
+        const fuelIntakeDetails = await getFuelIntakeDetails(car._id)
+        const fuelIntakeDetail= fuelIntakeDetails.slice(page, page+1)
+
+      res.status(200).json({ 
+        car, 
+        fuelIntakeDetail,
+        totalPages: Math.ceil(fuelIntakeDetails.length),
+        currentPage: page,
+      });
       }
     } catch (error) {
       res.status(500).json({ message: error.message });

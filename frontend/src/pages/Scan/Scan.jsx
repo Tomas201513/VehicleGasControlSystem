@@ -53,7 +53,7 @@ export default function Scan() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab fontWeight="bold" label="Qr" />
-            <Tab fontWeight="bold" label="Input Plate No." />
+            <Tab fontWeight="bold" label="Plate No." />
           </Tabs>
         </Box>
         {value === 0 ?

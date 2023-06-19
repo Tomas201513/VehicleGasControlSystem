@@ -19,6 +19,7 @@ export const FuelProvider = ({ children }) => {
     const [warn, SetWarn] = React.useState(false);
     const name = "Fuel";
     const { showToast } = React.useContext(ToastContext);
+    const [activeStep, setActiveStep] = React.useState(0);
 
 
     // const [fuelIntakes , setFuelIntakes] = useState([]);
@@ -75,7 +76,7 @@ export const FuelProvider = ({ children }) => {
         isLoading: isLoadingByCar,
         error: errorByCar,
         refetch: refetchByCar,
-    } = useQuery(['fuelsByCar', scanned], () => GetFuelByCar(scanned), {
+    } = useQuery(['fuelsByCar',activeStep, scanned,  ], GetFuelByCar, {
         staleTime: 0,
         enabled: !!scanned,
     });
@@ -238,6 +239,8 @@ export const FuelProvider = ({ children }) => {
                 setSearchKeyword,
                 loading,
                 setLoading,
+                activeStep, 
+                setActiveStep
 
 
             }}

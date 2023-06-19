@@ -1,11 +1,12 @@
 import React from "react";
 import { Box } from "@mui/material";
 import swr from "src/assets/swr.gif";
-import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Typography } from "@mui/material";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
+import { PropTypes } from "prop-types";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class ErrorBoundary extends React.Component {
               style={{ width: "19%", height: "10%" }}
             />
 
-            <h1 sx={{ color: "#0f6eff" }}>Something went wrong!</h1>
+            <Typography sx={{ color: "#0f6eff" }}>Something went wrong!</Typography>
           <Button
             variant="contained"
             startIcon={this.state.show ? <VisibilityOffRoundedIcon /> : <RemoveRedEyeRoundedIcon />}
@@ -63,3 +64,7 @@ class ErrorBoundary extends React.Component {
 }
 
 export default ErrorBoundary;
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node.isRequired,
+};

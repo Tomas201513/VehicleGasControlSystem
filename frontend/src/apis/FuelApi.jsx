@@ -40,10 +40,11 @@ export const GetFuelPaginated = async (values) => {
   }
 };
 
-export const GetFuelByCar = async (id) => {
-  if (localStorage.getItem("accessToken") && id) {
-    const res = await axiosInstance.get(`${api2}${id}`, TokenJson());
-    console.log('=====',res.data);
+export const GetFuelByCar = async (value) => {
+  console.log('=====v',value.queryKey[1] ,value.queryKey[2]  );
+  if (localStorage.getItem("accessToken") && value.queryKey[2]) {
+    const res = await axiosInstance.get(`${api2}${value.queryKey[1]}/${value.queryKey[2]}`, TokenJson());
+    console.log('=====d',res.data);
     return res.data;
   } else {
     // console.log("No token");
